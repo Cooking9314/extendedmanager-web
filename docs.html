@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Документация — ExtendedManager</title>
+<meta name="description" content="Документация ExtendedManager: ядро и модули, база данных, прокси и сеть, безопасность, чат и рассылка, MOTD, NPC, Discord-бот, HTTP API и перезапуск сервера — ключи YAML, значения по умолчанию и примеры.">
+<meta name="theme-color" content="#0a0c11">
+<meta property="og:title" content="Документация ExtendedManager — ключи конфигурации по модулям">
+<meta property="og:description" content="11 разделов: установка, ядро, база данных, прокси, безопасность, чат, MOTD, NPC, Discord, HTTP API и перезапуск. Поиск, оглавление и примеры YAML.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234fa9ff'/%3E%3Cstop offset='1' stop-color='%237d5cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M9 10h11M9 16h8M9 22h11' stroke='%23fff' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="index.css">
+<script src="script.js" defer></script>
+</head>
+<body class="docs-page">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html" aria-label="ExtendedManager — на главную">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <defs>
+          <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#4fa9ff"/>
+            <stop offset="1" stop-color="#7d5cff"/>
+          </linearGradient>
+        </defs>
+        <rect width="32" height="32" rx="8" fill="url(#mark)"/>
+        <path d="M9 10h11M9 16h8M9 22h11" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-name">ExtendedManager</span>
+    </a>
+    <nav class="nav" id="site-nav" aria-label="Разделы сайта">
+      <a href="index.html#features">Возможности</a>
+      <a href="index.html#modules">Модули</a>
+      <a href="index.html#commands">Команды</a>
+      <a href="docs.html" class="is-active" aria-current="page">Документация</a>
+      <a href="updates.html">Обновления</a>
+      <a href="index.html#app">Приложение</a>
+    </nav>
+    <span class="version-pill">0.14.0</span>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Меню разделов">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="page-head">
+    <div class="container">
+      <p class="crumbs"><a href="index.html">Главная</a> <span>/</span> Документация</p>
+      <h1>Документация <span class="accent">ExtendedManager</span></h1>
+      <p class="page-lead">Ключи конфигурации по файлам: значения по умолчанию, таблицы параметров и примеры YAML. Поиск — по названиям разделов, справа — оглавление открытой страницы.</p>
+      <div class="page-meta">
+        <span class="tag">11 разделов</span>
+        <span class="tag">config.yml и папки модулей</span>
+        <span class="tag">Ctrl K — поиск</span>
+        <a class="link-more" href="updates.html">Что нового</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section docs-section">
+    <div class="container">
+      <div class="docs-shell reveal">
+        <aside class="docs-side">
+          <label class="docs-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.8-3.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <input id="docs-search" type="search" placeholder="Поиск по документации" autocomplete="off">
+            <kbd>Ctrl K</kbd>
+          </label>
+          <nav class="docs-nav" aria-label="Разделы документации">
+            <p class="docs-group">Начало</p>
+            <button class="docs-link is-active" type="button" data-doc="start">Обзор и быстрый старт</button>
+            <button class="docs-link" type="button" data-doc="core">Ядро и модули</button>
+            <button class="docs-link" type="button" data-doc="database">База данных</button>
+            <button class="docs-link" type="button" data-doc="proxy">Прокси и сеть</button>
+            <p class="docs-group">Модули</p>
+            <button class="docs-link" type="button" data-doc="security">Безопасность</button>
+            <button class="docs-link" type="button" data-doc="chat">Чат и рассылка</button>
+            <button class="docs-link" type="button" data-doc="motd">MOTD и иконка</button>
+            <button class="docs-link" type="button" data-doc="npc">NPC</button>
+            <button class="docs-link" type="button" data-doc="discord">Discord-бот</button>
+            <button class="docs-link" type="button" data-doc="api">HTTP API</button>
+            <button class="docs-link" type="button" data-doc="restart">Перезапуск</button>
+          </nav>
+          <p class="docs-empty" hidden>Ничего не найдено</p>
+        </aside>
+
+        <div class="docs-main">
+          <article class="doc is-active" id="doc-start" data-group="Начало">
+            <p class="doc-crumbs">Документация <span>/</span> Начало</p>
+            <h2>Обзор и быстрый старт</h2>
+            <p class="doc-lead">ExtendedManager — ядро управления сервером: один JAR закрывает вход и регистрацию, наказания, чат, миры, NPC, Discord, перезапуск и HTTP API. Всё настраивается YAML-файлами в папке плагина.</p>
+
+            <h3 id="start-modules">Что внутри</h3>
+            <p>Семь модулей, каждый со своей папкой настроек. По умолчанию все выключены — свежая установка создаёт только файлы ядра.</p>
+            <ul class="chips">
+              <li>security</li><li>chat</li><li>motd</li><li>npc</li><li>discord</li><li>api</li><li>utils</li>
+            </ul>
+
+            <h3 id="start-install">Установка</h3>
+            <ol class="steps">
+              <li>Положите JAR плагина в папку <code>plugins/</code> сервера.</li>
+              <li>Перезапустите сервер — плагин создаст файлы конфигурации.</li>
+              <li>Включите нужные модули в <code>config.yml → modules</code>.</li>
+              <li>Сохраните файл и выполните <code>/em reload</code> — папки и команды модуля появятся без перезапуска.</li>
+            </ol>
+            <div class="callout callout-warn">
+              <p>Готовые JAR и доступ к репозиторию распространяются по приглашению автора: сайт описывает плагин, но не раздаёт сборки.</p>
+            </div>
+
+            <h3 id="start-req">Требования</h3>
+            <table class="req">
+              <tbody>
+                <tr><th>Сервер</th><td>Bukkit, Spigot, Paper или Purpur 26.3; для 26.2 — отдельная сборка того же 0.14.0</td></tr>
+                <tr><th>Java</th><td>25 или новее на сервере</td></tr>
+                <tr><th>Прокси</th><td>BungeeCord, Waterfall или Velocity с адаптером ExtendedManager</td></tr>
+                <tr><th>База</th><td>SQLite без настройки; MySQL, MariaDB или PostgreSQL — для сети серверов</td></tr>
+              </tbody>
+            </table>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>modules:
+  security: true
+  chat: true
+  motd: true
+  npc: false
+  discord: false
+  api: false
+  utils: false</code></pre></div>
+          </article>
+
+          <article class="doc" id="doc-core" data-group="Начало">
+            <p class="doc-crumbs">Документация <span>/</span> Начало</p>
+            <h2>Ядро и модули</h2>
+            <p class="doc-lead">Файл <code>config.yml</code> — центральный: модули, префикс, интеграции, рассылка, AFK, привилегии, геолокация, прокси, сеть, API и база данных.</p>
+
+            <h3 id="core-modules">Модули</h3>
+            <p>Ключ <code>modules</code> решает, какие папки и файлы создаются и какие команды работают. Выключенный модуль отвечает сообщением <code>module-disabled</code>, его файлы не читаются и не удаляются.</p>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>modules:
+  security: false
+  chat: false
+  motd: false
+  npc: false
+  discord: false
+  api: false
+  utils: false</code></pre></div>
+
+            <h3 id="core-keys">Основные секции</h3>
+            <table class="req req-wide">
+              <tbody>
+                <tr><th><code>prefix</code></th><td>Префикс сообщений ядра в MiniMessage; пустая строка — без префикса</td></tr>
+                <tr><th><code>hooks</code></th><td>Интеграции: PlaceholderAPI, LuckPerms, Voice Chat, SkinsRestorer, TAB, WorldGuard</td></tr>
+                <tr><th><code>broadcast</code></th><td>Свой формат серверной рассылки <code>/say</code> и имя автора для консоли</td></tr>
+                <tr><th><code>afk</code></th><td>Простой игроков: секунды, сообщения, значок для TAB и «бонусы»</td></tr>
+                <tr><th><code>ranks</code></th><td><code>/setrank</code> и <code>/givedonate</code>: режим LuckPerms и оформление покупки</td></tr>
+                <tr><th><code>update</code></th><td>Проверка обновлений: GitHub или свой URL, интервал и уведомление операторов</td></tr>
+                <tr><th><code>geo</code></th><td><code>/geolocate</code>: сервис, язык, кэш и таймаут запроса</td></tr>
+              </tbody>
+            </table>
+            <div class="callout callout-info">
+              <p><code>/em reload</code> перечитывает конфиги и применяет набор модулей сразу. Служебный <code>config-version</code> обновляется сам: новые ключи добавляются, ваши значения сохраняются.</p>
+            </div>
+          </article>
+
+          <article class="doc" id="doc-database" data-group="Начало">
+            <p class="doc-crumbs">Документация <span>/</span> Начало</p>
+            <h2>База данных</h2>
+            <p class="doc-lead">Секция <code>database</code> файла <code>config.yml</code>. По умолчанию SQLite — файл в папке плагина, ничего настраивать не нужно.</p>
+
+            <h3 id="db-types">Типы баз</h3>
+            <table class="req req-wide">
+              <tbody>
+                <tr><th><code>sqlite</code></th><td>Файл <code>data.db</code> в папке плагина; драйвер поставляет Paper</td></tr>
+                <tr><th><code>mysql</code></th><td>Внешний сервер: host, port, database, username, password, use-ssl</td></tr>
+                <tr><th><code>mariadb</code></th><td>Работает по протоколу MySQL; без своей секции берёт значения <code>mysql.*</code></td></tr>
+                <tr><th><code>postgresql</code></th><td>Драйвер внутри JAR плагина; имена таблиц сворачиваются в нижний регистр</td></tr>
+              </tbody>
+            </table>
+
+            <h3 id="db-example">Пример: MySQL для сети</h3>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>database:
+  type: mysql
+  table-prefix: em_
+  mysql:
+    host: 127.0.0.1
+    port: 3306
+    database: extendedmanager
+    username: root
+    password: ""
+    use-ssl: false</code></pre></div>
+            <div class="callout callout-info">
+              <p>База и пользователь должны существовать заранее — плагин создаёт только свои таблицы с префиксом <code>em_</code>. Общая база нужна для кросс-серверных сессий (<code>network.shared-database</code>).</p>
+            </div>
+          </article>
+
+          <article class="doc" id="doc-proxy" data-group="Начало">
+            <p class="doc-crumbs">Документация <span>/</span> Начало</p>
+            <h2>Прокси и сеть</h2>
+            <p class="doc-lead">Секции <code>proxy</code> и <code>network</code>: кто стоит перед сервером и как серверы рассказывают друг другу, кто авторизован.</p>
+
+            <h3 id="proxy-type">Тип прокси</h3>
+            <p><code>none</code> — одиночный сервер; <code>bungeecord</code> — BungeeCord и Waterfall; <code>velocity</code> — Velocity, которому нужен адаптер ExtendedManager из папки <code>velocity</code> сборки.</p>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>proxy:
+  type: velocity
+  channel: ""
+  check-server-config: true</code></pre></div>
+
+            <h3 id="proxy-network">Присутствие и сессии</h3>
+            <table class="req req-wide">
+              <tbody>
+                <tr><th><code>server-id</code></th><td>Уникальный id сервера в сети; пусто — имя из server.properties</td></tr>
+                <tr><th><code>heartbeat-seconds</code></th><td>Как часто рассылается присутствие игроков (0 — выключено)</td></tr>
+                <tr><th><code>forwarding</code></th><td>Рассылать присутствие через канал прокси</td></tr>
+                <tr><th><code>shared-database</code></th><td>Продлевать сессии в общей базе <code>auth_sessions</code></td></tr>
+              </tbody>
+            </table>
+            <div class="callout callout-warn">
+              <p>При <code>bungeecord</code> и <code>velocity</code> плагин сверяет <code>spigot.yml</code>: без включённой поддержки прокси сервер видит адрес машины-прокси вместо адресов игроков, и вход по IP ошибается.</p>
+            </div>
+          </article>
+
+          <article class="doc" id="doc-security" data-group="Модули">
+            <p class="doc-crumbs">Документация <span>/</span> Модули</p>
+            <h2>Безопасность</h2>
+            <p class="doc-lead">Модуль <code>security</code>: регистрация и вход, таймер, сессии, капча и лимбо. Файл — <code>security/security_config.yml</code>.</p>
+
+            <h3 id="sec-auth">Вход и пароли</h3>
+            <p>Пока игрок не вошёл, он не двигается, не пишет в чат и не использует команды. Пароли хранятся только как Argon2id-хеши.</p>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>auth:
+  enabled: true
+  enable-min-length: true
+  min-length: 6
+  enable-max-length: true
+  max-length: 32
+  max-attempts: 3</code></pre></div>
+
+            <h3 id="sec-limbo">Лимбо и капча</h3>
+            <p>Неавторизованный игрок ждёт в тёмном пустом мире <code>em_limbo</code>, а после <code>/register</code> вводит код с карты — как в LimboAuth. После входа возвращается в свой мир и режим игры.</p>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>captcha:
+  enabled: true
+  mode: map
+  length: 5
+  attempts: 3
+  expire-seconds: 120
+limbo:
+  enabled: true
+  world: em_limbo</code></pre></div>
+
+            <h3 id="sec-sessions">Сессии и таймер</h3>
+            <table class="req req-wide">
+              <tbody>
+                <tr><th><code>sessions.duration-minutes</code></th><td>Сколько минут вход с того же IP идёт без <code>/login</code> (0 — выключено)</td></tr>
+                <tr><th><code>sessions.cross-server</code></th><td>Сессия открывает вход на все серверы сети через канал прокси или общую базу</td></tr>
+                <tr><th><code>timer.seconds</code></th><td>Секунд на регистрацию или вход, дальше кик (0 — таймер выключен)</td></tr>
+                <tr><th><code>timer.type</code></th><td>Где показывать отсчёт: <code>bossbar</code> или <code>actionbar</code></td></tr>
+              </tbody>
+            </table>
+            <div class="callout callout-info">
+              <p>Старые хеши PBKDF2 продолжают работать: при удачном входе пароль молча перезаписывается на Argon2id, сброса паролей не происходит.</p>
+            </div>
+          </article>
+
+          <article class="doc" id="doc-chat" data-group="Модули">
+            <p class="doc-crumbs">Документация <span>/</span> Модули</p>
+            <h2>Чат и рассылка</h2>
+            <p class="doc-lead">Модуль <code>chat</code>: форматы чатов, анти-спам, рассылка по расписанию и админ-чат. Файлы — <code>chat/chat_config.yml</code>, <code>chat/broadcast.yml</code>, <code>chat/adminchat_config.yml</code>.</p>
+
+            <h3 id="chat-format">Форматы</h3>
+            <p>Локальный и глобальный чат со своими форматами и радиусом; разметка MiniMessage и старые коды <code>&amp;</code>.</p>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>enabled: true
+allow-player-formatting: auto
+format: "&lt;gray&gt;%em_displayname%&lt;/gray&gt; &lt;dark_gray&gt;»&lt;/dark_gray&gt; &lt;white&gt;%em_message%&lt;/white&gt;"</code></pre></div>
+
+            <h3 id="chat-spam">Анти-спам</h3>
+            <p>Секции <code>anti-spam</code>, <code>anti-caps</code> и <code>links</code>: пауза между сообщениями, доля капса и поведение ссылок в чате настраиваются отдельно.</p>
+
+            <h3 id="chat-broadcast">Рассылка</h3>
+            <p>Общие ключи рассылки и список видов; у каждого вида свои <code>header</code>, <code>footer</code>, <code>sound</code>, <code>volume</code> и <code>pitch</code> — вид без них выходит без рамок и звука.</p>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>enabled: true
+interval: 300
+order: sequence
+jitter: 0
+min-players: 1
+console: true</code></pre></div>
+
+            <h3 id="chat-admin">Админ-чат</h3>
+            <p>Сообщение с префиксом <code>@</code> уходит держателям права просмотра админ-чата. Консоль тоже пишет туда: <code>/say @текст</code> — автором строки становится <code>broadcast.console-name</code>.</p>
+          </article>
+
+          <article class="doc" id="doc-motd" data-group="Модули">
+            <p class="doc-crumbs">Документация <span>/</span> Модули</p>
+            <h2>MOTD и иконка</h2>
+            <p class="doc-lead">Модуль <code>motd</code>: своё описание в списке серверов и иконка. Файл — <code>motd/motd_config.yml</code>.</p>
+
+            <h3 id="motd-lines">Строки</h3>
+            <p>Две строки в MiniMessage с плейсхолдерами онлайна, TPS и версии.</p>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>enabled: true
+lines:
+  - "&lt;gradient:#4fa9ff:#7d5cff&gt;&lt;bold&gt;ExtendedManager&lt;/bold&gt;&lt;/gradient&gt; &lt;gray&gt;— ядро вашего сервера&lt;/gray&gt;"
+  - "&lt;gray&gt;Онлайн: &lt;white&gt;%em_online%&lt;/white&gt;/&lt;white&gt;%em_max%&lt;/white&gt; &lt;dark_gray&gt;•&lt;/dark_gray&gt; TPS: %em_tps% &lt;dark_gray&gt;•&lt;/dark_gray&gt; &lt;white&gt;%em_version%&lt;/white&gt;&lt;/gray&gt;"</code></pre></div>
+
+            <h3 id="motd-icon">Иконка</h3>
+            <p>PNG 64×64; путь указывается относительно папки <code>motd</code>. Иконка работает и при <code>enabled: false</code> — её можно показывать без своего текста.</p>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>icon:
+  enabled: true
+  file: "server_icon.png"</code></pre></div>
+            <div class="callout callout-info">
+              <p>На прокси Velocity своё описание и иконку отдаёт адаптер: секция <code>motd</code> его <code>config.yml</code> повторяет эти ключи, а плейсхолдеры там — <code>{online}</code>, <code>{max}</code>, <code>{servers}</code>.</p>
+            </div>
+          </article>
+
+          <article class="doc" id="doc-npc" data-group="Модули">
+            <p class="doc-crumbs">Документация <span>/</span> Модули</p>
+            <h2>NPC</h2>
+            <p class="doc-lead">Модуль <code>npc</code>: жители с именем, скином, позой и диалогами. Файлы — <code>npc/npc_config.yml</code> и файлы отдельных NPC.</p>
+
+            <h3 id="npc-create">Создание</h3>
+            <p><code>/npc create &lt;имя&gt; &lt;id&gt;</code> вписывает NPC в реестр <code>npcs</code>; запись без файла создаёт файл-образец после <code>/npc reload</code>. По умолчанию реестр пуст.</p>
+
+            <h3 id="npc-defaults">Внешность и поведение</h3>
+            <table class="req req-wide">
+              <tbody>
+                <tr><th><code>defaults.skin</code></th><td>Ник игрока для скина, если у NPC не задан свой</td></tr>
+                <tr><th><code>defaults.entity</code></th><td>Тело моба игры (VILLAGER, HORSE, CAT…); пусто — манекен на Paper</td></tr>
+                <tr><th><code>defaults.glow</code></th><td>Подсветка световым контуром</td></tr>
+                <tr><th><code>defaults.look-at-player</code></th><td>Следить ли за ближайшими игроками</td></tr>
+                <tr><th><code>defaults.hologram-enabled</code></th><td>Голограмма над NPC</td></tr>
+                <tr><th><code>defaults.cooldown</code></th><td>Пауза между кликами одного игрока, секунды</td></tr>
+                <tr><th><code>defaults.permission</code></th><td>Право на взаимодействие; пусто — может любой</td></tr>
+              </tbody>
+            </table>
+
+            <h3 id="npc-skins">Скины</h3>
+            <p>Скин грузится асинхронно: сначала через SkinsRestorer, иначе напрямую с серверов Mojang. Секция <code>skin-cache</code> задаёт таймаут запроса, паузу повтора и число попыток.</p>
+          </article>
+
+          <article class="doc" id="doc-discord" data-group="Модули">
+            <p class="doc-crumbs">Документация <span>/</span> Модули</p>
+            <h2>Discord-бот</h2>
+            <p class="doc-lead">Модуль <code>discord</code>: статус сервера, события игроков в канал, привязка аккаунтов и слеш-команды. Файл — <code>discord/discord_config.yml</code>.</p>
+
+            <h3 id="discord-start">Запуск</h3>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>enabled: true
+token: ""
+guild-id: ""</code></pre></div>
+            <p>Токен создаётся в портале разработчиков Discord, <code>guild-id</code> — id вашего сервера Discord. Без них модуль не подключается.</p>
+
+            <h3 id="discord-link">Привязка и защита</h3>
+            <p>Секция <code>link</code> описывает привязку игрового аккаунта к Discord, <code>two-factor</code> — подтверждение входа; аккаунты с подтверждением не пропускаются кросс-серверными сессиями. Секции <code>activity</code> и <code>admin</code> задают статус бота и тех, кто вправе им управлять.</p>
+            <div class="callout callout-warn">
+              <p>Токен бота — секрет: не публикуйте файл конфигурации с заполненным <code>token</code> и не передавайте его третьим лицам.</p>
+            </div>
+          </article>
+
+          <article class="doc" id="doc-api" data-group="Модули">
+            <p class="doc-crumbs">Документация <span>/</span> Модули</p>
+            <h2>HTTP API</h2>
+            <p class="doc-lead">Модуль <code>api</code> поднимает HTTP API для приложения управления: игроки, аккаунты и SID, скины, инвентарь, чтение базы, консоль и SSE-потоки событий.</p>
+
+            <h3 id="api-start">Запуск</h3>
+            <p>Требуется Paper или Purpur. Адрес и порт живут в секции <code>api</code> файла <code>config.yml</code>, включается модуль ключом <code>modules.api</code>.</p>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>api:
+  host: "127.0.0.1"
+  port: 25590</code></pre></div>
+
+            <h3 id="api-key">Ключ доступа</h3>
+            <p>Ключ генерируется один раз при первом запуске модуля — 48 символов, 288 бит энтропии — и хранится в таблице <code>&lt;префикс&gt;meta</code>, поэтому переживает рестарты и перенос конфига. Показать его может только <code>/em api key</code>; в файлы и журнал ключ не попадает. Запросы сверяются по SHA3-512.</p>
+            <div class="callout callout-warn">
+              <p>HTTP не шифруется: подключайтесь через localhost, VPN или SSH-туннель. Маршруты <code>/api/v1/*</code> требуют заголовок <code>Authorization: Bearer &lt;ключ&gt;</code>.</p>
+            </div>
+
+            <h3 id="api-routes">Маршруты</h3>
+            <table class="req req-wide">
+              <tbody>
+                <tr><th><code>/health</code></th><td>Состояние сервера и отсчёта перезапуска</td></tr>
+                <tr><th><code>/api/v1/server/restart</code></th><td>Запуск и отмена отсчёта перезапуска телом <code>{"action":"schedule","minutes":5}</code></td></tr>
+                <tr><th>игроки</th><td>Список, скины, действия и инвентарь</td></tr>
+                <tr><th>аккаунты и SID</th><td>Привязки адресов, история наказаний</td></tr>
+                <tr><th>база и консоль</th><td>Чтение таблиц и команды консоли, поток журнала через SSE</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="doc" id="doc-restart" data-group="Модули">
+            <p class="doc-crumbs">Документация <span>/</span> Модули</p>
+            <h2>Перезапуск сервера</h2>
+            <p class="doc-lead">Модуль <code>utils</code>: остановка по расписанию, командой и из приложения — с предупреждениями, киками и сохранением миров. Файл — <code>utils/restart_config.yml</code>.</p>
+
+            <h3 id="restart-schedule">Расписание</h3>
+            <p>Интервал в минутах и конкретные моменты вида <code>04:30</code>. Моменты, прошедшие до включения модуля, не догоняются пачкой.</p>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>schedule:
+  interval-minutes: 0
+  times:
+    - "04:30"</code></pre></div>
+
+            <h3 id="restart-warning">Предупреждения</h3>
+            <p><code>warning.before-seconds</code> — пороги отсчёта (часы, минуты и последние секунды), <code>warning.actionbar-seconds</code> — сколько секунд остаток держится над хотбаром. Предупреждение уходит и в чат, и в консоль.</p>
+
+            <h3 id="restart-stop">Остановка</h3>
+            <table class="req req-wide">
+              <tbody>
+                <tr><th><code>before.console-commands</code></th><td>Команды консоли перед остановкой</td></tr>
+                <tr><th><code>before.kick-players</code></th><td>Кикнуть игроков с причиной из <code>messages</code></td></tr>
+                <tr><th><code>before.save-worlds</code></th><td>Сохранить игроков и каждый мир по отдельности</td></tr>
+                <tr><th><code>stop.method</code></th><td><code>shutdown</code> — штатная остановка, <code>stop</code> — команда stop, <code>exit</code> — закрыть JVM</td></tr>
+                <tr><th><code>stop.grace-seconds</code></th><td>Страховочный таймер, если штатная остановка не началась</td></tr>
+              </tbody>
+            </table>
+
+            <h3 id="restart-run">Запуск отсчёта</h3>
+            <p>Три способа: планировщик по расписанию, команда <code>/em restart &lt;минуты|cancel|status&gt;</code> и API <code>POST /api/v1/server/restart</code>. Снятый вручную отсчёт повторно не всплывает.</p>
+          </article>
+
+          <div class="docs-pager">
+            <button class="btn btn-ghost" id="doc-prev" type="button">← Предыдущий</button>
+            <button class="btn btn-ghost" id="doc-next" type="button">Следующий →</button>
+          </div>
+        </div>
+
+        <aside class="docs-toc" aria-label="На этой странице">
+          <p class="docs-toc-title">На этой странице</p>
+          <ul id="docs-toc-list"></ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <defs>
+          <linearGradient id="mark-footer" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#4fa9ff"/>
+            <stop offset="1" stop-color="#7d5cff"/>
+          </linearGradient>
+        </defs>
+        <rect width="32" height="32" rx="8" fill="url(#mark-footer)"/>
+        <path d="M9 10h11M9 16h8M9 22h11" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <p class="brand-name">ExtendedManager</p>
+        <p class="muted small">Sunrise Studios · версия 0.14.0</p>
+      </div>
+    </div>
+    <nav class="footer-nav" aria-label="Разделы сайта">
+      <a href="index.html#features">Возможности</a>
+      <a href="index.html#modules">Модули</a>
+      <a href="index.html#commands">Команды</a>
+      <a href="docs.html">Документация</a>
+      <a href="updates.html">Обновления</a>
+    </nav>
+  </div>
+  <div class="container footer-legal">
+    <p>Не является официальным продуктом Minecraft. Не одобрено и не связано с Mojang или Microsoft.</p>
+    <p>Исходники и сборки распространяются по приглашению автора.</p>
+  </div>
+</footer>
+
+<button class="to-top" type="button" aria-label="Наверх">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V6m-6 6 6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+</body>
+</html>
