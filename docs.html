@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Документация — ExtendedManager</title>
-<meta name="description" content="Документация ExtendedManager: ядро и модули, база данных, прокси и сеть, безопасность, чат, MOTD, NPC, Discord-бот, HTTP API, перезапуск, команды и права, наказания и SID, миры, оформление текста, интеграции, приложение и вопросы — ключи YAML, значения по умолчанию и примеры.">
+<title>Документация — Extended Manager</title>
+<meta name="description" content="Документация Extended Manager: ядро и модули, база данных, прокси и сеть, безопасность, чат, MOTD, NPC, Discord-бот, HTTP API, перезапуск, команды и права, наказания и SID, миры, оформление текста, интеграции, приложение и вопросы — ключи YAML, значения по умолчанию и примеры.">
 <meta name="theme-color" content="#0a0c11">
-<meta property="og:title" content="Документация ExtendedManager — ключи конфигурации по модулям">
+<meta property="og:title" content="Документация Extended Manager — ключи конфигурации по модулям">
 <meta property="og:description" content="18 разделов: установка, ядро, база данных, прокси, безопасность, чат, MOTD, NPC, Discord, HTTP API, перезапуск, команды, наказания и SID, миры, текст, интеграции, приложение и FAQ. Поиск, оглавление и примеры YAML.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234fa9ff'/%3E%3Cstop offset='1' stop-color='%237d5cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M9 10h11M9 16h8M9 22h11' stroke='%23fff' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E">
@@ -27,14 +27,14 @@
       <rect width="32" height="32" rx="8" fill="url(#premark)"/>
       <path d="M9 10h11M9 16h8M9 22h11" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
     </svg>
-    <span class="preloader-name">ExtendedManager</span>
+    <span class="preloader-name">Extended Manager</span>
     <span class="preloader-bar"><i></i></span>
   </div>
 </div>
 
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="index.html" aria-label="ExtendedManager — на главную">
+    <a class="brand" href="index.html" aria-label="Extended Manager — на главную">
       <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
         <defs>
           <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
@@ -45,14 +45,13 @@
         <rect width="32" height="32" rx="8" fill="url(#mark)"/>
         <path d="M9 10h11M9 16h8M9 22h11" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
       </svg>
-      <span class="brand-name">ExtendedManager</span>
+      <span class="brand-name">Extended Manager</span>
     </a>
     <nav class="nav" id="site-nav" aria-label="Разделы сайта">
       <a href="index.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Главная</a>
       <a href="docs.html" class="is-active" aria-current="page"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>Документация</a>
       <a href="updates.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>Обновления</a>
     </nav>
-    <span class="version-pill">0.14.0</span>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Меню разделов">
       <span></span><span></span><span></span>
     </button>
@@ -64,14 +63,8 @@
   <section class="page-head">
     <div class="container">
       <p class="crumbs"><a href="index.html">Главная</a> <span>/</span> Документация</p>
-      <h1>Документация <span class="accent">ExtendedManager</span></h1>
+      <h1>Документация <span class="accent">Extended Manager</span></h1>
       <p class="page-lead">Ключи конфигурации по файлам: значения по умолчанию, таблицы параметров и примеры YAML. Поиск — по названиям разделов, справа — оглавление открытой страницы.</p>
-      <div class="page-meta">
-        <span class="tag">18 разделов</span>
-        <span class="tag">config.yml и папки модулей</span>
-        <span class="tag">Ctrl F — поиск</span>
-        <a class="link-more" href="updates.html">Что нового</a>
-      </div>
     </div>
   </section>
 
@@ -117,7 +110,7 @@
           <article class="doc is-active" id="doc-start" data-group="Конфигурация">
             <p class="doc-crumbs">Документация <span>/</span> Конфигурация</p>
             <h2>Обзор и быстрый старт</h2>
-            <p class="doc-lead">ExtendedManager — ядро управления сервером: один JAR закрывает вход и регистрацию, наказания, чат, миры, NPC, Discord, перезапуск и HTTP API. Всё настраивается YAML-файлами в папке плагина.</p>
+            <p class="doc-lead">Extended Manager — ядро управления сервером: один JAR закрывает вход и регистрацию, наказания, чат, миры, NPC, Discord, перезапуск и HTTP API. Всё настраивается YAML-файлами в папке плагина.</p>
 
             <h3 id="start-modules">Что внутри</h3>
             <p>Семь модулей, каждый со своей папкой настроек. По умолчанию все выключены — свежая установка создаёт только файлы ядра.</p>
@@ -682,7 +675,7 @@ links:
           <article class="doc" id="doc-app" data-group="Интеграции">
             <p class="doc-crumbs">Документация <span>/</span> Интеграции</p>
             <h2>Приложение управления</h2>
-            <p class="doc-lead">ExtendedManagerApp для Windows подключается к HTTP API плагина и показывает сервер в реальном времени. Само приложение распространяется отдельно от плагина.</p>
+            <p class="doc-lead">Extended Manager App для Windows подключается к HTTP API плагина и показывает сервер в реальном времени. Само приложение распространяется отдельно от плагина.</p>
 
             <h3 id="app-connect">Подключение</h3>
             <ol class="steps">
@@ -770,21 +763,13 @@ links:
         <path d="M9 10h11M9 16h8M9 22h11" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
       </svg>
       <div>
-        <p class="brand-name">ExtendedManager</p>
-        <p class="muted small">Sunrise Studios · версия 0.14.0</p>
+        <p class="brand-name">Extended Manager</p>
+        <p class="muted small">Sunrise Studios</p>
       </div>
     </div>
-    <nav class="footer-nav" aria-label="Разделы сайта">
-      <a href="index.html#features">Возможности</a>
-      <a href="index.html#modules">Модули</a>
-      <a href="index.html#commands">Команды</a>
-      <a href="docs.html">Документация</a>
-      <a href="updates.html">Обновления</a>
-    </nav>
   </div>
   <div class="container footer-legal">
     <p>Не является официальным продуктом Minecraft. Не одобрено и не связано с Mojang или Microsoft.</p>
-    <p>Исходники и сборки распространяются по приглашению автора.</p>
   </div>
 </footer>
 

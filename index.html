@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ExtendedManager — ядро управления сервером Minecraft</title>
-<meta name="description" content="ExtendedManager: регистрация и вход с Argon2id, наказания и SID, чат и рассылка, мульти-миры, NPC, Discord-бот, перезапуск сервера и HTTP API — один JAR для Paper, Purpur, Bukkit и Spigot 26.2 / 26.3.">
+<title>Extended Manager — ядро управления сервером Minecraft</title>
+<meta name="description" content="Extended Manager: регистрация и вход с Argon2id, наказания и SID, чат и рассылка, мульти-миры, NPC, Discord-бот, перезапуск сервера и HTTP API — один JAR для Paper, Purpur, Bukkit и Spigot 26.2 / 26.3.">
 <meta name="theme-color" content="#0a0c11">
-<meta property="og:title" content="ExtendedManager — весь сервер под вашим контролем">
+<meta property="og:title" content="Extended Manager — весь сервер под вашим контролем">
 <meta property="og:description" content="Один JAR вместо десятка плагинов: вход, наказания, чат, миры, NPC, Discord, перезапуск и API для приложения управления.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234fa9ff'/%3E%3Cstop offset='1' stop-color='%237d5cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M9 10h11M9 16h8M9 22h11' stroke='%23fff' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E">
@@ -27,14 +27,14 @@
       <rect width="32" height="32" rx="8" fill="url(#premark)"/>
       <path d="M9 10h11M9 16h8M9 22h11" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
     </svg>
-    <span class="preloader-name">ExtendedManager</span>
+    <span class="preloader-name">Extended Manager</span>
     <span class="preloader-bar"><i></i></span>
   </div>
 </div>
 
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="#top" aria-label="ExtendedManager — на главную">
+    <a class="brand" href="#top" aria-label="Extended Manager — на главную">
       <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
         <defs>
           <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
@@ -45,14 +45,13 @@
         <rect width="32" height="32" rx="8" fill="url(#mark)"/>
         <path d="M9 10h11M9 16h8M9 22h11" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
       </svg>
-      <span class="brand-name">ExtendedManager</span>
+      <span class="brand-name">Extended Manager</span>
     </a>
     <nav class="nav" id="site-nav" aria-label="Разделы сайта">
       <a href="index.html" class="is-active" aria-current="page"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Главная</a>
       <a href="docs.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>Документация</a>
       <a href="updates.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>Обновления</a>
     </nav>
-    <span class="version-pill">0.14.0</span>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Меню разделов">
       <span></span><span></span><span></span>
     </button>
@@ -67,15 +66,14 @@
         <p class="eyebrow">Плагин для Minecraft · Paper · Purpur · Bukkit · Spigot</p>
         <h1>Весь сервер под <span class="accent">вашим контролем</span></h1>
         <p class="lead">
-          Регистрация и вход, наказания и SID, чат и рассылка, мульти-миры, NPC,
-          Discord-бот, перезапуск по расписанию и HTTP API для приложения
-          управления. Один JAR вместо десятка плагинов — и все настройки в YAML.
+          Вход и регистрация, наказания и SID, чат, миры, NPC, Discord и перезапуск —
+          всё в одном JAR вместо десятка плагинов. Настройки в YAML, применение без
+          перезагрузки, а живое управление сервером — в приложении Extended Manager.
         </p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#features"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>Что умеет</a>
           <a class="btn btn-ghost" href="docs.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>Документация</a>
         </div>
-        <p class="hero-note">Java 25 · Minecraft 26.3 и 26.2 · SQLite, MySQL, MariaDB, PostgreSQL</p>
       </div>
 
       <div class="chat-card" aria-label="Пример сообщений плагина в чате">
@@ -114,7 +112,7 @@
     <div class="container">
       <div class="section-head reveal">
         <div>
-          <h2><svg class="ico head-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3z"/></svg>Что умеет <span class="accent">ExtendedManager</span></h2>
+          <h2><svg class="ico head-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3z"/></svg>Что умеет <span class="accent">Extended Manager</span></h2>
           <p>Каждая возможность настраивается своим файлом и отключается одним ключом</p>
         </div>
         <a class="link-more" href="docs.html">Открыть документацию</a>
@@ -273,43 +271,16 @@
     </div>
   </section>
 
-  <section class="section" id="more">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <h2><svg class="ico head-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>Документация и <span class="accent">обновления</span></h2>
-          <p>Отдельные страницы: ключи конфигурации по модулям и история релизов плагина</p>
-        </div>
-      </div>
-
-      <div class="grid grid-2">
-        <a class="card card-link reveal" href="docs.html">
-          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg></span>
-          <h3>Документация</h3>
-          <p>18 разделов: ядро и модули, база данных, прокси и сеть, безопасность, чат, MOTD, NPC, Discord, HTTP API, перезапуск, команды и права, наказания и SID, миры, оформление текста, интеграции, приложение и вопросы. Поиск по разделам, оглавление страницы и примеры YAML с копированием.</p>
-          <div class="snippet"><code>config.yml</code> <code>security_config.yml</code> <code>npc_config.yml</code></div>
-          <span class="card-more">Открыть документацию</span>
-        </a>
-        <a class="card card-link reveal" style="--d:.08s" href="updates.html">
-          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg></span>
-          <h3>Обновления</h3>
-          <p>Что нового в 0.14.0: пароли Argon2id, ключ API в базе данных, перезапуск сервера по расписанию — и вся история релизов до 0.10.12.</p>
-          <div class="snippet"><code>0.14.0</code> <code>14 ноября 2026</code> <code>10 релизов</code></div>
-          <span class="card-more">Смотреть обновления</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
   <section class="section" id="app">
     <div class="container">
       <div class="card app-card reveal">
         <div>
-          <h2><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/></svg>Приложение <span class="accent">управления</span></h2>
+          <h2><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/></svg>Extended Manager <span class="accent">App</span></h2>
           <p>
-            ExtendedManagerApp для Windows подключается к HTTP API плагина: живая консоль,
-            игроки и их скины, аккаунты и SID, инвентарь, чтение базы и аналитика.
-            Несколько серверов сети — в одном окне, ключ доступа плагин генерирует сам.
+            Нативное приложение для Windows поверх HTTP API плагина: живая консоль
+            и поток событий, игроки со скинами, аккаунты и SID, инвентарь, чтение
+            базы и аналитика. Все серверы сети — в одном окне; ключ доступа плагин
+            генерирует и хранит сам.
           </p>
           <ul class="chips">
             <li>консоль и события</li><li>игроки и скины</li><li>SID</li>
@@ -354,21 +325,13 @@
         <path d="M9 10h11M9 16h8M9 22h11" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
       </svg>
       <div>
-        <p class="brand-name">ExtendedManager</p>
-        <p class="muted small">Sunrise Studios · версия 0.14.0</p>
+        <p class="brand-name">Extended Manager</p>
+        <p class="muted small">Sunrise Studios</p>
       </div>
     </div>
-    <nav class="footer-nav" aria-label="Разделы сайта">
-      <a href="#features">Возможности</a>
-      <a href="#modules">Модули</a>
-      <a href="#commands">Команды</a>
-      <a href="docs.html">Документация</a>
-      <a href="updates.html">Обновления</a>
-    </nav>
   </div>
   <div class="container footer-legal">
     <p>Не является официальным продуктом Minecraft. Не одобрено и не связано с Mojang или Microsoft.</p>
-    <p>Исходники и сборки распространяются по приглашению автора.</p>
   </div>
 </footer>
 
