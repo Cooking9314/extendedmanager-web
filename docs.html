@@ -15,6 +15,23 @@
 </head>
 <body class="docs-page">
 
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader-inner">
+    <svg class="preloader-mark" viewBox="0 0 32 32" aria-hidden="true">
+      <defs>
+        <linearGradient id="premark" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#4fa9ff"/>
+          <stop offset="1" stop-color="#7d5cff"/>
+        </linearGradient>
+      </defs>
+      <rect width="32" height="32" rx="8" fill="url(#premark)"/>
+      <path d="M9 10h11M9 16h8M9 22h11" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+    </svg>
+    <span class="preloader-name">ExtendedManager</span>
+    <span class="preloader-bar"><i></i></span>
+  </div>
+</div>
+
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="index.html" aria-label="ExtendedManager — на главную">
@@ -52,7 +69,7 @@
       <div class="page-meta">
         <span class="tag">18 разделов</span>
         <span class="tag">config.yml и папки модулей</span>
-        <span class="tag">Ctrl K — поиск</span>
+        <span class="tag">Ctrl F — поиск</span>
         <a class="link-more" href="updates.html">Что нового</a>
       </div>
     </div>
@@ -65,37 +82,40 @@
           <label class="docs-search">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.8-3.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
             <input id="docs-search" type="search" placeholder="Поиск по документации" autocomplete="off">
-            <kbd>Ctrl K</kbd>
+            <kbd>Ctrl F</kbd>
           </label>
           <nav class="docs-nav" aria-label="Разделы документации">
-            <p class="docs-group">Начало</p>
+            <p class="docs-group">FAQs</p>
+            <button class="docs-link" type="button" data-doc="faq"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Вопросы и проблемы</button>
+            <p class="docs-group">Конфигурация</p>
             <button class="docs-link is-active" type="button" data-doc="start"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>Обзор и быстрый старт</button>
             <button class="docs-link" type="button" data-doc="core"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>Ядро и модули</button>
             <button class="docs-link" type="button" data-doc="database"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>База данных</button>
-            <button class="docs-link" type="button" data-doc="proxy"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg>Прокси и сеть</button>
+            <button class="docs-link" type="button" data-doc="worlds"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>Миры и спавны</button>
             <p class="docs-group">Модули</p>
             <button class="docs-link" type="button" data-doc="security"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Безопасность</button>
-            <button class="docs-link" type="button" data-doc="chat"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg>Чат и рассылка</button>
-            <button class="docs-link" type="button" data-doc="motd"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg>MOTD и иконка</button>
             <button class="docs-link" type="button" data-doc="npc"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>NPC</button>
             <button class="docs-link" type="button" data-doc="discord"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>Discord-бот</button>
             <button class="docs-link" type="button" data-doc="api"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg>HTTP API</button>
             <button class="docs-link" type="button" data-doc="restart"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>Перезапуск</button>
-            <p class="docs-group">Справочник</p>
+            <p class="docs-group">Команды</p>
             <button class="docs-link" type="button" data-doc="commands"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>Команды и права</button>
             <button class="docs-link" type="button" data-doc="punishments"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>Наказания и SID</button>
-            <button class="docs-link" type="button" data-doc="worlds"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>Миры и спавны</button>
-            <button class="docs-link" type="button" data-doc="text"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" x2="15" y1="20" y2="20"/><line x1="12" x2="12" y1="4" y2="20"/></svg>Оформление текста</button>
-            <button class="docs-link" type="button" data-doc="hooks"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/></svg>Интеграции</button>
+            <p class="docs-group">Интеграции</p>
+            <button class="docs-link" type="button" data-doc="proxy"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg>Прокси и сеть</button>
+            <button class="docs-link" type="button" data-doc="hooks"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/></svg>Сторонние плагины</button>
             <button class="docs-link" type="button" data-doc="app"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/></svg>Приложение</button>
-            <button class="docs-link" type="button" data-doc="faq"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Вопросы и проблемы</button>
+            <p class="docs-group">Сообщения</p>
+            <button class="docs-link" type="button" data-doc="chat"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg>Чат и рассылка</button>
+            <button class="docs-link" type="button" data-doc="motd"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg>MOTD и иконка</button>
+            <button class="docs-link" type="button" data-doc="text"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" x2="15" y1="20" y2="20"/><line x1="12" x2="12" y1="4" y2="20"/></svg>Оформление текста</button>
           </nav>
           <p class="docs-empty" hidden>Ничего не найдено</p>
         </aside>
 
         <div class="docs-main">
-          <article class="doc is-active" id="doc-start" data-group="Начало">
-            <p class="doc-crumbs">Документация <span>/</span> Начало</p>
+          <article class="doc is-active" id="doc-start" data-group="Конфигурация">
+            <p class="doc-crumbs">Документация <span>/</span> Конфигурация</p>
             <h2>Обзор и быстрый старт</h2>
             <p class="doc-lead">ExtendedManager — ядро управления сервером: один JAR закрывает вход и регистрацию, наказания, чат, миры, NPC, Discord, перезапуск и HTTP API. Всё настраивается YAML-файлами в папке плагина.</p>
 
@@ -135,8 +155,8 @@
   utils: false</code></pre></div>
           </article>
 
-          <article class="doc" id="doc-core" data-group="Начало">
-            <p class="doc-crumbs">Документация <span>/</span> Начало</p>
+          <article class="doc" id="doc-core" data-group="Конфигурация">
+            <p class="doc-crumbs">Документация <span>/</span> Конфигурация</p>
             <h2>Ядро и модули</h2>
             <p class="doc-lead">Файл <code>config.yml</code> — центральный: модули, префикс, интеграции, рассылка, AFK, привилегии, геолокация, прокси, сеть, API и база данных.</p>
 
@@ -168,8 +188,8 @@
             </div>
           </article>
 
-          <article class="doc" id="doc-database" data-group="Начало">
-            <p class="doc-crumbs">Документация <span>/</span> Начало</p>
+          <article class="doc" id="doc-database" data-group="Конфигурация">
+            <p class="doc-crumbs">Документация <span>/</span> Конфигурация</p>
             <h2>База данных</h2>
             <p class="doc-lead">Секция <code>database</code> файла <code>config.yml</code>. По умолчанию SQLite — файл в папке плагина, ничего настраивать не нужно.</p>
 
@@ -199,8 +219,8 @@
             </div>
           </article>
 
-          <article class="doc" id="doc-proxy" data-group="Начало">
-            <p class="doc-crumbs">Документация <span>/</span> Начало</p>
+          <article class="doc" id="doc-proxy" data-group="Интеграции">
+            <p class="doc-crumbs">Документация <span>/</span> Интеграции</p>
             <h2>Прокси и сеть</h2>
             <p class="doc-lead">Секции <code>proxy</code> и <code>network</code>: кто стоит перед сервером и как серверы рассказывают друг другу, кто авторизован.</p>
 
@@ -266,8 +286,8 @@ limbo:
             </div>
           </article>
 
-          <article class="doc" id="doc-chat" data-group="Модули">
-            <p class="doc-crumbs">Документация <span>/</span> Модули</p>
+          <article class="doc" id="doc-chat" data-group="Сообщения">
+            <p class="doc-crumbs">Документация <span>/</span> Сообщения</p>
             <h2>Чат и рассылка</h2>
             <p class="doc-lead">Модуль <code>chat</code>: форматы чатов, анти-спам, рассылка по расписанию и админ-чат. Файлы — <code>chat/chat_config.yml</code>, <code>chat/broadcast.yml</code>, <code>chat/adminchat_config.yml</code>.</p>
 
@@ -293,8 +313,8 @@ console: true</code></pre></div>
             <p>Сообщение с префиксом <code>@</code> уходит держателям права просмотра админ-чата. Консоль тоже пишет туда: <code>/say @текст</code> — автором строки становится <code>broadcast.console-name</code>.</p>
           </article>
 
-          <article class="doc" id="doc-motd" data-group="Модули">
-            <p class="doc-crumbs">Документация <span>/</span> Модули</p>
+          <article class="doc" id="doc-motd" data-group="Сообщения">
+            <p class="doc-crumbs">Документация <span>/</span> Сообщения</p>
             <h2>MOTD и иконка</h2>
             <p class="doc-lead">Модуль <code>motd</code>: своё описание в списке серверов и иконка. Файл — <code>motd/motd_config.yml</code>.</p>
 
@@ -417,8 +437,8 @@ guild-id: ""</code></pre></div>
             <p>Три способа: планировщик по расписанию, команда <code>/em restart &lt;минуты|cancel|status&gt;</code> и API <code>POST /api/v1/server/restart</code>. Снятый вручную отсчёт повторно не всплывает.</p>
           </article>
 
-          <article class="doc" id="doc-commands" data-group="Справочник">
-            <p class="doc-crumbs">Документация <span>/</span> Справочник</p>
+          <article class="doc" id="doc-commands" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды</p>
             <h2>Команды и права</h2>
             <p class="doc-lead">58 команд с единой схемой прав <code>extendedmanager.command.&lt;имя&gt;</code>. Включение и параметры — в <code>command_config.yml</code>, регистрация имён — в <code>plugin.yml</code>.</p>
 
@@ -461,8 +481,8 @@ guild-id: ""</code></pre></div>
             </div>
           </article>
 
-          <article class="doc" id="doc-punishments" data-group="Справочник">
-            <p class="doc-crumbs">Документация <span>/</span> Справочник</p>
+          <article class="doc" id="doc-punishments" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды</p>
             <h2>Наказания и SID</h2>
             <p class="doc-lead">Баны, мьюты, гаги и предупреждения хранятся в базе и настраиваются в <code>punishments.yml</code>, а система SID и бан по адресу — в <code>SID_config.yml</code>.</p>
 
@@ -517,8 +537,8 @@ ip-link:
             </div>
           </article>
 
-          <article class="doc" id="doc-worlds" data-group="Справочник">
-            <p class="doc-crumbs">Документация <span>/</span> Справочник</p>
+          <article class="doc" id="doc-worlds" data-group="Конфигурация">
+            <p class="doc-crumbs">Документация <span>/</span> Конфигурация</p>
             <h2>Миры и спавны</h2>
             <p class="doc-lead">Мульти-миры настраиваются в <code>worlds_config.yml</code>, переходы и спавн — командами <code>/world</code>, <code>/spawn</code>, <code>/setspawn</code>, <code>/respawn</code> и <code>/hub</code>.</p>
 
@@ -581,8 +601,8 @@ types:
   message: true</code></pre></div>
           </article>
 
-          <article class="doc" id="doc-text" data-group="Справочник">
-            <p class="doc-crumbs">Документация <span>/</span> Справочник</p>
+          <article class="doc" id="doc-text" data-group="Сообщения">
+            <p class="doc-crumbs">Документация <span>/</span> Сообщения</p>
             <h2>Оформление текста</h2>
             <p class="doc-lead">Разметка в наковальне, книге и на табличке — <code>text_config.yml</code>; кнопки в меню паузы — <code>serverlinks_config.yml</code>. Всюду MiniMessage, спрайты и устаревшие коды <code>&amp;</code>.</p>
 
@@ -625,9 +645,9 @@ links:
             </div>
           </article>
 
-          <article class="doc" id="doc-hooks" data-group="Справочник">
-            <p class="doc-crumbs">Документация <span>/</span> Справочник</p>
-            <h2>Интеграции</h2>
+          <article class="doc" id="doc-hooks" data-group="Интеграции">
+            <p class="doc-crumbs">Документация <span>/</span> Интеграции</p>
+            <h2>Сторонние плагины</h2>
             <p class="doc-lead">Мягкие интеграции включаются в <code>config.yml → hooks</code> и работают, только если плагин-партнёр установлен. Статус показывает <code>/em hooks</code>.</p>
 
             <h3 id="hooks-list">Список</h3>
@@ -659,8 +679,8 @@ links:
             <p><code>/setrank</code> и <code>/givedonate</code> требуют LuckPerms. Режим <code>ranks.mode: api</code> назначает группу через API, <code>command</code> — консольной командой из шаблона <code>ranks.command</code>. Оформление покупки задаёт секция <code>ranks.donate</code>.</p>
           </article>
 
-          <article class="doc" id="doc-app" data-group="Справочник">
-            <p class="doc-crumbs">Документация <span>/</span> Справочник</p>
+          <article class="doc" id="doc-app" data-group="Интеграции">
+            <p class="doc-crumbs">Документация <span>/</span> Интеграции</p>
             <h2>Приложение управления</h2>
             <p class="doc-lead">ExtendedManagerApp для Windows подключается к HTTP API плагина и показывает сервер в реальном времени. Само приложение распространяется отдельно от плагина.</p>
 
@@ -685,8 +705,8 @@ links:
             <p>Серверы сети за Velocity или BungeeCord добавляются в одно окно: у каждого свой адрес и ключ. Присутствие и кросс-серверные сессии настраиваются на стороне плагина — раздел «Прокси и сеть».</p>
           </article>
 
-          <article class="doc" id="doc-faq" data-group="Справочник">
-            <p class="doc-crumbs">Документация <span>/</span> Справочник</p>
+          <article class="doc" id="doc-faq" data-group="FAQs">
+            <p class="doc-crumbs">Документация <span>/</span> FAQs</p>
             <h2>Вопросы и проблемы</h2>
             <p class="doc-lead">Частые вопросы по установке, модулям, прокси, API и наказаниям.</p>
 
@@ -715,6 +735,14 @@ links:
           <div class="docs-pager">
             <button class="btn btn-ghost" id="doc-prev" type="button">← Предыдущий</button>
             <button class="btn btn-ghost" id="doc-next" type="button">Следующий →</button>
+          </div>
+
+          <div class="doc-author">
+            <span class="doc-author-avatar" aria-hidden="true">C<img src="https://github.com/Cooking9314.png" alt="" loading="lazy" onerror="this.remove()"></span>
+            <div class="doc-author-meta">
+              <span class="doc-author-label">Автор страницы</span>
+              <a class="doc-author-name" href="https://github.com/Cooking9314" target="_blank" rel="noopener">Cooking9314</a>
+            </div>
           </div>
         </div>
 

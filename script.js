@@ -212,7 +212,7 @@
     });
 
     document.addEventListener('keydown', function (event) {
-      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'f') {
         event.preventDefault();
         search.focus();
         search.select();
@@ -239,7 +239,7 @@
       openDoc(startId, false);
       window.scrollTo({ top: pageTop(anchor) - 84, behavior: 'instant' });
     } else {
-      openDoc(docLinks[0].getAttribute('data-doc'), false);
+      openDoc($('#doc-start') ? 'start' : docLinks[0].getAttribute('data-doc'), false);
     }
   }
 
@@ -397,6 +397,21 @@
       });
     });
   });
+
+  /* ----- Заставка при загрузке ----- */
+  var preloader = $('#preloader');
+  if (preloader) {
+    var hidePreloader = function () {
+      window.setTimeout(function () {
+        preloader.classList.add('is-done');
+        window.setTimeout(function () {
+          if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+        }, 500);
+      }, 350);
+    };
+    if (document.readyState === 'complete') hidePreloader();
+    else window.addEventListener('load', hidePreloader);
+  }
 
   onScroll();
 })();
