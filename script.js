@@ -36,30 +36,12 @@
     window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
   });
 
-  /* ----- Подсветка текущего раздела в меню ----- */
-  var hashLinks = $$('.nav a').filter(function (link) {
-    return link.getAttribute('href').charAt(0) === '#';
-  });
-  var sections = hashLinks
-    .map(function (link) { return $(link.getAttribute('href')); })
-    .filter(Boolean);
+  /* ----- Тень шапки, кнопка наверх, оглавление ----- */
   var markToc = function () {};
 
   function onScroll() {
     header.classList.toggle('is-scrolled', window.scrollY > 8);
     toTop.classList.toggle('is-visible', window.scrollY > 600);
-
-    var current = null;
-    sections.forEach(function (section) {
-      if (section.getBoundingClientRect().top <= 130) current = section.id;
-    });
-    if (sections.length && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
-      current = sections[sections.length - 1].id;
-    }
-    hashLinks.forEach(function (link) {
-      link.classList.toggle('is-active', link.getAttribute('href') === '#' + current);
-    });
-
     markToc();
   }
 
