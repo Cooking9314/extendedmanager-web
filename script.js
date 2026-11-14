@@ -8,6 +8,12 @@
   var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ----- Прогресс прокрутки ----- */
+  var progress = document.createElement('div');
+  progress.className = 'scroll-progress';
+  document.body.appendChild(progress);
+  var markRail = function () {};
+
   /* ----- Мобильное меню ----- */
   var toggle = $('.nav-toggle');
   var nav = $('#site-nav');
@@ -42,7 +48,11 @@
   function onScroll() {
     header.classList.toggle('is-scrolled', window.scrollY > 8);
     toTop.classList.toggle('is-visible', window.scrollY > 600);
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - doc.clientHeight;
+    progress.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
     markToc();
+    markRail();
   }
 
   var ticking = false;
@@ -234,6 +244,51 @@
   }
 
   if ($('.docs-link')) initDocs();
+
+  /* ----- Обновления: панель версий и scrollspy ----- */
+  function initUpdates() {
+    var rail = $('#release-rail');
+    if (!rail) return;
+    var links = $$('.rail-link', rail);
+    var box = $('.rail-links', rail);
+    var releases = $$('.release');
+    if (!links.length || !releases.length) return;
+    var lastActive = null;
+
+    links.forEach(function (a) {
+      a.addEventListener('click', function (event) {
+        var el = document.getElementById(a.getAttribute('href').slice(1));
+        if (!el) return;
+        event.preventDefault();
+        var top = el.getBoundingClientRect().top + window.scrollY - 124;
+        window.scrollTo({ top: top, behavior: reduced ? 'auto' : 'smooth' });
+        history.replaceState(null, '', a.getAttribute('href'));
+      });
+    });
+
+    markRail = function () {
+      var current = releases[0];
+      releases.forEach(function (r) {
+        if (r.getBoundingClientRect().top <= 150) current = r;
+      });
+      if (current === lastActive) return;
+      lastActive = current;
+      links.forEach(function (a) {
+        a.classList.toggle('is-active', a.getAttribute('href') === '#' + current.id);
+      });
+      var act = $('.rail-link.is-active', rail);
+      if (act && box) {
+        var ar = act.getBoundingClientRect(), br = box.getBoundingClientRect();
+        if (ar.left < br.left || ar.right > br.right) {
+          box.scrollBy({ left: ar.left - br.left - (br.width - ar.width) / 2, behavior: reduced ? 'auto' : 'smooth' });
+        }
+      }
+    };
+
+    markRail();
+  }
+
+  if ($('#release-rail')) initUpdates();
 
   /* ----- Подсветка синтаксиса YAML ----- */
   var YAML_VALUE = /("[^"]*"|'[^']*')|((?:^|\s)#.*)|(\b(?:true|false|null|yes|no|on|off)\b)|(-?\d+(?:\.\d+)?)/g;

@@ -44,140 +44,207 @@
 
 <main id="top">
 
-  <section class="page-head">
+  <section class="page-head updates-head">
     <div class="container">
       <p class="crumbs"><a href="index.html">Главная</a> <span>/</span> Обновления</p>
       <h1>История <span class="accent">релизов</span></h1>
       <p class="page-lead">Что добавилось и что изменилось в каждой версии плагина. Полные описания — в CHANGELOG репозитория, ключи конфигурации — в документации.</p>
-      <div class="page-meta">
-        <span class="tag">последняя 0.14.0</span>
-        <span class="tag">14 ноября 2026</span>
-        <a class="link-more" href="docs.html">Документация</a>
+      <div class="updates-stats">
+        <div class="ustat reveal">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
+          <div><strong data-count="10">10</strong><span>релизов</span></div>
+        </div>
+        <div class="ustat reveal" style="--d:.08s">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3z"/></svg>
+          <div><strong>0.14.0</strong><span>последняя версия</span></div>
+        </div>
+        <div class="ustat reveal" style="--d:.16s">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 2v4"/><path d="M16 2v4"/></svg>
+          <div><strong>окт — ноя</strong><span>2026</span></div>
+        </div>
+        <div class="ustat reveal" style="--d:.24s">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+          <div><strong><a href="docs.html">Документация</a></strong><span>ключи конфигурации</span></div>
+        </div>
       </div>
     </div>
   </section>
 
+  <div class="release-rail" id="release-rail">
+    <div class="container rail-inner">
+      <span class="rail-label">Версии</span>
+      <nav class="rail-links" aria-label="Переход к версии">
+        <a class="rail-link is-active" href="#v0-14-0">0.14.0</a>
+        <a class="rail-link" href="#v0-13-1">0.13.1</a>
+        <a class="rail-link" href="#v0-13-0">0.13.0</a>
+        <a class="rail-link" href="#v0-12-7">0.12.7</a>
+        <a class="rail-link" href="#v0-12-6">0.12.6</a>
+        <a class="rail-link" href="#v0-12-5">0.12.5</a>
+        <a class="rail-link" href="#v0-12-4">0.12.4</a>
+        <a class="rail-link" href="#v0-12-3">0.12.3</a>
+        <a class="rail-link" href="#v0-12-1">0.12.1</a>
+        <a class="rail-link" href="#v0-10-12">0.10.12</a>
+      </nav>
+    </div>
+  </div>
+
   <section class="section updates-section">
     <div class="container">
+      <div class="kind-legend reveal" aria-label="Обозначения изменений">
+        <span><i class="k-add"></i>Добавлено</span>
+        <span><i class="k-change"></i>Изменено</span>
+        <span><i class="k-fix"></i>Исправлено</span>
+        <span><i class="k-sec"></i>Безопасность</span>
+        <span><i class="k-net"></i>Сеть</span>
+        <span><i class="k-remove"></i>Удалено</span>
+      </div>
+
       <div class="timeline">
-        <article class="release reveal" id="v0-14-0">
-          <div class="release-head">
-            <span class="release-version">0.14.0</span>
-            <time datetime="2026-11-14">14 ноября 2026</time>
-            <ul class="chips release-tags"><li>безопасность</li><li>API</li><li>utils</li></ul>
+        <article class="release reveal is-latest" id="v0-14-0">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.14.0</span>
+              <span class="release-badge">Актуальная</span>
+              <time datetime="2026-11-14">14 ноября 2026</time>
+              <ul class="chips release-tags"><li>безопасность</li><li>API</li><li>utils</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-sec">Пароли игроков хешируются Argon2id; старые записи тихо обновляются при входе.</li>
+              <li class="k-sec">Ключ API генерируется один раз, хранится в базе и показывается командой <code>/em api key</code>; сверка по SHA3-512.</li>
+              <li class="k-add">Модуль <code>utils</code>: перезапуск по расписанию, командой <code>/em restart</code> и из API — с предупреждениями и сохранением миров.</li>
+              <li class="k-sec">SID банит за мультиаккаунт причиной <code>Multiaccount</code>.</li>
+              <li class="k-add">У каждого сообщения рассылки свои заголовок, подвал и звук.</li>
+              <li class="k-add">Консоль пишет в админ-чат через <code>/say @текст</code>.</li>
+              <li class="k-change"><code>command_config.yml</code> вместо <code>emcommand_config.yml</code>.</li>
+              <li class="k-remove">Модуль anticheat удалён полностью.</li>
+            </ul>
           </div>
-          <ul class="release-list">
-            <li>Пароли игроков хешируются Argon2id; старые записи тихо обновляются при входе.</li>
-            <li>Ключ API генерируется один раз, хранится в базе и показывается командой <code>/em api key</code>; сверка по SHA3-512.</li>
-            <li>Модуль <code>utils</code>: перезапуск по расписанию, командой <code>/em restart</code> и из API — с предупреждениями и сохранением миров.</li>
-            <li>SID банит за мультиаккаунт причиной <code>Multiaccount</code>; у каждого сообщения рассылки свои заголовок, подвал и звук.</li>
-            <li>Консоль пишет в админ-чат через <code>/say @текст</code>; <code>command_config.yml</code> вместо <code>emcommand_config.yml</code>; модуль anticheat удалён полностью.</li>
-          </ul>
         </article>
 
         <article class="release reveal" id="v0-13-1">
-          <div class="release-head">
-            <span class="release-version">0.13.1</span>
-            <time datetime="2026-11-14">14 ноября 2026</time>
-            <ul class="chips release-tags"><li>Velocity</li><li>сеть</li></ul>
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.13.1</span>
+              <time datetime="2026-11-14">14 ноября 2026</time>
+              <ul class="chips release-tags"><li>Velocity</li><li>сеть</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-net">Адаптер для Velocity: каналы <code>extendedmanager:main</code> и <code>bungeecord:main</code>, перенос присутствия и переходов между серверами.</li>
+              <li class="k-net">На прокси переехали MOTD, Security и Discord-бот со своим <code>config.yml</code> и командой <code>/velocity reload</code>.</li>
+              <li class="k-fix">Присутствие уходит частями по 512 игроков — большой HUB больше не теряется в лимите plugin message.</li>
+              <li class="k-add"><code>/hub</code> умеет переносить другого игрока с другого сервера.</li>
+            </ul>
           </div>
-          <ul class="release-list">
-            <li>Адаптер для Velocity: каналы <code>extendedmanager:main</code> и <code>bungeecord:main</code>, перенос присутствия и переходов между серверами.</li>
-            <li>На прокси переехали MOTD, Security и Discord-бот со своим <code>config.yml</code> и командой <code>/velocity reload</code>.</li>
-            <li>Присутствие уходит частями по 512 игроков — большой HUB больше не теряется в лимите plugin message.</li>
-            <li><code>/hub</code> умеет переносить другого игрока с другого сервера.</li>
-          </ul>
         </article>
 
         <article class="release reveal" id="v0-13-0">
-          <div class="release-head">
-            <span class="release-version">0.13.0</span>
-            <time datetime="2026-11">ноябрь 2026</time>
-            <ul class="chips release-tags"><li>API</li><li>Paper 26.3</li></ul>
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.13.0</span>
+              <time datetime="2026-11">ноябрь 2026</time>
+              <ul class="chips release-tags"><li>API</li><li>Paper 26.3</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">HTTP API ядра: игроки и действия, аккаунты и SID, скины, инвентарь, чтение базы, консоль и SSE-потоки.</li>
+              <li class="k-change">Сборка на Paper API 26.3; <code>build.cmd</code> собирает серверную и прокси-части.</li>
+            </ul>
           </div>
-          <ul class="release-list">
-            <li>HTTP API ядра: игроки и действия, аккаунты и SID, скины, инвентарь, чтение базы, консоль и SSE-потоки.</li>
-            <li>Сборка на Paper API 26.3; <code>build.cmd</code> собирает серверную и прокси-части.</li>
-          </ul>
         </article>
 
         <article class="release reveal" id="v0-12-7">
-          <div class="release-head">
-            <span class="release-version">0.12.7</span>
-            <time datetime="2026-11-06">6 ноября 2026</time>
-            <ul class="chips release-tags"><li>команды</li></ul>
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.12.7</span>
+              <time datetime="2026-11-06">6 ноября 2026</time>
+              <ul class="chips release-tags"><li>команды</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add"><code>/hp reset</code> и работа с огнём.</li>
+              <li class="k-fix">Патч 0.12.7.1 уточнил тексты и вывод <code>/em info</code>.</li>
+            </ul>
           </div>
-          <ul class="release-list">
-            <li><code>/hp reset</code> и работа с огнём; патч 0.12.7.1 уточнил тексты и вывод <code>/em info</code>.</li>
-          </ul>
         </article>
 
         <article class="release reveal" id="v0-12-6">
-          <div class="release-head">
-            <span class="release-version">0.12.6</span>
-            <time datetime="2026-11-06">6 ноября 2026</time>
-            <ul class="chips release-tags"><li>консоль</li><li>обновления</li></ul>
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.12.6</span>
+              <time datetime="2026-11-06">6 ноября 2026</time>
+              <ul class="chips release-tags"><li>консоль</li><li>обновления</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Проверка обновлений плагина: GitHub или свой URL, интервал и уведомление операторов в игре.</li>
+              <li class="k-change">Улучшения консоли и служебных сообщений.</li>
+            </ul>
           </div>
-          <ul class="release-list">
-            <li>Проверка обновлений плагина: GitHub или свой URL, интервал и уведомление операторов в игре.</li>
-            <li>Улучшения консоли и служебных сообщений.</li>
-          </ul>
         </article>
 
         <article class="release reveal" id="v0-12-5">
-          <div class="release-head">
-            <span class="release-version">0.12.5</span>
-            <time datetime="2026-11-06">6 ноября 2026</time>
-            <ul class="chips release-tags"><li>спрайты</li></ul>
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.12.5</span>
+              <time datetime="2026-11-06">6 ноября 2026</time>
+              <ul class="chips release-tags"><li>спрайты</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Атласы спрайтов игры.</li>
+              <li class="k-fix">В 0.12.5.1 спрайты заработали во всех текстах плагина.</li>
+            </ul>
           </div>
-          <ul class="release-list">
-            <li>Атласы спрайтов игры; в 0.12.5.1 спрайты заработали во всех текстах плагина.</li>
-          </ul>
         </article>
 
         <article class="release reveal" id="v0-12-4">
-          <div class="release-head">
-            <span class="release-version">0.12.4</span>
-            <time datetime="2026-11-05">5 ноября 2026</time>
-            <ul class="chips release-tags"><li>команды</li><li>trade</li></ul>
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.12.4</span>
+              <time datetime="2026-11-05">5 ноября 2026</time>
+              <ul class="chips release-tags"><li>команды</li><li>trade</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Новые команды: <code>/ignite</code>, <code>/hp</code>, <code>/cloak</code>, <code>/tpsend</code>, <code>/whitelist</code>; кнопки в окне <code>/trade</code> и <code>/broadcasts</code>.</li>
+            </ul>
           </div>
-          <ul class="release-list">
-            <li>Новые команды: <code>/ignite</code>, <code>/hp</code>, <code>/cloak</code>, <code>/tpsend</code>, <code>/whitelist</code>; кнопки в окне <code>/trade</code> и <code>/broadcasts</code>.</li>
-          </ul>
         </article>
 
         <article class="release reveal" id="v0-12-3">
-          <div class="release-head">
-            <span class="release-version">0.12.3</span>
-            <time datetime="2026-11-04">4 ноября 2026</time>
-            <ul class="chips release-tags"><li>наказания</li></ul>
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.12.3</span>
+              <time datetime="2026-11-04">4 ноября 2026</time>
+              <ul class="chips release-tags"><li>наказания</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-change">Наказания переехали в <code>punishments.yml</code>: область действия и предупреждения <code>/warn</code>.</li>
+              <li class="k-fix">Починены mute и gag.</li>
+            </ul>
           </div>
-          <ul class="release-list">
-            <li>Наказания переехали в <code>punishments.yml</code>: область действия и предупреждения <code>/warn</code>; починены mute и gag.</li>
-          </ul>
         </article>
 
         <article class="release reveal" id="v0-12-1">
-          <div class="release-head">
-            <span class="release-version">0.12.1</span>
-            <time datetime="2026-11-03">3 ноября 2026</time>
-            <ul class="chips release-tags"><li>прокси</li><li>geo</li></ul>
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.12.1</span>
+              <time datetime="2026-11-03">3 ноября 2026</time>
+              <ul class="chips release-tags"><li>прокси</li><li>geo</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-net">Секции <code>proxy</code> и <code>network</code>: BungeeCord и Velocity, присутствие и кросс-серверные сессии.</li>
+              <li class="k-add">Геолокация адресов: <code>/geolocate</code> со страной, городом, часовым поясом и признаками VPN.</li>
+            </ul>
           </div>
-          <ul class="release-list">
-            <li>Секции <code>proxy</code> и <code>network</code>: BungeeCord и Velocity, присутствие и кросс-серверные сессии.</li>
-            <li>Геолокация адресов: <code>/geolocate</code> со страной, городом, часовым поясом и признаками VPN.</li>
-          </ul>
         </article>
 
         <article class="release reveal" id="v0-10-12">
-          <div class="release-head">
-            <span class="release-version">0.10.12</span>
-            <time datetime="2026-10-29">29 октября 2026</time>
-            <ul class="chips release-tags"><li>SID</li></ul>
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.10.12</span>
+              <time datetime="2026-10-29">29 октября 2026</time>
+              <ul class="chips release-tags"><li>SID</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-sec">Файл <code>SID_config.yml</code>: привязка аккаунтов по адресу, бан от системы и история проверок.</li>
+            </ul>
           </div>
-          <ul class="release-list">
-            <li>Файл <code>SID_config.yml</code>: привязка аккаунтов по адресу, бан от системы и история проверок.</li>
-          </ul>
         </article>
       </div>
     </div>

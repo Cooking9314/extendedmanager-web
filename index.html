@@ -55,8 +55,8 @@
           управления. Один JAR вместо десятка плагинов — и все настройки в YAML.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#features">Что умеет</a>
-          <a class="btn btn-ghost" href="docs.html">Документация</a>
+          <a class="btn btn-primary" href="#features"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>Что умеет</a>
+          <a class="btn btn-ghost" href="docs.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>Документация</a>
         </div>
         <p class="hero-note">Java 25 · Minecraft 26.3 и 26.2 · SQLite, MySQL, MariaDB, PostgreSQL</p>
       </div>
@@ -86,10 +86,10 @@
 
   <section class="stats" aria-label="ExtendedManager в цифрах">
     <div class="container stats-grid">
-      <div class="stat reveal"><h2>26.2 · 26.3</h2><p>версии Minecraft</p></div>
-      <div class="stat reveal" style="--d:.08s"><h2 data-count="58">58</h2><p>команд</p></div>
-      <div class="stat reveal" style="--d:.16s"><h2 data-count="7">7</h2><p>модулей в одном JAR</p></div>
-      <div class="stat reveal" style="--d:.24s"><h2 data-count="4">4</h2><p>базы данных</p></div>
+      <div class="stat reveal"><svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 11h4"/><path d="M8 9v4"/><path d="M15 12h.01"/><path d="M18 10h.01"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></svg><h2>26.2 · 26.3</h2><p>версии Minecraft</p></div>
+      <div class="stat reveal" style="--d:.08s"><svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg><h2 data-count="58">58</h2><p>команд</p></div>
+      <div class="stat reveal" style="--d:.16s"><svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg><h2 data-count="7">7</h2><p>модулей в одном JAR</p></div>
+      <div class="stat reveal" style="--d:.24s"><svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg><h2 data-count="4">4</h2><p>базы данных</p></div>
     </div>
   </section>
 
@@ -97,7 +97,7 @@
     <div class="container">
       <div class="section-head reveal">
         <div>
-          <h2>Что умеет <span class="accent">ExtendedManager</span></h2>
+          <h2><svg class="ico head-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3z"/></svg>Что умеет <span class="accent">ExtendedManager</span></h2>
           <p>Каждая возможность настраивается своим файлом и отключается одним ключом</p>
         </div>
         <a class="link-more" href="docs.html">Открыть документацию</a>
@@ -105,31 +105,37 @@
 
       <div class="grid grid-3">
         <article class="card reveal">
+          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
           <h3>Вход и регистрация</h3>
           <p>Пароли только в виде Argon2id-хешей и скрыты из логов. Лимбо с капчей на карте, кросс-серверные сессии для HUB и вход по адресу.</p>
           <div class="snippet"><code>security/security_config.yml</code></div>
         </article>
         <article class="card reveal" style="--d:.08s">
+          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg></span>
           <h3>Наказания и SID</h3>
           <p>Баны, мьюты, гаги и предупреждения со списками, областным скоупом и историей. SID связывает аккаунты по адресу и банит за мультиаккаунт.</p>
           <div class="snippet"><code>SID_config.yml · punishments.yml</code></div>
         </article>
         <article class="card reveal" style="--d:.16s">
+          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
           <h3>Чат и рассылка</h3>
           <p>Локальный и глобальный чат, анти-спам, форматы MiniMessage. У каждого сообщения рассылки свои заголовок, подвал и звук; в админ-чат пишет и консоль.</p>
           <div class="snippet"><code>chat/chat_config.yml · broadcast.yml</code></div>
         </article>
         <article class="card reveal">
+          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></span>
           <h3>Миры, спавны и /hub</h3>
           <p>Мульти-миры с выбором типа, точки спавна и переходы между серверами сети. BungeeCord и Waterfall из коробки, для Velocity — свой адаптер.</p>
           <div class="snippet"><code>worlds_config.yml · command_config.yml</code></div>
         </article>
         <article class="card reveal" style="--d:.08s">
+          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3z"/></svg></span>
           <h3>Оформление и NPC</h3>
           <p>Ники игроков, спрайты игры в любом тексте, разметка в наковальне, книге и на табличке, NPC с диалогами, MOTD с иконкой и серверные ссылки.</p>
           <div class="snippet"><code>npc/npc_config.yml · text_config.yml</code></div>
         </article>
         <article class="card reveal" style="--d:.16s">
+          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg></span>
           <h3>Перезапуск и API</h3>
           <p>Остановка по расписанию, командой <code>/em restart</code> и из приложения: отсчёт с предупреждениями, кики и сохранение миров. HTTP API с потоками событий.</p>
           <div class="snippet"><code>utils/restart_config.yml · config.yml</code></div>
@@ -142,50 +148,50 @@
     <div class="container">
       <div class="section-head reveal">
         <div>
-          <h2>Всё разбито на <span class="accent">модули</span></h2>
+          <h2><svg class="ico head-ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>Всё разбито на <span class="accent">модули</span></h2>
           <p>Выключены по умолчанию. Включаются в <code>config.yml → modules</code>, правки применяются командой <code>/em reload</code></p>
         </div>
       </div>
 
       <div class="grid grid-2">
         <article class="card module reveal">
-          <div class="module-head"><h3>security</h3><span class="tag">вход и защита</span></div>
+          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>security</h3><span class="tag">вход и защита</span></div>
           <p>Регистрация, лимбо с капчей, пароли Argon2id, проверки адреса и подсетей, кросс-серверные сессии.</p>
           <div class="snippet"><code>security/security_config.yml</code> <code>security/security_messages.yml</code></div>
           <a class="card-more" href="docs.html#doc-security">Ключи конфигурации</a>
         </article>
         <article class="card module reveal" style="--d:.08s">
-          <div class="module-head"><h3>chat</h3><span class="tag">общение</span></div>
+          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg>chat</h3><span class="tag">общение</span></div>
           <p>Чаты и их форматы, анти-спам, рассылка по расписанию, админ-чат, сообщения входа, выхода и смерти.</p>
           <div class="snippet"><code>chat/chat_config.yml</code> <code>chat/adminchat_config.yml</code> <code>chat/broadcast.yml</code></div>
           <a class="card-more" href="docs.html#doc-chat">Ключи конфигурации</a>
         </article>
         <article class="card module reveal">
-          <div class="module-head"><h3>motd</h3><span class="tag">список серверов</span></div>
+          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg>motd</h3><span class="tag">список серверов</span></div>
           <p>Своё описание и иконка 64×64, плейсхолдеры онлайна, версии и платформы.</p>
           <div class="snippet"><code>motd/motd_config.yml</code></div>
           <a class="card-more" href="docs.html#doc-motd">Ключи конфигурации</a>
         </article>
         <article class="card module reveal" style="--d:.08s">
-          <div class="module-head"><h3>npc</h3><span class="tag">жители</span></div>
+          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>npc</h3><span class="tag">жители</span></div>
           <p>NPC с именем, скином, позой и диалогами; команды и сообщения по клику.</p>
           <div class="snippet"><code>npc/npc_config.yml</code> <code>npc/npc_messages.yml</code></div>
           <a class="card-more" href="docs.html#doc-npc">Ключи конфигурации</a>
         </article>
         <article class="card module reveal">
-          <div class="module-head"><h3>discord</h3><span class="tag">бот</span></div>
+          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>discord</h3><span class="tag">бот</span></div>
           <p>Статус сервера, вход и выход игроков в канал, привязка аккаунтов и слеш-команды.</p>
           <div class="snippet"><code>discord/discord_config.yml</code></div>
           <a class="card-more" href="docs.html#doc-discord">Ключи конфигурации</a>
         </article>
         <article class="card module reveal" style="--d:.08s">
-          <div class="module-head"><h3>api</h3><span class="tag">приложение</span></div>
+          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg>api</h3><span class="tag">приложение</span></div>
           <p>HTTP API на плоском TCP: игроки, аккаунты и SID, скины, инвентарь, чтение базы, консоль и SSE-потоки. Ключ генерируется один раз, лежит в базе и показывается командой <code>/em api key</code>.</p>
           <div class="snippet"><code>config.yml → api</code></div>
           <a class="card-more" href="docs.html#doc-api">Ключи конфигурации</a>
         </article>
         <article class="card module module-wide reveal">
-          <div class="module-head"><h3>utils</h3><span class="tag">перезапуск</span></div>
+          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>utils</h3><span class="tag">перезапуск</span></div>
           <p>Расписание остановок, предупреждения в чат и action bar, консольные команды перед остановкой, кики и сохранение миров. Способы остановки: <code>shutdown</code>, <code>stop</code>, <code>exit</code> со страховочным таймером.</p>
           <div class="snippet"><code>utils/restart_config.yml</code></div>
           <a class="card-more" href="docs.html#doc-restart">Ключи конфигурации</a>
@@ -193,7 +199,7 @@
       </div>
 
       <div class="integrations reveal">
-        <h3>Мягкие интеграции</h3>
+        <h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg>Мягкие интеграции</h3>
         <ul class="chips">
           <li>PlaceholderAPI</li><li>LuckPerms</li><li>Simple Voice Chat</li>
           <li>SkinsRestorer</li><li>TAB</li><li>WorldGuard</li>
@@ -207,7 +213,7 @@
     <div class="container">
       <div class="section-head reveal">
         <div>
-          <h2>58 <span class="accent">команд</span></h2>
+          <h2><svg class="ico head-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>58 <span class="accent">команд</span></h2>
           <p>У каждой своё право доступа, справка — <code>/em help</code>, состояние сборки — <code>/em info</code></p>
         </div>
       </div>
@@ -254,19 +260,21 @@
     <div class="container">
       <div class="section-head reveal">
         <div>
-          <h2>Документация и <span class="accent">обновления</span></h2>
+          <h2><svg class="ico head-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>Документация и <span class="accent">обновления</span></h2>
           <p>Отдельные страницы: ключи конфигурации по модулям и история релизов плагина</p>
         </div>
       </div>
 
       <div class="grid grid-2">
         <a class="card card-link reveal" href="docs.html">
+          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg></span>
           <h3>Документация</h3>
-          <p>11 разделов по файлам конфигурации: ядро и модули, база данных, прокси и сеть, безопасность, чат, MOTD, NPC, Discord, HTTP API и перезапуск. Поиск по разделам, оглавление страницы и примеры YAML с копированием.</p>
+          <p>18 разделов: ядро и модули, база данных, прокси и сеть, безопасность, чат, MOTD, NPC, Discord, HTTP API, перезапуск, команды и права, наказания и SID, миры, оформление текста, интеграции, приложение и вопросы. Поиск по разделам, оглавление страницы и примеры YAML с копированием.</p>
           <div class="snippet"><code>config.yml</code> <code>security_config.yml</code> <code>npc_config.yml</code></div>
           <span class="card-more">Открыть документацию</span>
         </a>
         <a class="card card-link reveal" style="--d:.08s" href="updates.html">
+          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg></span>
           <h3>Обновления</h3>
           <p>Что нового в 0.14.0: пароли Argon2id, ключ API в базе данных, перезапуск сервера по расписанию — и вся история релизов до 0.10.12.</p>
           <div class="snippet"><code>0.14.0</code> <code>14 ноября 2026</code> <code>10 релизов</code></div>
@@ -280,7 +288,7 @@
     <div class="container">
       <div class="card app-card reveal">
         <div>
-          <h2>Приложение <span class="accent">управления</span></h2>
+          <h2><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/></svg>Приложение <span class="accent">управления</span></h2>
           <p>
             ExtendedManagerApp для Windows подключается к HTTP API плагина: живая консоль,
             игроки и их скины, аккаунты и SID, инвентарь, чтение базы и аналитика.
