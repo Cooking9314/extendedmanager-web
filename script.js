@@ -271,6 +271,8 @@
       releases.forEach(function (r) {
         if (r.getBoundingClientRect().top <= 150) current = r;
       });
+      var doc = document.documentElement;
+      if (window.scrollY + doc.clientHeight >= doc.scrollHeight - 4) current = releases[releases.length - 1];
       if (current === lastActive) return;
       lastActive = current;
       links.forEach(function (a) {
@@ -359,7 +361,7 @@
     });
   }
 
-  $$('.code-block code').forEach(highlightYaml);
+  $$('.code-block:not(.code-cmd) code').forEach(highlightYaml);
 
   /* ----- Копирование примеров ----- */
   function copyText(text) {
@@ -406,7 +408,7 @@
         preloader.classList.add('is-done');
         window.setTimeout(function () {
           if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
-        }, 500);
+        }, 650);
       }, 350);
     };
     if (document.readyState === 'complete') hidePreloader();

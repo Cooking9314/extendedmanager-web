@@ -18,7 +18,6 @@
   --purple: #c792ea;
   --radius: 14px;
   --radius-sm: 9px;
-  --container: 2200px;
   --gradient: linear-gradient(100deg, var(--accent), var(--accent-2));
   --mono: "JetBrains Mono", "Cascadia Mono", Consolas, "SF Mono", Menlo, monospace;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -107,9 +106,8 @@ html {
 
 .container {
   width: 100%;
-  max-width: var(--container);
   margin: 0 auto;
-  padding: 0 clamp(24px, 4vw, 64px);
+  padding: 0 clamp(20px, 8vw, 256px);
 }
 
 .muted { color: var(--muted); }
@@ -155,6 +153,17 @@ html {
   gap: 4px;
   margin-left: auto;
   flex-wrap: wrap;
+}
+
+@media (min-width: 1100px) {
+  .header-inner { position: relative; }
+  .nav {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin-left: 0;
+  }
 }
 
 .nav a {
@@ -789,6 +798,11 @@ html.js .chat-lines p {
 .doc-author-name { font-weight: 700; color: var(--accent); text-decoration: none; }
 .doc-author-name:hover { text-decoration: underline; }
 
+.docs-toc .doc-author { margin-top: 18px; padding: 12px; gap: 10px; }
+.docs-toc .doc-author-avatar { width: 36px; height: 36px; font-size: .9rem; }
+.docs-toc .doc-author-label { font-size: .64rem; }
+.docs-toc .doc-author-name { font-size: .88rem; }
+
 /* ---------- Обновления ---------- */
 
 .timeline { position: relative; padding-left: 26px; }
@@ -1072,17 +1086,98 @@ html.js .reveal.is-in { opacity: 1; transform: none; }
   display: grid;
   place-items: center;
   background: var(--bg);
-  transition: opacity .45s ease, visibility .45s ease;
+  overflow: hidden;
   animation: pre-fallback .4s ease 2.6s forwards;
 }
-.preloader.is-done { opacity: 0; visibility: hidden; pointer-events: none; }
-.preloader-inner { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-.preloader-mark { width: 62px; height: 62px; animation: pre-pulse 1.2s ease-in-out infinite; }
-.preloader-name { font-weight: 800; font-size: 1.15rem; letter-spacing: .02em; color: var(--text); }
-.preloader-bar { width: 128px; height: 3px; border-radius: 3px; background: var(--border); overflow: hidden; }
-.preloader-bar i { display: block; height: 100%; width: 40%; border-radius: 3px; background: var(--gradient); animation: pre-slide 1s ease-in-out infinite; }
-@keyframes pre-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.07); } }
-@keyframes pre-slide { 0% { transform: translateX(-110%); } 100% { transform: translateX(320%); } }
+.preloader::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(46% 38% at 30% 32%, rgba(79, 169, 255, .16), transparent 70%),
+    radial-gradient(40% 34% at 72% 66%, rgba(125, 92, 255, .15), transparent 70%);
+  animation: pre-aurora 3.2s ease-in-out infinite alternate;
+}
+.preloader.is-done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .4s ease .12s, visibility .4s ease .12s;
+}
+.preloader-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  transition: opacity .3s ease, transform .3s ease;
+}
+.preloader.is-done .preloader-inner { opacity: 0; transform: translateY(-14px) scale(.97); }
+.preloader-orbit { position: relative; width: 92px; height: 92px; display: grid; place-items: center; }
+.preloader-orbit::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 0 12%, var(--accent) 32%, var(--accent-2) 52%, transparent 72%);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+  animation: pre-spin 1.5s linear infinite;
+}
+.preloader-mark {
+  width: 56px;
+  height: 56px;
+  animation: pre-mark-in .7s cubic-bezier(.34, 1.56, .64, 1) both, pre-glow 2.2s ease-in-out .7s infinite;
+}
+.preloader-name {
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: .02em;
+  color: var(--text);
+  animation: pre-name-in .6s ease .15s both;
+}
+.preloader-bar { position: relative; width: 180px; height: 4px; border-radius: 4px; background: var(--border); overflow: hidden; }
+.preloader-bar i {
+  display: block;
+  height: 100%;
+  width: 100%;
+  border-radius: 4px;
+  background: var(--gradient);
+  transform-origin: left;
+  animation: pre-fill 1.4s cubic-bezier(.2, .6, .2, 1) both;
+}
+.preloader-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 20%, rgba(255, 255, 255, .35) 50%, transparent 80%);
+  transform: translateX(-100%);
+  animation: pre-shine 1.6s ease .5s infinite;
+}
+.preloader-tip {
+  color: #6f7c90;
+  font-size: .72rem;
+  font-family: var(--mono);
+  letter-spacing: .08em;
+  animation: pre-tip-in .5s ease .45s both;
+}
+@keyframes pre-spin { to { transform: rotate(360deg); } }
+@keyframes pre-aurora {
+  from { transform: translate3d(-2%, -1%, 0) rotate(-1deg); }
+  to { transform: translate3d(2%, 2%, 0) rotate(1.5deg); }
+}
+@keyframes pre-mark-in { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: scale(1); } }
+@keyframes pre-glow {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(79, 169, 255, .35)); }
+  50% { filter: drop-shadow(0 0 16px rgba(125, 92, 255, .55)); }
+}
+@keyframes pre-name-in {
+  from { opacity: 0; letter-spacing: .14em; transform: translateY(8px); }
+  to { opacity: 1; letter-spacing: .02em; transform: translateY(0); }
+}
+@keyframes pre-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes pre-shine { 0% { transform: translateX(-100%); } 60%, 100% { transform: translateX(100%); } }
+@keyframes pre-tip-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes pre-fallback { to { opacity: 0; visibility: hidden; pointer-events: none; } }
 
 /* ---------- Прогресс прокрутки ---------- */
@@ -1271,7 +1366,15 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
 
 @media (max-width: 1200px) {
   .docs-shell { grid-template-columns: 236px minmax(0, 1fr); }
-  .docs-toc { display: none; }
+  .docs-toc {
+    display: block;
+    grid-column: 1 / -1;
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
+  .docs-toc-title, .docs-toc ul { display: none; }
+  .docs-toc .doc-author { margin-top: 4px; }
 }
 
 @media (max-width: 1024px) {

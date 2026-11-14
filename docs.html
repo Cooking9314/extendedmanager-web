@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Документация — Extended Manager</title>
-<meta name="description" content="Документация Extended Manager: ядро и модули, база данных, прокси и сеть, безопасность, чат, MOTD, NPC, Discord-бот, HTTP API, перезапуск, команды и права, наказания и SID, миры, оформление текста, интеграции, приложение и вопросы — ключи YAML, значения по умолчанию и примеры.">
+<meta name="description" content="Документация Extended Manager: ядро и модули, база данных, прокси и сеть, безопасность, чат, MOTD, NPC, Discord-бот, HTTP API, перезапуск, справочник всех команд с правами и примерами, миры, оформление текста, интеграции, приложение и вопросы. Ключи YAML, значения по умолчанию и примеры.">
 <meta name="theme-color" content="#0a0c11">
 <meta property="og:title" content="Документация Extended Manager — ключи конфигурации по модулям">
-<meta property="og:description" content="18 разделов: установка, ядро, база данных, прокси, безопасность, чат, MOTD, NPC, Discord, HTTP API, перезапуск, команды, наказания и SID, миры, текст, интеграции, приложение и FAQ. Поиск, оглавление и примеры YAML.">
+<meta property="og:description" content="31 раздел: установка, ядро, база данных, прокси, безопасность, чат, MOTD, NPC, Discord, HTTP API, перезапуск, справочник команд, миры, текст, интеграции, приложение и FAQ. Поиск, оглавление и примеры YAML.">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234fa9ff'/%3E%3Cstop offset='1' stop-color='%237d5cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M9 10h11M9 16h8M9 22h11' stroke='%23fff' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234fa9ff'/%3E%3Cstop offset='1' stop-color='%237d5cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M13.69%2020.63L6%2020.63L6%2011.37L13.52%2011.37L13.52%2013.73L9.07%2013.73L9.07%2014.81L12.98%2014.81L12.98%2017.06L9.07%2017.06L9.07%2018.27L13.69%2018.27L13.69%2020.63M17.74%2020.63L14.9%2020.63L14.9%2011.37L17.46%2011.37L20.47%2016.3L23.41%2011.37L25.97%2011.37L26%2020.63L23.16%2020.63L23.13%2016.41L21.12%2019.79L19.75%2019.79L17.74%2016.56L17.74%2020.63' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="index.css">
 <script src="script.js" defer></script>
 </head>
@@ -17,6 +17,7 @@
 
 <div class="preloader" id="preloader" aria-hidden="true">
   <div class="preloader-inner">
+    <span class="preloader-orbit">
     <svg class="preloader-mark" viewBox="0 0 32 32" aria-hidden="true">
       <defs>
         <linearGradient id="premark" x1="0" y1="0" x2="1" y2="1">
@@ -25,10 +26,12 @@
         </linearGradient>
       </defs>
       <rect width="32" height="32" rx="8" fill="url(#premark)"/>
-      <path d="M9 10h11M9 16h8M9 22h11" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M13.69 20.63L6 20.63L6 11.37L13.52 11.37L13.52 13.73L9.07 13.73L9.07 14.81L12.98 14.81L12.98 17.06L9.07 17.06L9.07 18.27L13.69 18.27L13.69 20.63M17.74 20.63L14.9 20.63L14.9 11.37L17.46 11.37L20.47 16.3L23.41 11.37L25.97 11.37L26 20.63L23.16 20.63L23.13 16.41L21.12 19.79L19.75 19.79L17.74 16.56L17.74 20.63" fill="#fff"/>
     </svg>
+    </span>
     <span class="preloader-name">Extended Manager</span>
     <span class="preloader-bar"><i></i></span>
+    <span class="preloader-tip">ядро · модули · конфигурация</span>
   </div>
 </div>
 
@@ -43,7 +46,7 @@
           </linearGradient>
         </defs>
         <rect width="32" height="32" rx="8" fill="url(#mark)"/>
-        <path d="M9 10h11M9 16h8M9 22h11" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M13.69 20.63L6 20.63L6 11.37L13.52 11.37L13.52 13.73L9.07 13.73L9.07 14.81L12.98 14.81L12.98 17.06L9.07 17.06L9.07 18.27L13.69 18.27L13.69 20.63M17.74 20.63L14.9 20.63L14.9 11.37L17.46 11.37L20.47 16.3L23.41 11.37L25.97 11.37L26 20.63L23.16 20.63L23.13 16.41L21.12 19.79L19.75 19.79L17.74 16.56L17.74 20.63" fill="#fff"/>
       </svg>
       <span class="brand-name">Extended Manager</span>
     </a>
@@ -64,7 +67,7 @@
     <div class="container">
       <p class="crumbs"><a href="index.html">Главная</a> <span>/</span> Документация</p>
       <h1>Документация <span class="accent">Extended Manager</span></h1>
-      <p class="page-lead">Ключи конфигурации по файлам: значения по умолчанию, таблицы параметров и примеры YAML. Поиск — по названиям разделов, справа — оглавление открытой страницы.</p>
+      <p class="page-lead">Ключи конфигурации по файлам: значения по умолчанию, таблицы параметров и примеры YAML. Поиск по названиям разделов, справа оглавление открытой страницы.</p>
     </div>
   </section>
 
@@ -92,9 +95,22 @@
             <button class="docs-link" type="button" data-doc="api"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg>HTTP API</button>
             <button class="docs-link" type="button" data-doc="restart"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>Перезапуск</button>
             <p class="docs-group">Команды</p>
-            <button class="docs-link" type="button" data-doc="commands"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>Команды и права</button>
-            <button class="docs-link" type="button" data-doc="punishments"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>Наказания и SID</button>
-            <p class="docs-group">Интеграции</p>
+            <button class="docs-link" type="button" data-doc="cmd-em"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>/em: ядро плагина</button>
+            <button class="docs-link" type="button" data-doc="cmd-auth"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Вход и привязка</button>
+            <button class="docs-link" type="button" data-doc="cmd-bans"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>Баны</button>
+            <button class="docs-link" type="button" data-doc="cmd-mutes"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 2l20 20"/><path d="M9 9v3a3 3 0 0 0 5.12 2.12"/><path d="M15 9.34V5a3 3 0 0 0-5.94-.6"/><path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"/><path d="M12 19v3"/></svg>Мьюты и гаги</button>
+            <button class="docs-link" type="button" data-doc="cmd-warns"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Предупреждения</button>
+            <button class="docs-link" type="button" data-doc="cmd-kicks"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 4h3a2 2 0 0 1 2 2v14"/><path d="M2 20h3"/><path d="M13 20h9"/><path d="M10 12v.01"/><path d="M13 4.562v16.157a1 1 0 0 1-1.242.97L5 20V5.562a2 2 0 0 1 1.515-1.94l4-1A2 2 0 0 1 13 4.562Z"/></svg>Кики и whitelist</button>
+            <button class="docs-link" type="button" data-doc="cmd-state"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>Здоровье и эффекты</button>
+            <button class="docs-link" type="button" data-doc="cmd-hide"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><path d="M2 2l20 20"/></svg>Невидимость и заморозка</button>
+            <button class="docs-link" type="button" data-doc="cmd-tp"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>Телепорты и спавны</button>
+            <button class="docs-link" type="button" data-doc="cmd-world"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>Миры: /world</button>
+            <button class="docs-link" type="button" data-doc="cmd-inv"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>Осмотр и обмен</button>
+            <button class="docs-link" type="button" data-doc="cmd-look"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Режимы и внешность</button>
+            <button class="docs-link" type="button" data-doc="cmd-chat"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg>Чат и рассылки</button>
+            <button class="docs-link" type="button" data-doc="cmd-ranks"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.735H5.81a1 1 0 0 1-.957-.735L2.02 6.02a.5.5 0 0 1 .798-.52l4.276 3.664a1 1 0 0 0 1.516-.294z"/><path d="M5 21h14"/></svg>Привилегии</button>
+            <button class="docs-link" type="button" data-doc="cmd-npc"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>NPC и спрайты</button>
+<p class="docs-group">Интеграции</p>
             <button class="docs-link" type="button" data-doc="proxy"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg>Прокси и сеть</button>
             <button class="docs-link" type="button" data-doc="hooks"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/></svg>Сторонние плагины</button>
             <button class="docs-link" type="button" data-doc="app"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/></svg>Приложение</button>
@@ -334,7 +350,7 @@ lines:
             <p class="doc-lead">Модуль <code>npc</code>: жители с именем, скином, позой и диалогами. Файлы — <code>npc/npc_config.yml</code> и файлы отдельных NPC.</p>
 
             <h3 id="npc-create">Создание</h3>
-            <p><code>/npc create &lt;имя&gt; &lt;id&gt;</code> вписывает NPC в реестр <code>npcs</code>; запись без файла создаёт файл-образец после <code>/npc reload</code>. По умолчанию реестр пуст.</p>
+            <p><code>/npc create &lt;id&gt; &lt;имя&gt;</code> вписывает NPC в реестр <code>npcs</code>; запись без файла создаёт файл-образец после <code>/npc reload</code>. По умолчанию реестр пуст.</p>
 
             <h3 id="npc-defaults">Внешность и поведение</h3>
             <table class="req req-wide">
@@ -374,7 +390,7 @@ guild-id: ""</code></pre></div>
           <article class="doc" id="doc-api" data-group="Модули">
             <p class="doc-crumbs">Документация <span>/</span> Модули</p>
             <h2>HTTP API</h2>
-            <p class="doc-lead">Модуль <code>api</code> поднимает HTTP API для приложения управления: игроки, аккаунты и SID, скины, инвентарь, чтение базы, консоль и SSE-потоки событий.</p>
+            <p class="doc-lead">Модуль <code>api</code> поднимает HTTP API для приложения управления: игроки, аккаунты, скины, инвентарь, чтение базы, консоль и SSE-потоки событий.</p>
 
             <h3 id="api-start">Запуск</h3>
             <p>Требуется Paper или Purpur. Адрес и порт живут в секции <code>api</code> файла <code>config.yml</code>, включается модуль ключом <code>modules.api</code>.</p>
@@ -394,7 +410,7 @@ guild-id: ""</code></pre></div>
                 <tr><th><code>/health</code></th><td>Состояние сервера и отсчёта перезапуска</td></tr>
                 <tr><th><code>/api/v1/server/restart</code></th><td>Запуск и отмена отсчёта перезапуска телом <code>{"action":"schedule","minutes":5}</code></td></tr>
                 <tr><th>игроки</th><td>Список, скины, действия и инвентарь</td></tr>
-                <tr><th>аккаунты и SID</th><td>Привязки адресов, история наказаний</td></tr>
+                <tr><th>аккаунты</th><td>Привязки адресов, история наказаний</td></tr>
                 <tr><th>база и консоль</th><td>Чтение таблиц и команды консоли, поток журнала через SSE</td></tr>
               </tbody>
             </table>
@@ -430,69 +446,246 @@ guild-id: ""</code></pre></div>
             <p>Три способа: планировщик по расписанию, команда <code>/em restart &lt;минуты|cancel|status&gt;</code> и API <code>POST /api/v1/server/restart</code>. Снятый вручную отсчёт повторно не всплывает.</p>
           </article>
 
-          <article class="doc" id="doc-commands" data-group="Команды">
+          <article class="doc" id="doc-cmd-em" data-group="Команды">
             <p class="doc-crumbs">Документация <span>/</span> Команды</p>
-            <h2>Команды и права</h2>
-            <p class="doc-lead">58 команд с единой схемой прав <code>extendedmanager.command.&lt;имя&gt;</code>. Включение и параметры — в <code>command_config.yml</code>, регистрация имён — в <code>plugin.yml</code>.</p>
-
-            <h3 id="cmd-em">Подкоманды /em</h3>
-            <table class="req req-wide">
-              <tbody>
-                <tr><th><code>/em help</code></th><td>Справка по командам; право <code>extendedmanager.command.help</code> есть у всех</td></tr>
-                <tr><th><code>/em info</code></th><td>Версия, ядро, модули, интеграции и база данных</td></tr>
-                <tr><th><code>/em modules</code></th><td>Какие модули включены</td></tr>
-                <tr><th><code>/em hooks</code></th><td>Статус интеграций</td></tr>
-                <tr><th><code>/em reload</code></th><td>Перечитать конфиги и применить набор модулей</td></tr>
-                <tr><th><code>/em update</code></th><td>Проверить новую версию плагина</td></tr>
-                <tr><th><code>/em db</code></th><td>Состояние базы, экспорт и импорт</td></tr>
-                <tr><th><code>/em api key</code></th><td>Показать ключ HTTP API</td></tr>
-                <tr><th><code>/em restart</code></th><td>Запуск, отмена и статус отсчёта перезапуска</td></tr>
-              </tbody>
-            </table>
-
-            <h3 id="cmd-perm">Схема прав</h3>
-            <p>Базовое право — <code>extendedmanager.command.&lt;имя&gt;</code> (например <code>extendedmanager.command.ban</code>). Вариант <code>.others</code> разрешает применять команду к другому игроку, а <code>extendedmanager.*</code> даёт полный доступ. Большинство прав по умолчанию только у операторов.</p>
-            <table class="req req-wide">
-              <tbody>
-                <tr><th><code>…command.selector</code></th><td>Селекторы <code>@a</code>, <code>@e</code>, <code>@p</code>, <code>@r</code>, <code>@s</code> в /god, /fly, /feed, /heal, /ignite, /hp, /cloak, /damage, /kill и других</td></tr>
-                <tr><th><code>…command.invsee.edit</code></th><td>Изменять инвентарь в /invsee; без права — только просмотр</td></tr>
-                <tr><th><code>…command.invsee.offline</code></th><td>Снимок инвентаря офлайн-игрока</td></tr>
-                <tr><th><code>…chat.antispam.bypass</code></th><td>Обход анти-спама; есть и <code>anticaps.bypass</code></td></tr>
-                <tr><th><code>…chat.adminchat.see</code></th><td>Видеть админ-чат; <code>…adminchat.send</code> — писать в него</td></tr>
-                <tr><th><code>…text.anvil</code></th><td>Оформление в наковальне; также <code>text.book</code> и <code>text.sign</code> (по умолчанию у всех)</td></tr>
-              </tbody>
-            </table>
-
-            <h3 id="cmd-toggle">Включение и отключение</h3>
-            <p>В <code>command_config.yml</code> секция <code>commands</code> включает и выключает команды. Отсутствующая в списке команда всегда включена; <code>false</code> — команда отвечает <code>command-disabled</code> и исчезает из автодополнения. Алиасы (<code>/gm</code>, <code>/l</code>, <code>/reg</code>) работают так же.</p>
-            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>commands:
+            <h2>/em: ядро плагина</h2>
+            <p class="doc-lead">Служебная команда ядра: справка, состояние сборки, модули, интеграции, перезагрузка конфигов, база, ключ API и перезапуск сервера. Алиас <code>/extendedmanager</code>.</p>
+<h3 id="em-help">/em help</h3>
+<p>Справка по командам плагина с учётом прав отправителя.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/em help</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.help</code> · по умолчанию у всех</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/em help</code></pre></div>
+<h3 id="em-info">/em info</h3>
+<p>Версия плагина и ядра, включённые модули, интеграции и тип базы данных.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/em info</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.info</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/em info</code></pre></div>
+<h3 id="em-modules">/em modules</h3>
+<p>Список модулей и их состояние: включён или выключен.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/em modules</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.modules</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/em modules</code></pre></div>
+<h3 id="em-hooks">/em hooks</h3>
+<p>Статус мягких интеграций: PlaceholderAPI, LuckPerms, Voice Chat, SkinsRestorer, TAB, WorldGuard.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/em hooks</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.hooks</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/em hooks</code></pre></div>
+<h3 id="em-reload">/em reload</h3>
+<p>Перечитывает конфигурации и применяет набор модулей без перезапуска сервера: папки, файлы и команды модулей появляются сразу.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/em reload</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.reload</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/em reload</code></pre></div>
+<h3 id="em-update">/em update</h3>
+<p>Проверяет новую версию плагина по GitHub или своему URL из секции <code>update</code>. Операторы получают уведомление о выходе обновления при входе.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/em update</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.update</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/em update</code></pre></div>
+<h3 id="em-db">/em db</h3>
+<p>Состояние базы данных, экспорт и импорт таблиц плагина.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/em db &lt;export|import&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.db</code> · по умолчанию у операторов</td></tr>
+<tr><th>export</th><td>Выгружает таблицы плагина в файл обмена</td></tr>
+<tr><th>import</th><td>Загружает данные из файла обмена</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/em db export
+/em db import</code></pre></div>
+<h3 id="em-api">/em api key</h3>
+<p>Показывает ключ HTTP API. Ключ генерируется один раз, хранится в базе и не попадает в файлы и журнал; сверка запросов идёт по SHA3-512.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/em api key</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.api</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/em api key</code></pre></div>
+<div class="callout callout-warn"><p>Ключ видит только отправитель команды. Не публикуйте его: это полный доступ к API сервера.</p></div>
+<h3 id="em-restart">/em restart</h3>
+<p>Запуск, отмена и статус отсчёта перезапуска сервера (модуль <code>utils</code>). Предупреждения, кики и сохранение миров настраиваются в <code>utils/restart_config.yml</code>.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/em restart &lt;минуты|cancel|status&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.restart</code> · по умолчанию у операторов</td></tr>
+<tr><th>минуты</th><td>Запускает отсчёт, например <code>/em restart 5</code></td></tr>
+<tr><th>cancel</th><td>Снимает отсчёт; повторно он не всплывает</td></tr>
+<tr><th>status</th><td>Показывает остаток до остановки</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/em restart 5
+/em restart status
+/em restart cancel</code></pre></div>
+<h3 id="em-perm">Схема прав</h3>
+<p>Базовое право команды: <code>extendedmanager.command.&lt;имя&gt;</code>, например <code>extendedmanager.command.ban</code>. Вариант <code>.others</code> разрешает применять команду к другому игроку, а <code>extendedmanager.*</code> даёт полный доступ. Большинство прав по умолчанию только у операторов.</p>
+<table class="req req-wide"><tbody>
+<tr><th><code>…command.selector</code></th><td>Селекторы <code>@a</code>, <code>@e</code>, <code>@p</code>, <code>@r</code>, <code>@s</code> в /god, /fly, /feed, /heal, /ignite, /unignite, /hp, /cloak, /uncloak, /damage, /kill</td></tr>
+<tr><th><code>…adminaction.see</code></th><td>Видеть действия администрации в чате</td></tr>
+<tr><th><code>…chat.antispam.bypass</code></th><td>Обход анти-спама; есть и <code>anticaps.bypass</code></td></tr>
+<tr><th><code>…chat.adminchat.see</code></th><td>Видеть админ-чат; <code>…adminchat.send</code> пишет в него</td></tr>
+</tbody></table>
+<h3 id="em-toggle">Включение и отключение</h3>
+<p>В <code>command_config.yml</code> секция <code>commands</code> включает и выключает команды. Отсутствующая в списке команда всегда включена; <code>false</code> отвечает сообщением <code>command-disabled</code> и исчезает из автодополнения. Алиасы (<code>/gm</code>, <code>/l</code>, <code>/reg</code>) работают так же.</p>
+<div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>commands:
   fly: true
   god: false
   vanish: true</code></pre></div>
-            <div class="callout callout-info">
-              <p>Правка применяется после <code>/em reload</code>. Команды модулей зависят ещё и от <code>modules</code>: <code>register</code> и <code>login</code> — от <code>modules.security</code>. Новое имя команды регистрируется в <code>plugin.yml</code> и появляется только после перезапуска сервера.</p>
-            </div>
+<div class="callout callout-info"><p>Правка применяется после <code>/em reload</code>. Команды модулей зависят ещё и от <code>modules</code>: <code>register</code> и <code>login</code> работают при <code>modules.security</code>. Новое имя команды регистрируется в <code>plugin.yml</code> и появляется только после перезапуска сервера.</p></div>
           </article>
 
-          <article class="doc" id="doc-punishments" data-group="Команды">
+          <article class="doc" id="doc-cmd-auth" data-group="Команды">
             <p class="doc-crumbs">Документация <span>/</span> Команды</p>
-            <h2>Наказания и SID</h2>
-            <p class="doc-lead">Баны, мьюты, гаги и предупреждения хранятся в базе и настраиваются в <code>punishments.yml</code>, а система SID и бан по адресу — в <code>SID_config.yml</code>.</p>
+            <h2>Вход и привязка</h2>
+            <p class="doc-lead">Регистрация, вход и привязка аккаунта к Discord. Работают при включённом модуле <code>security</code>; пароли хранятся только как Argon2id-хеши.</p>
+<h3 id="cmd-register">/register</h3>
+<p>Регистрация на сервере: пароль вводится дважды. После регистрации игрок проходит капчу на карте и возвращается в свой мир.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/register &lt;пароль&gt; &lt;повтор пароля&gt;</code></td></tr>
+<tr><th>Алиасы</th><td><code>/reg</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.register</code> · по умолчанию у всех</td></tr>
+<tr><th>Пароль</th><td>Длина проверяется по <code>auth.min-length</code> и <code>max-length</code> из security_config.yml</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/register MyPass123 MyPass123</code></pre></div>
+<h3 id="cmd-login">/login</h3>
+<p>Вход на сервер. Пока игрок не вошёл, он не двигается, не пишет в чат и не использует команды; отсчёт ведётся в bossbar или actionbar.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/login &lt;пароль&gt;</code></td></tr>
+<tr><th>Алиасы</th><td><code>/l</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.login</code> · по умолчанию у всех</td></tr>
+<tr><th>Сессии</th><td>При <code>sessions.duration-minutes</code> вход с того же IP идёт без пароля; кросс-серверная сессия открывает вход на всю сеть</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/login MyPass123</code></pre></div>
+<h3 id="cmd-link">/link</h3>
+<p>Привязка игрового аккаунта к Discord: код выдаёт бот модуля <code>discord</code>. Привязка участвует в двухфакторном подтверждении входа.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/link &lt;код&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.link</code> · по умолчанию у всех</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/link 482913</code></pre></div>
+          </article>
 
-            <h3 id="pun-commands">Команды</h3>
-            <ul class="chips">
-              <li>/ban</li><li>/bansid</li><li>/unban</li><li>/banlist</li><li>/mute</li><li>/unmute</li><li>/mutelist</li><li>/gag</li><li>/ungag</li><li>/gaglist</li><li>/warn</li><li>/unwarn</li><li>/warnlist</li><li>/kick</li><li>/kickall</li><li>/whitelist</li>
-            </ul>
-            <p>Целью может быть ник или SID вида <code>U:A12345</code>. Списки принимают страницу, а <code>/warnlist</code> без прав показывает свои предупреждения.</p>
+          <article class="doc" id="doc-cmd-bans" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды</p>
+            <h2>Баны</h2>
+            <p class="doc-lead">Баны хранятся в базе и настраиваются в <code>punishments.yml</code>: область действия <code>scope</code> (local или global) решает, где наказание видно. Целью может быть ник или идентификатор аккаунта вида <code>U:A12345</code>.</p>
+<h3 id="cmd-ban">/ban</h3>
+<p>Бан игрока на срок или навсегда, с причиной. Срок понимается в форматах <code>30m</code>, <code>12h</code>, <code>7d</code>, <code>12h30m</code>, <code>навсегда</code> или <code>forever</code>.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/ban &lt;игрок&gt; [срок] [причина]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.ban</code> · по умолчанию у операторов</td></tr>
+<tr><th>Без срока</th><td>Бан бессрочный</td></tr>
+<tr><th>Причина</th><td>Текст после срока; виден игроку при входе</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/ban Steve 7d Гриферство
+/ban Steve навсегда Читы</code></pre></div>
+<h3 id="cmd-bansid">/bansid</h3>
+<p>Бессрочный бан от системы защиты аккаунтов: причина и автор подставляются системой, запись получает признак системной.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/bansid &lt;игрок&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.bansid</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/bansid Steve</code></pre></div>
+<h3 id="cmd-unban">/unban</h3>
+<p>Снимает действующий бан с игрока или идентификатора аккаунта.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/unban &lt;игрок&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.unban</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/unban Steve</code></pre></div>
+<h3 id="cmd-banlist">/banlist</h3>
+<p>Список действующих банов с автором, причиной и сроком; постраничный вывод.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/banlist [страница]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.banlist</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/banlist
+/banlist 2</code></pre></div>
+          </article>
 
-            <h3 id="pun-scope">Область действия</h3>
-            <p><code>scope</code> решает, где действует наказание: <code>local</code> — только на сервере, который его выдал, <code>global</code> — на всех серверах общей базы. Записи до обновления (с пустым <code>server-id</code>) видны всем при любом scope.</p>
-            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>scope: local
-server-id: ""</code></pre></div>
+          <article class="doc" id="doc-cmd-mutes" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды</p>
+            <h2>Мьюты и гаги</h2>
+            <p class="doc-lead">Мьют блокирует текстовый чат, гаг блокирует голосовой чат (Simple Voice Chat). Сроки и причины как у банов; списки показывают действующие наказания.</p>
+<h3 id="cmd-mute">/mute</h3>
+<p>Мьют текстового чата на срок или навсегда.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/mute &lt;игрок&gt; [срок] [причина]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.mute</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/mute Steve 30m Флуд
+/mute Steve 12h Оскорбления</code></pre></div>
+<h3 id="cmd-unmute">/unmute</h3>
+<p>Снимает мьют текстового чата.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/unmute &lt;игрок&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.unmute</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/unmute Steve</code></pre></div>
+<h3 id="cmd-mutelist">/mutelist</h3>
+<p>Список действующих мьютов текстового чата.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/mutelist [страница]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.mutelist</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/mutelist</code></pre></div>
+<h3 id="cmd-gag">/gag</h3>
+<p>Гаг голосового чата: игрок не может говорить в Simple Voice Chat. Требуется интеграция <code>voicechat</code>.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/gag &lt;игрок&gt; [срок] [причина]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.gag</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/gag Steve 1h Крики</code></pre></div>
+<h3 id="cmd-ungag">/ungag</h3>
+<p>Снимает гаг голосового чата.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/ungag &lt;игрок&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.ungag</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/ungag Steve</code></pre></div>
+<h3 id="cmd-gaglist">/gaglist</h3>
+<p>Список действующих гагов голосового чата.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/gaglist [страница]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.gaglist</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/gaglist</code></pre></div>
+          </article>
 
-            <h3 id="pun-warn">Предупреждения</h3>
-            <p>Предупреждение само ничего не блокирует — оно копится, а на <code>limit</code> сервер выдаёт наказание и обнуляет счёт.</p>
-            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>warn:
+          <article class="doc" id="doc-cmd-warns" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды</p>
+            <h2>Предупреждения</h2>
+            <p class="doc-lead">Предупреждения копятся в базе; на лимите из <code>punishments.yml</code> сервер сам выдаёт наказание и обнуляет счёт. Секция <code>warn</code> задаёт лимит, срок жизни и действие.</p>
+<h3 id="cmd-warn">/warn</h3>
+<p>Выдаёт предупреждение. При достижении <code>warn.limit</code> выполняется <code>warn.action</code>: none, mute, gag или ban со сроком <code>warn.duration</code>.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/warn &lt;игрок&gt; [причина]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.warn</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/warn Steve Мат в чате</code></pre></div>
+<h3 id="cmd-unwarn">/unwarn</h3>
+<p>Снимает предупреждения: все сразу или одно по номеру из списка.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/unwarn &lt;игрок&gt; [номер]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.unwarn</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/unwarn Steve
+/unwarn Steve 2</code></pre></div>
+<h3 id="cmd-warnlist">/warnlist</h3>
+<p>Предупреждения игрока с датами и причинами. Без аргумента и без прав показывает свои предупреждения.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/warnlist [игрок]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.warnlist</code> · по умолчанию у операторов</td></tr>
+<tr><th>Без прав</th><td>Доступен только свой список</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/warnlist
+/warnlist Steve</code></pre></div>
+<div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>warn:
   expire-days: 30
   limit: 3
   action: mute
@@ -500,37 +693,515 @@ server-id: ""</code></pre></div>
   reason: "Достигнут лимит предупреждений"
   author: "Система предупреждений"
   notify: true</code></pre></div>
-            <table class="req req-wide">
-              <tbody>
-                <tr><th><code>action</code></th><td><code>none</code>, <code>mute</code>, <code>gag</code> или <code>ban</code> — что выдаёт лимит</td></tr>
-                <tr><th><code>duration</code></th><td>Срок наказания: <code>30m</code>, <code>12h</code>, <code>7d</code> или <code>forever</code></td></tr>
-                <tr><th><code>expire-days</code></th><td>Через сколько дней предупреждение сгорает (0 — навсегда)</td></tr>
-              </tbody>
-            </table>
-
-            <h3 id="pun-sid">SID и бан по адресу</h3>
-            <p>SID — постоянный идентификатор аккаунта, не меняется при смене ника. <code>ip-link</code> хранит адрес забаненного и наказывает новый аккаунт с того же адреса: <code>action: ban</code> — бан системой, <code>action: warn</code> — только предупреждение администрации.</p>
-            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>enabled: true
-ban:
-  reason: "BAN BY SID SYSTEM"
-  reason-multiaccount: "Multiaccount"
-  author: "SID"
-  duration-seconds: 0
-ip-link:
-  enabled: true
-  action: ban
-  duration-seconds: -1
-  skip-local: true
-  same-account:
-    uuid: true
-    sid: true
-    name: true</code></pre></div>
-            <div class="callout callout-warn">
-              <p>За одним адресом (NAT, мобильный интернет, корпоративная сеть) может стоять несколько человек. <code>skip-local: true</code> не использует служебные и локальные адреса, а мягкий <code>action: warn</code> оставляет решение за администрацией. <code>/kick</code> мгновенный и в базе не хранится — scope на него не влияет.</p>
-            </div>
           </article>
 
-          <article class="doc" id="doc-worlds" data-group="Конфигурация">
+          <article class="doc" id="doc-cmd-kicks" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды</p>
+            <h2>Кики и whitelist</h2>
+            <p class="doc-lead">Мгновенные действия: кик не хранится в базе и не зависит от scope. Белый список плагина заменяет ванильную команду whitelist.</p>
+<h3 id="cmd-kick">/kick</h3>
+<p>Выгоняет игрока с сервера с причиной.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/kick &lt;игрок&gt; [причина]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.kick</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/kick Steve Перезаход</code></pre></div>
+<h3 id="cmd-kickall">/kickall</h3>
+<p>Выгоняет всех игроков, кроме держателей права исключения.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/kickall [причина]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.kickall</code> · по умолчанию у операторов</td></tr>
+<tr><th>Исключение</th><td><code>extendedmanager.command.kickall.exempt</code> не попадает под kickall</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/kickall Технические работы</code></pre></div>
+<h3 id="cmd-whitelist">/whitelist</h3>
+<p>Белый список сервера: включение, добавление и удаление игроков, список, кик не входящих и перечитывание файла.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/whitelist &lt;on|off|add|remove|list|kick|reload|status&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.whitelist</code> · по умолчанию у операторов</td></tr>
+<tr><th>on / off</th><td>Включает и выключает белый список</td></tr>
+<tr><th>add / remove</th><td>Добавляет или убирает игрока: <code>/whitelist add Steve</code></td></tr>
+<tr><th>list</th><td>Показывает список</td></tr>
+<tr><th>kick</th><td>Выгоняет тех, кого нет в списке</td></tr>
+<tr><th>reload / status</th><td>Перечитывает файл и показывает состояние</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/whitelist on
+/whitelist add Steve
+/whitelist kick</code></pre></div>
+          </article>
+
+          <article class="doc" id="doc-cmd-state" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды</p>
+            <h2>Здоровье и эффекты</h2>
+            <p class="doc-lead">Управление состоянием игрока: бессмертие, полёт, голод, здоровье, огонь и урон. Селекторы <code>@a</code>, <code>@p</code>, <code>@r</code>, <code>@s</code> требуют право <code>extendedmanager.command.selector</code>, применение к другому игроку требует вариант <code>.others</code>.</p>
+<h3 id="cmd-god">/god</h3>
+<p>Переключает режим бессмертия себе или другому игроку.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/god [игрок|@a]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.god</code> · по умолчанию у операторов</td></tr>
+<tr><th>Другому</th><td><code>extendedmanager.command.god.others</code></td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/god
+/god Steve
+/god @a</code></pre></div>
+<h3 id="cmd-fly">/fly</h3>
+<p>Переключает режим полёта себе или другому игроку.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/fly [игрок|@a]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.fly</code> · по умолчанию у операторов</td></tr>
+<tr><th>Другому</th><td><code>extendedmanager.command.fly.others</code></td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/fly
+/fly Steve</code></pre></div>
+<h3 id="cmd-feed">/feed</h3>
+<p>Восстанавливает голод и насыщение.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/feed [игрок|@a] [количество]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.feed</code> · по умолчанию у операторов</td></tr>
+<tr><th>Количество</th><td>Очки голода; без значения полное восстановление</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/feed
+/feed Steve 10</code></pre></div>
+<h3 id="cmd-heal">/heal</h3>
+<p>Восстанавливает здоровье.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/heal [игрок|@a] [количество]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.heal</code> · по умолчанию у операторов</td></tr>
+<tr><th>Количество</th><td>Очки здоровья; без значения полное восстановление</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/heal
+/heal Steve 6</code></pre></div>
+<h3 id="cmd-hp">/hp</h3>
+<p>Устанавливает точное значение здоровья; <code>reset</code> возвращает стандартные 20 очков.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/hp &lt;игрок|@a&gt; &lt;количество|reset&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.hp</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/hp Steve 10
+/hp Steve reset</code></pre></div>
+<h3 id="cmd-ignite">/ignite</h3>
+<p>Поджигает игрока: такой огонь не потушить водой и ничем, кроме /unignite.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/ignite &lt;игрок|@a&gt; [время]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.ignite</code> · по умолчанию у операторов</td></tr>
+<tr><th>Время</th><td>Секунды или формат <code>30s</code>, <code>2m</code>; без времени значение по умолчанию</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/ignite Steve 30
+/ignite Steve 2m</code></pre></div>
+<h3 id="cmd-unignite">/unignite</h3>
+<p>Тушит игрока, в том числе после /ignite.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/unignite &lt;игрок|@a&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.unignite</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/unignite Steve</code></pre></div>
+<h3 id="cmd-damage">/damage</h3>
+<p>Наносит игроку указанное количество урона.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/damage &lt;игрок|@a&gt; &lt;количество&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.damage</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/damage Steve 4</code></pre></div>
+<h3 id="cmd-kill">/kill</h3>
+<p>Убивает игрока.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/kill &lt;игрок|@a&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.kill</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/kill Steve</code></pre></div>
+          </article>
+
+          <article class="doc" id="doc-cmd-hide" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды</p>
+            <h2>Невидимость и заморозка</h2>
+            <p class="doc-lead">Скрытие игроков и полный контроль над перемещением: cloak прячет от остальных без vanish, vanish даёт полную невидимость, freeze останавливает игрока.</p>
+<h3 id="cmd-cloak">/cloak</h3>
+<p>Скрывает игрока от остальных, не включая полноценный vanish.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/cloak &lt;игрок|@a&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.cloak</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/cloak Steve</code></pre></div>
+<h3 id="cmd-uncloak">/uncloak</h3>
+<p>Снимает невидимость /cloak.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/uncloak &lt;игрок|@a&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.uncloak</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/uncloak Steve</code></pre></div>
+<h3 id="cmd-vanish">/vanish</h3>
+<p>Переключает полную невидимость: игрок скрыт из списка, чата и взаимодействий.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/vanish</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.vanish</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/vanish</code></pre></div>
+<h3 id="cmd-freeze">/freeze</h3>
+<p>Полностью замораживает игрока: перемещение и действия заблокированы.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/freeze &lt;игрок&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.freeze</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/freeze Steve</code></pre></div>
+<h3 id="cmd-unfreeze">/unfreeze</h3>
+<p>Снимает заморозку.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/unfreeze &lt;игрок&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.unfreeze</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/unfreeze Steve</code></pre></div>
+          </article>
+
+          <article class="doc" id="doc-cmd-tp" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды</p>
+            <h2>Телепорты и спавны</h2>
+            <p class="doc-lead">Перемещение игроков и работа с точками спавна, включая переход на hub-сервер сети.</p>
+<h3 id="cmd-tp">/tp</h3>
+<p>Телепортирует отправителя к игроку.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/tp &lt;игрок&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.tp</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/tp Steve</code></pre></div>
+<h3 id="cmd-tphere">/tphere</h3>
+<p>Телепортирует игрока к отправителю.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/tphere &lt;игрок&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.tphere</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/tphere Steve</code></pre></div>
+<h3 id="cmd-tpsend">/tpsend</h3>
+<p>Переносит одного игрока к другому.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/tpsend &lt;игрок1&gt; &lt;игрок2&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.tpsend</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/tpsend Steve Alex</code></pre></div>
+<h3 id="cmd-hub">/hub</h3>
+<p>Переход на hub-сервер сети; имя сервера берётся из <code>command_config.yml</code>, секция <code>hub</code>. Умеет переносить другого игрока, в том числе с другого сервера.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/hub [игрок]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.hub</code> · по умолчанию у операторов</td></tr>
+<tr><th>Другому</th><td><code>extendedmanager.command.hub.others</code></td></tr>
+<tr><th>Настройки</th><td><code>hub.server</code>, <code>require-login</code>, <code>cooldown-seconds</code>, <code>message</code></td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/hub
+/hub Steve</code></pre></div>
+<h3 id="cmd-setspawn">/setspawn</h3>
+<p>Устанавливает точку спавна мира в позиции отправителя.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/setspawn</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.setspawn</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/setspawn</code></pre></div>
+<h3 id="cmd-spawn">/spawn</h3>
+<p>Телепортирует на спавн мира; с аргументом переносит другого игрока.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/spawn [игрок]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.spawn</code> · по умолчанию у операторов</td></tr>
+<tr><th>Себе</th><td><code>extendedmanager.command.spawn.self</code> для /spawn без аргумента</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/spawn
+/spawn Steve</code></pre></div>
+<h3 id="cmd-respawn">/respawn</h3>
+<p>Возрождает игрока на спавне с полным здоровьем.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/respawn [игрок]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.respawn</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/respawn
+/respawn Steve</code></pre></div>
+          </article>
+
+          <article class="doc" id="doc-cmd-world" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды</p>
+            <h2>Миры: /world</h2>
+            <p class="doc-lead">Мульти-миры: создание, типы, загрузка, перемещение и удаление. Типы и настройки новых миров задаются в <code>worlds_config.yml</code>.</p>
+<h3 id="world-list">/world list</h3>
+<p>Список миров сервера и их состояние.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/world list</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.world</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/world list</code></pre></div>
+<h3 id="world-types">/world types</h3>
+<p>Доступные типы миров из секции <code>types</code>: normal, flat, empty, large-biomes, amplified, nether, the_end, debug и свои.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/world types</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.world</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/world types</code></pre></div>
+<h3 id="world-info">/world info</h3>
+<p>Сведения о мире: тип, сложность, режим игры, спавн.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/world info &lt;мир&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.world</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/world info lobby</code></pre></div>
+<h3 id="world-create">/world create</h3>
+<p>Создаёт мир указанного типа; к новому миру применяются настройки секции <code>defaults</code>.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/world create &lt;имя&gt; &lt;тип&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.world.manage</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/world create lobby empty</code></pre></div>
+<h3 id="world-load">/world load</h3>
+<p>Загружает выгруженный или ранее удалённый из списка мир.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/world load &lt;мир&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.world.manage</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/world load arena</code></pre></div>
+<h3 id="world-unload">/world unload</h3>
+<p>Выгружает мир без удаления папки.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/world unload &lt;мир&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.world.manage</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/world unload arena</code></pre></div>
+<h3 id="world-delete">/world delete</h3>
+<p>Удаляет мир с подтверждением: повторная команда в срок <code>delete-confirm-seconds</code> выполняет удаление. Судьба папки задаётся ключом <code>removed-folder</code>: rename, delete или keep.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/world delete &lt;мир&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.world.manage</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/world delete arena</code></pre></div>
+<div class="callout callout-warn"><p>Создание и удаление мира выполняются в основном потоке: на большом сервере возможен короткий фриз, делайте это при пустом онлайне.</p></div>
+<h3 id="world-tp">/world tp</h3>
+<p>Перемещает отправителя или другого игрока в указанный мир.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/world tp [игрок] &lt;мир&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.world</code> · по умолчанию у операторов</td></tr>
+<tr><th>Другому</th><td><code>extendedmanager.command.world.teleport</code></td></tr>
+<tr><th>Вход</th><td><code>teleport-require-login</code> требует /login перед переносом</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/world tp lobby
+/world tp Steve lobby</code></pre></div>
+<h3 id="world-setspawn">/world setspawn</h3>
+<p>Устанавливает точку спавна указанного мира.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/world setspawn &lt;мир&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.world.manage</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/world setspawn lobby</code></pre></div>
+          </article>
+
+          <article class="doc" id="doc-cmd-inv" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды</p>
+            <h2>Осмотр и обмен</h2>
+            <p class="doc-lead">Инвентари и эндер-сундуки игроков, геолокация по адресу и безопасный обмен предметами.</p>
+<h3 id="cmd-invsee">/invsee</h3>
+<p>Открывает инвентарь игрока; для офлайн-игрока показывает сохранённый снимок.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/invsee &lt;игрок&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.invsee</code> · по умолчанию у операторов</td></tr>
+<tr><th>Редактирование</th><td><code>extendedmanager.command.invsee.edit</code>; без права только просмотр</td></tr>
+<tr><th>Офлайн</th><td><code>extendedmanager.command.invsee.offline</code> для снимка</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/invsee Steve</code></pre></div>
+<h3 id="cmd-endersee">/endersee</h3>
+<p>Открывает эндер-сундук игрока; офлайн показывает снимок.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/endersee &lt;игрок&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.endersee</code> · по умолчанию у операторов</td></tr>
+<tr><th>Редактирование</th><td><code>extendedmanager.command.endersee.edit</code></td></tr>
+<tr><th>Офлайн</th><td><code>extendedmanager.command.endersee.offline</code></td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/endersee Steve</code></pre></div>
+<h3 id="cmd-geolocate">/geolocate</h3>
+<p>Расположение игрока по адресу: страна, город, часовой пояс и признаки VPN. Сервис, язык и кэш настраиваются в секции <code>geo</code>.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/geolocate &lt;игрок&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.geolocate</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/geolocate Steve</code></pre></div>
+<h3 id="cmd-trade">/trade</h3>
+<p>Безопасный обмен предметами через окно с подтверждением обеих сторон; кнопки принятия и отказа прямо в окне.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/trade &lt;игрок&gt; | accept | deny | cancel</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.trade</code> · по умолчанию у всех</td></tr>
+<tr><th>accept / deny</th><td>Принять или отклонить входящее предложение</td></tr>
+<tr><th>cancel</th><td>Отменить своё предложение</td></tr>
+<tr><th>Без аргументов</th><td>Возвращает открытое окно обмена</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/trade Steve
+/trade accept
+/trade cancel</code></pre></div>
+          </article>
+
+          <article class="doc" id="doc-cmd-look" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды</p>
+            <h2>Режимы и внешность</h2>
+            <p class="doc-lead">Режим игры, скорость, размер, видимое имя и статус AFK. Ники поддерживают MiniMessage, спрайты и старые коды &amp;.</p>
+<h3 id="cmd-gamemode">/gamemode</h3>
+<p>Смена режима игры: survival, creative, adventure, spectator (или 0-3).</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/gamemode &lt;режим&gt; [игрок]</code></td></tr>
+<tr><th>Алиасы</th><td><code>/gm</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.gamemode</code> · по умолчанию у операторов</td></tr>
+<tr><th>Другому</th><td><code>extendedmanager.command.gamemode.others</code></td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/gm creative
+/gm 1 Steve</code></pre></div>
+<h3 id="cmd-speed">/speed</h3>
+<p>Множитель скорости ходьбы и полёта от 0 до 10.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/speed &lt;игрок&gt; &lt;множитель 0-10&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.speed</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/speed Steve 2</code></pre></div>
+<h3 id="cmd-scale">/scale</h3>
+<p>Меняет собственный размер игрока. Обычные границы 0.9-1.1, с правом <code>extendedmanager.scale.extended</code> границы 0.3-3.0; настройка живёт в секции <code>scale</code> файла command_config.yml, абсолютные пределы 0.05-10.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/scale &lt;размер|reset&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.scale</code> · по умолчанию у операторов</td></tr>
+<tr><th>reset</th><td>Возвращает размер 1 (также off, стоп, сброс)</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/scale 1.5
+/scale reset</code></pre></div>
+<h3 id="cmd-nickname">/nickname</h3>
+<p>Меняет имя, которое видят другие игроки; разметка MiniMessage и спрайты работают.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/nickname &lt;ник|reset&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.nickname</code> · по умолчанию у всех</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/nickname &lt;gradient:#4fa9ff:#7d5cff&gt;Steve&lt;/gradient&gt;
+/nickname reset</code></pre></div>
+<h3 id="cmd-forcename">/forcename</h3>
+<p>Устанавливает видимое имя другому игроку.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/forcename &lt;игрок&gt; &lt;ник|reset&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.forcename</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/forcename Steve Builder
+/forcename Steve reset</code></pre></div>
+<h3 id="cmd-afk">/afk</h3>
+<p>Переключает статус AFK. Простой игроков отслеживается автоматически по секции <code>afk</code>: секунды, сообщения и значок для TAB.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/afk</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.afk</code> · по умолчанию у всех</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/afk</code></pre></div>
+          </article>
+
+          <article class="doc" id="doc-cmd-chat" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды</p>
+            <h2>Чат и рассылки</h2>
+            <p class="doc-lead">Рассылка от сервера в своём оформлении и управление видами рассылки из <code>chat/broadcast.yml</code>.</p>
+<h3 id="cmd-say">/say</h3>
+<p>Рассылка от сервера в оформлении секции <code>broadcast</code>. Сообщение с префиксом @ уходит в админ-чат; из консоли автором становится <code>broadcast.console-name</code>.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/say &lt;сообщение&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.say</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/say Добро пожаловать на сервер!
+/say @Проверка связи</code></pre></div>
+<h3 id="cmd-broadcasts">/broadcasts</h3>
+<p>Управление рассылкой: состояние, список видов, включение и отправка конкретного вида. У каждого вида свои заголовок, подвал и звук.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/broadcasts &lt;status|list|on|off|send &lt;вид&gt;&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.broadcasts</code> · по умолчанию у операторов</td></tr>
+<tr><th>status / list</th><td>Состояние рассылки и список видов</td></tr>
+<tr><th>on / off</th><td>Включает и выключает рассылку по расписанию</td></tr>
+<tr><th>send</th><td>Отправляет вид сразу: <code>/broadcasts send rules</code></td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/broadcasts status
+/broadcasts send rules</code></pre></div>
+          </article>
+
+          <article class="doc" id="doc-cmd-ranks" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды</p>
+            <h2>Привилегии</h2>
+            <p class="doc-lead">Выдача привилегий через LuckPerms: режим api назначает группу напрямую, режим command выполняет консольную команду из шаблона <code>ranks.command</code>.</p>
+<h3 id="cmd-setrank">/setrank</h3>
+<p>Устанавливает игроку привилегию на срок или навсегда.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/setrank &lt;игрок&gt; &lt;привилегия&gt; [срок]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.setrank</code> · по умолчанию у операторов</td></tr>
+<tr><th>Требование</th><td>Установленный LuckPerms и включённый hook</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/setrank Steve vip 30d
+/setrank Steve premium</code></pre></div>
+<h3 id="cmd-givedonate">/givedonate</h3>
+<p>Выдаёт купленную привилегию с объявлением покупки в оформлении секции <code>ranks.donate</code>.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/givedonate &lt;игрок&gt; &lt;привилегия&gt; [срок]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.givedonate</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/givedonate Steve vip 30d</code></pre></div>
+          </article>
+
+          <article class="doc" id="doc-cmd-npc" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды</p>
+            <h2>NPC и спрайты</h2>
+            <p class="doc-lead">Управление NPC модуля <code>npc</code> и каталог атласов спрайтов игры для разметки текстов.</p>
+<h3 id="npc-list">/npc list</h3>
+<p>Список NPC реестра и их состояние.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/npc list</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.npc</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/npc list</code></pre></div>
+<h3 id="npc-create">/npc create</h3>
+<p>Создаёт NPC с идентификатором и именем; запись попадает в реестр <code>npcs</code>, файл настроек создаётся после /npc reload.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/npc create &lt;id&gt; &lt;имя&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.npc</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/npc create guide Торговец</code></pre></div>
+<h3 id="npc-stick">/npc stick</h3>
+<p>Выдаёт предмет-палочку для управления NPC кликами.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/npc stick</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.npc</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/npc stick</code></pre></div>
+<h3 id="npc-reload">/npc reload</h3>
+<p>Перечитывает реестр и файлы NPC, создаёт файлы-образцы для новых записей.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/npc reload</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.npc</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/npc reload</code></pre></div>
+<h3 id="npc-tp">/npc tp</h3>
+<p>Телепортирует отправителя к NPC.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/npc tp &lt;id&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.npc</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/npc tp guide</code></pre></div>
+<h3 id="npc-tphere">/npc tphere</h3>
+<p>Переносит NPC к отправителю.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/npc tphere &lt;id&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.npc</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/npc tphere guide</code></pre></div>
+<h3 id="npc-where">/npc where</h3>
+<p>Показывает мир и координаты NPC.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/npc where &lt;id&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.npc</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/npc where guide</code></pre></div>
+<h3 id="npc-del">/npc del</h3>
+<p>Удаляет NPC из реестра и мира.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/npc del &lt;id&gt;</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.npc</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/npc del guide</code></pre></div>
+<h3 id="cmd-sprite">/sprite</h3>
+<p>Каталог атласов спрайтов игры и их страницы; спрайт вставляется в текст тегом <code>&lt;sprite:атлас:имя&gt;</code> и виден на клиенте 1.19.3 и новее.</p>
+<table class="req req-wide"><tbody>
+<tr><th>Синтаксис</th><td><code>/sprite [атлас] [страница]</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.sprite</code> · по умолчанию у операторов</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/sprite
+/sprite blocks 2</code></pre></div>
+          </article>
+
+<article class="doc" id="doc-worlds" data-group="Конфигурация">
             <p class="doc-crumbs">Документация <span>/</span> Конфигурация</p>
             <h2>Миры и спавны</h2>
             <p class="doc-lead">Мульти-миры настраиваются в <code>worlds_config.yml</code>, переходы и спавн — командами <code>/world</code>, <code>/spawn</code>, <code>/setspawn</code>, <code>/respawn</code> и <code>/hub</code>.</p>
@@ -690,7 +1361,7 @@ links:
 
             <h3 id="app-features">Возможности</h3>
             <ul class="chips">
-              <li>живая консоль и события</li><li>игроки и скины</li><li>аккаунты и SID</li><li>инвентарь</li><li>чтение базы</li><li>аналитика</li><li>перезапуск</li>
+              <li>живая консоль и события</li><li>игроки и скины</li><li>аккаунты</li><li>инвентарь</li><li>чтение базы</li><li>аналитика</li><li>перезапуск</li>
             </ul>
             <p>Консоль и события идут через SSE-потоки, игроки и скины — через маршруты <code>/api/v1/*</code>, чтение базы и инвентарь — через соответствующие маршруты API.</p>
 
@@ -730,6 +1401,11 @@ links:
             <button class="btn btn-ghost" id="doc-next" type="button">Следующий →</button>
           </div>
 
+        </div>
+
+        <aside class="docs-toc" aria-label="На этой странице">
+          <p class="docs-toc-title">На этой странице</p>
+          <ul id="docs-toc-list"></ul>
           <div class="doc-author">
             <span class="doc-author-avatar" aria-hidden="true">C<img src="https://github.com/Cooking9314.png" alt="" loading="lazy" onerror="this.remove()"></span>
             <div class="doc-author-meta">
@@ -737,11 +1413,6 @@ links:
               <a class="doc-author-name" href="https://github.com/Cooking9314" target="_blank" rel="noopener">Cooking9314</a>
             </div>
           </div>
-        </div>
-
-        <aside class="docs-toc" aria-label="На этой странице">
-          <p class="docs-toc-title">На этой странице</p>
-          <ul id="docs-toc-list"></ul>
         </aside>
       </div>
     </div>
@@ -760,7 +1431,7 @@ links:
           </linearGradient>
         </defs>
         <rect width="32" height="32" rx="8" fill="url(#mark-footer)"/>
-        <path d="M9 10h11M9 16h8M9 22h11" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M13.69 20.63L6 20.63L6 11.37L13.52 11.37L13.52 13.73L9.07 13.73L9.07 14.81L12.98 14.81L12.98 17.06L9.07 17.06L9.07 18.27L13.69 18.27L13.69 20.63M17.74 20.63L14.9 20.63L14.9 11.37L17.46 11.37L20.47 16.3L23.41 11.37L25.97 11.37L26 20.63L23.16 20.63L23.13 16.41L21.12 19.79L19.75 19.79L17.74 16.56L17.74 20.63" fill="#fff"/>
       </svg>
       <div>
         <p class="brand-name">Extended Manager</p>

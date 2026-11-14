@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Extended Manager — ядро управления сервером Minecraft</title>
-<meta name="description" content="Extended Manager: регистрация и вход с Argon2id, наказания и SID, чат и рассылка, мульти-миры, NPC, Discord-бот, перезапуск сервера и HTTP API — один JAR для Paper, Purpur, Bukkit и Spigot 26.2 / 26.3.">
+<meta name="description" content="Extended Manager: регистрация и вход с Argon2id, наказания, чат и рассылка, мульти-миры, NPC, Discord-бот, перезапуск сервера и HTTP API. Один JAR для Paper, Purpur, Bukkit и Spigot 26.2 / 26.3.">
 <meta name="theme-color" content="#0a0c11">
 <meta property="og:title" content="Extended Manager — весь сервер под вашим контролем">
 <meta property="og:description" content="Один JAR вместо десятка плагинов: вход, наказания, чат, миры, NPC, Discord, перезапуск и API для приложения управления.">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234fa9ff'/%3E%3Cstop offset='1' stop-color='%237d5cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M9 10h11M9 16h8M9 22h11' stroke='%23fff' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234fa9ff'/%3E%3Cstop offset='1' stop-color='%237d5cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M13.69%2020.63L6%2020.63L6%2011.37L13.52%2011.37L13.52%2013.73L9.07%2013.73L9.07%2014.81L12.98%2014.81L12.98%2017.06L9.07%2017.06L9.07%2018.27L13.69%2018.27L13.69%2020.63M17.74%2020.63L14.9%2020.63L14.9%2011.37L17.46%2011.37L20.47%2016.3L23.41%2011.37L25.97%2011.37L26%2020.63L23.16%2020.63L23.13%2016.41L21.12%2019.79L19.75%2019.79L17.74%2016.56L17.74%2020.63' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="index.css">
 <script src="script.js" defer></script>
 </head>
@@ -17,6 +17,7 @@
 
 <div class="preloader" id="preloader" aria-hidden="true">
   <div class="preloader-inner">
+    <span class="preloader-orbit">
     <svg class="preloader-mark" viewBox="0 0 32 32" aria-hidden="true">
       <defs>
         <linearGradient id="premark" x1="0" y1="0" x2="1" y2="1">
@@ -25,10 +26,12 @@
         </linearGradient>
       </defs>
       <rect width="32" height="32" rx="8" fill="url(#premark)"/>
-      <path d="M9 10h11M9 16h8M9 22h11" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M13.69 20.63L6 20.63L6 11.37L13.52 11.37L13.52 13.73L9.07 13.73L9.07 14.81L12.98 14.81L12.98 17.06L9.07 17.06L9.07 18.27L13.69 18.27L13.69 20.63M17.74 20.63L14.9 20.63L14.9 11.37L17.46 11.37L20.47 16.3L23.41 11.37L25.97 11.37L26 20.63L23.16 20.63L23.13 16.41L21.12 19.79L19.75 19.79L17.74 16.56L17.74 20.63" fill="#fff"/>
     </svg>
+    </span>
     <span class="preloader-name">Extended Manager</span>
     <span class="preloader-bar"><i></i></span>
+    <span class="preloader-tip">ядро · модули · конфигурация</span>
   </div>
 </div>
 
@@ -43,7 +46,7 @@
           </linearGradient>
         </defs>
         <rect width="32" height="32" rx="8" fill="url(#mark)"/>
-        <path d="M9 10h11M9 16h8M9 22h11" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M13.69 20.63L6 20.63L6 11.37L13.52 11.37L13.52 13.73L9.07 13.73L9.07 14.81L12.98 14.81L12.98 17.06L9.07 17.06L9.07 18.27L13.69 18.27L13.69 20.63M17.74 20.63L14.9 20.63L14.9 11.37L17.46 11.37L20.47 16.3L23.41 11.37L25.97 11.37L26 20.63L23.16 20.63L23.13 16.41L21.12 19.79L19.75 19.79L17.74 16.56L17.74 20.63" fill="#fff"/>
       </svg>
       <span class="brand-name">Extended Manager</span>
     </a>
@@ -66,9 +69,9 @@
         <p class="eyebrow">Плагин для Minecraft · Paper · Purpur · Bukkit · Spigot</p>
         <h1>Весь сервер под <span class="accent">вашим контролем</span></h1>
         <p class="lead">
-          Вход и регистрация, наказания и SID, чат, миры, NPC, Discord и перезапуск —
-          всё в одном JAR вместо десятка плагинов. Настройки в YAML, применение без
-          перезагрузки, а живое управление сервером — в приложении Extended Manager.
+          Вход и регистрация, наказания, чат, миры, NPC, Discord и перезапуск
+          в одном JAR вместо десятка плагинов. Настройки в YAML, применение без
+          перезагрузки, а живое управление сервером в приложении Extended Manager.
         </p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#features"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>Что умеет</a>
@@ -83,10 +86,10 @@
         </div>
         <div class="chat-lines">
           <p style="--i:0"><span class="mc-prefix">ExtendedManager »</span> <span class="mc-gray">Игрок</span> <span class="mc-white">Steve</span> <span class="mc-gray">вошёл в сеть</span></p>
-          <p style="--i:1"><span class="mc-green">[EM]</span> <span class="mc-gray">Перезапуск сервера через</span> <span class="mc-white">5 мин 00 сек</span> <span class="mc-gray">— перезапуск по расписанию.</span></p>
+          <p style="--i:1"><span class="mc-green">[EM]</span> <span class="mc-gray">Перезапуск сервера через</span> <span class="mc-white">5 мин 00 сек</span> <span class="mc-gray">· перезапуск по расписанию</span></p>
           <p style="--i:2"><span class="mc-aqua">Steve</span> <span class="mc-gray">→</span> <span class="mc-yellow">[HUB]</span> <span class="mc-white">Добро пожаловать! Возьми набор: /trade</span></p>
           <p style="--i:3"><span class="mc-prefix">ExtendedManager »</span> <span class="mc-gray">Пароль принят, вход выполнен</span></p>
-          <p style="--i:4"><span class="mc-red">[SID]</span> <span class="mc-gray">Бан:</span> <span class="mc-white">Multiaccount</span> <span class="mc-gray">· автор</span> <span class="mc-white">SID</span></p>
+          <p style="--i:4"><span class="mc-yellow">[Warn]</span> <span class="mc-white">Steve</span> <span class="mc-gray">предупреждение 2 из 3 · автор</span> <span class="mc-white">Admin</span></p>
           <p style="--i:5"><span class="mc-light-purple">[Admin]</span> <span class="mc-white">Console:</span> <span class="mc-gray">save-all</span></p>
         </div>
         <div class="chat-card-foot">
@@ -127,9 +130,9 @@
         </article>
         <article class="card reveal" style="--d:.08s">
           <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg></span>
-          <h3>Наказания и SID</h3>
-          <p>Баны, мьюты, гаги и предупреждения со списками, областным скоупом и историей. SID связывает аккаунты по адресу и банит за мультиаккаунт.</p>
-          <div class="snippet"><code>SID_config.yml · punishments.yml</code></div>
+          <h3>Наказания</h3>
+          <p>Баны, мьюты, гаги и предупреждения со списками, областью действия и историей. Защита аккаунтов связывает адреса и банит за мультиаккаунт.</p>
+          <div class="snippet"><code>punishments.yml</code></div>
         </article>
         <article class="card reveal" style="--d:.16s">
           <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
@@ -201,7 +204,7 @@
         </article>
         <article class="card module reveal" style="--d:.08s">
           <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg>api</h3><span class="tag">приложение</span></div>
-          <p>HTTP API на плоском TCP: игроки, аккаунты и SID, скины, инвентарь, чтение базы, консоль и SSE-потоки. Ключ генерируется один раз, лежит в базе и показывается командой <code>/em api key</code>.</p>
+          <p>HTTP API на плоском TCP: игроки, аккаунты, скины, инвентарь, чтение базы, консоль и SSE-потоки. Ключ генерируется один раз, лежит в базе и показывается командой <code>/em api key</code>.</p>
           <div class="snippet"><code>config.yml → api</code></div>
           <a class="card-more" href="docs.html#doc-api">Ключи конфигурации</a>
         </article>
@@ -278,12 +281,12 @@
           <h2><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/></svg>Extended Manager <span class="accent">App</span></h2>
           <p>
             Нативное приложение для Windows поверх HTTP API плагина: живая консоль
-            и поток событий, игроки со скинами, аккаунты и SID, инвентарь, чтение
-            базы и аналитика. Все серверы сети — в одном окне; ключ доступа плагин
+            и поток событий, игроки со скинами, аккаунты, инвентарь, чтение
+            базы и аналитика. Все серверы сети в одном окне, а ключ доступа плагин
             генерирует и хранит сам.
           </p>
           <ul class="chips">
-            <li>консоль и события</li><li>игроки и скины</li><li>SID</li>
+            <li>консоль и события</li><li>игроки и скины</li><li>аккаунты</li>
             <li>инвентарь</li><li>база данных</li><li>аналитика</li>
           </ul>
         </div>
@@ -322,7 +325,7 @@
           </linearGradient>
         </defs>
         <rect width="32" height="32" rx="8" fill="url(#mark-footer)"/>
-        <path d="M9 10h11M9 16h8M9 22h11" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M13.69 20.63L6 20.63L6 11.37L13.52 11.37L13.52 13.73L9.07 13.73L9.07 14.81L12.98 14.81L12.98 17.06L9.07 17.06L9.07 18.27L13.69 18.27L13.69 20.63M17.74 20.63L14.9 20.63L14.9 11.37L17.46 11.37L20.47 16.3L23.41 11.37L25.97 11.37L26 20.63L23.16 20.63L23.13 16.41L21.12 19.79L19.75 19.79L17.74 16.56L17.74 20.63" fill="#fff"/>
       </svg>
       <div>
         <p class="brand-name">Extended Manager</p>
