@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Extended Manager — ядро управления сервером Minecraft</title>
+<title>Extended Manager: ядро управления сервером Minecraft</title>
 <meta name="description" content="Extended Manager: регистрация и вход с Argon2id, наказания, чат и рассылка, мульти-миры, NPC, Discord-бот, перезапуск сервера и HTTP API. Один JAR для Paper, Purpur, Bukkit и Spigot 26.2 / 26.3.">
 <meta name="theme-color" content="#0a0c11">
-<meta property="og:title" content="Extended Manager — весь сервер под вашим контролем">
+<meta property="og:title" content="Extended Manager: весь сервер под вашим контролем">
 <meta property="og:description" content="Один JAR вместо десятка плагинов: вход, наказания, чат, миры, NPC, Discord, перезапуск и API для приложения управления.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234fa9ff'/%3E%3Cstop offset='1' stop-color='%237d5cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M13.69%2020.63L6%2020.63L6%2011.37L13.52%2011.37L13.52%2013.73L9.07%2013.73L9.07%2014.81L12.98%2014.81L12.98%2017.06L9.07%2017.06L9.07%2018.27L13.69%2018.27L13.69%2020.63M17.74%2020.63L14.9%2020.63L14.9%2011.37L17.46%2011.37L20.47%2016.3L23.41%2011.37L25.97%2011.37L26%2020.63L23.16%2020.63L23.13%2016.41L21.12%2019.79L19.75%2019.79L17.74%2016.56L17.74%2020.63' fill='%23fff'/%3E%3C/svg%3E">
@@ -30,14 +30,15 @@
     </svg>
     </span>
     <span class="preloader-name">Extended Manager</span>
-    <span class="preloader-bar"><i></i></span>
-    <span class="preloader-tip">ядро · модули · конфигурация</span>
+    <span class="preloader-version">v0.14.0</span>
+    <span class="preloader-bar"><i id="preloader-bar-fill"></i></span>
+    <span class="preloader-meta"><span class="preloader-tip" id="preloader-tip">ядро</span><span class="preloader-pct" id="preloader-pct">0%</span></span>
   </div>
 </div>
 
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="#top" aria-label="Extended Manager — на главную">
+    <a class="brand" href="#top" aria-label="Extended Manager, на главную">
       <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
         <defs>
           <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
@@ -85,12 +86,12 @@
           <span class="chat-card-title">чат сервера</span>
         </div>
         <div class="chat-lines">
-          <p style="--i:0"><span class="mc-prefix">ExtendedManager »</span> <span class="mc-gray">Игрок</span> <span class="mc-white">Steve</span> <span class="mc-gray">вошёл в сеть</span></p>
-          <p style="--i:1"><span class="mc-green">[EM]</span> <span class="mc-gray">Перезапуск сервера через</span> <span class="mc-white">5 мин 00 сек</span> <span class="mc-gray">· перезапуск по расписанию</span></p>
-          <p style="--i:2"><span class="mc-aqua">Steve</span> <span class="mc-gray">→</span> <span class="mc-yellow">[HUB]</span> <span class="mc-white">Добро пожаловать! Возьми набор: /trade</span></p>
-          <p style="--i:3"><span class="mc-prefix">ExtendedManager »</span> <span class="mc-gray">Пароль принят, вход выполнен</span></p>
-          <p style="--i:4"><span class="mc-yellow">[Warn]</span> <span class="mc-white">Steve</span> <span class="mc-gray">предупреждение 2 из 3 · автор</span> <span class="mc-white">Admin</span></p>
-          <p style="--i:5"><span class="mc-light-purple">[Admin]</span> <span class="mc-white">Console:</span> <span class="mc-gray">save-all</span></p>
+          <p style="--i:0"><span class="mc-green">→</span> <span class="mc-white">Steve</span> <span class="mc-gray">зашёл на сервер</span></p>
+          <p style="--i:1"><span class="mc-gold">★</span> <span class="mc-white">Alex</span> <span class="mc-yellow">впервые на сервере!</span></p>
+          <p style="--i:2"><span class="mc-blue">Console</span> <span class="mc-white">забанил</span> <span class="mc-red">Steve</span> <span class="mc-white">на</span> <span class="mc-lime">навсегда</span> <span class="mc-white">(</span><span class="mc-lime">использование читов</span><span class="mc-white">)</span></p>
+          <p style="--i:3"><span class="mc-red">⚠ Вам выдано предупреждение</span> <span class="mc-white">2</span><span class="mc-red">:</span> <span class="mc-gray">флуд в чате</span></p>
+          <p style="--i:4"><span class="mc-green">Готово! Конфигурация и хуки перезагружены за</span> <span class="mc-white">47</span> <span class="mc-green">мс.</span></p>
+          <p style="--i:5"><span class="mc-donate">Донат</span> <span class="mc-dark-gray">|</span> <span class="mc-white">Игрок</span> <span class="mc-red">Alex</span> <span class="mc-white">приобрёл привилегию</span> <span class="mc-lime">VIP</span><span class="mc-white">, на</span> <span class="mc-lime">30 дней</span><span class="mc-white">. Спасибо за покупку!</span></p>
         </div>
         <div class="chat-card-foot">
           <span class="tag">MiniMessage</span>
@@ -121,43 +122,70 @@
         <a class="link-more" href="docs.html">Открыть документацию</a>
       </div>
 
-      <div class="grid grid-3">
-        <article class="card reveal">
-          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
-          <h3>Вход и регистрация</h3>
-          <p>Пароли только в виде Argon2id-хешей и скрыты из логов. Лимбо с капчей на карте, кросс-серверные сессии для HUB и вход по адресу.</p>
-          <div class="snippet"><code>security/security_config.yml</code></div>
-        </article>
-        <article class="card reveal" style="--d:.08s">
-          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg></span>
-          <h3>Наказания</h3>
-          <p>Баны, мьюты, гаги и предупреждения со списками, областью действия и историей. Защита аккаунтов связывает адреса и банит за мультиаккаунт.</p>
-          <div class="snippet"><code>punishments.yml</code></div>
-        </article>
-        <article class="card reveal" style="--d:.16s">
-          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
-          <h3>Чат и рассылка</h3>
-          <p>Локальный и глобальный чат, анти-спам, форматы MiniMessage. У каждого сообщения рассылки свои заголовок, подвал и звук; в админ-чат пишет и консоль.</p>
-          <div class="snippet"><code>chat/chat_config.yml · broadcast.yml</code></div>
-        </article>
-        <article class="card reveal">
-          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></span>
-          <h3>Миры, спавны и /hub</h3>
-          <p>Мульти-миры с выбором типа, точки спавна и переходы между серверами сети. BungeeCord и Waterfall из коробки, для Velocity — свой адаптер.</p>
-          <div class="snippet"><code>worlds_config.yml · command_config.yml</code></div>
-        </article>
-        <article class="card reveal" style="--d:.08s">
-          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3z"/></svg></span>
-          <h3>Оформление и NPC</h3>
-          <p>Ники игроков, спрайты игры в любом тексте, разметка в наковальне, книге и на табличке, NPC с диалогами, MOTD с иконкой и серверные ссылки.</p>
-          <div class="snippet"><code>npc/npc_config.yml · text_config.yml</code></div>
-        </article>
-        <article class="card reveal" style="--d:.16s">
-          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg></span>
-          <h3>Перезапуск и API</h3>
-          <p>Остановка по расписанию, командой <code>/em restart</code> и из приложения: отсчёт с предупреждениями, кики и сохранение миров. HTTP API с потоками событий.</p>
-          <div class="snippet"><code>utils/restart_config.yml · config.yml</code></div>
-        </article>
+      <div class="carousel reveal" id="features-carousel">
+        <div class="carousel-track" id="features-track" tabindex="0" aria-label="Возможности плагина, листайте карточки">
+          <a class="feature-card" href="docs.html#doc-security">
+            <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+            <h3>Вход и регистрация</h3>
+            <p>Пароли только в виде Argon2id-хешей и скрыты из логов. Лимбо с капчей на карте, кросс-серверные сессии для HUB и вход по адресу.</p>
+            <span class="snippet"><code>security/security_config.yml</code></span>
+            <span class="feature-more">В документацию<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card" href="docs.html#doc-cmd-bans">
+            <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg></span>
+            <h3>Наказания</h3>
+            <p>Баны, мьюты, гаги и предупреждения со списками, областью действия и историей. Защита аккаунтов связывает адреса и банит за мультиаккаунт.</p>
+            <span class="snippet"><code>punishments.yml</code></span>
+            <span class="feature-more">В документацию<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card" href="docs.html#doc-chat">
+            <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+            <h3>Чат и рассылка</h3>
+            <p>Локальный и глобальный чат, анти-спам, форматы MiniMessage. У каждого сообщения рассылки свои заголовок, подвал и звук; в админ-чат пишет и консоль.</p>
+            <span class="snippet"><code>chat/chat_config.yml · broadcast.yml</code></span>
+            <span class="feature-more">В документацию<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card" href="docs.html#doc-worlds">
+            <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></span>
+            <h3>Миры, спавны и /hub</h3>
+            <p>Мульти-миры с выбором типа, точки спавна и переходы между серверами сети. BungeeCord и Waterfall из коробки, для Velocity есть свой адаптер.</p>
+            <span class="snippet"><code>worlds_config.yml · command_config.yml</code></span>
+            <span class="feature-more">В документацию<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card" href="docs.html#doc-npc">
+            <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3z"/></svg></span>
+            <h3>Оформление и NPC</h3>
+            <p>Ники игроков, спрайты игры в любом тексте, разметка в наковальне, книге и на табличке, NPC с диалогами, MOTD с иконкой и серверные ссылки.</p>
+            <span class="snippet"><code>npc/npc_config.yml · text_config.yml</code></span>
+            <span class="feature-more">В документацию<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card" href="docs.html#doc-restart">
+            <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg></span>
+            <h3>Перезапуск и API</h3>
+            <p>Остановка по расписанию, командой <code>/em restart</code> и из приложения: отсчёт с предупреждениями, кики и сохранение миров. HTTP API с потоками событий.</p>
+            <span class="snippet"><code>utils/restart_config.yml · config.yml</code></span>
+            <span class="feature-more">В документацию<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card" href="docs.html#doc-discord">
+            <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg></span>
+            <h3>Discord-бот</h3>
+            <p>Статус сервера, вход и выход игроков в канал, привязка аккаунтов и слеш-команды. Токен хранится в конфиге, бот включается одним ключом модуля.</p>
+            <span class="snippet"><code>discord/discord_config.yml</code></span>
+            <span class="feature-more">В документацию<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card" href="docs.html#doc-app">
+            <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/></svg></span>
+            <h3>Приложение управления</h3>
+            <p>Нативное приложение для Windows поверх HTTP API: живая консоль, игроки со скинами, аккаунты, инвентарь, чтение базы и аналитика всех серверов сети.</p>
+            <span class="snippet"><code>Extended Manager App</code></span>
+            <span class="feature-more">В документацию<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+          </a>
+        </div>
+        <div class="carousel-controls">
+          <button class="car-btn" id="car-prev" type="button" aria-label="Предыдущие карточки"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+          <div class="car-dots" id="car-dots" role="tablist" aria-label="Карточки"></div>
+          <button class="car-btn" id="car-next" type="button" aria-label="Следующие карточки"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+        </div>
       </div>
     </div>
   </section>
@@ -227,53 +255,6 @@
     </div>
   </section>
 
-  <section class="section" id="commands">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <h2><svg class="ico head-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>58 <span class="accent">команд</span></h2>
-          <p>У каждой своё право доступа, справка — <code>/em help</code>, состояние сборки — <code>/em info</code></p>
-        </div>
-      </div>
-
-      <div class="grid grid-2">
-        <article class="card reveal">
-          <h3>Игроки и действия</h3>
-          <ul class="chips">
-            <li>/nickname</li><li>/forcename</li><li>/scale</li><li>/speed</li><li>/fly</li>
-            <li>/god</li><li>/feed</li><li>/heal</li><li>/hp</li><li>/ignite</li><li>/cloak</li>
-            <li>/freeze</li><li>/vanish</li><li>/invsee</li><li>/endersee</li><li>/tpsend</li>
-            <li>/gamemode</li><li>/geolocate</li><li>/afk</li>
-          </ul>
-        </article>
-        <article class="card reveal" style="--d:.08s">
-          <h3>Наказания</h3>
-          <ul class="chips">
-            <li>/ban</li><li>/bansid</li><li>/unban</li><li>/banlist</li><li>/kick</li>
-            <li>/kickall</li><li>/mute</li><li>/unmute</li><li>/mutelist</li><li>/gag</li>
-            <li>/ungag</li><li>/gaglist</li><li>/warn</li><li>/unwarn</li><li>/warnlist</li>
-            <li>/whitelist</li>
-          </ul>
-        </article>
-        <article class="card reveal">
-          <h3>Мир и сеть</h3>
-          <ul class="chips">
-            <li>/world</li><li>/hub</li><li>/spawn</li><li>/setspawn</li><li>/respawn</li>
-            <li>/tp</li><li>/tphere</li><li>/trade</li>
-          </ul>
-        </article>
-        <article class="card reveal" style="--d:.08s">
-          <h3>Чат и служебные</h3>
-          <ul class="chips">
-            <li>/say</li><li>/broadcasts</li><li>/sprite</li><li>/npc</li><li>/setrank</li>
-            <li>/givedonate</li><li>/register</li><li>/login</li><li>/link</li>
-            <li>/em reload</li><li>/em modules</li><li>/em api key</li><li>/em restart</li><li>/em db</li>
-          </ul>
-        </article>
-      </div>
-    </div>
-  </section>
-
   <section class="section" id="app">
     <div class="container">
       <div class="card app-card reveal">
@@ -308,6 +289,33 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="community">
+    <div class="container">
+      <div class="discord-widget reveal" id="discord-widget">
+        <div class="discord-glow" aria-hidden="true"></div>
+        <div class="discord-main">
+          <span class="discord-avatar">
+            <img id="discord-icon" src="https://cdn.discordapp.com/icons/1567738200682668113/7ede47107504a44de4344b35b71c6245.png?size=128" alt="" width="72" height="72" loading="lazy" referrerpolicy="no-referrer">
+            <svg class="discord-avatar-fallback" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+          </span>
+          <div class="discord-info">
+            <p class="discord-eyebrow"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>Discord сообщества</p>
+            <h2 class="discord-name" id="discord-name">Sunrise Studios</h2>
+            <p class="discord-desc">Поддержка, анонсы релизов и обсуждение настроек. Заходите, задавайте вопросы и делитесь своими сборками серверов.</p>
+            <div class="discord-stats">
+              <span class="discord-stat"><i class="discord-dot" aria-hidden="true"></i><strong id="discord-online">2</strong>&nbsp;онлайн</span>
+              <span class="discord-stat"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><strong id="discord-members">9</strong>&nbsp;участников</span>
+            </div>
+          </div>
+        </div>
+        <a class="btn discord-btn" href="https://discord.gg/3KHgzWhAN9" target="_blank" rel="noopener noreferrer">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+          Присоединиться
+        </a>
       </div>
     </div>
   </section>

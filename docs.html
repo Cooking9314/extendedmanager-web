@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Документация — Extended Manager</title>
+<title>Документация Extended Manager</title>
 <meta name="description" content="Документация Extended Manager: ядро и модули, база данных, прокси и сеть, безопасность, чат, MOTD, NPC, Discord-бот, HTTP API, перезапуск, справочник всех команд с правами и примерами, миры, оформление текста, интеграции, приложение и вопросы. Ключи YAML, значения по умолчанию и примеры.">
 <meta name="theme-color" content="#0a0c11">
-<meta property="og:title" content="Документация Extended Manager — ключи конфигурации по модулям">
+<meta property="og:title" content="Документация Extended Manager: ключи конфигурации по модулям">
 <meta property="og:description" content="31 раздел: установка, ядро, база данных, прокси, безопасность, чат, MOTD, NPC, Discord, HTTP API, перезапуск, справочник команд, миры, текст, интеграции, приложение и FAQ. Поиск, оглавление и примеры YAML.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234fa9ff'/%3E%3Cstop offset='1' stop-color='%237d5cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M13.69%2020.63L6%2020.63L6%2011.37L13.52%2011.37L13.52%2013.73L9.07%2013.73L9.07%2014.81L12.98%2014.81L12.98%2017.06L9.07%2017.06L9.07%2018.27L13.69%2018.27L13.69%2020.63M17.74%2020.63L14.9%2020.63L14.9%2011.37L17.46%2011.37L20.47%2016.3L23.41%2011.37L25.97%2011.37L26%2020.63L23.16%2020.63L23.13%2016.41L21.12%2019.79L19.75%2019.79L17.74%2016.56L17.74%2020.63' fill='%23fff'/%3E%3C/svg%3E">
@@ -30,14 +30,15 @@
     </svg>
     </span>
     <span class="preloader-name">Extended Manager</span>
-    <span class="preloader-bar"><i></i></span>
-    <span class="preloader-tip">ядро · модули · конфигурация</span>
+    <span class="preloader-version">v0.14.0</span>
+    <span class="preloader-bar"><i id="preloader-bar-fill"></i></span>
+    <span class="preloader-meta"><span class="preloader-tip" id="preloader-tip">ядро</span><span class="preloader-pct" id="preloader-pct">0%</span></span>
   </div>
 </div>
 
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="index.html" aria-label="Extended Manager — на главную">
+    <a class="brand" href="index.html" aria-label="Extended Manager, на главную">
       <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
         <defs>
           <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
@@ -126,10 +127,10 @@
           <article class="doc is-active" id="doc-start" data-group="Конфигурация">
             <p class="doc-crumbs">Документация <span>/</span> Конфигурация</p>
             <h2>Обзор и быстрый старт</h2>
-            <p class="doc-lead">Extended Manager — ядро управления сервером: один JAR закрывает вход и регистрацию, наказания, чат, миры, NPC, Discord, перезапуск и HTTP API. Всё настраивается YAML-файлами в папке плагина.</p>
+            <p class="doc-lead">Extended Manager, ядро управления сервером: один JAR закрывает вход и регистрацию, наказания, чат, миры, NPC, Discord, перезапуск и HTTP API. Всё настраивается YAML-файлами в папке плагина.</p>
 
             <h3 id="start-modules">Что внутри</h3>
-            <p>Семь модулей, каждый со своей папкой настроек. По умолчанию все выключены — свежая установка создаёт только файлы ядра.</p>
+            <p>Семь модулей, каждый со своей папкой настроек. По умолчанию все выключены: свежая установка создаёт только файлы ядра.</p>
             <ul class="chips">
               <li>security</li><li>chat</li><li>motd</li><li>npc</li><li>discord</li><li>api</li><li>utils</li>
             </ul>
@@ -137,21 +138,22 @@
             <h3 id="start-install">Установка</h3>
             <ol class="steps">
               <li>Положите JAR плагина в папку <code>plugins/</code> сервера.</li>
-              <li>Перезапустите сервер — плагин создаст файлы конфигурации.</li>
+              <li>Перезапустите сервер: плагин создаст файлы конфигурации.</li>
               <li>Включите нужные модули в <code>config.yml → modules</code>.</li>
-              <li>Сохраните файл и выполните <code>/em reload</code> — папки и команды модуля появятся без перезапуска.</li>
+              <li>Сохраните файл и выполните <code>/em reload</code>: папки и команды модуля появятся без перезапуска.</li>
             </ol>
-            <div class="callout callout-warn">
+            <div class="callout callout-important">
               <p>Готовые JAR и доступ к репозиторию распространяются по приглашению автора: сайт описывает плагин, но не раздаёт сборки.</p>
             </div>
 
+            <div class="callout callout-info"><p>Справка по всем командам: <code>/em help</code>, состояние сборки и модулей: <code>/em info</code>.</p></div>
             <h3 id="start-req">Требования</h3>
             <table class="req">
               <tbody>
-                <tr><th>Сервер</th><td>Bukkit, Spigot, Paper или Purpur 26.3; для 26.2 — отдельная сборка того же 0.14.0</td></tr>
+                <tr><th>Сервер</th><td>Bukkit, Spigot, Paper или Purpur 26.3; для 26.2 есть отдельная сборка того же 0.14.0</td></tr>
                 <tr><th>Java</th><td>25 или новее на сервере</td></tr>
                 <tr><th>Прокси</th><td>BungeeCord, Waterfall или Velocity с адаптером ExtendedManager</td></tr>
-                <tr><th>База</th><td>SQLite без настройки; MySQL, MariaDB или PostgreSQL — для сети серверов</td></tr>
+                <tr><th>База</th><td>SQLite без настройки; MySQL, MariaDB или PostgreSQL: для сети серверов</td></tr>
               </tbody>
             </table>
             <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>modules:
@@ -167,7 +169,7 @@
           <article class="doc" id="doc-core" data-group="Конфигурация">
             <p class="doc-crumbs">Документация <span>/</span> Конфигурация</p>
             <h2>Ядро и модули</h2>
-            <p class="doc-lead">Файл <code>config.yml</code> — центральный: модули, префикс, интеграции, рассылка, AFK, привилегии, геолокация, прокси, сеть, API и база данных.</p>
+            <p class="doc-lead">Файл <code>config.yml</code> главный: модули, префикс, интеграции, рассылка, AFK, привилегии, геолокация, прокси, сеть, API и база данных.</p>
 
             <h3 id="core-modules">Модули</h3>
             <p>Ключ <code>modules</code> решает, какие папки и файлы создаются и какие команды работают. Выключенный модуль отвечает сообщением <code>module-disabled</code>, его файлы не читаются и не удаляются.</p>
@@ -183,7 +185,7 @@
             <h3 id="core-keys">Основные секции</h3>
             <table class="req req-wide">
               <tbody>
-                <tr><th><code>prefix</code></th><td>Префикс сообщений ядра в MiniMessage; пустая строка — без префикса</td></tr>
+                <tr><th><code>prefix</code></th><td>Префикс сообщений ядра в MiniMessage; пустая строка отключает префикс</td></tr>
                 <tr><th><code>hooks</code></th><td>Интеграции: PlaceholderAPI, LuckPerms, Voice Chat, SkinsRestorer, TAB, WorldGuard</td></tr>
                 <tr><th><code>broadcast</code></th><td>Свой формат серверной рассылки <code>/say</code> и имя автора для консоли</td></tr>
                 <tr><th><code>afk</code></th><td>Простой игроков: секунды, сообщения, значок для TAB и «бонусы»</td></tr>
@@ -200,7 +202,7 @@
           <article class="doc" id="doc-database" data-group="Конфигурация">
             <p class="doc-crumbs">Документация <span>/</span> Конфигурация</p>
             <h2>База данных</h2>
-            <p class="doc-lead">Секция <code>database</code> файла <code>config.yml</code>. По умолчанию SQLite — файл в папке плагина, ничего настраивать не нужно.</p>
+            <p class="doc-lead">Секция <code>database</code> файла <code>config.yml</code>. По умолчанию SQLite: файл в папке плагина, ничего настраивать не нужно.</p>
 
             <h3 id="db-types">Типы баз</h3>
             <table class="req req-wide">
@@ -223,9 +225,10 @@
     username: root
     password: ""
     use-ssl: false</code></pre></div>
-            <div class="callout callout-info">
-              <p>База и пользователь должны существовать заранее — плагин создаёт только свои таблицы с префиксом <code>em_</code>. Общая база нужна для кросс-серверных сессий (<code>network.shared-database</code>).</p>
+            <div class="callout callout-note">
+              <p>База и пользователь должны существовать заранее: плагин создаёт только свои таблицы с префиксом <code>em_</code>. Общая база нужна для кросс-серверных сессий (<code>network.shared-database</code>).</p>
             </div>
+            <div class="callout callout-warn"><p>Перед импортом дампа плагин создаёт резервную копию текущей базы в папке <code>database/</code>; при ошибке импорт останавливается.</p></div>
           </article>
 
           <article class="doc" id="doc-proxy" data-group="Интеграции">
@@ -234,7 +237,7 @@
             <p class="doc-lead">Секции <code>proxy</code> и <code>network</code>: кто стоит перед сервером и как серверы рассказывают друг другу, кто авторизован.</p>
 
             <h3 id="proxy-type">Тип прокси</h3>
-            <p><code>none</code> — одиночный сервер; <code>bungeecord</code> — BungeeCord и Waterfall; <code>velocity</code> — Velocity, которому нужен адаптер ExtendedManager из папки <code>velocity</code> сборки.</p>
+            <p><code>none</code>: одиночный сервер; <code>bungeecord</code>: BungeeCord и Waterfall; <code>velocity</code>: Velocity, которому нужен адаптер ExtendedManager из папки <code>velocity</code> сборки.</p>
             <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>proxy:
   type: velocity
   channel: ""
@@ -243,8 +246,8 @@
             <h3 id="proxy-network">Присутствие и сессии</h3>
             <table class="req req-wide">
               <tbody>
-                <tr><th><code>server-id</code></th><td>Уникальный id сервера в сети; пусто — имя из server.properties</td></tr>
-                <tr><th><code>heartbeat-seconds</code></th><td>Как часто рассылается присутствие игроков (0 — выключено)</td></tr>
+                <tr><th><code>server-id</code></th><td>Уникальный id сервера в сети; пусто берёт имя из server.properties</td></tr>
+                <tr><th><code>heartbeat-seconds</code></th><td>Как часто рассылается присутствие игроков (0 выключает)</td></tr>
                 <tr><th><code>forwarding</code></th><td>Рассылать присутствие через канал прокси</td></tr>
                 <tr><th><code>shared-database</code></th><td>Продлевать сессии в общей базе <code>auth_sessions</code></td></tr>
               </tbody>
@@ -257,7 +260,7 @@
           <article class="doc" id="doc-security" data-group="Модули">
             <p class="doc-crumbs">Документация <span>/</span> Модули</p>
             <h2>Безопасность</h2>
-            <p class="doc-lead">Модуль <code>security</code>: регистрация и вход, таймер, сессии, капча и лимбо. Файл — <code>security/security_config.yml</code>.</p>
+            <p class="doc-lead">Модуль <code>security</code>: регистрация и вход, таймер, сессии, капча и лимбо. Файл: <code>security/security_config.yml</code>.</p>
 
             <h3 id="sec-auth">Вход и пароли</h3>
             <p>Пока игрок не вошёл, он не двигается, не пишет в чат и не использует команды. Пароли хранятся только как Argon2id-хеши.</p>
@@ -269,8 +272,9 @@
   max-length: 32
   max-attempts: 3</code></pre></div>
 
+            <div class="callout callout-important"><p>Лимбо, капча и таймер входа работают только при включённом модуле <code>security</code>.</p></div>
             <h3 id="sec-limbo">Лимбо и капча</h3>
-            <p>Неавторизованный игрок ждёт в тёмном пустом мире <code>em_limbo</code>, а после <code>/register</code> вводит код с карты — как в LimboAuth. После входа возвращается в свой мир и режим игры.</p>
+            <p>Неавторизованный игрок ждёт в тёмном пустом мире <code>em_limbo</code>, а после <code>/register</code> вводит код с карты, как в LimboAuth. После входа возвращается в свой мир и режим игры.</p>
             <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>captcha:
   enabled: true
   mode: map
@@ -284,13 +288,13 @@ limbo:
             <h3 id="sec-sessions">Сессии и таймер</h3>
             <table class="req req-wide">
               <tbody>
-                <tr><th><code>sessions.duration-minutes</code></th><td>Сколько минут вход с того же IP идёт без <code>/login</code> (0 — выключено)</td></tr>
+                <tr><th><code>sessions.duration-minutes</code></th><td>Сколько минут вход с того же IP идёт без <code>/login</code> (0 выключает)</td></tr>
                 <tr><th><code>sessions.cross-server</code></th><td>Сессия открывает вход на все серверы сети через канал прокси или общую базу</td></tr>
-                <tr><th><code>timer.seconds</code></th><td>Секунд на регистрацию или вход, дальше кик (0 — таймер выключен)</td></tr>
+                <tr><th><code>timer.seconds</code></th><td>Секунд на регистрацию или вход, дальше кик (0 отключает таймер)</td></tr>
                 <tr><th><code>timer.type</code></th><td>Где показывать отсчёт: <code>bossbar</code> или <code>actionbar</code></td></tr>
               </tbody>
             </table>
-            <div class="callout callout-info">
+            <div class="callout callout-note">
               <p>Старые хеши PBKDF2 продолжают работать: при удачном входе пароль молча перезаписывается на Argon2id, сброса паролей не происходит.</p>
             </div>
           </article>
@@ -298,7 +302,7 @@ limbo:
           <article class="doc" id="doc-chat" data-group="Сообщения">
             <p class="doc-crumbs">Документация <span>/</span> Сообщения</p>
             <h2>Чат и рассылка</h2>
-            <p class="doc-lead">Модуль <code>chat</code>: форматы чатов, анти-спам, рассылка по расписанию и админ-чат. Файлы — <code>chat/chat_config.yml</code>, <code>chat/broadcast.yml</code>, <code>chat/adminchat_config.yml</code>.</p>
+            <p class="doc-lead">Модуль <code>chat</code>: форматы чатов, анти-спам, рассылка по расписанию и админ-чат. Файлы: <code>chat/chat_config.yml</code>, <code>chat/broadcast.yml</code>, <code>chat/adminchat_config.yml</code>.</p>
 
             <h3 id="chat-format">Форматы</h3>
             <p>Локальный и глобальный чат со своими форматами и радиусом; разметка MiniMessage и старые коды <code>&amp;</code>.</p>
@@ -306,11 +310,12 @@ limbo:
 allow-player-formatting: auto
 format: "&lt;gray&gt;%em_displayname%&lt;/gray&gt; &lt;dark_gray&gt;»&lt;/dark_gray&gt; &lt;white&gt;%em_message%&lt;/white&gt;"</code></pre></div>
 
+            <div class="callout callout-info"><p>Рассылка управляется командой <code>/broadcasts</code>, её виды лежат в <code>chat/broadcast.yml</code>.</p></div>
             <h3 id="chat-spam">Анти-спам</h3>
             <p>Секции <code>anti-spam</code>, <code>anti-caps</code> и <code>links</code>: пауза между сообщениями, доля капса и поведение ссылок в чате настраиваются отдельно.</p>
 
             <h3 id="chat-broadcast">Рассылка</h3>
-            <p>Общие ключи рассылки и список видов; у каждого вида свои <code>header</code>, <code>footer</code>, <code>sound</code>, <code>volume</code> и <code>pitch</code> — вид без них выходит без рамок и звука.</p>
+            <p>Общие ключи рассылки и список видов; у каждого вида свои <code>header</code>, <code>footer</code>, <code>sound</code>, <code>volume</code> и <code>pitch</code>: вид без них выходит без рамок и звука.</p>
             <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>enabled: true
 interval: 300
 order: sequence
@@ -319,35 +324,35 @@ min-players: 1
 console: true</code></pre></div>
 
             <h3 id="chat-admin">Админ-чат</h3>
-            <p>Сообщение с префиксом <code>@</code> уходит держателям права просмотра админ-чата. Консоль тоже пишет туда: <code>/say @текст</code> — автором строки становится <code>broadcast.console-name</code>.</p>
+            <p>Сообщение с префиксом <code>@</code> уходит держателям права просмотра админ-чата. Консоль тоже пишет туда: <code>/say @текст</code>: автором строки становится <code>broadcast.console-name</code>.</p>
           </article>
 
           <article class="doc" id="doc-motd" data-group="Сообщения">
             <p class="doc-crumbs">Документация <span>/</span> Сообщения</p>
             <h2>MOTD и иконка</h2>
-            <p class="doc-lead">Модуль <code>motd</code>: своё описание в списке серверов и иконка. Файл — <code>motd/motd_config.yml</code>.</p>
+            <p class="doc-lead">Модуль <code>motd</code>: своё описание в списке серверов и иконка. Файл: <code>motd/motd_config.yml</code>.</p>
 
             <h3 id="motd-lines">Строки</h3>
             <p>Две строки в MiniMessage с плейсхолдерами онлайна, TPS и версии.</p>
             <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>enabled: true
 lines:
-  - "&lt;gradient:#4fa9ff:#7d5cff&gt;&lt;bold&gt;ExtendedManager&lt;/bold&gt;&lt;/gradient&gt; &lt;gray&gt;— ядро вашего сервера&lt;/gray&gt;"
+  - "&lt;gradient:#4fa9ff:#7d5cff&gt;&lt;bold&gt;ExtendedManager&lt;/bold&gt;&lt;/gradient&gt; &lt;gray&gt;· ядро вашего сервера&lt;/gray&gt;"
   - "&lt;gray&gt;Онлайн: &lt;white&gt;%em_online%&lt;/white&gt;/&lt;white&gt;%em_max%&lt;/white&gt; &lt;dark_gray&gt;•&lt;/dark_gray&gt; TPS: %em_tps% &lt;dark_gray&gt;•&lt;/dark_gray&gt; &lt;white&gt;%em_version%&lt;/white&gt;&lt;/gray&gt;"</code></pre></div>
 
             <h3 id="motd-icon">Иконка</h3>
-            <p>PNG 64×64; путь указывается относительно папки <code>motd</code>. Иконка работает и при <code>enabled: false</code> — её можно показывать без своего текста.</p>
+            <p>PNG 64×64; путь указывается относительно папки <code>motd</code>. Иконка работает и при <code>enabled: false</code>: её можно показывать без своего текста.</p>
             <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>icon:
   enabled: true
   file: "server_icon.png"</code></pre></div>
-            <div class="callout callout-info">
-              <p>На прокси Velocity своё описание и иконку отдаёт адаптер: секция <code>motd</code> его <code>config.yml</code> повторяет эти ключи, а плейсхолдеры там — <code>{online}</code>, <code>{max}</code>, <code>{servers}</code>.</p>
+            <div class="callout callout-note">
+              <p>На прокси Velocity своё описание и иконку отдаёт адаптер: секция <code>motd</code> его <code>config.yml</code> повторяет эти ключи, а плейсхолдеры там: <code>{online}</code>, <code>{max}</code>, <code>{servers}</code>.</p>
             </div>
           </article>
 
           <article class="doc" id="doc-npc" data-group="Модули">
             <p class="doc-crumbs">Документация <span>/</span> Модули</p>
             <h2>NPC</h2>
-            <p class="doc-lead">Модуль <code>npc</code>: жители с именем, скином, позой и диалогами. Файлы — <code>npc/npc_config.yml</code> и файлы отдельных NPC.</p>
+            <p class="doc-lead">Модуль <code>npc</code>: жители с именем, скином, позой и диалогами. Файлы: <code>npc/npc_config.yml</code> и файлы отдельных NPC.</p>
 
             <h3 id="npc-create">Создание</h3>
             <p><code>/npc create &lt;id&gt; &lt;имя&gt;</code> вписывает NPC в реестр <code>npcs</code>; запись без файла создаёт файл-образец после <code>/npc reload</code>. По умолчанию реестр пуст.</p>
@@ -356,15 +361,16 @@ lines:
             <table class="req req-wide">
               <tbody>
                 <tr><th><code>defaults.skin</code></th><td>Ник игрока для скина, если у NPC не задан свой</td></tr>
-                <tr><th><code>defaults.entity</code></th><td>Тело моба игры (VILLAGER, HORSE, CAT…); пусто — манекен на Paper</td></tr>
+                <tr><th><code>defaults.entity</code></th><td>Тело моба игры (VILLAGER, HORSE, CAT…); пусто даёт манекен на Paper</td></tr>
                 <tr><th><code>defaults.glow</code></th><td>Подсветка световым контуром</td></tr>
                 <tr><th><code>defaults.look-at-player</code></th><td>Следить ли за ближайшими игроками</td></tr>
                 <tr><th><code>defaults.hologram-enabled</code></th><td>Голограмма над NPC</td></tr>
                 <tr><th><code>defaults.cooldown</code></th><td>Пауза между кликами одного игрока, секунды</td></tr>
-                <tr><th><code>defaults.permission</code></th><td>Право на взаимодействие; пусто — может любой</td></tr>
+                <tr><th><code>defaults.permission</code></th><td>Право на взаимодействие; пусто разрешает всем</td></tr>
               </tbody>
             </table>
 
+            <div class="callout callout-info"><p>Команды NPC доступны при включённом модуле <code>npc</code>.</p></div>
             <h3 id="npc-skins">Скины</h3>
             <p>Скин грузится асинхронно: сначала через SkinsRestorer, иначе напрямую с серверов Mojang. Секция <code>skin-cache</code> задаёт таймаут запроса, паузу повтора и число попыток.</p>
           </article>
@@ -372,18 +378,18 @@ lines:
           <article class="doc" id="doc-discord" data-group="Модули">
             <p class="doc-crumbs">Документация <span>/</span> Модули</p>
             <h2>Discord-бот</h2>
-            <p class="doc-lead">Модуль <code>discord</code>: статус сервера, события игроков в канал, привязка аккаунтов и слеш-команды. Файл — <code>discord/discord_config.yml</code>.</p>
+            <p class="doc-lead">Модуль <code>discord</code>: статус сервера, события игроков в канал, привязка аккаунтов и слеш-команды. Файл: <code>discord/discord_config.yml</code>.</p>
 
             <h3 id="discord-start">Запуск</h3>
             <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>enabled: true
 token: ""
 guild-id: ""</code></pre></div>
-            <p>Токен создаётся в портале разработчиков Discord, <code>guild-id</code> — id вашего сервера Discord. Без них модуль не подключается.</p>
+            <p>Токен создаётся в портале разработчиков Discord, <code>guild-id</code> задаёт id вашего сервера Discord. Без них модуль не подключается.</p>
 
             <h3 id="discord-link">Привязка и защита</h3>
-            <p>Секция <code>link</code> описывает привязку игрового аккаунта к Discord, <code>two-factor</code> — подтверждение входа; аккаунты с подтверждением не пропускаются кросс-серверными сессиями. Секции <code>activity</code> и <code>admin</code> задают статус бота и тех, кто вправе им управлять.</p>
-            <div class="callout callout-warn">
-              <p>Токен бота — секрет: не публикуйте файл конфигурации с заполненным <code>token</code> и не передавайте его третьим лицам.</p>
+            <p>Секция <code>link</code> описывает привязку игрового аккаунта к Discord, <code>two-factor</code>: подтверждение входа; аккаунты с подтверждением не пропускаются кросс-серверными сессиями. Секции <code>activity</code> и <code>admin</code> задают статус бота и тех, кто вправе им управлять.</p>
+            <div class="callout callout-danger">
+              <p>Токен бота является секретом: не публикуйте файл конфигурации с заполненным <code>token</code> и не передавайте его третьим лицам.</p>
             </div>
           </article>
 
@@ -399,8 +405,8 @@ guild-id: ""</code></pre></div>
   port: 25590</code></pre></div>
 
             <h3 id="api-key">Ключ доступа</h3>
-            <p>Ключ генерируется один раз при первом запуске модуля — 48 символов, 288 бит энтропии — и хранится в таблице <code>&lt;префикс&gt;meta</code>, поэтому переживает рестарты и перенос конфига. Показать его может только <code>/em api key</code>; в файлы и журнал ключ не попадает. Запросы сверяются по SHA3-512.</p>
-            <div class="callout callout-warn">
+            <p>Ключ генерируется один раз при первом запуске модуля: 48 символов, 288 бит энтропии. Ключ хранится в таблице <code>&lt;префикс&gt;meta</code>, поэтому переживает рестарты и перенос конфига. Показать его может только <code>/em api key</code>; в файлы и журнал ключ не попадает. Запросы сверяются по SHA3-512.</p>
+            <div class="callout callout-danger">
               <p>HTTP не шифруется: подключайтесь через localhost, VPN или SSH-туннель. Маршруты <code>/api/v1/*</code> требуют заголовок <code>Authorization: Bearer &lt;ключ&gt;</code>.</p>
             </div>
 
@@ -419,7 +425,7 @@ guild-id: ""</code></pre></div>
           <article class="doc" id="doc-restart" data-group="Модули">
             <p class="doc-crumbs">Документация <span>/</span> Модули</p>
             <h2>Перезапуск сервера</h2>
-            <p class="doc-lead">Модуль <code>utils</code>: остановка по расписанию, командой и из приложения — с предупреждениями, киками и сохранением миров. Файл — <code>utils/restart_config.yml</code>.</p>
+            <p class="doc-lead">Модуль <code>utils</code>: остановка по расписанию, командой и из приложения: с предупреждениями, киками и сохранением миров. Файл: <code>utils/restart_config.yml</code>.</p>
 
             <h3 id="restart-schedule">Расписание</h3>
             <p>Интервал в минутах и конкретные моменты вида <code>04:30</code>. Моменты, прошедшие до включения модуля, не догоняются пачкой.</p>
@@ -429,7 +435,7 @@ guild-id: ""</code></pre></div>
     - "04:30"</code></pre></div>
 
             <h3 id="restart-warning">Предупреждения</h3>
-            <p><code>warning.before-seconds</code> — пороги отсчёта (часы, минуты и последние секунды), <code>warning.actionbar-seconds</code> — сколько секунд остаток держится над хотбаром. Предупреждение уходит и в чат, и в консоль.</p>
+            <p><code>warning.before-seconds</code>: пороги отсчёта (часы, минуты и последние секунды), <code>warning.actionbar-seconds</code>: сколько секунд остаток держится над хотбаром. Предупреждение уходит и в чат, и в консоль.</p>
 
             <h3 id="restart-stop">Остановка</h3>
             <table class="req req-wide">
@@ -437,11 +443,12 @@ guild-id: ""</code></pre></div>
                 <tr><th><code>before.console-commands</code></th><td>Команды консоли перед остановкой</td></tr>
                 <tr><th><code>before.kick-players</code></th><td>Кикнуть игроков с причиной из <code>messages</code></td></tr>
                 <tr><th><code>before.save-worlds</code></th><td>Сохранить игроков и каждый мир по отдельности</td></tr>
-                <tr><th><code>stop.method</code></th><td><code>shutdown</code> — штатная остановка, <code>stop</code> — команда stop, <code>exit</code> — закрыть JVM</td></tr>
+                <tr><th><code>stop.method</code></th><td><code>shutdown</code>: штатная остановка, <code>stop</code>: команда stop, <code>exit</code>: закрыть JVM</td></tr>
                 <tr><th><code>stop.grace-seconds</code></th><td>Страховочный таймер, если штатная остановка не началась</td></tr>
               </tbody>
             </table>
 
+            <div class="callout callout-info"><p>Статус отсчёта показывает <code>/em restart status</code>, отмена запланированного перезапуска: <code>/em restart cancel</code>.</p></div>
             <h3 id="restart-run">Запуск отсчёта</h3>
             <p>Три способа: планировщик по расписанию, команда <code>/em restart &lt;минуты|cancel|status&gt;</code> и API <code>POST /api/v1/server/restart</code>. Снятый вручную отсчёт повторно не всплывает.</p>
           </article>
@@ -509,7 +516,7 @@ guild-id: ""</code></pre></div>
 <tr><th>Право</th><td><code>extendedmanager.command.api</code> · по умолчанию у операторов</td></tr>
 </tbody></table>
 <div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/em api key</code></pre></div>
-<div class="callout callout-warn"><p>Ключ видит только отправитель команды. Не публикуйте его: это полный доступ к API сервера.</p></div>
+<div class="callout callout-danger"><p>Ключ видит только отправитель команды. Не публикуйте его: это полный доступ к API сервера.</p></div>
 <h3 id="em-restart">/em restart</h3>
 <p>Запуск, отмена и статус отсчёта перезапуска сервера (модуль <code>utils</code>). Предупреждения, кики и сохранение миров настраиваются в <code>utils/restart_config.yml</code>.</p>
 <table class="req req-wide"><tbody>
@@ -543,6 +550,7 @@ guild-id: ""</code></pre></div>
             <p class="doc-crumbs">Документация <span>/</span> Команды</p>
             <h2>Вход и привязка</h2>
             <p class="doc-lead">Регистрация, вход и привязка аккаунта к Discord. Работают при включённом модуле <code>security</code>; пароли хранятся только как Argon2id-хеши.</p>
+<div class="callout callout-note"><p>Регистрация и вход работают при включённом модуле <code>security</code>.</p></div>
 <h3 id="cmd-register">/register</h3>
 <p>Регистрация на сервере: пароль вводится дважды. После регистрации игрок проходит капчу на карте и возвращается в свой мир.</p>
 <table class="req req-wide"><tbody>
@@ -574,6 +582,7 @@ guild-id: ""</code></pre></div>
             <p class="doc-crumbs">Документация <span>/</span> Команды</p>
             <h2>Баны</h2>
             <p class="doc-lead">Баны хранятся в базе и настраиваются в <code>punishments.yml</code>: область действия <code>scope</code> (local или global) решает, где наказание видно. Целью может быть ник или идентификатор аккаунта вида <code>U:A12345</code>.</p>
+<div class="callout callout-note"><p>Область действия <code>scope</code> решает, где видно наказание: <code>local</code> только этот сервер или <code>global</code> вся сеть.</p></div>
 <h3 id="cmd-ban">/ban</h3>
 <p>Бан игрока на срок или навсегда, с причиной. Срок понимается в форматах <code>30m</code>, <code>12h</code>, <code>7d</code>, <code>12h30m</code>, <code>навсегда</code> или <code>forever</code>.</p>
 <table class="req req-wide"><tbody>
@@ -612,6 +621,7 @@ guild-id: ""</code></pre></div>
             <p class="doc-crumbs">Документация <span>/</span> Команды</p>
             <h2>Мьюты и гаги</h2>
             <p class="doc-lead">Мьют блокирует текстовый чат, гаг блокирует голосовой чат (Simple Voice Chat). Сроки и причины как у банов; списки показывают действующие наказания.</p>
+<div class="callout callout-info"><p>Гаг требует интеграции <code>voicechat</code> (Simple Voice Chat).</p></div>
 <h3 id="cmd-mute">/mute</h3>
 <p>Мьют текстового чата на срок или навсегда.</p>
 <table class="req req-wide"><tbody>
@@ -661,6 +671,7 @@ guild-id: ""</code></pre></div>
             <p class="doc-crumbs">Документация <span>/</span> Команды</p>
             <h2>Предупреждения</h2>
             <p class="doc-lead">Предупреждения копятся в базе; на лимите из <code>punishments.yml</code> сервер сам выдаёт наказание и обнуляет счёт. Секция <code>warn</code> задаёт лимит, срок жизни и действие.</p>
+<div class="callout callout-warn"><p>На лимите предупреждений наказание выдаётся автоматически, а счёт предупреждений обнуляется.</p></div>
 <h3 id="cmd-warn">/warn</h3>
 <p>Выдаёт предупреждение. При достижении <code>warn.limit</code> выполняется <code>warn.action</code>: none, mute, gag или ban со сроком <code>warn.duration</code>.</p>
 <table class="req req-wide"><tbody>
@@ -699,6 +710,7 @@ guild-id: ""</code></pre></div>
             <p class="doc-crumbs">Документация <span>/</span> Команды</p>
             <h2>Кики и whitelist</h2>
             <p class="doc-lead">Мгновенные действия: кик не хранится в базе и не зависит от scope. Белый список плагина заменяет ванильную команду whitelist.</p>
+<div class="callout callout-note"><p>Кик не хранится в базе и не зависит от области действия <code>scope</code>.</p></div>
 <h3 id="cmd-kick">/kick</h3>
 <p>Выгоняет игрока с сервера с причиной.</p>
 <table class="req req-wide"><tbody>
@@ -734,6 +746,7 @@ guild-id: ""</code></pre></div>
             <p class="doc-crumbs">Документация <span>/</span> Команды</p>
             <h2>Здоровье и эффекты</h2>
             <p class="doc-lead">Управление состоянием игрока: бессмертие, полёт, голод, здоровье, огонь и урон. Селекторы <code>@a</code>, <code>@p</code>, <code>@r</code>, <code>@s</code> требуют право <code>extendedmanager.command.selector</code>, применение к другому игроку требует вариант <code>.others</code>.</p>
+<div class="callout callout-warn"><p>Огонь от <code>/ignite</code> не гаснет водой: потушить игрока можно только командой <code>/unignite</code>.</p></div>
 <h3 id="cmd-god">/god</h3>
 <p>Переключает режим бессмертия себе или другому игроку.</p>
 <table class="req req-wide"><tbody>
@@ -815,6 +828,7 @@ guild-id: ""</code></pre></div>
             <p class="doc-crumbs">Документация <span>/</span> Команды</p>
             <h2>Невидимость и заморозка</h2>
             <p class="doc-lead">Скрытие игроков и полный контроль над перемещением: cloak прячет от остальных без vanish, vanish даёт полную невидимость, freeze останавливает игрока.</p>
+<div class="callout callout-info"><p>Режим vanish скрывает игрока из TAB и из подсказок команд.</p></div>
 <h3 id="cmd-cloak">/cloak</h3>
 <p>Скрывает игрока от остальных, не включая полноценный vanish.</p>
 <table class="req req-wide"><tbody>
@@ -856,6 +870,7 @@ guild-id: ""</code></pre></div>
             <p class="doc-crumbs">Документация <span>/</span> Команды</p>
             <h2>Телепорты и спавны</h2>
             <p class="doc-lead">Перемещение игроков и работа с точками спавна, включая переход на hub-сервер сети.</p>
+<div class="callout callout-note"><p>Переход <code>/hub</code> требует настроенного <code>hub.server</code> в <code>command_config.yml</code>.</p></div>
 <h3 id="cmd-tp">/tp</h3>
 <p>Телепортирует отправителя к игроку.</p>
 <table class="req req-wide"><tbody>
@@ -990,6 +1005,7 @@ guild-id: ""</code></pre></div>
             <p class="doc-crumbs">Документация <span>/</span> Команды</p>
             <h2>Осмотр и обмен</h2>
             <p class="doc-lead">Инвентари и эндер-сундуки игроков, геолокация по адресу и безопасный обмен предметами.</p>
+<div class="callout callout-warn"><p>Обмен возможен только между игроками в сети и не дальше <code>trade.distance-blocks</code>.</p></div>
 <h3 id="cmd-invsee">/invsee</h3>
 <p>Открывает инвентарь игрока; для офлайн-игрока показывает сохранённый снимок.</p>
 <table class="req req-wide"><tbody>
@@ -1033,6 +1049,7 @@ guild-id: ""</code></pre></div>
             <p class="doc-crumbs">Документация <span>/</span> Команды</p>
             <h2>Режимы и внешность</h2>
             <p class="doc-lead">Режим игры, скорость, размер, видимое имя и статус AFK. Ники поддерживают MiniMessage, спрайты и старые коды &amp;.</p>
+<div class="callout callout-info"><p>Ники поддерживают MiniMessage, спрайты игры и старые цветовые коды <code>&amp;</code>.</p></div>
 <h3 id="cmd-gamemode">/gamemode</h3>
 <p>Смена режима игры: survival, creative, adventure, spectator (или 0-3).</p>
 <table class="req req-wide"><tbody>
@@ -1088,6 +1105,7 @@ guild-id: ""</code></pre></div>
             <p class="doc-crumbs">Документация <span>/</span> Команды</p>
             <h2>Чат и рассылки</h2>
             <p class="doc-lead">Рассылка от сервера в своём оформлении и управление видами рассылки из <code>chat/broadcast.yml</code>.</p>
+<div class="callout callout-note"><p>Сообщение <code>/say</code> с префиксом <code>@</code> уходит в админ-чат.</p></div>
 <h3 id="cmd-say">/say</h3>
 <p>Рассылка от сервера в оформлении секции <code>broadcast</code>. Сообщение с префиксом @ уходит в админ-чат; из консоли автором становится <code>broadcast.console-name</code>.</p>
 <table class="req req-wide"><tbody>
@@ -1113,6 +1131,7 @@ guild-id: ""</code></pre></div>
             <p class="doc-crumbs">Документация <span>/</span> Команды</p>
             <h2>Привилегии</h2>
             <p class="doc-lead">Выдача привилегий через LuckPerms: режим api назначает группу напрямую, режим command выполняет консольную команду из шаблона <code>ranks.command</code>.</p>
+<div class="callout callout-warn"><p>Без установленного LuckPerms команды привилегий не работают.</p></div>
 <h3 id="cmd-setrank">/setrank</h3>
 <p>Устанавливает игроку привилегию на срок или навсегда.</p>
 <table class="req req-wide"><tbody>
@@ -1135,6 +1154,7 @@ guild-id: ""</code></pre></div>
             <p class="doc-crumbs">Документация <span>/</span> Команды</p>
             <h2>NPC и спрайты</h2>
             <p class="doc-lead">Управление NPC модуля <code>npc</code> и каталог атласов спрайтов игры для разметки текстов.</p>
+<div class="callout callout-info"><p>Спрайт в тексте виден на клиенте 1.19.3 и новее.</p></div>
 <h3 id="npc-list">/npc list</h3>
 <p>Список NPC реестра и их состояние.</p>
 <table class="req req-wide"><tbody>
@@ -1204,10 +1224,10 @@ guild-id: ""</code></pre></div>
 <article class="doc" id="doc-worlds" data-group="Конфигурация">
             <p class="doc-crumbs">Документация <span>/</span> Конфигурация</p>
             <h2>Миры и спавны</h2>
-            <p class="doc-lead">Мульти-миры настраиваются в <code>worlds_config.yml</code>, переходы и спавн — командами <code>/world</code>, <code>/spawn</code>, <code>/setspawn</code>, <code>/respawn</code> и <code>/hub</code>.</p>
+            <p class="doc-lead">Мульти-миры настраиваются в <code>worlds_config.yml</code>, переходы и спавн: командами <code>/world</code>, <code>/spawn</code>, <code>/setspawn</code>, <code>/respawn</code> и <code>/hub</code>.</p>
 
             <h3 id="world-commands">Команда /world</h3>
-            <p>Подкоманды: <code>list</code>, <code>types</code>, <code>info</code>, <code>create</code>, <code>load</code>, <code>unload</code>, <code>delete</code>, <code>tp</code>, <code>setspawn</code>. Право <code>extendedmanager.command.world</code> — список и перемещение себе, <code>.manage</code> — создание и удаление, <code>.teleport</code> — перенос других игроков.</p>
+            <p>Подкоманды: <code>list</code>, <code>types</code>, <code>info</code>, <code>create</code>, <code>load</code>, <code>unload</code>, <code>delete</code>, <code>tp</code>, <code>setspawn</code>. Право <code>extendedmanager.command.world</code>: список и перемещение себе, <code>.manage</code>: создание и удаление, <code>.teleport</code>: перенос других игроков.</p>
 
             <h3 id="world-types">Типы миров</h3>
             <p>Тип задаётся в <code>/world create &lt;имя&gt; &lt;тип&gt;</code>; свой тип добавляется новой строкой в секцию <code>types</code>.</p>
@@ -1215,7 +1235,7 @@ guild-id: ""</code></pre></div>
               <tbody>
                 <tr><th><code>normal</code></th><td>Обычный мир с ландшафтом, биомами и структурами</td></tr>
                 <tr><th><code>flat</code></th><td>Суперплоскость</td></tr>
-                <tr><th><code>empty</code></th><td>Пустой мир без блоков — для лобби и ивентов</td></tr>
+                <tr><th><code>empty</code></th><td>Пустой мир без блоков, для лобби и ивентов</td></tr>
                 <tr><th><code>large-biomes</code></th><td>Биомы вчетверо больше</td></tr>
                 <tr><th><code>amplified</code></th><td>Экстремальный рельеф</td></tr>
                 <tr><th><code>nether</code> / <code>the_end</code></th><td>Ад и край</td></tr>
@@ -1248,16 +1268,16 @@ types:
             <table class="req req-wide">
               <tbody>
                 <tr><th><code>delete-confirm-seconds</code></th><td>Срок подтверждения: повторная <code>/world delete</code> в этот срок удаляет мир</td></tr>
-                <tr><th><code>removed-folder</code></th><td><code>rename</code> — переименовать папку (безопасно), <code>delete</code> — стереть, <code>keep</code> — только выгрузить</td></tr>
+                <tr><th><code>removed-folder</code></th><td><code>rename</code>: переименовать папку (безопасно), <code>delete</code>: стереть, <code>keep</code>: только выгрузить</td></tr>
                 <tr><th><code>teleport-require-login</code></th><td>Требовать <code>/login</code> перед перемещением в другой мир</td></tr>
               </tbody>
             </table>
             <div class="callout callout-warn">
-              <p>Создание и удаление мира — тяжёлая операция в основном потоке: на большом сервере возможен короткий фриз. Делайте это при пустом сервере.</p>
+              <p>Создание и удаление мира: тяжёлая операция в основном потоке: на большом сервере возможен короткий фриз. Делайте это при пустом сервере.</p>
             </div>
 
             <h3 id="world-hub">Переход в хаб</h3>
-            <p><code>/hub</code> берёт имя сервера из конфигурации прокси, а не из названий миров. Настройки — в <code>command_config.yml</code>.</p>
+            <p><code>/hub</code> берёт имя сервера из конфигурации прокси, а не из названий миров. Настройки в <code>command_config.yml</code>.</p>
             <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>hub:
   server: "hub"
   require-login: true
@@ -1268,13 +1288,13 @@ types:
           <article class="doc" id="doc-text" data-group="Сообщения">
             <p class="doc-crumbs">Документация <span>/</span> Сообщения</p>
             <h2>Оформление текста</h2>
-            <p class="doc-lead">Разметка в наковальне, книге и на табличке — <code>text_config.yml</code>; кнопки в меню паузы — <code>serverlinks_config.yml</code>. Всюду MiniMessage, спрайты и устаревшие коды <code>&amp;</code>.</p>
+            <p class="doc-lead">Разметка в наковальне, книге и на табличке: <code>text_config.yml</code>; кнопки в меню паузы: <code>serverlinks_config.yml</code>. Всюду MiniMessage, спрайты и устаревшие коды <code>&amp;</code>.</p>
 
             <h3 id="text-markup">Разметка и спрайты</h3>
             <p>Теги MiniMessage (<code>&lt;red&gt;</code>, <code>&lt;bold&gt;</code>, <code>&lt;gradient:#4fa9ff:#7d5cff&gt;</code>, hex <code>&lt;#ff8800&gt;</code>) и спрайты игры <code>&lt;sprite:атлас:имя&gt;</code>. Каталог атласов печатает <code>/sprite</code>, картинка видна на клиенте 1.19.3 и новее.</p>
 
             <h3 id="text-places">Наковальня, книга, табличка</h3>
-            <p>Оформление получают игроки с правом <code>extendedmanager.text.&lt;anvil|book|sign&gt;</code> (по умолчанию у всех). Пустой <code>permission</code> — доступно всем без проверки.</p>
+            <p>Оформление получают игроки с правом <code>extendedmanager.text.&lt;anvil|book|sign&gt;</code> (по умолчанию у всех). Пустой <code>permission</code> открывает доступ всем без проверки.</p>
             <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>anvil:
   enabled: true
   permission: "extendedmanager.text.anvil"
@@ -1287,15 +1307,15 @@ book:
 sign:
   enabled: true
   default-color: ""</code></pre></div>
-            <div class="callout callout-info">
+            <div class="callout callout-note">
               <p>Наковальня работает только на Paper и Purpur. В <code>disable-tags</code> по умолчанию вырезаны клики и наведение: такой текст в чужом имени предмета увёл бы игрока на сторонний сайт.</p>
             </div>
 
             <h3 id="text-nick">Ники игроков</h3>
-            <p><code>/nickname &lt;ник|reset&gt;</code> меняет видимое имя (право <code>extendedmanager.command.nickname</code>), <code>/forcename &lt;игрок&gt; &lt;ник&gt;</code> — устанавливает имя другому. Ник поддерживает ту же разметку.</p>
+            <p><code>/nickname &lt;ник|reset&gt;</code> меняет видимое имя (право <code>extendedmanager.command.nickname</code>), <code>/forcename &lt;игрок&gt; &lt;ник&gt;</code> устанавливает имя другому. Ник поддерживает ту же разметку.</p>
 
             <h3 id="text-links">Серверные ссылки</h3>
-            <p>Кнопки в списке «Серверные ссылки» меню паузы. Каждая запись — <code>type</code> (встроенная кнопка клиента) или <code>label</code> (своя надпись), обязательный <code>url</code>, необязательные <code>enabled</code> и <code>permission</code>.</p>
+            <p>Кнопки в списке «Серверные ссылки» меню паузы. Каждая запись задаёт <code>type</code> (встроенная кнопка клиента) или <code>label</code> (своя надпись), обязательный <code>url</code>, необязательные <code>enabled</code> и <code>permission</code>.</p>
             <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>enabled: true
 keep-other-plugins: true
 links:
@@ -1303,9 +1323,9 @@ links:
     url: "https://example.org"
   - label: "&lt;gradient:#4fa9ff:#7d5cff&gt;Discord&lt;/gradient&gt;"
     type: COMMUNITY
-    url: "discord.gg/example"</code></pre></div>
+    url: "discord.gg/3KHgzWhAN9"</code></pre></div>
             <div class="callout callout-warn">
-              <p>Список ссылок есть только на Paper и Purpur. Кнопки обновляются при запуске и после <code>/em reload</code> — игрокам в игре новый список рассылается сразу.</p>
+              <p>Список ссылок есть только на Paper и Purpur. Кнопки обновляются при запуске и после <code>/em reload</code>: игрокам в игре новый список рассылается сразу.</p>
             </div>
           </article>
 
@@ -1335,12 +1355,12 @@ links:
 
             <h3 id="hooks-ph">Плейсхолдеры</h3>
             <p>Примеры доступных <code>%em_*%</code>: <code>%em_online%</code>, <code>%em_max%</code>, <code>%em_tps%</code>, <code>%em_version%</code>, <code>%em_displayname%</code>, <code>%em_player%</code>, <code>%em_message%</code>, <code>%em_region%</code>, <code>%em_afk_tabinfo%</code>. Их можно ставить в MOTD, форматы чата, рассылку и TAB.</p>
-            <div class="callout callout-info">
-              <p>Плагин работает и без партнёров: каждая интеграция — <code>softdepend</code>, отключается ключом <code>false</code> и не мешает запуску, если плагина нет на сервере.</p>
+            <div class="callout callout-note">
+              <p>Плагин работает и без партнёров: каждая интеграция объявлена как <code>softdepend</code>, отключается ключом <code>false</code> и не мешает запуску, если плагина нет на сервере.</p>
             </div>
 
             <h3 id="hooks-ranks">Привилегии через LuckPerms</h3>
-            <p><code>/setrank</code> и <code>/givedonate</code> требуют LuckPerms. Режим <code>ranks.mode: api</code> назначает группу через API, <code>command</code> — консольной командой из шаблона <code>ranks.command</code>. Оформление покупки задаёт секция <code>ranks.donate</code>.</p>
+            <p><code>/setrank</code> и <code>/givedonate</code> требуют LuckPerms. Режим <code>ranks.mode: api</code> назначает группу через API, а <code>command</code> выполняет консольную команду из шаблона <code>ranks.command</code>. Оформление покупки задаёт секция <code>ranks.donate</code>.</p>
           </article>
 
           <article class="doc" id="doc-app" data-group="Интеграции">
@@ -1355,18 +1375,18 @@ links:
               <li>Покажите ключ командой <code>/em api key</code> и скопируйте его.</li>
               <li>В приложении добавьте сервер: адрес, порт и ключ доступа.</li>
             </ol>
-            <div class="callout callout-warn">
-              <p>HTTP не шифруется: подключайтесь через localhost, VPN или SSH-туннель. Ключ передаётся в заголовке <code>Authorization: Bearer</code> и сверяется по SHA3-512. Подробнее — в разделе «HTTP API».</p>
+            <div class="callout callout-danger">
+              <p>HTTP не шифруется: подключайтесь через localhost, VPN или SSH-туннель. Ключ передаётся в заголовке <code>Authorization: Bearer</code> и сверяется по SHA3-512. Подробнее в разделе «HTTP API».</p>
             </div>
 
             <h3 id="app-features">Возможности</h3>
             <ul class="chips">
               <li>живая консоль и события</li><li>игроки и скины</li><li>аккаунты</li><li>инвентарь</li><li>чтение базы</li><li>аналитика</li><li>перезапуск</li>
             </ul>
-            <p>Консоль и события идут через SSE-потоки, игроки и скины — через маршруты <code>/api/v1/*</code>, чтение базы и инвентарь — через соответствующие маршруты API.</p>
+            <p>Консоль и события идут через SSE-потоки, игроки и скины идут через маршруты <code>/api/v1/*</code>, чтение базы и инвентарь через соответствующие маршруты API.</p>
 
             <h3 id="app-multi">Несколько серверов</h3>
-            <p>Серверы сети за Velocity или BungeeCord добавляются в одно окно: у каждого свой адрес и ключ. Присутствие и кросс-серверные сессии настраиваются на стороне плагина — раздел «Прокси и сеть».</p>
+            <p>Серверы сети за Velocity или BungeeCord добавляются в одно окно: у каждого свой адрес и ключ. Присутствие и кросс-серверные сессии настраиваются на стороне плагина, раздел «Прокси и сеть».</p>
           </article>
 
           <article class="doc" id="doc-faq" data-group="FAQs">
@@ -1374,14 +1394,15 @@ links:
             <h2>Вопросы и проблемы</h2>
             <p class="doc-lead">Частые вопросы по установке, модулям, прокси, API и наказаниям.</p>
 
+            <div class="callout callout-note"><p>Если ответа нет, начните с <code>/em info</code> и <code>/em hooks</code>: они показывают версию, модули и состояние интеграций.</p></div>
             <h3 id="faq-module">Команда отвечает module-disabled</h3>
-            <p>Модуль выключен. Включите его в <code>config.yml → modules</code>, сохраните файл и выполните <code>/em reload</code> — папки, файлы и команды модуля появятся без перезапуска.</p>
+            <p>Модуль выключен. Включите его в <code>config.yml → modules</code>, сохраните файл и выполните <code>/em reload</code>: папки, файлы и команды модуля появятся без перезапуска.</p>
 
             <h3 id="faq-proxy">Вход по IP ошибается за прокси</h3>
             <p>Без включённой поддержки прокси сервер видит адрес машины-прокси вместо адресов игроков. Включите поддержку прокси в <code>spigot.yml</code> (<code>bungeecord: true</code> для BungeeCord и Waterfall) и передачу адресов на Velocity (<code>forwarding</code> в <code>velocity.toml</code>). Плагин сверяет это при <code>proxy.check-server-config: true</code>.</p>
 
             <h3 id="faq-api">Приложение не подключается к API</h3>
-            <p>Проверьте: модуль <code>api</code> включён, сервер на Paper или Purpur, адрес и порт в <code>config.yml → api</code> совпадают с настройками приложения, порт не закрыт firewall. Ключ показывается командой <code>/em api key</code>. HTTP не шифруется — используйте localhost, VPN или SSH-туннель.</p>
+            <p>Проверьте: модуль <code>api</code> включён, сервер на Paper или Purpur, адрес и порт в <code>config.yml → api</code> совпадают с настройками приложения, порт не закрыт firewall. Ключ показывается командой <code>/em api key</code>. HTTP не шифруется: используйте localhost, VPN или SSH-туннель.</p>
 
             <h3 id="faq-262">Нужна версия для 26.2</h3>
             <p>Для Minecraft 26.2 есть отдельная сборка того же 0.14.0 (дерево <code>26.2</code> в репозитории). Основная сборка рассчитана на Paper API 26.3.</p>
@@ -1390,15 +1411,23 @@ links:
             <p>Служебный <code>config-version</code> обновляется сам: при первом запуске новой версии недостающие ключи добавляются, а ваши значения сохраняются. Настройки наказаний и SID переехали в <code>punishments.yml</code> и <code>SID_config.yml</code> автоматически.</p>
 
             <h3 id="faq-sid">Бан по адресу задел других игроков</h3>
-            <p>За одним адресом может стоять несколько человек. Оставьте <code>ip-link.skip-local: true</code> и переключите <code>ip-link.action: warn</code> — тогда администрация получает предупреждение, а автоматического бана нет.</p>
+            <p>За одним адресом может стоять несколько человек. Оставьте <code>ip-link.skip-local: true</code> и переключите <code>ip-link.action: warn</code>: тогда администрация получает предупреждение, а автоматического бана нет.</p>
 
             <h3 id="faq-invite">Где скачать JAR</h3>
             <p>Готовые сборки и доступ к репозиторию распространяются по приглашению автора. Сайт описывает плагин, но не раздаёт файлы.</p>
           </article>
 
           <div class="docs-pager">
-            <button class="btn btn-ghost" id="doc-prev" type="button">← Предыдущий</button>
-            <button class="btn btn-ghost" id="doc-next" type="button">Следующий →</button>
+            <button class="pager-card" id="doc-prev" type="button">
+              <span class="pager-dir"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>Предыдущий</span>
+              <span class="pager-title"></span>
+              <span class="pager-desc"></span>
+            </button>
+            <button class="pager-card pager-next" id="doc-next" type="button">
+              <span class="pager-dir">Следующий<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span>
+              <span class="pager-title"></span>
+              <span class="pager-desc"></span>
+            </button>
           </div>
 
         </div>

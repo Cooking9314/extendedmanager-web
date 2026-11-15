@@ -1,4 +1,4 @@
-/* ExtendedManager — интерактив сайта: меню, прокрутка, документация, анимации. */
+/* ExtendedManager, интерактив сайта: меню, прокрутка, документация, анимации. */
 (function () {
   'use strict';
 
@@ -8,11 +8,89 @@
   var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ----- Анимированный фон ----- */
+  function initBackground() {
+    var layer = document.createElement('div');
+    layer.className = 'bg-ambient';
+    layer.setAttribute('aria-hidden', 'true');
+    layer.innerHTML = '<div class="bg-aurora"></div><div class="bg-grid"></div>';
+    var canvas = document.createElement('canvas');
+    canvas.className = 'bg-particles';
+    layer.appendChild(canvas);
+    document.body.insertBefore(layer, document.body.firstChild);
+    if (reduced) return;
+    var ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    var colors = ['79,169,255', '85,224,208', '125,92,255', '199,146,234'];
+    var W = 0, H = 0, parts = [], running = true, raf = 0;
+
+    function make() {
+      return {
+        x: Math.random() * W, y: Math.random() * H,
+        r: Math.random() * 1.7 + .6,
+        vy: -(Math.random() * .22 + .07), vx: (Math.random() - .5) * .12,
+        a: Math.random() * .45 + .18, tw: Math.random() * Math.PI * 2,
+        c: colors[(Math.random() * colors.length) | 0]
+      };
+    }
+    function resize() {
+      W = window.innerWidth; H = window.innerHeight;
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var count = Math.max(24, Math.min(72, Math.round(W * H / 26000)));
+      parts = [];
+      for (var i = 0; i < count; i++) parts.push(make());
+    }
+    function frame() {
+      if (!running) return;
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < parts.length; i++) {
+        var p = parts[i];
+        p.y += p.vy; p.x += p.vx; p.tw += .02;
+        if (p.y < -12) { p.y = H + 12; p.x = Math.random() * W; }
+        if (p.x < -12) p.x = W + 12; else if (p.x > W + 12) p.x = -12;
+        var alpha = p.a * (.6 + .4 * Math.sin(p.tw));
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, 6.2832);
+        ctx.fillStyle = 'rgba(' + p.c + ',' + alpha.toFixed(3) + ')';
+        ctx.fill();
+      }
+      raf = window.requestAnimationFrame(frame);
+    }
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) { running = false; window.cancelAnimationFrame(raf); }
+      else if (!running) { running = true; frame(); }
+    });
+    window.addEventListener('resize', resize);
+    resize();
+    frame();
+  }
+  initBackground();
+
+  /* ----- Источник прокрутки: окно или центр документации ----- */
+  var docsMain = $('.docs-main');
+  function appMode() { return !!docsMain && window.matchMedia('(min-width: 901px)').matches; }
+  function getScroll() { return appMode() ? docsMain.scrollTop : window.scrollY; }
+  function getMax() {
+    if (appMode()) return docsMain.scrollHeight - docsMain.clientHeight;
+    var doc = document.documentElement;
+    return doc.scrollHeight - doc.clientHeight;
+  }
+  function scrollToTop() {
+    var behavior = reduced ? 'auto' : 'smooth';
+    if (appMode()) docsMain.scrollTo({ top: 0, behavior: behavior });
+    else window.scrollTo({ top: 0, behavior: behavior });
+  }
+
   /* ----- Прогресс прокрутки ----- */
   var progress = document.createElement('div');
   progress.className = 'scroll-progress';
   document.body.appendChild(progress);
   var markRail = function () {};
+  var markToc = function () {};
+  var markTimeline = function () {};
 
   /* ----- Мобильное меню ----- */
   var toggle = $('.nav-toggle');
@@ -34,36 +112,32 @@
     if (event.target.closest('a')) closeMenu();
   });
 
-  /* ----- Тень шапки и кнопка наверх ----- */
+  /* ----- Шапка, кнопка наверх, прогресс ----- */
   var header = $('.site-header');
   var toTop = $('.to-top');
 
-  toTop.addEventListener('click', function () {
-    window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
-  });
-
-  /* ----- Тень шапки, кнопка наверх, оглавление ----- */
-  var markToc = function () {};
+  toTop.addEventListener('click', scrollToTop);
 
   function onScroll() {
-    header.classList.toggle('is-scrolled', window.scrollY > 8);
-    toTop.classList.toggle('is-visible', window.scrollY > 600);
-    var doc = document.documentElement;
-    var max = doc.scrollHeight - doc.clientHeight;
-    progress.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+    var y = getScroll();
+    header.classList.toggle('is-scrolled', y > 8);
+    toTop.classList.toggle('is-visible', y > (appMode() ? 300 : 600));
+    var max = getMax();
+    progress.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
     markToc();
     markRail();
+    markTimeline();
   }
 
   var ticking = false;
-  window.addEventListener('scroll', function () {
+  function requestScroll() {
     if (ticking) return;
     ticking = true;
-    window.requestAnimationFrame(function () {
-      onScroll();
-      ticking = false;
-    });
-  }, { passive: true });
+    window.requestAnimationFrame(function () { onScroll(); ticking = false; });
+  }
+  window.addEventListener('scroll', requestScroll, { passive: true });
+  if (docsMain) docsMain.addEventListener('scroll', requestScroll, { passive: true });
+  window.addEventListener('resize', requestScroll);
 
   /* ----- Появление блоков и счётчики ----- */
   var revealObserver = new IntersectionObserver(function (entries) {
@@ -82,9 +156,9 @@
     var start = null;
     function step(ts) {
       if (start === null) start = ts;
-      var progress = Math.min((ts - start) / 900, 1);
-      el.textContent = String(Math.round(target * (1 - Math.pow(1 - progress, 3))));
-      if (progress < 1) window.requestAnimationFrame(step);
+      var p = Math.min((ts - start) / 900, 1);
+      el.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3))));
+      if (p < 1) window.requestAnimationFrame(step);
     }
     window.requestAnimationFrame(step);
   }
@@ -99,18 +173,179 @@
 
   $$('[data-count]').forEach(function (el) { countObserver.observe(el); });
 
-  /* ----- Документация: разделы, оглавление, поиск ----- */
+  /* ----- Типы примечаний в документации ----- */
+  var CALLOUTS = {
+    info: { title: 'Информация', icon: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>' },
+    warn: { title: 'Предупреждение', icon: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>' },
+    note: { title: 'Примечание', icon: '<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>' },
+    danger: { title: 'Внимание', icon: '<polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86"/><path d="M12 8v4"/><path d="M12 16h.01"/>' },
+    important: { title: 'Важно', icon: '<path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>' }
+  };
+
+  $$('.callout').forEach(function (c) {
+    if ($('.callout-head', c)) return;
+    var type = ['info', 'warn', 'note', 'danger', 'important'].filter(function (t) { return c.classList.contains('callout-' + t); })[0] || 'info';
+    var cfg = CALLOUTS[type];
+    var head = document.createElement('div');
+    head.className = 'callout-head';
+    head.innerHTML = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">' + cfg.icon + '</svg><span>' + cfg.title + '</span>';
+    c.insertBefore(head, c.firstChild);
+  });
+
+  /* ----- Документация ----- */
+  var COMMANDS = [
+    ['afk', 'cmd-look', 'cmd-afk', 'Режим AFK с таймером и сообщением.'],
+    ['ban', 'cmd-bans', 'cmd-ban', 'Бан игрока по нику или адресу.'],
+    ['banlist', 'cmd-bans', 'cmd-banlist', 'Список активных банов.'],
+    ['bansid', 'cmd-bans', 'cmd-bansid', 'Бан по идентификатору аккаунта (SID).'],
+    ['broadcasts', 'cmd-chat', 'cmd-broadcasts', 'Управление рассылкой сообщений.'],
+    ['cloak', 'cmd-hide', 'cmd-cloak', 'Скрыть игрока от других.'],
+    ['damage', 'cmd-state', 'cmd-damage', 'Нанести игроку урон.'],
+    ['em', 'cmd-em', '', 'Ядро плагина: справка, модули, перезагрузка.'],
+    ['endersee', 'cmd-inv', 'cmd-endersee', 'Открыть эндер-сундук игрока.'],
+    ['feed', 'cmd-state', 'cmd-feed', 'Восстановить сытость игрока.'],
+    ['fly', 'cmd-state', 'cmd-fly', 'Включить или выключить полёт.'],
+    ['forcename', 'cmd-look', 'cmd-forcename', 'Установить ник другому игроку.'],
+    ['freeze', 'cmd-hide', 'cmd-freeze', 'Заморозить игрока на месте.'],
+    ['gag', 'cmd-mutes', 'cmd-gag', 'Запретить голосовой чат (гаг).'],
+    ['gaglist', 'cmd-mutes', 'cmd-gaglist', 'Список активных гагов.'],
+    ['gamemode', 'cmd-look', 'cmd-gamemode', 'Сменить игровой режим.'],
+    ['geolocate', 'cmd-inv', 'cmd-geolocate', 'Геолокация адреса игрока.'],
+    ['givedonate', 'cmd-ranks', 'cmd-givedonate', 'Выдать донат-привилегию.'],
+    ['god', 'cmd-state', 'cmd-god', 'Режим бессмертия.'],
+    ['heal', 'cmd-state', 'cmd-heal', 'Вылечить игрока.'],
+    ['hp', 'cmd-state', 'cmd-hp', 'Установить или посмотреть здоровье.'],
+    ['hub', 'cmd-tp', 'cmd-hub', 'Перенести игрока на HUB.'],
+    ['ignite', 'cmd-state', 'cmd-ignite', 'Поджечь игрока.'],
+    ['invsee', 'cmd-inv', 'cmd-invsee', 'Открыть инвентарь игрока.'],
+    ['kick', 'cmd-kicks', 'cmd-kick', 'Кикнуть игрока с сервера.'],
+    ['kickall', 'cmd-kicks', 'cmd-kickall', 'Кикнуть всех игроков.'],
+    ['kill', 'cmd-state', 'cmd-kill', 'Убить игрока.'],
+    ['link', 'cmd-auth', 'cmd-link', 'Привязать аккаунт к адресу.'],
+    ['login', 'cmd-auth', 'cmd-login', 'Войти в аккаунт.'],
+    ['mute', 'cmd-mutes', 'cmd-mute', 'Запретить игроку писать в чат.'],
+    ['mutelist', 'cmd-mutes', 'cmd-mutelist', 'Список активных мьютов.'],
+    ['nickname', 'cmd-look', 'cmd-nickname', 'Установить свой ник.'],
+    ['npc', 'cmd-npc', '', 'Управление NPC.'],
+    ['register', 'cmd-auth', 'cmd-register', 'Зарегистрировать аккаунт.'],
+    ['respawn', 'cmd-tp', 'cmd-respawn', 'Вернуть игрока на точку возрождения.'],
+    ['say', 'cmd-chat', 'cmd-say', 'Сообщение в чат или админ-чат.'],
+    ['scale', 'cmd-look', 'cmd-scale', 'Изменить размер игрока.'],
+    ['setrank', 'cmd-ranks', 'cmd-setrank', 'Назначить группу привилегий.'],
+    ['setspawn', 'cmd-tp', 'cmd-setspawn', 'Установить точку спавна.'],
+    ['spawn', 'cmd-tp', 'cmd-spawn', 'Телепорт на спавн.'],
+    ['speed', 'cmd-look', 'cmd-speed', 'Изменить скорость игрока.'],
+    ['sprite', 'cmd-npc', 'cmd-sprite', 'Спрайты игры в тексте.'],
+    ['tp', 'cmd-tp', 'cmd-tp', 'Телепортироваться к игроку.'],
+    ['tphere', 'cmd-tp', 'cmd-tphere', 'Телепортировать игрока к себе.'],
+    ['tpsend', 'cmd-tp', 'cmd-tpsend', 'Перенести игрока на другой сервер.'],
+    ['trade', 'cmd-inv', 'cmd-trade', 'Обмен предметами между игроками.'],
+    ['unban', 'cmd-bans', 'cmd-unban', 'Снять бан.'],
+    ['uncloak', 'cmd-hide', 'cmd-uncloak', 'Вернуть видимость игрока.'],
+    ['unfreeze', 'cmd-hide', 'cmd-unfreeze', 'Разморозить игрока.'],
+    ['ungag', 'cmd-mutes', 'cmd-ungag', 'Снять гаг.'],
+    ['unignite', 'cmd-state', 'cmd-unignite', 'Потушить игрока.'],
+    ['unmute', 'cmd-mutes', 'cmd-unmute', 'Снять мьют.'],
+    ['unwarn', 'cmd-warns', 'cmd-unwarn', 'Снять предупреждение.'],
+    ['vanish', 'cmd-hide', 'cmd-vanish', 'Полная невидимость: TAB и команды.'],
+    ['warn', 'cmd-warns', 'cmd-warn', 'Выдать предупреждение.'],
+    ['warnlist', 'cmd-warns', 'cmd-warnlist', 'Список предупреждений.'],
+    ['whitelist', 'cmd-kicks', 'cmd-whitelist', 'Управление белым списком.'],
+    ['world', 'cmd-world', '', 'Управление мирами.']
+  ];
+  var CMD_ICON = '<svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>';
+  var CHEVRON = '<svg class="cat-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+
   function initDocs() {
-    var docLinks = $$('.docs-link');
-    var docs = $$('.doc');
     var shell = $('.docs-shell');
-    var main = $('.docs-main');
+    var sideNav = $('.docs-nav');
     var tocList = $('#docs-toc-list');
     var prevBtn = $('#doc-prev');
     var nextBtn = $('#doc-next');
     var search = $('#docs-search');
     var emptyNote = $('.docs-empty');
+    var docs = $$('.doc');
+    if (!sideNav || !docs.length) return;
     var activeDoc = docs[0];
+
+    /* Собираем группы из исходной разметки, затем строим сворачиваемые категории. */
+    var groups = [];
+    var cur = null;
+    Array.prototype.slice.call(sideNav.children).forEach(function (el) {
+      if (el.classList.contains('docs-group')) { cur = { label: el.textContent.trim(), items: [] }; groups.push(cur); return; }
+      if (el.classList.contains('docs-link') && cur) {
+        var svg = el.querySelector('svg');
+        cur.items.push({ doc: el.getAttribute('data-doc'), title: el.textContent.trim(), icon: svg ? svg.outerHTML : '' });
+      }
+    });
+    groups.forEach(function (g) { if (g.label === 'Команды') { g.commands = true; } });
+
+    sideNav.textContent = '';
+    groups.forEach(function (g) {
+      var cat = document.createElement('div');
+      cat.className = 'docs-cat';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'docs-cat-toggle';
+      btn.setAttribute('aria-expanded', 'true');
+      var count = g.commands ? COMMANDS.length : g.items.length;
+      btn.innerHTML = CHEVRON + '<span>' + g.label + '</span><span class="cat-count">' + count + '</span>';
+      var body = document.createElement('div');
+      body.className = 'docs-cat-body';
+      var inner = document.createElement('div');
+      inner.className = 'docs-cat-inner';
+
+      if (g.commands) {
+        COMMANDS.forEach(function (c) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'docs-link docs-cmd';
+          b.setAttribute('data-doc', c[1]);
+          if (c[2]) b.setAttribute('data-anchor', c[2]);
+          b.title = c[3];
+          b.innerHTML = CMD_ICON + '<span>/' + c[0] + '</span>';
+          inner.appendChild(b);
+        });
+      } else {
+        g.items.forEach(function (it) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'docs-link';
+          b.setAttribute('data-doc', it.doc);
+          b.innerHTML = it.icon + '<span>' + it.title + '</span>';
+          inner.appendChild(b);
+        });
+      }
+
+      body.appendChild(inner);
+      btn.addEventListener('click', function () {
+        var collapsed = cat.classList.toggle('is-collapsed');
+        btn.setAttribute('aria-expanded', String(!collapsed));
+      });
+      cat.appendChild(btn);
+      cat.appendChild(body);
+      sideNav.appendChild(cat);
+    });
+
+    var docLinks = $$('.docs-link', sideNav);
+    var pagerOrder = [];
+    docLinks.forEach(function (l) { var d = l.getAttribute('data-doc'); if (pagerOrder.indexOf(d) === -1) pagerOrder.push(d); });
+
+    function pageTop(el) {
+      var top = 0;
+      while (el) { top += el.offsetTop; el = el.offsetParent; }
+      return top;
+    }
+
+    function scrollToHeading(el, behavior) {
+      var b = reduced ? 'auto' : behavior;
+      if (appMode()) {
+        var top = el.getBoundingClientRect().top - docsMain.getBoundingClientRect().top + docsMain.scrollTop - 18;
+        docsMain.scrollTo({ top: top, behavior: b });
+      } else {
+        window.scrollTo({ top: pageTop(el) - 84, behavior: b });
+      }
+    }
 
     function buildToc() {
       tocList.textContent = '';
@@ -128,87 +363,123 @@
     markToc = function () {
       var links = $$('a', tocList);
       if (!links.length) return;
+      var base = appMode() ? docsMain.getBoundingClientRect().top : 0;
+      var threshold = appMode() ? 24 : 140;
       var currentId = links[0].getAttribute('href').slice(1);
       $$('h3[id]', activeDoc).forEach(function (heading) {
-        if (heading.getBoundingClientRect().top <= 140) currentId = heading.id;
+        if (heading.getBoundingClientRect().top - base <= threshold) currentId = heading.id;
       });
       links.forEach(function (link) {
         link.classList.toggle('is-active', link.getAttribute('href') === '#' + currentId);
       });
     };
 
-    function openDoc(id, push) {
+    tocList.addEventListener('click', function (event) {
+      var a = event.target.closest('a');
+      if (!a) return;
+      event.preventDefault();
+      var el = document.getElementById(a.getAttribute('href').slice(1));
+      if (!el) return;
+      scrollToHeading(el, 'smooth');
+      history.replaceState(null, '', a.getAttribute('href'));
+    });
+
+    function setPager(btn, docId) {
+      var title = $('.pager-title', btn);
+      var desc = $('.pager-desc', btn);
+      if (!docId) { btn.disabled = true; title.textContent = ''; desc.textContent = ''; return; }
+      btn.disabled = false;
+      var art = $('#doc-' + docId);
+      var h2 = art && $('h2', art);
+      var lead = art && $('.doc-lead', art);
+      title.textContent = h2 ? h2.textContent : docId;
+      var d = lead ? lead.textContent.trim() : '';
+      desc.textContent = d.length > 110 ? d.slice(0, 107).trim() + '…' : d;
+    }
+
+    function openDoc(id, anchorId, push) {
       var doc = $('#doc-' + id);
-      var link = docLinks.filter(function (item) { return item.getAttribute('data-doc') === id; })[0];
-      if (!doc || !link) return;
+      if (!doc) return;
       activeDoc = doc;
       docs.forEach(function (item) { item.classList.toggle('is-active', item === doc); });
-      docLinks.forEach(function (item) { item.classList.toggle('is-active', item === link); });
-      var index = docLinks.indexOf(link);
-      prevBtn.disabled = index === 0;
-      nextBtn.disabled = index === docLinks.length - 1;
+      var link = null;
+      if (anchorId) link = docLinks.filter(function (l) { return l.getAttribute('data-doc') === id && l.getAttribute('data-anchor') === anchorId; })[0];
+      if (!link) link = docLinks.filter(function (l) { return l.getAttribute('data-doc') === id; })[0];
+      docLinks.forEach(function (l) { l.classList.toggle('is-active', l === link); });
+      if (link) {
+        var cat = link.closest('.docs-cat');
+        if (cat) {
+          cat.classList.remove('is-collapsed');
+          var t = $('.docs-cat-toggle', cat);
+          if (t) t.setAttribute('aria-expanded', 'true');
+        }
+        if (appMode()) link.scrollIntoView({ block: 'nearest' });
+      }
+      var idx = pagerOrder.indexOf(id);
+      setPager(prevBtn, idx > 0 ? pagerOrder[idx - 1] : null);
+      setPager(nextBtn, idx > -1 && idx < pagerOrder.length - 1 ? pagerOrder[idx + 1] : null);
       buildToc();
-      if (push) history.replaceState(null, '', '#doc-' + id);
+      if (push) history.replaceState(null, '', anchorId ? '#' + anchorId : '#doc-' + id);
     }
 
-    function pageTop(el) {
-      var top = 0;
-      while (el) { top += el.offsetTop; el = el.offsetParent; }
-      return top;
-    }
-
-    function goDoc(id) {
-      openDoc(id, true);
-      var top = pageTop(main) - 84;
-      if (window.scrollY > top) window.scrollTo({ top: top, behavior: reduced ? 'auto' : 'smooth' });
+    function goDoc(id, anchorId) {
+      openDoc(id, anchorId, true);
+      var anchorEl = anchorId ? document.getElementById(anchorId) : null;
+      if (appMode()) {
+        if (anchorEl) scrollToHeading(anchorEl, 'smooth');
+        else docsMain.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+      } else if (anchorEl) {
+        scrollToHeading(anchorEl, 'smooth');
+      } else {
+        var top = pageTop(shell) - 84;
+        if (window.scrollY > top) window.scrollTo({ top: top, behavior: reduced ? 'auto' : 'smooth' });
+      }
     }
 
     docLinks.forEach(function (link) {
-      link.addEventListener('click', function () { goDoc(link.getAttribute('data-doc')); });
+      link.addEventListener('click', function () {
+        goDoc(link.getAttribute('data-doc'), link.getAttribute('data-anchor') || null);
+      });
     });
 
     prevBtn.addEventListener('click', function () {
-      var index = docLinks.indexOf($('.docs-link.is-active'));
-      if (index > 0) goDoc(docLinks[index - 1].getAttribute('data-doc'));
+      var idx = pagerOrder.indexOf(activeDoc.id.slice(4));
+      if (idx > 0) goDoc(pagerOrder[idx - 1], null);
     });
-
     nextBtn.addEventListener('click', function () {
-      var index = docLinks.indexOf($('.docs-link.is-active'));
-      if (index > -1 && index < docLinks.length - 1) goDoc(docLinks[index + 1].getAttribute('data-doc'));
+      var idx = pagerOrder.indexOf(activeDoc.id.slice(4));
+      if (idx > -1 && idx < pagerOrder.length - 1) goDoc(pagerOrder[idx + 1], null);
     });
 
     function filterDocs() {
       var query = search.value.trim().toLowerCase();
       var visible = 0;
-      var group = null;
-      var groupVisible = 0;
-      $$('.docs-nav > *').forEach(function (el) {
-        if (el.classList.contains('docs-group')) {
-          if (group) group.hidden = groupVisible === 0;
-          group = el;
-          groupVisible = 0;
-          return;
-        }
-        var show = !query || el.textContent.toLowerCase().indexOf(query) !== -1;
-        el.hidden = !show;
-        if (show) { visible++; groupVisible++; }
+      $$('.docs-cat', sideNav).forEach(function (cat) {
+        var links = $$('.docs-link', cat);
+        var vis = 0;
+        links.forEach(function (l) {
+          var hay = (l.textContent + ' ' + (l.title || '')).toLowerCase();
+          var show = !query || hay.indexOf(query) !== -1;
+          l.hidden = !show;
+          if (show) vis++;
+        });
+        var t = $('.docs-cat-toggle', cat);
+        if (query) { cat.classList.remove('is-collapsed'); if (t) t.setAttribute('aria-expanded', 'true'); }
+        cat.hidden = vis === 0;
+        var badge = $('.cat-count', cat);
+        if (badge) badge.textContent = query ? vis : (cat.querySelector('.docs-cmd') ? COMMANDS.length : links.length);
+        visible += vis;
       });
-      if (group) group.hidden = groupVisible === 0;
       emptyNote.hidden = visible !== 0;
     }
 
     search.addEventListener('input', filterDocs);
-
     search.addEventListener('keydown', function (event) {
       if (event.key === 'Enter') {
         var first = docLinks.filter(function (link) { return !link.hidden; })[0];
-        if (first) goDoc(first.getAttribute('data-doc'));
+        if (first) goDoc(first.getAttribute('data-doc'), first.getAttribute('data-anchor') || null);
       }
-      if (event.key === 'Escape') {
-        search.value = '';
-        filterDocs();
-        search.blur();
-      }
+      if (event.key === 'Escape') { search.value = ''; filterDocs(); search.blur(); }
     });
 
     document.addEventListener('keydown', function (event) {
@@ -221,38 +492,103 @@
     });
 
     var hash = window.location.hash;
-    var startId = null;
-    var anchor = null;
+    var defaultId = $('#doc-start') ? 'start' : pagerOrder[0];
     if (hash.indexOf('#doc-') === 0) {
-      startId = hash.slice(5);
-      anchor = shell;
+      var id = hash.slice(5);
+      if ($('#doc-' + id)) {
+        openDoc(id, null, false);
+        if (appMode()) docsMain.scrollTo({ top: 0, behavior: 'instant' });
+        else window.scrollTo({ top: pageTop(shell) - 84, behavior: 'instant' });
+      } else openDoc(defaultId, null, false);
     } else if (hash.length > 1) {
       var target = document.getElementById(hash.slice(1));
       var owner = target && target.closest('.doc');
       if (owner) {
-        startId = owner.id.slice(4);
-        anchor = target;
-      }
-    }
-
-    if (startId && $('#doc-' + startId)) {
-      openDoc(startId, false);
-      window.scrollTo({ top: pageTop(anchor) - 84, behavior: 'instant' });
+        openDoc(owner.id.slice(4), target.id, false);
+        var land = function () { scrollToHeading(target, 'instant'); };
+        land();
+        var settled = false;
+        ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(function (ev) {
+          window.addEventListener(ev, function () { settled = true; }, { once: true, passive: true });
+        });
+        var reland = function () { if (!settled) land(); };
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(reland);
+        window.addEventListener('load', reland);
+      } else openDoc(defaultId, null, false);
     } else {
-      openDoc($('#doc-start') ? 'start' : docLinks[0].getAttribute('data-doc'), false);
+      openDoc(defaultId, null, false);
     }
   }
 
   if ($('.docs-link')) initDocs();
 
-  /* ----- Обновления: панель версий и scrollspy ----- */
+  /* ----- Обновления: панель версий, фильтр, мета, прогресс ----- */
+  var KIND_LABEL = { add: 'добавлено', change: 'изменено', fix: 'исправлено', sec: 'безопасность', net: 'сеть', remove: 'удалено' };
+  var KIND_ORDER = ['add', 'change', 'fix', 'sec', 'net', 'remove'];
+
   function initUpdates() {
     var rail = $('#release-rail');
-    if (!rail) return;
+    var releases = $$('.release');
+    if (!releases.length) return;
+
+    /* Мета: счётчики изменений по типам */
+    releases.forEach(function (r) {
+      var head = $('.release-head', r);
+      if (!head || $('.release-meta', head)) return;
+      var counts = {};
+      $$('.release-list li', r).forEach(function (li) {
+        KIND_ORDER.forEach(function (k) { if (li.classList.contains('k-' + k)) counts[k] = (counts[k] || 0) + 1; });
+      });
+      var meta = document.createElement('div');
+      meta.className = 'release-meta';
+      KIND_ORDER.forEach(function (k) {
+        if (!counts[k]) return;
+        var s = document.createElement('span');
+        s.title = KIND_LABEL[k];
+        s.innerHTML = '<i class="k-' + k + '"></i>' + counts[k];
+        meta.appendChild(s);
+      });
+      head.appendChild(meta);
+    });
+
+    /* Фильтр по типу изменений */
+    var kindBtns = $$('.kind-btn');
+    var note = $('#updates-filter-note');
+    function applyFilter(kind) {
+      kindBtns.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-kind') === kind); });
+      var shownReleases = 0, shownItems = 0;
+      releases.forEach(function (r) {
+        var items = $$('.release-list li', r);
+        var match = 0;
+        items.forEach(function (li) {
+          var isMatch = kind === 'all' || li.classList.contains('k-' + kind);
+          li.classList.toggle('is-dimmed', kind !== 'all' && !isMatch);
+          if (isMatch) match++;
+        });
+        var relMatch = kind === 'all' || match > 0;
+        r.classList.toggle('is-dimmed', !relMatch);
+        if (relMatch) { shownReleases++; shownItems += (kind === 'all' ? items.length : match); }
+      });
+      if (!note) return;
+      if (kind === 'all') note.hidden = true;
+      else { note.hidden = false; note.textContent = 'Показано изменений: ' + shownItems + ' в ' + shownReleases + ' релизах. Остальное приглушено.'; }
+    }
+    kindBtns.forEach(function (b) { b.addEventListener('click', function () { applyFilter(b.getAttribute('data-kind')); }); });
+
+    /* Прогресс по шкале релизов */
+    var fill = $('.timeline-progress i');
+    var timeline = $('.timeline');
+    markTimeline = function () {
+      if (!fill || !timeline) return;
+      var rect = timeline.getBoundingClientRect();
+      var total = rect.height;
+      var passed = Math.min(Math.max(window.innerHeight * .5 - rect.top, 0), total);
+      fill.style.height = (total > 0 ? (passed / total) * 100 : 0) + '%';
+    };
+
+    if (!rail) { markTimeline(); return; }
     var links = $$('.rail-link', rail);
     var box = $('.rail-links', rail);
-    var releases = $$('.release');
-    if (!links.length || !releases.length) return;
     var lastActive = null;
 
     links.forEach(function (a) {
@@ -268,16 +604,12 @@
 
     markRail = function () {
       var current = releases[0];
-      releases.forEach(function (r) {
-        if (r.getBoundingClientRect().top <= 150) current = r;
-      });
+      releases.forEach(function (r) { if (r.getBoundingClientRect().top <= 150) current = r; });
       var doc = document.documentElement;
       if (window.scrollY + doc.clientHeight >= doc.scrollHeight - 4) current = releases[releases.length - 1];
       if (current === lastActive) return;
       lastActive = current;
-      links.forEach(function (a) {
-        a.classList.toggle('is-active', a.getAttribute('href') === '#' + current.id);
-      });
+      links.forEach(function (a) { a.classList.toggle('is-active', a.getAttribute('href') === '#' + current.id); });
       var act = $('.rail-link.is-active', rail);
       if (act && box) {
         var ar = act.getBoundingClientRect(), br = box.getBoundingClientRect();
@@ -288,9 +620,129 @@
     };
 
     markRail();
+    markTimeline();
   }
 
-  if ($('#release-rail')) initUpdates();
+  if ($('.release')) initUpdates();
+
+  /* ----- Карусель возможностей ----- */
+  function initCarousel() {
+    var track = $('#features-track');
+    if (!track) return;
+    var cards = $$('.feature-card', track);
+    var prev = $('#car-prev');
+    var next = $('#car-next');
+    var dotsBox = $('#car-dots');
+    if (!cards.length) return;
+
+    function step() {
+      var gap = parseFloat(getComputedStyle(track).gap) || 16;
+      return cards[0].getBoundingClientRect().width + gap;
+    }
+    function perView() { return Math.max(1, Math.round(track.clientWidth / step())); }
+    function maxIndex() { return Math.max(0, cards.length - perView()); }
+    function currentIndex() { return Math.min(maxIndex(), Math.round(track.scrollLeft / step())); }
+
+    var dots = [];
+    function buildDots() {
+      dotsBox.textContent = '';
+      dots = [];
+      for (var i = 0; i <= maxIndex(); i++) {
+        var d = document.createElement('button');
+        d.type = 'button';
+        d.className = 'car-dot';
+        d.setAttribute('aria-label', 'Карточка ' + (i + 1));
+        (function (idx) { d.addEventListener('click', function () { track.scrollTo({ left: idx * step(), behavior: reduced ? 'auto' : 'smooth' }); }); })(i);
+        dotsBox.appendChild(d);
+        dots.push(d);
+      }
+    }
+    function update() {
+      var i = currentIndex();
+      dots.forEach(function (d, k) { d.classList.toggle('is-active', k === i); });
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+    }
+
+    prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: reduced ? 'auto' : 'smooth' }); });
+    next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: reduced ? 'auto' : 'smooth' }); });
+
+    var scrollTick = false;
+    track.addEventListener('scroll', function () {
+      if (scrollTick) return;
+      scrollTick = true;
+      window.requestAnimationFrame(function () { update(); scrollTick = false; });
+    }, { passive: true });
+
+    track.addEventListener('keydown', function (event) {
+      if (event.key === 'ArrowRight') { event.preventDefault(); next.click(); }
+      if (event.key === 'ArrowLeft') { event.preventDefault(); prev.click(); }
+    });
+
+    /* Перетаскивание мышью/пальцем без случайного перехода по ссылке */
+    var down = false, startX = 0, startScroll = 0, moved = false, suppress = false;
+    track.addEventListener('pointerdown', function (event) {
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+      down = true; moved = false;
+      startX = event.clientX; startScroll = track.scrollLeft;
+      track.setPointerCapture(event.pointerId);
+    });
+    track.addEventListener('pointermove', function (event) {
+      if (!down) return;
+      var dx = event.clientX - startX;
+      if (Math.abs(dx) > 6) moved = true;
+      if (moved) { track.scrollLeft = startScroll - dx; event.preventDefault(); }
+    });
+    function endDrag(event) {
+      if (!down) return;
+      down = false;
+      try { track.releasePointerCapture(event.pointerId); } catch (e) {}
+      if (moved) { suppress = true; window.setTimeout(function () { suppress = false; }, 60); }
+    }
+    track.addEventListener('pointerup', endDrag);
+    track.addEventListener('pointercancel', endDrag);
+    track.addEventListener('click', function (event) {
+      if (suppress) { event.preventDefault(); event.stopPropagation(); }
+    }, true);
+
+    window.addEventListener('resize', function () { buildDots(); update(); });
+    buildDots();
+    update();
+  }
+  initCarousel();
+
+  /* ----- Discord-виджет ----- */
+  function initDiscord() {
+    var widget = $('#discord-widget');
+    if (!widget) return;
+    var nameEl = $('#discord-name');
+    var onlineEl = $('#discord-online');
+    var membersEl = $('#discord-members');
+    var icon = $('#discord-icon');
+    var avatar = $('.discord-avatar', widget);
+    if (icon && avatar) icon.addEventListener('error', function () { avatar.classList.add('is-fallback'); });
+
+    var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timer = controller ? window.setTimeout(function () { controller.abort(); }, 7000) : null;
+    fetch('https://discord.com/api/v9/invites/3KHgzWhAN9?with_counts=true', controller ? { signal: controller.signal } : {})
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('http')); })
+      .then(function (j) {
+        if (timer) window.clearTimeout(timer);
+        if (j.guild && j.guild.name && nameEl) nameEl.textContent = j.guild.name;
+        if (typeof j.approximate_presence_count === 'number' && onlineEl) onlineEl.textContent = String(j.approximate_presence_count);
+        if (typeof j.approximate_member_count === 'number' && membersEl) membersEl.textContent = String(j.approximate_member_count);
+        if (j.guild && j.guild.icon && icon && avatar) {
+          icon.src = 'https://cdn.discordapp.com/icons/' + j.guild.id + '/' + j.guild.icon + '.png?size=128';
+          avatar.classList.remove('is-fallback');
+        }
+        widget.classList.add('is-live');
+      })
+      .catch(function () {
+        if (timer) window.clearTimeout(timer);
+        widget.classList.add('is-fallback');
+      });
+  }
+  initDiscord();
 
   /* ----- Подсветка синтаксиса YAML ----- */
   var YAML_VALUE = /("[^"]*"|'[^']*')|((?:^|\s)#.*)|(\b(?:true|false|null|yes|no|on|off)\b)|(-?\d+(?:\.\d+)?)/g;
@@ -403,16 +855,51 @@
   /* ----- Заставка при загрузке ----- */
   var preloader = $('#preloader');
   if (preloader) {
-    var hidePreloader = function () {
+    var pct = $('#preloader-pct');
+    var barFill = $('#preloader-bar-fill');
+    var tip = $('#preloader-tip');
+    var tips = ['ядро', 'модули', 'конфигурация', 'интеграции', 'сообщество'];
+    var loaded = false, tipI = 0, tipTimer = 0, start = null;
+
+    function setP(v) {
+      if (pct) pct.textContent = Math.round(v) + '%';
+      if (barFill) barFill.style.transform = 'scaleX(' + (v / 100) + ')';
+    }
+    function ramp(ts) {
+      if (start === null) start = ts;
+      var t = Math.min((ts - start) / 1300, 1);
+      var eased = 1 - Math.pow(1 - t, 3);
+      setP(loaded ? 100 : Math.min(92, eased * 92));
+      if (!loaded && t < 1) window.requestAnimationFrame(ramp);
+    }
+    function finish() {
+      if (loaded) return;
+      loaded = true;
+      setP(100);
+      window.clearInterval(tipTimer);
+      if (tip) { tip.style.opacity = '1'; tip.textContent = 'готово'; }
       window.setTimeout(function () {
         preloader.classList.add('is-done');
         window.setTimeout(function () {
           if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
         }, 650);
-      }, 350);
-    };
-    if (document.readyState === 'complete') hidePreloader();
-    else window.addEventListener('load', hidePreloader);
+      }, 380);
+    }
+
+    if (reduced) {
+      finish();
+    } else {
+      window.requestAnimationFrame(ramp);
+      tipTimer = window.setInterval(function () {
+        tipI = (tipI + 1) % tips.length;
+        if (!tip) return;
+        tip.style.opacity = '0';
+        window.setTimeout(function () { tip.textContent = tips[tipI]; tip.style.opacity = '1'; }, 180);
+      }, 700);
+      if (document.readyState === 'complete') window.setTimeout(finish, 500);
+      else window.addEventListener('load', function () { window.setTimeout(finish, 420); });
+      window.setTimeout(function () { if (!loaded) finish(); }, 4000);
+    }
   }
 
   onScroll();
