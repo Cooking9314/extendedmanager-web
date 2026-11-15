@@ -30,7 +30,7 @@
     </svg>
     </span>
     <span class="preloader-name">Extended Manager</span>
-    <span class="preloader-version">v0.14.0</span>
+    <span class="preloader-version">v0.14.1</span>
     <span class="preloader-bar"><i id="preloader-bar-fill"></i></span>
     <span class="preloader-meta"><span class="preloader-tip" id="preloader-tip">ядро</span><span class="preloader-pct" id="preloader-pct">0%</span></span>
   </div>
@@ -89,6 +89,7 @@
             <button class="docs-link" type="button" data-doc="core"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>Ядро и модули</button>
             <button class="docs-link" type="button" data-doc="database"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>База данных</button>
             <button class="docs-link" type="button" data-doc="worlds"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>Миры и спавны</button>
+            <button class="docs-link" type="button" data-doc="heads"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><path d="M9 9h.01"/><path d="M15 9h.01"/><path d="M9.5 14.5a3.5 3.5 0 0 0 5 0"/></svg>Головы игроков</button>
             <p class="docs-group">Модули</p>
             <button class="docs-link" type="button" data-doc="security"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Безопасность</button>
             <button class="docs-link" type="button" data-doc="npc"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>NPC</button>
@@ -150,7 +151,7 @@
             <h3 id="start-req">Требования</h3>
             <table class="req">
               <tbody>
-                <tr><th>Сервер</th><td>Bukkit, Spigot, Paper или Purpur 26.3; для 26.2 есть отдельная сборка того же 0.14.0</td></tr>
+                <tr><th>Сервер</th><td>Bukkit, Spigot, Paper или Purpur 26.3; для 26.2 есть отдельная сборка того же 0.14.1</td></tr>
                 <tr><th>Java</th><td>25 или новее на сервере</td></tr>
                 <tr><th>Прокси</th><td>BungeeCord, Waterfall или Velocity с адаптером ExtendedManager</td></tr>
                 <tr><th>База</th><td>SQLite без настройки; MySQL, MariaDB или PostgreSQL: для сети серверов</td></tr>
@@ -405,7 +406,7 @@ guild-id: ""</code></pre></div>
   port: 25590</code></pre></div>
 
             <h3 id="api-key">Ключ доступа</h3>
-            <p>Ключ генерируется один раз при первом запуске модуля: 48 символов, 288 бит энтропии. Ключ хранится в таблице <code>&lt;префикс&gt;meta</code>, поэтому переживает рестарты и перенос конфига. Показать его может только <code>/em api key</code>; в файлы и журнал ключ не попадает. Запросы сверяются по SHA3-512.</p>
+            <p>Ключ генерируется один раз при первом запуске модуля: 48 символов, 288 бит энтропии. Ключ хранится в таблице <code>&lt;префикс&gt;meta</code>, поэтому переживает рестарты и перенос конфига. Показать его может только <code>/em app key</code>; в файлы и журнал ключ не попадает. Запросы сверяются по SHA3-512.</p>
             <div class="callout callout-danger">
               <p>HTTP не шифруется: подключайтесь через localhost, VPN или SSH-туннель. Маршруты <code>/api/v1/*</code> требуют заголовок <code>Authorization: Bearer &lt;ключ&gt;</code>.</p>
             </div>
@@ -456,19 +457,26 @@ guild-id: ""</code></pre></div>
           <article class="doc" id="doc-cmd-em" data-group="Команды">
             <p class="doc-crumbs">Документация <span>/</span> Команды</p>
             <h2>/em: ядро плагина</h2>
-            <p class="doc-lead">Служебная команда ядра: справка, состояние сборки, модули, интеграции, перезагрузка конфигов, база, ключ API и перезапуск сервера. Алиас <code>/extendedmanager</code>.</p>
+            <p class="doc-lead">Служебная команда ядра: справка, состояние сборки, модули, интеграции, перезагрузка конфигов, база, ключ приложения и перезапуск сервера. Алиас <code>/extendedmanager</code>.</p>
 <h3 id="em-help">/em help</h3>
-<p>Справка по командам плагина с учётом прав отправителя.</p>
+<p>Справка по командам плагина с учётом прав отправителя. С 0.14.1 она постраничная: по 10 команд на странице, вверху номер страницы и число доступных команд, внизу ссылки на предыдущую и следующую.</p>
 <table class="req req-wide"><tbody>
-<tr><th>Синтаксис</th><td><code>/em help</code></td></tr>
+<tr><th>Синтаксис</th><td><code>/em help [страница]</code> или <code>/em help &lt;команда&gt;</code></td></tr>
 <tr><th>Право</th><td><code>extendedmanager.command.help</code> · по умолчанию у всех</td></tr>
+<tr><th>страница</th><td>Номер от 1; выход за границы показывает первую или последнюю</td></tr>
+<tr><th>&lt;команда&gt;</th><td>Строка из <code>help-groups</code>: <code>/em help ban</code> покажет синтаксис и право одной команды</td></tr>
 </tbody></table>
-<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/em help</code></pre></div>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/em help
+/em help 2
+/em help ban</code></pre></div>
 <h3 id="em-info">/em info</h3>
-<p>Версия плагина и ядра, включённые модули, интеграции и тип базы данных.</p>
+<p>Состояние сборки: версия плагина и ядра, аптайм, игроки, включённые модули и интеграции, тип базы, адрес HTTP API, прокси-сеть и настройки голов из <code>player_heads</code>.</p>
 <table class="req req-wide"><tbody>
 <tr><th>Синтаксис</th><td><code>/em info</code></td></tr>
 <tr><th>Право</th><td><code>extendedmanager.command.info</code> · по умолчанию у операторов</td></tr>
+<tr><th>Модули</th><td>Сколько модулей включено и какие выключены</td></tr>
+<tr><th>API</th><td>Включён ли модуль, адрес и порт, есть ли ключ в базе</td></tr>
+<tr><th>Сеть</th><td>Режим из <code>network.mode</code> и имя сервера</td></tr>
 </tbody></table>
 <div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/em info</code></pre></div>
 <h3 id="em-modules">/em modules</h3>
@@ -486,12 +494,16 @@ guild-id: ""</code></pre></div>
 </tbody></table>
 <div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/em hooks</code></pre></div>
 <h3 id="em-reload">/em reload</h3>
-<p>Перечитывает конфигурации и применяет набор модулей без перезапуска сервера: папки, файлы и команды модулей появляются сразу.</p>
+<p>Перечитывает конфигурации и применяет набор модулей без перезапуска сервера: папки, файлы и команды модулей появляются сразу. С 0.14.1 перезагрузка идёт по этапам, каждый в своей изоляции, а в конце печатается отчёт.</p>
 <table class="req req-wide"><tbody>
 <tr><th>Синтаксис</th><td><code>/em reload</code></td></tr>
 <tr><th>Право</th><td><code>extendedmanager.command.reload</code> · по умолчанию у операторов</td></tr>
+<tr><th>Этапы</th><td>logger.yml, config.yml и main_messages.yml, кэши игроков, база данных, слушатели, модули и интеграции, состояние после перезагрузки</td></tr>
+<tr><th>Отчёт</th><td>Сколько файлов перечитано и ключей обновилось, что перенесено, модули, команды с алиасами и задержками, интеграции, база и время в миллисекундах</td></tr>
+<tr><th>Сбой этапа</th><td>Этап пишется в журнал ключом <code>reload-stage</code>, остальные выполняются, а его строка попадает в отчёт</td></tr>
 </tbody></table>
 <div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/em reload</code></pre></div>
+<div class="callout callout-info"><p>Отчёт собирается из секции <code>reload</code> файла main_messages.yml: её ключи задают заголовки и строки итога.</p></div>
 <h3 id="em-update">/em update</h3>
 <p>Проверяет новую версию плагина по GitHub или своему URL из секции <code>update</code>. Операторы получают уведомление о выходе обновления при входе.</p>
 <table class="req req-wide"><tbody>
@@ -509,13 +521,14 @@ guild-id: ""</code></pre></div>
 </tbody></table>
 <div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/em db export
 /em db import</code></pre></div>
-<h3 id="em-api">/em api key</h3>
-<p>Показывает ключ HTTP API. Ключ генерируется один раз, хранится в базе и не попадает в файлы и журнал; сверка запросов идёт по SHA3-512.</p>
+<h3 id="em-app">/em app key</h3>
+<p>Показывает ключ HTTP API для приложения. С 0.14.1 подкоманда называется <code>app</code>: ключ служит клиенту плагина, а не стороннему скрипту. Ключ генерируется один раз, хранится в базе и не попадает в файлы и журнал; сверка запросов идёт по SHA3-512.</p>
 <table class="req req-wide"><tbody>
-<tr><th>Синтаксис</th><td><code>/em api key</code></td></tr>
-<tr><th>Право</th><td><code>extendedmanager.command.api</code> · по умолчанию у операторов</td></tr>
+<tr><th>Синтаксис</th><td><code>/em app key</code></td></tr>
+<tr><th>Право</th><td><code>extendedmanager.command.app</code> · по умолчанию у операторов</td></tr>
+<tr><th>Прежнее имя</th><td><code>/em api key</code> и право <code>extendedmanager.command.api</code> продолжают работать</td></tr>
 </tbody></table>
-<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/em api key</code></pre></div>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/em app key</code></pre></div>
 <div class="callout callout-danger"><p>Ключ видит только отправитель команды. Не публикуйте его: это полный доступ к API сервера.</p></div>
 <h3 id="em-restart">/em restart</h3>
 <p>Запуск, отмена и статус отсчёта перезапуска сервера (модуль <code>utils</code>). Предупреждения, кики и сохранение миров настраиваются в <code>utils/restart_config.yml</code>.</p>
@@ -538,11 +551,29 @@ guild-id: ""</code></pre></div>
 <tr><th><code>…chat.adminchat.see</code></th><td>Видеть админ-чат; <code>…adminchat.send</code> пишет в него</td></tr>
 </tbody></table>
 <h3 id="em-toggle">Включение и отключение</h3>
-<p>В <code>command_config.yml</code> секция <code>commands</code> включает и выключает команды. Отсутствующая в списке команда всегда включена; <code>false</code> отвечает сообщением <code>command-disabled</code> и исчезает из автодополнения. Алиасы (<code>/gm</code>, <code>/l</code>, <code>/reg</code>) работают так же.</p>
+<p>В <code>command_config.yml</code> секция <code>commands</code> включает и выключает команды. Отсутствующая в списке команда всегда включена; <code>false</code> отвечает сообщением <code>command-disabled</code> и исчезает из автодополнения.</p>
 <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>commands:
-  fly: true
-  god: false
-  vanish: true</code></pre></div>
+  afk:
+    enable: true
+    aliases:
+      - "away"
+    cooldown:
+      enable: false
+      duration: 0
+      bypass:
+        name: "extendedmanager.command.afk.cooldown.bypass"
+        type: "permission"
+  fly:
+    enable: true
+    aliases: []
+    cooldown:
+      enable: true
+      duration: 60
+      bypass:
+        name: "extendedmanager.command.fly.cooldown.bypass"
+        type: "OP"</code></pre></div>
+<p>С 0.14.1 у команды не одно значение, а блок. <code>enable</code> включает её, <code>aliases</code> задаёт дополнительные имена (<code>"away"</code> вызывает <code>/afk</code>; пустой список <code>[]</code> их не добавляет, а имена из plugin.yml работают всегда), <code>cooldown</code> держит задержку: <code>duration</code> в секундах и <code>bypass</code>, который её снимает. У <code>bypass</code> два поля: <code>name</code> это узел права, а <code>type</code> принимает <code>permission</code> (хватает права) или <code>OP</code> (только операторам сервера). Ответ о задержке берётся из <code>command-cooldown</code> в main_messages.yml, где <code>%em_seconds%</code> показывает остаток. Плоский вид (<code>fly: true</code>) читается по-прежнему, а автообновление переводит команды на блоки и сохраняет прежнюю копию файла в <code>backups/</code>.</p>
+<p>Свои алиасы применяет плагин, поэтому достаточно <code>/em reload</code>: игрок пишет <code>/away</code>, выполняется <code>/afk</code> с её правом и задержкой. Алиас не перекрывает уже зарегистрированную команду и не действует, если одно имя дали двум командам.</p>
 <div class="callout callout-info"><p>Правка применяется после <code>/em reload</code>. Команды модулей зависят ещё и от <code>modules</code>: <code>register</code> и <code>login</code> работают при <code>modules.security</code>. Новое имя команды регистрируется в <code>plugin.yml</code> и появляется только после перезапуска сервера.</p></div>
           </article>
 
@@ -1048,8 +1079,8 @@ guild-id: ""</code></pre></div>
           <article class="doc" id="doc-cmd-look" data-group="Команды">
             <p class="doc-crumbs">Документация <span>/</span> Команды</p>
             <h2>Режимы и внешность</h2>
-            <p class="doc-lead">Режим игры, скорость, размер, видимое имя и статус AFK. Ники поддерживают MiniMessage, спрайты и старые коды &amp;.</p>
-<div class="callout callout-info"><p>Ники поддерживают MiniMessage, спрайты игры и старые цветовые коды <code>&amp;</code>.</p></div>
+            <p class="doc-lead">Режим игры, скорость, размер и статус AFK. С 0.14.1 смену ника в плагине убрали: видимое имя игрока даёт его аккаунт.</p>
+<div class="callout callout-important"><p>Команды <code>/nickname</code> и <code>/forcename</code> удалены вместе с модулем ников. Имя, заданное раньше, после обновления исчезает: остаётся имя аккаунта. Ключи <code>commands.nickname</code> и <code>commands.forcename</code> автообновление убирает из <code>command_config.yml</code>.</p></div>
 <h3 id="cmd-gamemode">/gamemode</h3>
 <p>Смена режима игры: survival, creative, adventure, spectator (или 0-3).</p>
 <table class="req req-wide"><tbody>
@@ -1076,22 +1107,6 @@ guild-id: ""</code></pre></div>
 </tbody></table>
 <div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/scale 1.5
 /scale reset</code></pre></div>
-<h3 id="cmd-nickname">/nickname</h3>
-<p>Меняет имя, которое видят другие игроки; разметка MiniMessage и спрайты работают.</p>
-<table class="req req-wide"><tbody>
-<tr><th>Синтаксис</th><td><code>/nickname &lt;ник|reset&gt;</code></td></tr>
-<tr><th>Право</th><td><code>extendedmanager.command.nickname</code> · по умолчанию у всех</td></tr>
-</tbody></table>
-<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/nickname &lt;gradient:#4fa9ff:#7d5cff&gt;Steve&lt;/gradient&gt;
-/nickname reset</code></pre></div>
-<h3 id="cmd-forcename">/forcename</h3>
-<p>Устанавливает видимое имя другому игроку.</p>
-<table class="req req-wide"><tbody>
-<tr><th>Синтаксис</th><td><code>/forcename &lt;игрок&gt; &lt;ник|reset&gt;</code></td></tr>
-<tr><th>Право</th><td><code>extendedmanager.command.forcename</code> · по умолчанию у операторов</td></tr>
-</tbody></table>
-<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/forcename Steve Builder
-/forcename Steve reset</code></pre></div>
 <h3 id="cmd-afk">/afk</h3>
 <p>Переключает статус AFK. Простой игроков отслеживается автоматически по секции <code>afk</code>: секунды, сообщения и значок для TAB.</p>
 <table class="req req-wide"><tbody>
@@ -1285,6 +1300,29 @@ types:
   message: true</code></pre></div>
           </article>
 
+          <article class="doc" id="doc-heads" data-group="Конфигурация">
+            <p class="doc-crumbs">Документация <span>/</span> Конфигурация</p>
+            <h2>Головы игроков</h2>
+            <p class="doc-lead">С 0.14.1 плагин отдаёт ссылку на картинку головы или всего скина игрока. Картинку рисует внешний сервис, поэтому его адрес и размер настраиваются в секции <code>player_heads</code> файла config.yml.</p>
+            <table class="req req-wide">
+              <tbody>
+                <tr><th><code>avatar_api_url</code></th><td>База ссылки на голову, по умолчанию <code>https://mc-heads.net/avatar</code></td></tr>
+                <tr><th><code>body_api_url</code></th><td>База ссылки на весь скин, по умолчанию <code>https://mc-heads.net/player</code></td></tr>
+                <tr><th><code>avatar_size</code></th><td>Размер головы в пикселях, по умолчанию 8</td></tr>
+                <tr><th><code>body_size</code></th><td>Размер всего скина в пикселях, по умолчанию 16</td></tr>
+              </tbody>
+            </table>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>player_heads:
+  avatar_api_url: "https://mc-heads.net/avatar"
+  body_api_url: "https://mc-heads.net/player"
+  avatar_size: 8
+  body_size: 16</code></pre></div>
+            <h3 id="head-placeholders">Плейсхолдеры</h3>
+            <p>Без аргумента берётся игрок, к которому обращён плейсхолдер; после двоеточия можно написать имя или uuid: <code>%em_playerhead:Notch%</code>, <code>%em_playerhead:59c987a2-4ef3-48e5-a291-00abe9ca8f12%</code>. Ссылка собирается как <code>база/&lt;имя или uuid&gt;/&lt;размер&gt;.png</code>, поэтому <code>%em_playerhead%</code> отдаёт <code>https://mc-heads.net/avatar/59c987a2-4ef3-48e5-a291-00abe9ca8f12/8.png</code>, а <code>%em_playerbody%</code> ведёт к <code>https://mc-heads.net/player/59c987a2-4ef3-48e5-a291-00abe9ca8f12/16.png</code>. Работают плейсхолдеры там же, где и остальные <code>%em_*%</code>: MOTD, форматы чата, рассылка, TAB, сообщения и HTTP API.</p>
+            <div class="callout callout-info"><p>В путь попадает только имя игрока или uuid: адреса вне букв, цифр, «_» и «-» и длиннее 40 символов плагин не собирает, вместо ссылки выходит пустая строка. Пустой <code>avatar_api_url</code> или <code>body_api_url</code> выключает внешний сервис.</p></div>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>format: "&lt;gray&gt;%em_playerhead% %em_displayname%&lt;/gray&gt; &lt;dark_gray&gt;»&lt;/dark_gray&gt; &lt;white&gt;%em_message%&lt;/white&gt;"</code></pre></div>
+          </article>
+
           <article class="doc" id="doc-text" data-group="Сообщения">
             <p class="doc-crumbs">Документация <span>/</span> Сообщения</p>
             <h2>Оформление текста</h2>
@@ -1310,9 +1348,6 @@ sign:
             <div class="callout callout-note">
               <p>Наковальня работает только на Paper и Purpur. В <code>disable-tags</code> по умолчанию вырезаны клики и наведение: такой текст в чужом имени предмета увёл бы игрока на сторонний сайт.</p>
             </div>
-
-            <h3 id="text-nick">Ники игроков</h3>
-            <p><code>/nickname &lt;ник|reset&gt;</code> меняет видимое имя (право <code>extendedmanager.command.nickname</code>), <code>/forcename &lt;игрок&gt; &lt;ник&gt;</code> устанавливает имя другому. Ник поддерживает ту же разметку.</p>
 
             <h3 id="text-links">Серверные ссылки</h3>
             <p>Кнопки в списке «Серверные ссылки» меню паузы. Каждая запись задаёт <code>type</code> (встроенная кнопка клиента) или <code>label</code> (своя надпись), обязательный <code>url</code>, необязательные <code>enabled</code> и <code>permission</code>.</p>
@@ -1354,7 +1389,7 @@ links:
   worldguard: true</code></pre></div>
 
             <h3 id="hooks-ph">Плейсхолдеры</h3>
-            <p>Примеры доступных <code>%em_*%</code>: <code>%em_online%</code>, <code>%em_max%</code>, <code>%em_tps%</code>, <code>%em_version%</code>, <code>%em_displayname%</code>, <code>%em_player%</code>, <code>%em_message%</code>, <code>%em_region%</code>, <code>%em_afk_tabinfo%</code>. Их можно ставить в MOTD, форматы чата, рассылку и TAB.</p>
+            <p>Примеры доступных <code>%em_*%</code>: <code>%em_online%</code>, <code>%em_max%</code>, <code>%em_tps%</code>, <code>%em_version%</code>, <code>%em_displayname%</code>, <code>%em_player%</code>, <code>%em_message%</code>, <code>%em_region%</code>, <code>%em_afk_tabinfo%</code>, а с 0.14.1 ещё <code>%em_playerhead%</code> и <code>%em_playerbody%</code>. Их можно ставить в MOTD, форматы чата, рассылку и TAB.</p>
             <div class="callout callout-note">
               <p>Плагин работает и без партнёров: каждая интеграция объявлена как <code>softdepend</code>, отключается ключом <code>false</code> и не мешает запуску, если плагина нет на сервере.</p>
             </div>
@@ -1372,7 +1407,7 @@ links:
             <ol class="steps">
               <li>Включите модуль <code>modules.api: true</code> и выполните <code>/em reload</code> (нужен Paper или Purpur).</li>
               <li>Задайте адрес и порт в <code>config.yml → api</code> (по умолчанию <code>127.0.0.1:25590</code>).</li>
-              <li>Покажите ключ командой <code>/em api key</code> и скопируйте его.</li>
+              <li>Покажите ключ командой <code>/em app key</code> и скопируйте его.</li>
               <li>В приложении добавьте сервер: адрес, порт и ключ доступа.</li>
             </ol>
             <div class="callout callout-danger">
@@ -1402,13 +1437,14 @@ links:
             <p>Без включённой поддержки прокси сервер видит адрес машины-прокси вместо адресов игроков. Включите поддержку прокси в <code>spigot.yml</code> (<code>bungeecord: true</code> для BungeeCord и Waterfall) и передачу адресов на Velocity (<code>forwarding</code> в <code>velocity.toml</code>). Плагин сверяет это при <code>proxy.check-server-config: true</code>.</p>
 
             <h3 id="faq-api">Приложение не подключается к API</h3>
-            <p>Проверьте: модуль <code>api</code> включён, сервер на Paper или Purpur, адрес и порт в <code>config.yml → api</code> совпадают с настройками приложения, порт не закрыт firewall. Ключ показывается командой <code>/em api key</code>. HTTP не шифруется: используйте localhost, VPN или SSH-туннель.</p>
+            <p>Проверьте: модуль <code>api</code> включён, сервер на Paper или Purpur, адрес и порт в <code>config.yml → api</code> совпадают с настройками приложения, порт не закрыт firewall. Ключ показывается командой <code>/em app key</code>. HTTP не шифруется: используйте localhost, VPN или SSH-туннель.</p>
 
             <h3 id="faq-262">Нужна версия для 26.2</h3>
-            <p>Для Minecraft 26.2 есть отдельная сборка того же 0.14.0 (дерево <code>26.2</code> в репозитории). Основная сборка рассчитана на Paper API 26.3.</p>
+            <p>Для Minecraft 26.2 есть отдельная сборка того же 0.14.1 (дерево <code>26.2</code> в репозитории). Основная сборка рассчитана на Paper API 26.3.</p>
 
             <h3 id="faq-config">Где новые ключи конфигурации</h3>
             <p>Служебный <code>config-version</code> обновляется сам: при первом запуске новой версии недостающие ключи добавляются, а ваши значения сохраняются. Настройки наказаний и SID переехали в <code>punishments.yml</code> и <code>SID_config.yml</code> автоматически.</p>
+            <p>В 0.14.1 автообновление делает три структурных шага: переводит секцию <code>commands</code> на блоки <code>enable</code>, <code>aliases</code> и <code>cooldown</code>, переименовывает ключи с <code>api</code> на <code>app</code> и убирает <code>em api</code> из <code>help-groups</code>. Ключи удалённых <code>/nickname</code> и <code>/forcename</code> исчезают из файлов. Перед каждым таким шагом файл копируется в <code>backups/</code>, поэтому прежнюю правку можно вернуть.</p>
 
             <h3 id="faq-sid">Бан по адресу задел других игроков</h3>
             <p>За одним адресом может стоять несколько человек. Оставьте <code>ip-link.skip-local: true</code> и переключите <code>ip-link.action: warn</code>: тогда администрация получает предупреждение, а автоматического бана нет.</p>

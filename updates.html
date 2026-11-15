@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Обновления Extended Manager</title>
-<meta name="description" content="История релизов Extended Manager: 0.14.0: Argon2id, ключ API в базе и перезапуск сервера; 0.13.1: адаптер Velocity; 0.13.0: HTTP API и Paper 26.3; и более ранние версии.">
+<meta name="description" content="История релизов Extended Manager: 0.14.1: блоки команд, кулдауны, головы игроков и /em app key; 0.14.0: Argon2id, ключ API в базе и перезапуск сервера; 0.13.1: адаптер Velocity; 0.13.0: HTTP API и Paper 26.3; и более ранние версии.">
 <meta name="theme-color" content="#0a0c11">
 <meta property="og:title" content="Обновления Extended Manager: история релизов">
-<meta property="og:description" content="Что нового в 0.14.0 и предыдущих версиях: безопасность, API, Velocity, NPC, чат и наказания.">
+<meta property="og:description" content="Что нового в 0.14.1 и предыдущих версиях: блоки команд и кулдауны, головы игроков, безопасность, API, Velocity, чат и наказания.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234fa9ff'/%3E%3Cstop offset='1' stop-color='%237d5cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M13.69%2020.63L6%2020.63L6%2011.37L13.52%2011.37L13.52%2013.73L9.07%2013.73L9.07%2014.81L12.98%2014.81L12.98%2017.06L9.07%2017.06L9.07%2018.27L13.69%2018.27L13.69%2020.63M17.74%2020.63L14.9%2020.63L14.9%2011.37L17.46%2011.37L20.47%2016.3L23.41%2011.37L25.97%2011.37L26%2020.63L23.16%2020.63L23.13%2016.41L21.12%2019.79L19.75%2019.79L17.74%2016.56L17.74%2020.63' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="index.css">
@@ -30,7 +30,7 @@
     </svg>
     </span>
     <span class="preloader-name">Extended Manager</span>
-    <span class="preloader-version">v0.14.0</span>
+    <span class="preloader-version">v0.14.1</span>
     <span class="preloader-bar"><i id="preloader-bar-fill"></i></span>
     <span class="preloader-meta"><span class="preloader-tip" id="preloader-tip">ядро</span><span class="preloader-pct" id="preloader-pct">0%</span></span>
   </div>
@@ -72,11 +72,11 @@
       <div class="updates-stats">
         <div class="ustat reveal">
           <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
-          <div><strong data-count="10">10</strong><span>релизов</span></div>
+          <div><strong data-count="11">11</strong><span>релизов</span></div>
         </div>
         <div class="ustat reveal" style="--d:.08s">
           <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3z"/></svg>
-          <div><strong>0.14.0</strong><span>последняя версия</span></div>
+          <div><strong>0.14.1</strong><span>последняя версия</span></div>
         </div>
         <div class="ustat reveal" style="--d:.16s">
           <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 2v4"/><path d="M16 2v4"/></svg>
@@ -94,7 +94,8 @@
     <div class="container rail-inner">
       <span class="rail-label">Версии</span>
       <nav class="rail-links" aria-label="Переход к версии">
-        <a class="rail-link is-active" href="#v0-14-0">0.14.0</a>
+        <a class="rail-link is-active" href="#v0-14-1">0.14.1</a>
+        <a class="rail-link" href="#v0-14-0">0.14.0</a>
         <a class="rail-link" href="#v0-13-1">0.13.1</a>
         <a class="rail-link" href="#v0-13-0">0.13.0</a>
         <a class="rail-link" href="#v0-12-7">0.12.7</a>
@@ -123,11 +124,33 @@
 
       <div class="timeline">
         <span class="timeline-progress" aria-hidden="true"><i></i></span>
-        <article class="release reveal is-latest" id="v0-14-0">
+        <article class="release reveal is-latest" id="v0-14-1">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.14.1</span>
+              <span class="release-badge">Актуальная</span>
+              <time datetime="2026-11-15">15 ноября 2026</time>
+              <ul class="chips release-tags"><li>команды</li><li>конфиг</li><li>API</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add"><code>%em_playerhead%</code> и <code>%em_playerbody%</code> отдают ссылку на картинку головы и всего скина; адрес сервиса и размер задаёт секция <code>player_heads</code>.</li>
+              <li class="k-add">У каждой команды свой блок в <code>command_config.yml</code>: <code>enable</code>, список <code>aliases</code> и <code>cooldown</code> с длительностью и правом на обход.</li>
+              <li class="k-add">Алиасы работают и в чате: <code>/gm</code> выполняется как <code>/gamemode</code> с её правом и задержкой; задержка отвечает сообщением <code>command-cooldown</code>.</li>
+              <li class="k-change"><code>/em help</code> стал постраничным, а <code>/em help &lt;команда&gt;</code> показывает синтаксис и право одной команды.</li>
+              <li class="k-change"><code>/em info</code> добавил аптайм, игроков, адрес API, режим сети и настройки голов.</li>
+              <li class="k-change"><code>/em reload</code> идёт по этапам: сбой одного не мешает остальным, а в конце печатается отчёт с числами и временем.</li>
+              <li class="k-change"><code>/em api key</code> переименован в <code>/em app key</code>; прежнее имя подкоманды и право <code>extendedmanager.command.api</code> продолжают работать.</li>
+              <li class="k-remove"><code>/nickname</code> и <code>/forcename</code> удалены: видимое имя даёт аккаунт, ключи автообновление убирает из конфигурации.</li>
+              <li class="k-remove">Рамки из псевдографики убраны из всех сообщений плагина.</li>
+              <li class="k-sec">Перед структурной миграцией файл копируется в <code>backups/</code>, поэтому правка владельца не теряется.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-14-0">
           <div class="release-card">
             <div class="release-head">
               <span class="release-version">0.14.0</span>
-              <span class="release-badge">Актуальная</span>
               <time datetime="2026-11-14">14 ноября 2026</time>
               <ul class="chips release-tags"><li>безопасность</li><li>API</li><li>utils</li></ul>
             </div>
