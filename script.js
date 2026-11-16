@@ -194,64 +194,63 @@
 
   /* ----- Документация ----- */
   var COMMANDS = [
-    ['afk', 'cmd-look', 'cmd-afk', 'Режим AFK с таймером и сообщением.'],
-    ['ban', 'cmd-bans', 'cmd-ban', 'Бан игрока по нику или адресу.'],
-    ['banlist', 'cmd-bans', 'cmd-banlist', 'Список активных банов.'],
-    ['bansid', 'cmd-bans', 'cmd-bansid', 'Бан по идентификатору аккаунта (SID).'],
-    ['broadcasts', 'cmd-chat', 'cmd-broadcasts', 'Управление рассылкой сообщений.'],
-    ['cloak', 'cmd-hide', 'cmd-cloak', 'Скрыть игрока от других.'],
-    ['damage', 'cmd-state', 'cmd-damage', 'Нанести игроку урон.'],
+    ['afk', 'cmd-afk', '', 'Режим AFK с таймером и сообщением.'],
+    ['ban', 'cmd-ban', '', 'Бан игрока по нику или адресу.'],
+    ['banlist', 'cmd-banlist', '', 'Список активных банов.'],
+    ['bansid', 'cmd-bansid', '', 'Бан по идентификатору аккаунта (SID).'],
+    ['broadcasts', 'cmd-broadcasts', '', 'Управление рассылкой сообщений.'],
+    ['cloak', 'cmd-cloak', '', 'Скрыть игрока от других.'],
+    ['damage', 'cmd-damage', '', 'Нанести игроку урон.'],
     ['em', 'cmd-em', '', 'Ядро плагина: справка, модули, перезагрузка.'],
-    ['endersee', 'cmd-inv', 'cmd-endersee', 'Открыть эндер-сундук игрока.'],
-    ['feed', 'cmd-state', 'cmd-feed', 'Восстановить сытость игрока.'],
-    ['fly', 'cmd-state', 'cmd-fly', 'Включить или выключить полёт.'],
-    ['freeze', 'cmd-hide', 'cmd-freeze', 'Заморозить игрока на месте.'],
-    ['gag', 'cmd-mutes', 'cmd-gag', 'Запретить голосовой чат (гаг).'],
-    ['gaglist', 'cmd-mutes', 'cmd-gaglist', 'Список активных гагов.'],
-    ['gamemode', 'cmd-look', 'cmd-gamemode', 'Сменить игровой режим.'],
-    ['geolocate', 'cmd-inv', 'cmd-geolocate', 'Геолокация адреса игрока.'],
-    ['givedonate', 'cmd-ranks', 'cmd-givedonate', 'Выдать донат-привилегию.'],
-    ['god', 'cmd-state', 'cmd-god', 'Режим бессмертия.'],
-    ['heal', 'cmd-state', 'cmd-heal', 'Вылечить игрока.'],
-    ['hp', 'cmd-state', 'cmd-hp', 'Установить или посмотреть здоровье.'],
-    ['hub', 'cmd-tp', 'cmd-hub', 'Перенести игрока на HUB.'],
-    ['ignite', 'cmd-state', 'cmd-ignite', 'Поджечь игрока.'],
-    ['invsee', 'cmd-inv', 'cmd-invsee', 'Открыть инвентарь игрока.'],
-    ['kick', 'cmd-kicks', 'cmd-kick', 'Кикнуть игрока с сервера.'],
-    ['kickall', 'cmd-kicks', 'cmd-kickall', 'Кикнуть всех игроков.'],
-    ['kill', 'cmd-state', 'cmd-kill', 'Убить игрока.'],
-    ['link', 'cmd-auth', 'cmd-link', 'Привязать аккаунт к адресу.'],
-    ['login', 'cmd-auth', 'cmd-login', 'Войти в аккаунт.'],
-    ['mute', 'cmd-mutes', 'cmd-mute', 'Запретить игроку писать в чат.'],
-    ['mutelist', 'cmd-mutes', 'cmd-mutelist', 'Список активных мьютов.'],
+    ['endersee', 'cmd-endersee', '', 'Открыть эндер-сундук игрока.'],
+    ['feed', 'cmd-feed', '', 'Восстановить сытость игрока.'],
+    ['fly', 'cmd-fly', '', 'Включить или выключить полёт.'],
+    ['freeze', 'cmd-freeze', '', 'Заморозить игрока на месте.'],
+    ['gag', 'cmd-gag', '', 'Запретить голосовой чат (гаг).'],
+    ['gaglist', 'cmd-gaglist', '', 'Список активных гагов.'],
+    ['gamemode', 'cmd-gamemode', '', 'Сменить игровой режим.'],
+    ['geolocate', 'cmd-geolocate', '', 'Геолокация адреса игрока.'],
+    ['givedonate', 'cmd-givedonate', '', 'Выдать донат-привилегию.'],
+    ['god', 'cmd-god', '', 'Режим бессмертия.'],
+    ['heal', 'cmd-heal', '', 'Вылечить игрока.'],
+    ['hp', 'cmd-hp', '', 'Установить или посмотреть здоровье.'],
+    ['hub', 'cmd-hub', '', 'Перенести игрока на HUB.'],
+    ['ignite', 'cmd-ignite', '', 'Поджечь игрока.'],
+    ['invsee', 'cmd-invsee', '', 'Открыть инвентарь игрока.'],
+    ['kick', 'cmd-kick', '', 'Кикнуть игрока с сервера.'],
+    ['kickall', 'cmd-kickall', '', 'Кикнуть всех игроков.'],
+    ['kill', 'cmd-kill', '', 'Убить игрока.'],
+    ['link', 'cmd-link', '', 'Привязать аккаунт к адресу.'],
+    ['login', 'cmd-login', '', 'Войти в аккаунт.'],
+    ['mute', 'cmd-mute', '', 'Запретить игроку писать в чат.'],
+    ['mutelist', 'cmd-mutelist', '', 'Список активных мьютов.'],
     ['npc', 'cmd-npc', '', 'Управление NPC.'],
-    ['register', 'cmd-auth', 'cmd-register', 'Зарегистрировать аккаунт.'],
-    ['respawn', 'cmd-tp', 'cmd-respawn', 'Вернуть игрока на точку возрождения.'],
-    ['say', 'cmd-chat', 'cmd-say', 'Сообщение в чат или админ-чат.'],
-    ['scale', 'cmd-look', 'cmd-scale', 'Изменить размер игрока.'],
-    ['setrank', 'cmd-ranks', 'cmd-setrank', 'Назначить группу привилегий.'],
-    ['setspawn', 'cmd-tp', 'cmd-setspawn', 'Установить точку спавна.'],
-    ['spawn', 'cmd-tp', 'cmd-spawn', 'Телепорт на спавн.'],
-    ['speed', 'cmd-look', 'cmd-speed', 'Изменить скорость игрока.'],
-    ['sprite', 'cmd-npc', 'cmd-sprite', 'Спрайты игры в тексте.'],
-    ['tp', 'cmd-tp', 'cmd-tp', 'Телепортироваться к игроку.'],
-    ['tphere', 'cmd-tp', 'cmd-tphere', 'Телепортировать игрока к себе.'],
-    ['tpsend', 'cmd-tp', 'cmd-tpsend', 'Перенести игрока на другой сервер.'],
-    ['trade', 'cmd-inv', 'cmd-trade', 'Обмен предметами между игроками.'],
-    ['unban', 'cmd-bans', 'cmd-unban', 'Снять бан.'],
-    ['uncloak', 'cmd-hide', 'cmd-uncloak', 'Вернуть видимость игрока.'],
-    ['unfreeze', 'cmd-hide', 'cmd-unfreeze', 'Разморозить игрока.'],
-    ['ungag', 'cmd-mutes', 'cmd-ungag', 'Снять гаг.'],
-    ['unignite', 'cmd-state', 'cmd-unignite', 'Потушить игрока.'],
-    ['unmute', 'cmd-mutes', 'cmd-unmute', 'Снять мьют.'],
-    ['unwarn', 'cmd-warns', 'cmd-unwarn', 'Снять предупреждение.'],
-    ['vanish', 'cmd-hide', 'cmd-vanish', 'Полная невидимость: TAB и команды.'],
-    ['warn', 'cmd-warns', 'cmd-warn', 'Выдать предупреждение.'],
-    ['warnlist', 'cmd-warns', 'cmd-warnlist', 'Список предупреждений.'],
-    ['whitelist', 'cmd-kicks', 'cmd-whitelist', 'Управление белым списком.'],
+    ['register', 'cmd-register', '', 'Зарегистрировать аккаунт.'],
+    ['respawn', 'cmd-respawn', '', 'Вернуть игрока на точку возрождения.'],
+    ['say', 'cmd-say', '', 'Сообщение в чат или админ-чат.'],
+    ['scale', 'cmd-scale', '', 'Изменить размер игрока.'],
+    ['setrank', 'cmd-setrank', '', 'Назначить группу привилегий.'],
+    ['setspawn', 'cmd-setspawn', '', 'Установить точку спавна.'],
+    ['spawn', 'cmd-spawn', '', 'Телепорт на спавн.'],
+    ['speed', 'cmd-speed', '', 'Изменить скорость игрока.'],
+    ['sprite', 'cmd-sprite', '', 'Спрайты игры в тексте.'],
+    ['tp', 'cmd-tp', '', 'Телепортироваться к игроку.'],
+    ['tphere', 'cmd-tphere', '', 'Телепортировать игрока к себе.'],
+    ['tpsend', 'cmd-tpsend', '', 'Перенести игрока на другой сервер.'],
+    ['trade', 'cmd-trade', '', 'Обмен предметами между игроками.'],
+    ['unban', 'cmd-unban', '', 'Снять бан.'],
+    ['uncloak', 'cmd-uncloak', '', 'Вернуть видимость игрока.'],
+    ['unfreeze', 'cmd-unfreeze', '', 'Разморозить игрока.'],
+    ['ungag', 'cmd-ungag', '', 'Снять гаг.'],
+    ['unignite', 'cmd-unignite', '', 'Потушить игрока.'],
+    ['unmute', 'cmd-unmute', '', 'Снять мьют.'],
+    ['unwarn', 'cmd-unwarn', '', 'Снять предупреждение.'],
+    ['vanish', 'cmd-vanish', '', 'Полная невидимость: TAB и команды.'],
+    ['warn', 'cmd-warn', '', 'Выдать предупреждение.'],
+    ['warnlist', 'cmd-warnlist', '', 'Список предупреждений.'],
+    ['whitelist', 'cmd-whitelist', '', 'Управление белым списком.'],
     ['world', 'cmd-world', '', 'Управление мирами.']
-  ];
-  var CMD_ICON = '<svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>';
+  ];  var CMD_ICON = '<svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>';
   var CHEVRON = '<svg class="cat-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
 
   function initDocs() {
@@ -262,6 +261,7 @@
     var nextBtn = $('#doc-next');
     var search = $('#docs-search');
     var emptyNote = $('.docs-empty');
+    var foundNote = $('#docs-found');
     var docs = $$('.doc');
     if (!sideNav || !docs.length) return;
     var activeDoc = docs[0];
@@ -286,13 +286,21 @@
       btn.type = 'button';
       btn.className = 'docs-cat-toggle';
       btn.setAttribute('aria-expanded', 'true');
-      var count = g.commands ? COMMANDS.length : g.items.length;
+      var count = g.items.length + (g.commands ? COMMANDS.length : 0);
       btn.innerHTML = CHEVRON + '<span>' + g.label + '</span><span class="cat-count">' + count + '</span>';
       var body = document.createElement('div');
       body.className = 'docs-cat-body';
       var inner = document.createElement('div');
       inner.className = 'docs-cat-inner';
 
+      g.items.forEach(function (it) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'docs-link';
+        b.setAttribute('data-doc', it.doc);
+        b.innerHTML = it.icon + '<span>' + it.title + '</span>';
+        inner.appendChild(b);
+      });
       if (g.commands) {
         COMMANDS.forEach(function (c) {
           var b = document.createElement('button');
@@ -302,15 +310,6 @@
           if (c[2]) b.setAttribute('data-anchor', c[2]);
           b.title = c[3];
           b.innerHTML = CMD_ICON + '<span>/' + c[0] + '</span>';
-          inner.appendChild(b);
-        });
-      } else {
-        g.items.forEach(function (it) {
-          var b = document.createElement('button');
-          b.type = 'button';
-          b.className = 'docs-link';
-          b.setAttribute('data-doc', it.doc);
-          b.innerHTML = it.icon + '<span>' + it.title + '</span>';
           inner.appendChild(b);
         });
       }
@@ -356,6 +355,9 @@
         tocList.appendChild(li);
       });
       markToc();
+      /* У командных разделов нет подразделов: панель остаётся без заголовка списка. */
+      var tocBox = $('.docs-toc');
+      if (tocBox) tocBox.classList.toggle('no-headings', !tocList.children.length);
     }
 
     markToc = function () {
@@ -440,6 +442,18 @@
       });
     });
 
+    /* Ссылки на другой раздел прямо в тексте статьи. */
+    docsMain.addEventListener('click', function (event) {
+      var link = event.target.closest ? event.target.closest('a[href^="#"]') : null;
+      if (!link) return;
+      var target = document.getElementById(link.getAttribute('href').slice(1));
+      if (!target) return;
+      var owner = target.closest('.doc');
+      if (!owner) return;
+      event.preventDefault();
+      goDoc(owner.id.slice(4), target.id);
+    });
+
     prevBtn.addEventListener('click', function () {
       var idx = pagerOrder.indexOf(activeDoc.id.slice(4));
       if (idx > 0) goDoc(pagerOrder[idx - 1], null);
@@ -465,10 +479,14 @@
         if (query) { cat.classList.remove('is-collapsed'); if (t) t.setAttribute('aria-expanded', 'true'); }
         cat.hidden = vis === 0;
         var badge = $('.cat-count', cat);
-        if (badge) badge.textContent = query ? vis : (cat.querySelector('.docs-cmd') ? COMMANDS.length : links.length);
+        if (badge) badge.textContent = query ? vis : links.length;
         visible += vis;
       });
       emptyNote.hidden = visible !== 0;
+      if (foundNote) {
+        foundNote.hidden = !query;
+        if (query) foundNote.textContent = 'Разделов по запросу: ' + visible;
+      }
     }
 
     search.addEventListener('input', filterDocs);
@@ -491,6 +509,11 @@
 
     var hash = window.location.hash;
     var defaultId = $('#doc-start') ? 'start' : pagerOrder[0];
+    /* Старые ссылки вида #cmd-ban (без doc-) тоже открывают раздел о команде. */
+    if (hash.length > 1 && hash.indexOf('#doc-') !== 0
+        && !document.getElementById(hash.slice(1)) && $('#doc-' + hash.slice(1))) {
+      hash = '#doc-' + hash.slice(1);
+    }
     if (hash.indexOf('#doc-') === 0) {
       var id = hash.slice(5);
       if ($('#doc-' + id)) {
@@ -549,29 +572,75 @@
       head.appendChild(meta);
     });
 
-    /* Фильтр по типу изменений */
+    /* Фильтр по типу изменений, поиск по тексту и сворачивание старых релизов */
     var kindBtns = $$('.kind-btn');
     var note = $('#updates-filter-note');
-    function applyFilter(kind) {
-      kindBtns.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-kind') === kind); });
-      var shownReleases = 0, shownItems = 0;
-      releases.forEach(function (r) {
+    var search = $('#updates-search');
+    var KEEP_OPEN = 5;
+    var expanded = false;
+    var expandBtn = null;
+    if (releases.length > KEEP_OPEN) {
+      expandBtn = document.createElement('button');
+      expandBtn.type = 'button';
+      expandBtn.className = 'kind-btn updates-expand';
+      expandBtn.addEventListener('click', function () {
+        expanded = !expanded;
+        applyFilter();
+      });
+      $('.timeline').appendChild(expandBtn);
+    }
+
+    function applyFilter() {
+      var kind = 'all';
+      kindBtns.forEach(function (b) { if (b.classList.contains('is-active')) kind = b.getAttribute('data-kind'); });
+      var query = search ? search.value.trim().toLowerCase() : '';
+      var shownReleases = 0, shownItems = 0, oldTotal = releases.length - KEEP_OPEN;
+      releases.forEach(function (r, idx) {
         var items = $$('.release-list li', r);
         var match = 0;
         items.forEach(function (li) {
-          var isMatch = kind === 'all' || li.classList.contains('k-' + kind);
-          li.classList.toggle('is-dimmed', kind !== 'all' && !isMatch);
-          if (isMatch) match++;
+          var okKind = kind === 'all' || li.classList.contains('k-' + kind);
+          var okText = !query || li.textContent.toLowerCase().indexOf(query) !== -1;
+          li.classList.toggle('is-out', !okText);
+          li.classList.toggle('is-dimmed', okText && !okKind);
+          if (okKind && okText) match++;
         });
-        var relMatch = kind === 'all' || match > 0;
-        r.classList.toggle('is-dimmed', !relMatch);
-        if (relMatch) { shownReleases++; shownItems += (kind === 'all' ? items.length : match); }
+        var folded = idx >= KEEP_OPEN && !expanded && !query && kind === 'all';
+        var hidden = folded || (!!query && match === 0);
+        r.classList.toggle('is-out', hidden);
+        r.classList.toggle('is-dimmed', !hidden && kind !== 'all' && match === 0);
+        if (!hidden) { shownReleases++; shownItems += match || items.length; }
       });
+      if (expandBtn) {
+        expandBtn.hidden = !!query || kind !== 'all';
+        expandBtn.textContent = expanded ? 'Свернуть старые версии' : 'Показать старые версии (' + oldTotal + ')';
+      }
       if (!note) return;
-      if (kind === 'all') note.hidden = true;
-      else { note.hidden = false; note.textContent = 'Показано изменений: ' + shownItems + ' в ' + shownReleases + ' релизах. Остальное приглушено.'; }
+      if (!query && kind === 'all') { note.hidden = true; return; }
+      note.hidden = false;
+      note.textContent = query
+        ? 'Совпадений: ' + shownItems + ' в ' + shownReleases + ' релизах.'
+        : 'Показано изменений: ' + shownItems + ' в ' + shownReleases + ' релизах. Остальное приглушено.';
     }
-    kindBtns.forEach(function (b) { b.addEventListener('click', function () { applyFilter(b.getAttribute('data-kind')); }); });
+    kindBtns.forEach(function (b) { b.addEventListener('click', function () {
+      kindBtns.forEach(function (o) { o.classList.toggle('is-active', o === b); });
+      applyFilter();
+    }); });
+    if (search) {
+      search.addEventListener('input', applyFilter);
+      search.addEventListener('keydown', function (event) {
+        if (event.key !== 'Escape') return;
+        search.value = '';
+        applyFilter();
+        search.blur();
+      });
+    }
+    applyFilter();
+    /* Ссылка на свёрнутую версию должна раскрыть список. */
+    if (window.location.hash) {
+      var land = document.getElementById(window.location.hash.slice(1));
+      if (land && land.classList.contains('release') && !land.offsetParent) { expanded = true; applyFilter(); }
+    }
 
     /* Прогресс по шкале релизов */
     var fill = $('.timeline-progress i');
@@ -594,6 +663,7 @@
         var el = document.getElementById(a.getAttribute('href').slice(1));
         if (!el) return;
         event.preventDefault();
+        if (!el.offsetParent && !expanded) { expanded = true; applyFilter(); }
         var top = el.getBoundingClientRect().top + window.scrollY - 124;
         window.scrollTo({ top: top, behavior: reduced ? 'auto' : 'smooth' });
         history.replaceState(null, '', a.getAttribute('href'));
@@ -601,10 +671,12 @@
     });
 
     markRail = function () {
-      var current = releases[0];
-      releases.forEach(function (r) { if (r.getBoundingClientRect().top <= 150) current = r; });
+      var shown = releases.filter(function (r) { return !!r.offsetParent; });
+      if (!shown.length) return;
+      var current = shown[0];
+      shown.forEach(function (r) { if (r.getBoundingClientRect().top <= 150) current = r; });
       var doc = document.documentElement;
-      if (window.scrollY + doc.clientHeight >= doc.scrollHeight - 4) current = releases[releases.length - 1];
+      if (window.scrollY + doc.clientHeight >= doc.scrollHeight - 4) current = shown[shown.length - 1];
       if (current === lastActive) return;
       lastActive = current;
       links.forEach(function (a) { a.classList.toggle('is-active', a.getAttribute('href') === '#' + current.id); });

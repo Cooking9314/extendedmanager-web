@@ -626,6 +626,9 @@ html.js .chat-lines p {
 .docs-link[hidden] { display: none; }
 
 .docs-empty { margin-top: 12px; color: var(--muted); font-size: .85rem; }
+.docs-found { margin-top: 10px; color: var(--accent); font-size: .78rem; letter-spacing: .01em; }
+
+.docs-toc.no-headings .docs-toc-title, .docs-toc.no-headings ul { display: none; }
 
 .docs-main {
   min-width: 0;
@@ -1568,16 +1571,12 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
   gap: 16px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding: 4px 2px 14px;
+  padding: 4px 2px 2px;
   cursor: grab;
-  scrollbar-width: thin;
-  scrollbar-color: #2b3444 transparent;
+  scrollbar-width: none;
 }
 .carousel-track:active { cursor: grabbing; }
-.carousel-track::-webkit-scrollbar { height: 7px; }
-.carousel-track::-webkit-scrollbar-track { background: transparent; }
-.carousel-track::-webkit-scrollbar-thumb { border: 0; border-radius: 7px; background: #2b3444; }
-.carousel-track::-webkit-scrollbar-thumb:hover { background: #3d4a5f; }
+.carousel-track::-webkit-scrollbar { display: none; }
 
 .feature-card {
   position: relative;
@@ -1610,8 +1609,7 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
 .feature-card:hover::before { transform: scaleX(1); opacity: 1; }
 .feature-card h3 { font-size: 1.08rem; font-weight: 700; }
 .feature-card p { margin-top: 9px; color: var(--muted); font-size: .92rem; flex: 1 1 auto; overflow-wrap: anywhere; }
-.feature-card .snippet { margin-top: 14px; }
-.feature-more { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; color: var(--accent); font-size: .84rem; font-weight: 600; }
+.feature-more { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; color: var(--accent); font-size: .84rem; font-weight: 600; }
 .feature-more .ico { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .18s ease; }
 .feature-card:hover .feature-more .ico { transform: translateX(3px); }
 
@@ -1708,6 +1706,36 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
 .release.is-dimmed { opacity: .3; filter: saturate(.55); }
 .release-list li { transition: opacity .2s ease; }
 .release-list li.is-dimmed { opacity: .25; }
+.release.is-out, .release-list li.is-out { display: none; }
+
+.updates-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 1 340px;
+  min-width: 200px;
+  max-width: 340px;
+  margin-left: auto;
+  padding: 5px 13px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-soft);
+  color: var(--muted);
+  transition: border-color .16s ease;
+}
+.updates-search:focus-within { border-color: var(--accent); color: var(--text); }
+.updates-search svg { width: 15px; height: 15px; flex: 0 0 auto; }
+.updates-search input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: .82rem;
+}
+.updates-search input::placeholder { color: var(--muted); }
+.updates-expand { display: block; margin: 2px auto 0; padding: 8px 18px; font-size: .84rem; }
 
 .release-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-left: auto; }
 .release-meta span {
