@@ -558,43 +558,162 @@
   /* ----- Обновления: панель версий, фильтр, мета, прогресс ----- */
   var KIND_LABEL = { add: 'добавлено', change: 'изменено', fix: 'исправлено', sec: 'безопасность', net: 'сеть', remove: 'удалено' };
   var KIND_ORDER = ['add', 'change', 'fix', 'sec', 'net', 'remove'];
+  var CAT_LABEL = { major: 'Крупное обновление', minor: 'Обновление', patch: 'Патч' };
+  var MONTHS = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
 
   function initUpdates() {
     var rail = $('#release-rail');
     var releases = $$('.release');
     if (!releases.length) return;
 
-    /* Мета: счётчики изменений по типам */
+    var kindBtns = $$('.kind-btn');
+    var catBtns = $$('.cat-btn');
+    var note = $('#updates-filter-note');
+    var empty = $('#updates-empty');
+    var search = $('#updates-search');
+    var clearBtn = $('#updates-clear');
+    var resetBtn = $('#updates-reset');
+    var KEEP_OPEN = 5;
+    var FOLD_ITEMS = 6;
+    var expanded = false;
+    var openCards = {};
+
+    function plural(n, one, few, many) {
+      var m10 = n % 10, m100 = n % 100;
+      if (m10 === 1 && m100 !== 11) return one;
+      if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) return few;
+      return many;
+    }
+
+    /* Категория берётся из номера версии: x.0.0 крупная, x.y.0 обновление, остальное патч */
+    function catOf(r) {
+      if (r.classList.contains('release-first')) return 'major';
+      var el = $('.release-version', r);
+      var p = el ? el.textContent.trim().split('.').map(Number) : [];
+      if (p.length < 3 || p.some(function (n) { return isNaN(n); })) return 'patch';
+      if (!p[1] && !p[2]) return 'major';
+      return p[2] ? 'patch' : 'minor';
+    }
+
+    var catTotals = { major: 0, minor: 0, patch: 0 };
+    var kindTotals = {};
+    var totalItems = 0;
+
     releases.forEach(function (r) {
+      var cat = catOf(r);
+      var card = $('.release-card', r);
       var head = $('.release-head', r);
-      if (!head || $('.release-meta', head)) return;
+      var list = $('.release-list', r);
+      var items = list ? $$('.release-list li', list) : [];
+      var time = head ? $('time', head) : null;
+
+      r.setAttribute('data-cat', cat);
+      catTotals[cat]++;
+      totalItems += items.length;
+      if (time && time.getAttribute('datetime')) r.setAttribute('data-period', time.getAttribute('datetime').slice(0, 7));
+
       var counts = {};
-      $$('.release-list li', r).forEach(function (li) {
-        KIND_ORDER.forEach(function (k) { if (li.classList.contains('k-' + k)) counts[k] = (counts[k] || 0) + 1; });
+      items.forEach(function (li) {
+        KIND_ORDER.forEach(function (k) {
+          if (!li.classList.contains('k-' + k)) return;
+          counts[k] = (counts[k] || 0) + 1;
+          kindTotals[k] = (kindTotals[k] || 0) + 1;
+        });
       });
+
+      var link = rail ? $('.rail-link[href="#' + r.id + '"]', rail) : null;
+      if (link) {
+        link.setAttribute('data-cat', cat);
+        if (time) link.title = time.textContent.trim() + ' · ' + CAT_LABEL[cat];
+      }
+
+      if (!head || !card || !list) return;
+
+      /* Шапка карточки: слева номер и категория, справа дата и счётчики по типам */
+      var ver = $('.release-version', head);
+      var badge = $('.release-badge', head);
+      var tags = $('.release-tags', card);
+      var noteEl = $('.release-note', card);
+      if (!ver) return;
+
       var meta = document.createElement('div');
       meta.className = 'release-meta';
       KIND_ORDER.forEach(function (k) {
         if (!counts[k]) return;
         var s = document.createElement('span');
-        s.title = KIND_LABEL[k];
+        s.title = KIND_LABEL[k] + ': ' + counts[k];
         s.innerHTML = '<i class="k-' + k + '"></i>' + counts[k];
         meta.appendChild(s);
       });
-      head.appendChild(meta);
+
+      var chip = document.createElement('span');
+      chip.className = 'rel-cat cat-' + cat;
+      chip.textContent = CAT_LABEL[cat];
+
+      var top = document.createElement('div');
+      top.className = 'release-top';
+      var left = document.createElement('div');
+      left.className = 'release-id';
+      var right = document.createElement('div');
+      right.className = 'release-side';
+
+      left.appendChild(ver);
+      left.appendChild(chip);
+      if (badge) left.appendChild(badge);
+      if (time) right.appendChild(time);
+      right.appendChild(meta);
+      top.appendChild(left);
+      top.appendChild(right);
+
+      card.textContent = '';
+      card.appendChild(top);
+      if (noteEl) card.appendChild(noteEl);
+      card.appendChild(list);
+      if (tags) {
+        tags.classList.add('is-foot');
+        card.appendChild(tags);
+      }
+
+      /* Длинные списки показываем по частям */
+      if (items.length > FOLD_ITEMS) {
+        var more = document.createElement('button');
+        more.type = 'button';
+        more.className = 'rel-more';
+        more.addEventListener('click', function () {
+          openCards[r.id] = !openCards[r.id];
+          applyFilter();
+        });
+        card.appendChild(more);
+        r._more = more;
+      }
     });
 
-    /* Фильтр по типу изменений, поиск по тексту и сворачивание старых релизов */
-    var kindBtns = $$('.kind-btn');
-    var note = $('#updates-filter-note');
-    var search = $('#updates-search');
-    var KEEP_OPEN = 5;
-    var expanded = false;
+    /* Маркеры периодов на шкале времени */
+    var lastPeriod = null;
+    releases.forEach(function (r) {
+      var d = r.getAttribute('data-period');
+      if (!d || d === lastPeriod) return;
+      lastPeriod = d;
+      var m = document.createElement('div');
+      m.className = 'tl-period';
+      m.setAttribute('data-period', d);
+      var parts = d.split('-');
+      m.innerHTML = '<span class="tl-period-name">' + (MONTHS[parseInt(parts[1], 10) - 1] || d) + ' ' + parts[0] + '</span>' +
+        '<span class="tl-period-count"></span>';
+      r.parentNode.insertBefore(m, r);
+    });
+    var periods = $$('.tl-period');
+    periods.forEach(function (p) {
+      var d = p.getAttribute('data-period');
+      var n = releases.filter(function (r) { return r.getAttribute('data-period') === d; }).length;
+      p.querySelector('.tl-period-count').textContent = n + ' ' + plural(n, 'релиз', 'релиза', 'релизов');
+    });
+
     var expandBtn = null;
     if (releases.length > KEEP_OPEN) {
       expandBtn = document.createElement('button');
       expandBtn.type = 'button';
-      expandBtn.className = 'kind-btn updates-expand';
+      expandBtn.className = 'updates-expand';
       expandBtn.addEventListener('click', function () {
         expanded = !expanded;
         applyFilter();
@@ -603,10 +722,13 @@
     }
 
     function applyFilter() {
-      var kind = 'all';
+      var kind = 'all', cat = 'all';
       kindBtns.forEach(function (b) { if (b.classList.contains('is-active')) kind = b.getAttribute('data-kind'); });
+      catBtns.forEach(function (b) { if (b.classList.contains('is-active')) cat = b.getAttribute('data-cat'); });
       var query = search ? search.value.trim().toLowerCase() : '';
+      var plain = !query && kind === 'all' && cat === 'all';
       var shownReleases = 0, shownItems = 0, oldTotal = releases.length - KEEP_OPEN;
+
       releases.forEach(function (r, idx) {
         var items = $$('.release-list li', r);
         var match = 0;
@@ -617,27 +739,68 @@
           li.classList.toggle('is-dimmed', okText && !okKind);
           if (okKind && okText) match++;
         });
-        var folded = idx >= KEEP_OPEN && !expanded && !query && kind === 'all';
-        var hidden = folded || (!!query && match === 0);
+
+        var folded = !!r._more && plain && !openCards[r.id];
+        items.forEach(function (li, i) { li.classList.toggle('is-cut', folded && i >= FOLD_ITEMS); });
+        if (r._more) {
+          r._more.hidden = !plain;
+          r._more.classList.toggle('is-open', !folded);
+          r._more.textContent = folded
+            ? 'Показать все ' + items.length + ' ' + plural(items.length, 'изменение', 'изменения', 'изменений')
+            : 'Свернуть список';
+        }
+
+        var foldedOld = idx >= KEEP_OPEN && !expanded && plain;
+        var wrongCat = cat !== 'all' && r.getAttribute('data-cat') !== cat;
+        var hidden = foldedOld || wrongCat || (!!query && match === 0);
         r.classList.toggle('is-out', hidden);
         r.classList.toggle('is-dimmed', !hidden && kind !== 'all' && match === 0);
-        if (!hidden) { shownReleases++; shownItems += match || items.length; }
+        if (!hidden) { shownReleases++; shownItems += match; }
       });
+
+      periods.forEach(function (p) {
+        var d = p.getAttribute('data-period');
+        var any = releases.some(function (r) {
+          return r.getAttribute('data-period') === d && !r.classList.contains('is-out');
+        });
+        p.classList.toggle('is-out', !any);
+      });
+
       if (expandBtn) {
-        expandBtn.hidden = !!query || kind !== 'all';
+        expandBtn.hidden = !plain;
+        expandBtn.classList.toggle('is-open', expanded);
         expandBtn.textContent = expanded ? 'Свернуть старые версии' : 'Показать старые версии (' + oldTotal + ')';
       }
+      if (clearBtn) clearBtn.hidden = !query;
+      if (empty) empty.hidden = shownReleases !== 0;
       if (!note) return;
-      if (!query && kind === 'all') { note.hidden = true; return; }
-      note.hidden = false;
-      note.textContent = query
-        ? 'Совпадений: ' + shownItems + ' в ' + shownReleases + ' релизах.'
-        : 'Показано изменений: ' + shownItems + ' в ' + shownReleases + ' релизах. Остальное приглушено.';
+      if (plain) { note.hidden = true; return; }
+      var where = shownReleases + ' ' + plural(shownReleases, 'релизе', 'релизах', 'релизах');
+      note.textContent = (query
+        ? 'Совпадений: ' + shownItems + ' в ' + where + '.'
+        : 'Показано изменений: ' + shownItems + ' в ' + where + '.') +
+        (cat === 'all' ? '' : ' Категория: ' + CAT_LABEL[cat].toLowerCase() + '.');
     }
-    kindBtns.forEach(function (b) { b.addEventListener('click', function () {
-      kindBtns.forEach(function (o) { o.classList.toggle('is-active', o === b); });
-      applyFilter();
-    }); });
+
+    catBtns.forEach(function (b) {
+      var c = b.getAttribute('data-cat');
+      var n = c === 'all' ? releases.length : catTotals[c];
+      b.insertAdjacentHTML('beforeend', '<em class="uc-count">' + n + '</em>');
+      b.addEventListener('click', function () {
+        catBtns.forEach(function (o) { o.classList.toggle('is-active', o === b); });
+        applyFilter();
+      });
+    });
+    kindBtns.forEach(function (b) {
+      var k = b.getAttribute('data-kind');
+      var n = k === 'all' ? totalItems : (kindTotals[k] || 0);
+      b.insertAdjacentHTML('beforeend', '<em class="uc-count">' + n + '</em>');
+      b.addEventListener('click', function () {
+        kindBtns.forEach(function (o) { o.classList.toggle('is-active', o === b); });
+        applyFilter();
+      });
+    });
+
     if (search) {
       search.addEventListener('input', applyFilter);
       search.addEventListener('keydown', function (event) {
@@ -647,27 +810,66 @@
         search.blur();
       });
     }
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function () {
+        if (!search) return;
+        search.value = '';
+        search.focus();
+        applyFilter();
+      });
+    }
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function () {
+        if (search) search.value = '';
+        kindBtns.forEach(function (o, i) { o.classList.toggle('is-active', i === 0); });
+        catBtns.forEach(function (o, i) { o.classList.toggle('is-active', i === 0); });
+        expanded = false;
+        openCards = {};
+        applyFilter();
+      });
+    }
+    document.addEventListener('keydown', function (event) {
+      if (!search || !(event.ctrlKey || event.metaKey)) return;
+      if (event.key.toLowerCase() !== 'f') return;
+      event.preventDefault();
+      search.focus();
+      search.select();
+    });
+
     applyFilter();
     /* Ссылка на свёрнутую версию должна раскрыть список. */
     if (window.location.hash) {
       var land = document.getElementById(window.location.hash.slice(1));
-      if (land && land.classList.contains('release') && !land.offsetParent) { expanded = true; applyFilter(); }
+      if (land && land.classList.contains('release')) {
+        if (!land.offsetParent) expanded = true;
+        openCards[land.id] = true;
+        applyFilter();
+      }
     }
 
-    /* Прогресс по шкале релизов */
+    /* Прогресс чтения: по шкале релизов и по панели версий */
     var fill = $('.timeline-progress i');
+    var railFill = $('.rail-progress i');
     var timeline = $('.timeline');
     markTimeline = function () {
-      if (!fill || !timeline) return;
-      var rect = timeline.getBoundingClientRect();
-      var total = rect.height;
-      var passed = Math.min(Math.max(window.innerHeight * .5 - rect.top, 0), total);
-      fill.style.height = (total > 0 ? (passed / total) * 100 : 0) + '%';
+      if (fill && timeline) {
+        var rect = timeline.getBoundingClientRect();
+        var passed = Math.min(Math.max(window.innerHeight * .5 - rect.top, 0), rect.height);
+        fill.style.height = (rect.height > 0 ? (passed / rect.height) * 100 : 0) + '%';
+      }
+      if (railFill) {
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - doc.clientHeight;
+        railFill.style.width = (max > 0 ? Math.min(100, (window.scrollY / max) * 100) : 0) + '%';
+      }
     };
 
     if (!rail) { markTimeline(); return; }
     var links = $$('.rail-link', rail);
     var box = $('.rail-links', rail);
+    var readout = $('#rail-current');
+    var prevBtn = $('[data-rail-prev]', rail);
+    var nextBtn = $('[data-rail-next]', rail);
     var lastActive = null;
 
     links.forEach(function (a) {
@@ -675,12 +877,30 @@
         var el = document.getElementById(a.getAttribute('href').slice(1));
         if (!el) return;
         event.preventDefault();
-        if (!el.offsetParent && !expanded) { expanded = true; applyFilter(); }
-        var top = el.getBoundingClientRect().top + window.scrollY - 124;
+        if (!el.offsetParent && !expanded) expanded = true;
+        openCards[el.id] = true;
+        applyFilter();
+        var top = el.getBoundingClientRect().top + window.scrollY - 150;
         window.scrollTo({ top: top, behavior: reduced ? 'auto' : 'smooth' });
         history.replaceState(null, '', a.getAttribute('href'));
       });
     });
+
+    function railEdges() {
+      if (!box || !prevBtn || !nextBtn) return;
+      prevBtn.disabled = box.scrollLeft <= 4;
+      nextBtn.disabled = box.scrollLeft + box.clientWidth >= box.scrollWidth - 4;
+    }
+    function railScroll(dir) {
+      if (!box) return;
+      box.scrollBy({ left: dir * Math.max(160, box.clientWidth * .8), behavior: reduced ? 'auto' : 'smooth' });
+    }
+    if (prevBtn) prevBtn.addEventListener('click', function () { railScroll(-1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { railScroll(1); });
+    if (box) {
+      box.addEventListener('scroll', railEdges, { passive: true });
+      window.addEventListener('resize', railEdges);
+    }
 
     markRail = function () {
       var shown = releases.filter(function (r) { return !!r.offsetParent; });
@@ -692,6 +912,14 @@
       if (current === lastActive) return;
       lastActive = current;
       links.forEach(function (a) { a.classList.toggle('is-active', a.getAttribute('href') === '#' + current.id); });
+      if (readout) {
+        var v = $('.release-version', current);
+        var t = $('time', current);
+        var b = readout.querySelector('b');
+        var em = readout.querySelector('em');
+        if (v && b) b.textContent = v.textContent.trim();
+        if (t && em) em.textContent = t.textContent.trim();
+      }
       var act = $('.rail-link.is-active', rail);
       if (act && box) {
         var ar = act.getBoundingClientRect(), br = box.getBoundingClientRect();
@@ -699,10 +927,12 @@
           box.scrollBy({ left: ar.left - br.left - (br.width - ar.width) / 2, behavior: reduced ? 'auto' : 'smooth' });
         }
       }
+      railEdges();
     };
 
     markRail();
     markTimeline();
+    railEdges();
   }
 
   if ($('.release')) initUpdates();
