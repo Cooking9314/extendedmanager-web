@@ -1850,6 +1850,121 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
 .updates-search input::placeholder { color: var(--muted); }
 .updates-expand { display: block; margin: 2px auto 0; padding: 8px 18px; font-size: .84rem; }
 
+/* ---------- Скачать: карточки площадок ---------- */
+
+.dl-meta { display: flex; flex-wrap: wrap; gap: 8px; margin: -4px 0 20px; }
+.dl-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-soft);
+  color: #93a0b4;
+  font-size: .79rem;
+}
+.dl-meta-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px rgba(87, 217, 119, .16); }
+
+.download-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+
+.dl-card {
+  --brand: var(--accent);
+  --brand-soft: rgba(79, 169, 255, .14);
+  --brand-line: rgba(79, 169, 255, .32);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 22px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--panel);
+  overflow: hidden;
+  transition: transform .18s ease, border-color .18s ease, background-color .18s ease;
+}
+.dl-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brand), transparent 72%);
+  opacity: .5;
+  transition: opacity .2s ease;
+}
+.dl-card::after {
+  content: "";
+  position: absolute;
+  right: -62px;
+  top: -74px;
+  width: 178px;
+  height: 178px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--brand-soft), transparent 62%);
+  opacity: .7;
+  pointer-events: none;
+  transition: opacity .22s ease, transform .22s ease;
+}
+.dl-card:hover { transform: translateY(-3px); border-color: var(--brand-line); background: var(--panel-2); }
+.dl-card:hover::before { opacity: 1; }
+.dl-card:hover::after { opacity: 1; transform: scale(1.12); }
+
+.dl-soon {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 1;
+  padding: 2px 9px 3px;
+  border-radius: 999px;
+  background: var(--gradient);
+  color: #08111f;
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  animation: badge-glow 2.8s ease-in-out infinite;
+}
+
+.dl-logo {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  margin-bottom: 15px;
+  border: 1px solid var(--brand-line);
+  border-radius: 15px;
+  background: linear-gradient(160deg, var(--brand-soft), rgba(255, 255, 255, .02));
+  color: var(--brand);
+  transition: transform .2s ease, border-color .2s ease;
+}
+.dl-logo svg { width: 27px; height: 27px; fill: currentColor; }
+.dl-card:hover .dl-logo { transform: translateY(-2px); border-color: var(--brand); }
+
+.dl-card h3 { font-size: 1.16rem; font-weight: 800; letter-spacing: -.01em; }
+.dl-card p { margin-top: 9px; color: var(--muted); font-size: .9rem; line-height: 1.55; flex: 1 1 auto; }
+
+.dl-facts { list-style: none; margin: 15px 0 0; padding: 13px 0 0; border-top: 1px dashed var(--border); display: grid; gap: 7px; }
+.dl-facts li { position: relative; padding-left: 17px; color: #93a0b4; font-size: .82rem; }
+.dl-facts li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand);
+  opacity: .8;
+}
+
+.dl-github { --brand: #cdd6e0; --brand-soft: rgba(205, 214, 224, .13); --brand-line: rgba(205, 214, 224, .3); }
+.dl-modrinth { --brand: #1ed760; --brand-soft: rgba(30, 215, 96, .13); --brand-line: rgba(30, 215, 96, .32); }
+.dl-curseforge { --brand: #f16436; --brand-soft: rgba(241, 100, 54, .13); --brand-line: rgba(241, 100, 54, .32); }
+
+.dl-note a { color: var(--co); border-bottom: 1px solid rgba(79, 169, 255, .38); }
+.dl-note a:hover { color: var(--text); border-bottom-color: var(--text); }
+
 /* ---------- План обновлений ---------- */
 
 .roadmap-hero { padding-top: 96px; }
@@ -1906,6 +2021,7 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
   .feature-card { flex-basis: calc((100% - 16px) / 2); }
   .discord-widget { flex-direction: column; align-items: flex-start; gap: 22px; }
   .discord-btn { align-self: stretch; justify-content: center; }
+  .download-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 900px) {
@@ -1954,6 +2070,11 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
   .discord-avatar { width: 64px; height: 64px; border-radius: 20px; padding: 7px; }
   .discord-avatar img { border-radius: 13px; }
   .discord-avatar::after { width: 15px; height: 15px; border-width: 2px; }
+  .download-grid { grid-template-columns: 1fr; }
+  .dl-card { padding: 19px 18px 17px; }
+  .dl-soon { top: 15px; right: 15px; }
+  .dl-logo { width: 46px; height: 46px; border-radius: 13px; margin-bottom: 12px; }
+  .dl-logo svg { width: 23px; height: 23px; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
   .to-top { right: 14px; bottom: 14px; }
 }
