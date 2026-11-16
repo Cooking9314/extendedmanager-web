@@ -10,8 +10,11 @@
 <meta property="og:description" content="31 раздел: установка, ядро, база данных, прокси, безопасность, чат, MOTD, NPC, Discord, HTTP API, перезапуск, справочник команд, миры, текст, интеграции, приложение и FAQ. Поиск, оглавление и примеры YAML.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234fa9ff'/%3E%3Cstop offset='1' stop-color='%237d5cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M13.69%2020.63L6%2020.63L6%2011.37L13.52%2011.37L13.52%2013.73L9.07%2013.73L9.07%2014.81L12.98%2014.81L12.98%2017.06L9.07%2017.06L9.07%2018.27L13.69%2018.27L13.69%2020.63M17.74%2020.63L14.9%2020.63L14.9%2011.37L17.46%2011.37L20.47%2016.3L23.41%2011.37L25.97%2011.37L26%2020.63L23.16%2020.63L23.13%2016.41L21.12%2019.79L19.75%2019.79L17.74%2016.56L17.74%2020.63' fill='%23fff'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="index.css?v=14">
-<script src="script.js?v=14" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="index.css?v=16">
+<script src="script.js?v=16" defer></script>
 </head>
 <body class="docs-page">
 
@@ -55,6 +58,7 @@
       <a href="index.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Главная</a>
       <a href="docs.html" class="is-active" aria-current="page"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>Документация</a>
       <a href="updates.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>Обновления</a>
+      <a href="roadmap.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h5"/></svg>План обновлений<span class="nav-soon">Скоро!</span></a>
     </nav>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Меню разделов">
       <span></span><span></span><span></span>
@@ -78,36 +82,36 @@
         <aside class="docs-side">
           <label class="docs-search">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.8-3.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            <input id="docs-search" type="search" placeholder="Поиск по документации" autocomplete="off">
+            <input id="docs-search" type="search" placeholder="Поиск" autocomplete="off">
             <kbd>Ctrl F</kbd>
           </label>
           <p class="docs-found" id="docs-found" hidden></p>
           <nav class="docs-nav" aria-label="Разделы документации">
             <p class="docs-group">FAQs</p>
-            <button class="docs-link" type="button" data-doc="faq"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Вопросы и проблемы</button>
+            <button class="docs-link" type="button" data-doc="faq">Вопросы и проблемы</button>
             <p class="docs-group">Конфигурация</p>
-            <button class="docs-link is-active" type="button" data-doc="start"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>Обзор и быстрый старт</button>
-            <button class="docs-link" type="button" data-doc="core"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>Ядро и модули</button>
-            <button class="docs-link" type="button" data-doc="database"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>База данных</button>
-            <button class="docs-link" type="button" data-doc="worlds"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>Миры и спавны</button>
-            <button class="docs-link" type="button" data-doc="heads"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><path d="M9 9h.01"/><path d="M15 9h.01"/><path d="M9.5 14.5a3.5 3.5 0 0 0 5 0"/></svg>Головы игроков</button>
+            <button class="docs-link is-active" type="button" data-doc="start">Обзор и быстрый старт</button>
+            <button class="docs-link" type="button" data-doc="core">Ядро и модули</button>
+            <button class="docs-link" type="button" data-doc="database">База данных</button>
+            <button class="docs-link" type="button" data-doc="worlds">Миры и спавны</button>
+            <button class="docs-link" type="button" data-doc="heads">Головы игроков</button>
             <p class="docs-group">Модули</p>
-            <button class="docs-link" type="button" data-doc="security"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Безопасность</button>
-            <button class="docs-link" type="button" data-doc="npc"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>NPC</button>
-            <button class="docs-link" type="button" data-doc="discord"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>Discord-бот</button>
-            <button class="docs-link" type="button" data-doc="api"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg>HTTP API</button>
-            <button class="docs-link" type="button" data-doc="restart"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>Перезапуск</button>
+            <button class="docs-link" type="button" data-doc="security">Безопасность</button>
+            <button class="docs-link" type="button" data-doc="npc">NPC</button>
+            <button class="docs-link" type="button" data-doc="discord">Discord-бот</button>
+            <button class="docs-link" type="button" data-doc="api">HTTP API</button>
+            <button class="docs-link" type="button" data-doc="restart">Перезапуск</button>
             <p class="docs-group">Команды</p>
-            <button class="docs-link" type="button" data-doc="cmd-rules"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>Общее о командах</button>
+            <button class="docs-link" type="button" data-doc="cmd-rules">Общее о командах</button>
 <p class="docs-group">Интеграции</p>
-            <button class="docs-link" type="button" data-doc="proxy"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg>Прокси и сеть</button>
-            <button class="docs-link" type="button" data-doc="hooks"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/></svg>Сторонние плагины</button>
-            <button class="docs-link" type="button" data-doc="app"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/></svg>Приложение</button>
+            <button class="docs-link" type="button" data-doc="proxy">Прокси и сеть</button>
+            <button class="docs-link" type="button" data-doc="hooks">Сторонние плагины</button>
+            <button class="docs-link" type="button" data-doc="app">Приложение</button>
             <p class="docs-group">Сообщения</p>
-            <button class="docs-link" type="button" data-doc="chat"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg>Чат и рассылка</button>
-            <button class="docs-link" type="button" data-doc="motd"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg>MOTD и иконка</button>
-            <button class="docs-link" type="button" data-doc="text"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" x2="15" y1="20" y2="20"/><line x1="12" x2="12" y1="4" y2="20"/></svg>Оформление текста</button>
-            <button class="docs-link" type="button" data-doc="placeholders"><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>Плейсхолдеры</button>
+            <button class="docs-link" type="button" data-doc="chat">Чат и рассылка</button>
+            <button class="docs-link" type="button" data-doc="motd">MOTD и иконка</button>
+            <button class="docs-link" type="button" data-doc="text">Оформление текста</button>
+            <button class="docs-link" type="button" data-doc="placeholders">Плейсхолдеры</button>
           </nav>
           <p class="docs-empty" hidden>Ничего не найдено</p>
         </aside>

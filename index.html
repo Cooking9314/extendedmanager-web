@@ -10,8 +10,11 @@
 <meta property="og:description" content="Один JAR вместо десятка плагинов: вход, наказания, чат, миры, NPC, Discord, перезапуск и API для приложения управления.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234fa9ff'/%3E%3Cstop offset='1' stop-color='%237d5cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M13.69%2020.63L6%2020.63L6%2011.37L13.52%2011.37L13.52%2013.73L9.07%2013.73L9.07%2014.81L12.98%2014.81L12.98%2017.06L9.07%2017.06L9.07%2018.27L13.69%2018.27L13.69%2020.63M17.74%2020.63L14.9%2020.63L14.9%2011.37L17.46%2011.37L20.47%2016.3L23.41%2011.37L25.97%2011.37L26%2020.63L23.16%2020.63L23.13%2016.41L21.12%2019.79L19.75%2019.79L17.74%2016.56L17.74%2020.63' fill='%23fff'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="index.css?v=14">
-<script src="script.js?v=14" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="index.css?v=16">
+<script src="script.js?v=16" defer></script>
 </head>
 <body>
 
@@ -55,6 +58,7 @@
       <a href="index.html" class="is-active" aria-current="page"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Главная</a>
       <a href="docs.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>Документация</a>
       <a href="updates.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>Обновления</a>
+      <a href="roadmap.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h5"/></svg>План обновлений<span class="nav-soon">Скоро!</span></a>
     </nav>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Меню разделов">
       <span></span><span></span><span></span>
@@ -174,9 +178,9 @@
           </a>
         </div>
         <div class="carousel-controls">
-          <button class="car-btn" id="car-prev" type="button" aria-label="Предыдущие карточки"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
-          <div class="car-dots" id="car-dots" role="tablist" aria-label="Карточки"></div>
-          <button class="car-btn" id="car-next" type="button" aria-label="Следующие карточки"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+          <button class="car-btn" id="car-prev" data-car-prev type="button" aria-label="Предыдущие карточки"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+          <div class="car-dots" id="car-dots" data-car-dots role="tablist" aria-label="Карточки"></div>
+          <button class="car-btn" id="car-next" data-car-next type="button" aria-label="Следующие карточки"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
         </div>
       </div>
     </div>
@@ -187,53 +191,53 @@
       <div class="section-head reveal">
         <div>
           <h2><svg class="ico head-ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>Всё разбито на <span class="accent">модули</span></h2>
-          <p>Выключены по умолчанию. Включаются в <code>config.yml → modules</code>, правки применяются командой <code>/em reload</code></p>
+          <p>Каждый модуль выключен по умолчанию и включается одним ключом, а новые правки вступают в силу без перезапуска сервера.</p>
         </div>
       </div>
 
-      <div class="grid grid-2">
-        <article class="card module reveal">
-          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>security</h3><span class="tag">вход и защита</span></div>
+      <div class="carousel reveal">
+        <div class="carousel-track" tabindex="0" aria-label="Модули плагина, листайте карточки">
+        <a class="feature-card module-card reveal" href="docs.html#doc-security">
+          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>security</h3></div>
           <p>Регистрация, лимбо с капчей, пароли Argon2id, проверки адреса и подсетей, кросс-серверные сессии.</p>
-          <div class="snippet"><code>security/security_config.yml</code> <code>security/security_messages.yml</code></div>
-          <a class="card-more" href="docs.html#doc-security">Ключи конфигурации</a>
-        </article>
-        <article class="card module reveal" style="--d:.08s">
-          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg>chat</h3><span class="tag">общение</span></div>
+          <span class="feature-more">Ключи конфигурации<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+        </a>
+        <a class="feature-card module-card reveal" style="--d:.08s" href="docs.html#doc-chat">
+          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg>chat</h3></div>
           <p>Чаты и их форматы, анти-спам, рассылка по расписанию, админ-чат, сообщения входа, выхода и смерти.</p>
-          <div class="snippet"><code>chat/chat_config.yml</code> <code>chat/adminchat_config.yml</code> <code>chat/broadcast.yml</code></div>
-          <a class="card-more" href="docs.html#doc-chat">Ключи конфигурации</a>
-        </article>
-        <article class="card module reveal">
-          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg>motd</h3><span class="tag">список серверов</span></div>
+          <span class="feature-more">Ключи конфигурации<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+        </a>
+        <a class="feature-card module-card reveal" href="docs.html#doc-motd">
+          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg>motd</h3></div>
           <p>Своё описание и иконка 64×64, плейсхолдеры онлайна, версии и платформы.</p>
-          <div class="snippet"><code>motd/motd_config.yml</code></div>
-          <a class="card-more" href="docs.html#doc-motd">Ключи конфигурации</a>
-        </article>
-        <article class="card module reveal" style="--d:.08s">
-          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>npc</h3><span class="tag">жители</span></div>
+          <span class="feature-more">Ключи конфигурации<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+        </a>
+        <a class="feature-card module-card reveal" style="--d:.08s" href="docs.html#doc-npc">
+          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>npc</h3></div>
           <p>NPC с именем, скином, позой и диалогами; команды и сообщения по клику.</p>
-          <div class="snippet"><code>npc/npc_config.yml</code> <code>npc/npc_messages.yml</code></div>
-          <a class="card-more" href="docs.html#doc-npc">Ключи конфигурации</a>
-        </article>
-        <article class="card module reveal">
-          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>discord</h3><span class="tag">бот</span></div>
+          <span class="feature-more">Ключи конфигурации<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+        </a>
+        <a class="feature-card module-card reveal" href="docs.html#doc-discord">
+          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>discord</h3></div>
           <p>Статус сервера, вход и выход игроков в канал, привязка аккаунтов и слеш-команды.</p>
-          <div class="snippet"><code>discord/discord_config.yml</code></div>
-          <a class="card-more" href="docs.html#doc-discord">Ключи конфигурации</a>
-        </article>
-        <article class="card module reveal" style="--d:.08s">
-          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg>api</h3><span class="tag">приложение</span></div>
+          <span class="feature-more">Ключи конфигурации<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+        </a>
+        <a class="feature-card module-card reveal" style="--d:.08s" href="docs.html#doc-api">
+          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg>api</h3></div>
           <p>HTTP API на плоском TCP: игроки, аккаунты, скины, инвентарь, чтение базы, консоль и SSE-потоки. Ключ генерируется один раз, лежит в базе и показывается командой <code>/em app key</code>.</p>
-          <div class="snippet"><code>config.yml → api</code></div>
-          <a class="card-more" href="docs.html#doc-api">Ключи конфигурации</a>
-        </article>
-        <article class="card module module-wide reveal">
-          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>utils</h3><span class="tag">перезапуск</span></div>
+          <span class="feature-more">Ключи конфигурации<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+        </a>
+        <a class="feature-card module-card reveal" href="docs.html#doc-restart">
+          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>utils</h3></div>
           <p>Расписание остановок, предупреждения в чат и action bar, консольные команды перед остановкой, кики и сохранение миров. Способы остановки: <code>shutdown</code>, <code>stop</code>, <code>exit</code> со страховочным таймером.</p>
-          <div class="snippet"><code>utils/restart_config.yml</code></div>
-          <a class="card-more" href="docs.html#doc-restart">Ключи конфигурации</a>
-        </article>
+          <span class="feature-more">Ключи конфигурации<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+        </a>
+        </div>
+        <div class="carousel-controls">
+          <button class="car-btn" type="button" data-car-prev aria-label="Предыдущие модули"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+          <div class="car-dots" data-car-dots role="tablist" aria-label="Модули"></div>
+          <button class="car-btn" type="button" data-car-next aria-label="Следующие модули"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+        </div>
       </div>
 
       <div class="integrations reveal">
@@ -250,21 +254,50 @@
   <section class="section" id="app">
     <div class="container">
       <div class="card app-card reveal">
-        <div>
+        <div class="app-copy">
+          <p class="eyebrow">Приложение администратора</p>
           <h2><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/></svg>Extended Manager <span class="accent">App</span></h2>
           <p>
             Нативное приложение для Windows поверх HTTP API плагина: живая консоль
-            и поток событий, игроки со скинами, аккаунты, инвентарь, чтение
-            базы и аналитика. Все серверы сети в одном окне, а ключ доступа плагин
+            и поток событий, игроки со скинами, аккаунты, инвентарь, чтение базы и
+            аналитика. Все серверы сети в одном окне, а ключ доступа плагин
             генерирует и хранит сам.
           </p>
-          <ul class="chips">
-            <li>консоль и события</li><li>игроки и скины</li><li>аккаунты</li>
-            <li>инвентарь</li><li>база данных</li><li>аналитика</li>
+          <ul class="app-feats">
+            <li>
+              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>
+              <span><strong>Консоль и события</strong><em>логи сервера и команды в реальном времени</em></span>
+            </li>
+            <li>
+              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+              <span><strong>Игроки и скины</strong><em>профиль, инвентарь и аккаунты в один клик</em></span>
+            </li>
+            <li>
+              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+              <span><strong>Чтение базы</strong><em>таблицы плагина без SQL-клиента и веб-панелей</em></span>
+            </li>
+            <li>
+              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 14 3-4 3 3 4-6"/></svg>
+              <span><strong>Аналитика</strong><em>онлайн, наказания и активность по серверам</em></span>
+            </li>
+            <li>
+              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="9" width="8" height="8" rx="2"/><rect x="14" y="3" width="8" height="8" rx="2"/><path d="M6 9V7a2 2 0 0 1 2-2h6"/><path d="M14 13h4"/></svg>
+              <span><strong>Вся сеть</strong><em>Velocity и BungeeCord: несколько серверов в одном окне</em></span>
+            </li>
+            <li>
+              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 8.2-8.2"/><path d="m17 6 2 2"/><path d="m14 9 2 2"/></svg>
+              <span><strong>Свой ключ доступа</strong><em>плагин генерирует ключ и хранит его в базе</em></span>
+            </li>
           </ul>
+          <div class="app-meta">
+            <span>Windows 10 и 11, x64</span>
+            <span>работает по HTTP API</span>
+            <span>без агента на сервере</span>
+          </div>
+          <a class="btn btn-ghost" href="docs.html#doc-app">Подключение приложения<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
         </div>
         <div class="app-window" aria-hidden="true">
-          <div class="app-window-bar"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <div class="app-window-bar"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span><span class="app-window-title">Extended Manager App</span></div>
           <div class="app-window-body">
             <div class="app-side">
               <span class="app-side-item is-active"></span>
@@ -273,11 +306,14 @@
               <span class="app-side-item"></span>
             </div>
             <div class="app-main">
-              <span class="app-row w-70"></span>
-              <span class="app-row w-90"></span>
-              <span class="app-row w-50"></span>
-              <span class="app-row w-80"></span>
-              <span class="app-row w-40"></span>
+              <div class="app-tabs"><span class="app-tab is-active">Игроки</span><span class="app-tab">Консоль</span><span class="app-tab">Аналитика</span></div>
+              <div class="app-rows">
+                <span class="app-row w-70"></span>
+                <span class="app-row w-90"></span>
+                <span class="app-row w-50"></span>
+                <span class="app-row w-80"></span>
+                <span class="app-row w-40"></span>
+              </div>
             </div>
           </div>
         </div>
@@ -291,7 +327,7 @@
         <div class="discord-glow" aria-hidden="true"></div>
         <div class="discord-main">
           <span class="discord-avatar">
-            <img id="discord-icon" src="https://cdn.discordapp.com/icons/1567738200682668113/7ede47107504a44de4344b35b71c6245.png?size=128" alt="" width="72" height="72" loading="lazy" referrerpolicy="no-referrer">
+            <img id="discord-icon" src="https://cdn.discordapp.com/icons/1567738200682668113/7ede47107504a44de4344b35b71c6245.png?size=256" alt="Аватар сервера Sunrise Studios" width="66" height="66" loading="lazy" decoding="async" referrerpolicy="no-referrer">
             <svg class="discord-avatar-fallback" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
           </span>
           <div class="discord-info">

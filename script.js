@@ -250,8 +250,21 @@
     ['warnlist', 'cmd-warnlist', '', 'Список предупреждений.'],
     ['whitelist', 'cmd-whitelist', '', 'Управление белым списком.'],
     ['world', 'cmd-world', '', 'Управление мирами.']
-  ];  var CMD_ICON = '<svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>';
-  var CHEVRON = '<svg class="cat-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+  ];  var CHEVRON = '<svg class="cat-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+  var CAT_ICONS = {
+    'FAQs': '<circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a2.9 2.9 0 0 1 5.6 1c0 1.9-2.8 2.4-2.8 4"/><path d="M12 17.4h.01"/>',
+    'Конфигурация': '<path d="M4 7h9"/><path d="M17 7h3"/><path d="M4 17h3"/><path d="M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>',
+    'Модули': '<rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/>',
+    'Команды': '<path d="m4 17 6-6-6-6"/><path d="M12 19h8"/>',
+    'Интеграции': '<path d="M10 13.6a4 4 0 0 0 5.7 0l2.6-2.6a4 4 0 0 0-5.7-5.7l-1.3 1.3"/><path d="M14 10.4a4 4 0 0 0-5.7 0l-2.6 2.6a4 4 0 0 0 5.7 5.7l1.3-1.3"/>',
+    'Сообщения': '<path d="M20 14a3 3 0 0 1-3 3H9l-5 3V6a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3z"/>'
+  };
+  var CAT_FALLBACK = '<path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19"/>';
+
+  function catIcon(label) {
+    return '<svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      (CAT_ICONS[label] || CAT_FALLBACK) + '</svg>';
+  }
 
   function initDocs() {
     var shell = $('.docs-shell');
@@ -272,8 +285,7 @@
     Array.prototype.slice.call(sideNav.children).forEach(function (el) {
       if (el.classList.contains('docs-group')) { cur = { label: el.textContent.trim(), items: [] }; groups.push(cur); return; }
       if (el.classList.contains('docs-link') && cur) {
-        var svg = el.querySelector('svg');
-        cur.items.push({ doc: el.getAttribute('data-doc'), title: el.textContent.trim(), icon: svg ? svg.outerHTML : '' });
+        cur.items.push({ doc: el.getAttribute('data-doc'), title: el.textContent.trim() });
       }
     });
     groups.forEach(function (g) { if (g.label === 'Команды') { g.commands = true; } });
@@ -287,7 +299,7 @@
       btn.className = 'docs-cat-toggle';
       btn.setAttribute('aria-expanded', 'true');
       var count = g.items.length + (g.commands ? COMMANDS.length : 0);
-      btn.innerHTML = CHEVRON + '<span>' + g.label + '</span><span class="cat-count">' + count + '</span>';
+      btn.innerHTML = catIcon(g.label) + '<span>' + g.label + '</span><span class="cat-count">' + count + '</span>' + CHEVRON;
       var body = document.createElement('div');
       body.className = 'docs-cat-body';
       var inner = document.createElement('div');
@@ -298,7 +310,7 @@
         b.type = 'button';
         b.className = 'docs-link';
         b.setAttribute('data-doc', it.doc);
-        b.innerHTML = it.icon + '<span>' + it.title + '</span>';
+        b.innerHTML = '<span>' + it.title + '</span>';
         inner.appendChild(b);
       });
       if (g.commands) {
@@ -309,7 +321,7 @@
           b.setAttribute('data-doc', c[1]);
           if (c[2]) b.setAttribute('data-anchor', c[2]);
           b.title = c[3];
-          b.innerHTML = CMD_ICON + '<span>/' + c[0] + '</span>';
+          b.innerHTML = '<span>/' + c[0] + '</span>';
           inner.appendChild(b);
         });
       }
@@ -695,15 +707,15 @@
 
   if ($('.release')) initUpdates();
 
-  /* ----- Карусель возможностей ----- */
+  /* ----- Карусели: возможности и модули ----- */
   function initCarousel() {
-    var track = $('#features-track');
-    if (!track) return;
-    var cards = $$('.feature-card', track);
-    var prev = $('#car-prev');
-    var next = $('#car-next');
-    var dotsBox = $('#car-dots');
-    if (!cards.length) return;
+    $$('.carousel').forEach(function (root) {
+    var track = $('.carousel-track', root);
+    var cards = track ? Array.prototype.slice.call(track.children) : [];
+    var prev = $('[data-car-prev]', root);
+    var next = $('[data-car-next]', root);
+    var dotsBox = $('[data-car-dots]', root);
+    if (!track || !prev || !next || !dotsBox || !cards.length) return;
 
     function step() {
       var gap = parseFloat(getComputedStyle(track).gap) || 16;
@@ -755,18 +767,24 @@
       if (event.pointerType === 'mouse' && event.button !== 0) return;
       down = true; moved = false;
       startX = event.clientX; startScroll = track.scrollLeft;
-      track.setPointerCapture(event.pointerId);
     });
     track.addEventListener('pointermove', function (event) {
       if (!down) return;
       var dx = event.clientX - startX;
-      if (Math.abs(dx) > 6) moved = true;
+      if (!moved && Math.abs(dx) > 6) {
+        moved = true;
+        /* Захват только после начала перетаскивания: иначе клик по ссылке
+           достаётся треку, а не карточке, и переход не происходит. */
+        try { track.setPointerCapture(event.pointerId); } catch (e) {}
+      }
       if (moved) { track.scrollLeft = startScroll - dx; event.preventDefault(); }
     });
     function endDrag(event) {
       if (!down) return;
       down = false;
-      try { track.releasePointerCapture(event.pointerId); } catch (e) {}
+      if (track.hasPointerCapture && track.hasPointerCapture(event.pointerId)) {
+        try { track.releasePointerCapture(event.pointerId); } catch (e) {}
+      }
       if (moved) { suppress = true; window.setTimeout(function () { suppress = false; }, 60); }
     }
     track.addEventListener('pointerup', endDrag);
@@ -778,6 +796,7 @@
     window.addEventListener('resize', function () { buildDots(); update(); });
     buildDots();
     update();
+    });
   }
   initCarousel();
 
@@ -802,7 +821,9 @@
         if (typeof j.approximate_presence_count === 'number' && onlineEl) onlineEl.textContent = String(j.approximate_presence_count);
         if (typeof j.approximate_member_count === 'number' && membersEl) membersEl.textContent = String(j.approximate_member_count);
         if (j.guild && j.guild.icon && icon && avatar) {
-          icon.src = 'https://cdn.discordapp.com/icons/' + j.guild.id + '/' + j.guild.icon + '.png?size=128';
+          /* Анимированный аватар отдаётся только как gif, png для него 404. */
+          var ext = j.guild.icon.indexOf('a_') === 0 ? 'gif' : 'png';
+          icon.src = 'https://cdn.discordapp.com/icons/' + j.guild.id + '/' + j.guild.icon + '.' + ext + '?size=256';
           avatar.classList.remove('is-fallback');
         }
         widget.classList.add('is-live');

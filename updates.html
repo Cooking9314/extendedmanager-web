@@ -10,8 +10,11 @@
 <meta property="og:description" content="Что нового в 0.14.2 и предыдущих версиях: головы игроков в чате, блоки команд и кулдауны, безопасность, API, Velocity, чат и наказания.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234fa9ff'/%3E%3Cstop offset='1' stop-color='%237d5cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M13.69%2020.63L6%2020.63L6%2011.37L13.52%2011.37L13.52%2013.73L9.07%2013.73L9.07%2014.81L12.98%2014.81L12.98%2017.06L9.07%2017.06L9.07%2018.27L13.69%2018.27L13.69%2020.63M17.74%2020.63L14.9%2020.63L14.9%2011.37L17.46%2011.37L20.47%2016.3L23.41%2011.37L25.97%2011.37L26%2020.63L23.16%2020.63L23.13%2016.41L21.12%2019.79L19.75%2019.79L17.74%2016.56L17.74%2020.63' fill='%23fff'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="index.css?v=14">
-<script src="script.js?v=14" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="index.css?v=16">
+<script src="script.js?v=16" defer></script>
 </head>
 <body class="updates-page">
 
@@ -55,6 +58,7 @@
       <a href="index.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Главная</a>
       <a href="docs.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>Документация</a>
       <a href="updates.html" class="is-active" aria-current="page"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>Обновления</a>
+      <a href="roadmap.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h5"/></svg>План обновлений<span class="nav-soon">Скоро!</span></a>
     </nav>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Меню разделов">
       <span></span><span></span><span></span>
@@ -72,7 +76,7 @@
       <div class="updates-stats">
         <div class="ustat reveal">
           <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
-          <div><strong data-count="12">12</strong><span>релизов</span></div>
+          <div><strong data-count="42">42</strong><span>релизов</span></div>
         </div>
         <div class="ustat reveal" style="--d:.08s">
           <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3z"/></svg>
@@ -106,6 +110,36 @@
         <a class="rail-link" href="#v0-12-3">0.12.3</a>
         <a class="rail-link" href="#v0-12-1">0.12.1</a>
         <a class="rail-link" href="#v0-10-12">0.10.12</a>
+        <a class="rail-link" href="#v0-10-11">0.10.11</a>
+        <a class="rail-link" href="#v0-10-10">0.10.10</a>
+        <a class="rail-link" href="#v0-10-9">0.10.9</a>
+        <a class="rail-link" href="#v0-10-8">0.10.8</a>
+        <a class="rail-link" href="#v0-10-7">0.10.7</a>
+        <a class="rail-link" href="#v0-10-6">0.10.6</a>
+        <a class="rail-link" href="#v0-10-5-1">0.10.5.1</a>
+        <a class="rail-link" href="#v0-10-5">0.10.5</a>
+        <a class="rail-link" href="#v0-10-4">0.10.4</a>
+        <a class="rail-link" href="#v0-10-3">0.10.3</a>
+        <a class="rail-link" href="#v0-10-2">0.10.2</a>
+        <a class="rail-link" href="#v0-10-1">0.10.1</a>
+        <a class="rail-link" href="#v0-10-0">0.10.0</a>
+        <a class="rail-link" href="#v0-9-2">0.9.2</a>
+        <a class="rail-link" href="#v0-9-1">0.9.1</a>
+        <a class="rail-link" href="#v0-9-0">0.9.0</a>
+        <a class="rail-link" href="#v0-8-3">0.8.3</a>
+        <a class="rail-link" href="#v0-8-0">0.8.0</a>
+        <a class="rail-link" href="#v0-7-2">0.7.2</a>
+        <a class="rail-link" href="#v0-7-0">0.7.0</a>
+        <a class="rail-link" href="#v0-6-2">0.6.2</a>
+        <a class="rail-link" href="#v0-6-0">0.6.0</a>
+        <a class="rail-link" href="#v0-5-3">0.5.3</a>
+        <a class="rail-link" href="#v0-5-0">0.5.0</a>
+        <a class="rail-link" href="#v0-4-1">0.4.1</a>
+        <a class="rail-link" href="#v0-4-0">0.4.0</a>
+        <a class="rail-link" href="#v0-3-2">0.3.2</a>
+        <a class="rail-link" href="#v0-3-1">0.3.1</a>
+        <a class="rail-link" href="#v0-2-0">0.2.0</a>
+        <a class="rail-link" href="#v0-1-0">0.1.0</a>
       </nav>
     </div>
   </div>
@@ -309,10 +343,487 @@
             <div class="release-head">
               <span class="release-version">0.10.12</span>
               <time datetime="2026-10-29">29 октября 2026</time>
-              <ul class="chips release-tags"><li>Защита аккаунтов</li></ul>
+              <ul class="chips release-tags"><li>античит</li><li>защита аккаунтов</li></ul>
             </div>
             <ul class="release-list">
-              <li class="k-sec">Файл <code>SID_config.yml</code>: привязка аккаунтов по адресу, бан от системы и история проверок.</li>
+              <li class="k-sec">Отдельные настройки системы идентификации аккаунтов: бан от системы получает свою причину, автора и срок, привязка бана к адресу настраивается отдельно, а вся система выключается одним переключателем.</li>
+              <li class="k-add">Античит научился банить: свой срок, причина и подпись от системы, немедленные наказания по опасным проверкам и вызов команды /antihack ban по решению администрации.</li>
+              <li class="k-change">Проверок стало 15, а ложных сработок меньше. Взмахи рукой больше не засчитываются игроку, который копает блок, пороги сверены с физикой игры и поведением популярных клиентов.</li>
+              <li class="k-add">Окна пощады после телепорта, отбрасывания и входа, а также при низком TPS. Полёт не ищется у транспорта, элитры, плаванья, лазанья, под действиями зелий и над особыми блоками.</li>
+              <li class="k-change">Каждой проверке задаётся число сработок до флага, а переименованные проверки автообновление переносит с сохранением ваших порогов.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-10-11">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.10.11</span>
+              <time datetime="2026-10-29">29 октября 2026</time>
+              <ul class="chips release-tags"><li>античит</li><li>адреса</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-fix">Снятие роли banned возвращает игрока на место перед наказанием, а не в точку, за которой он наблюдал. Работает и после перезахода.</li>
+              <li class="k-sec">Привязка бана к адресу входа: другой аккаунт с того же адреса получает бан от системы или предупреждение администрации. Локальные адреса не связываются, адреса в логи не печатаются.</li>
+              <li class="k-add">Первый античит по пакетам клиента: частота движения и взмахов, подъём без прыжка, скорость, дистанция удара и каналы чит-клиентов.</li>
+              <li class="k-add">Команда /antihack: список подозрительных игроков онлайн, разбор сработок по конкретному игроку и сброс статистики.</li>
+              <li class="k-add">Реакция на наказание выбирается администрацией: только предупреждение, заморозка, роль banned или бан.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-10-10">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.10.10</span>
+              <time datetime="2026-10-29">29 октября 2026</time>
+              <ul class="chips release-tags"><li>наказания</li><li>NPC</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Бан от системы командой /bansid: причиной и выдавшим записывается система, а не вымышленный оператор.</li>
+              <li class="k-add">Роль banned: игрок теряет оба чата, становится наблюдателем и не может летать, но продолжает следить за нарушителем.</li>
+              <li class="k-add">Наказание за спам на выбор: заглушение чата, предупреждение, кик или молчаливая блокировка, со счётчиком повторных нарушений.</li>
+              <li class="k-add">Защита от капса: сообщение приводится к строчным буквам, блокируется или заглушает автора.</li>
+              <li class="k-add">NPC собирается из любого моба игры, а не только из манекена, и принимает имя, контур, голограмму и предметы.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-10-9">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.10.9</span>
+              <time datetime="2026-10-29">29 октября 2026</time>
+              <ul class="chips release-tags"><li>база</li><li>рассылки</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-change">Дампы базы переехали в JSON, старые файлы импортируются как раньше и не требуют конвертации.</li>
+              <li class="k-add">Серверные ссылки становятся кнопками в меню паузы клиента: встроенные типы и свои надписи.</li>
+              <li class="k-add">Рассылка в чат по таймеру: несколько видов сообщений, порядок по очереди или случайно, свой звук и персональные плейсхолдеры.</li>
+              <li class="k-change">Ссылки в чате сжаты в аккуратную плашку: при наведении видно адрес, клик открывает браузер.</li>
+              <li class="k-fix">Ник держится над головой и в таб-листе без задержек, в том числе после загрузки игрока.</li>
+              <li class="k-remove">Команда слежения /spectate убрана из плагина вместе с правом и текстами.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-10-8">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.10.8</span>
+              <time datetime="2026-10-29">29 октября 2026</time>
+              <ul class="chips release-tags"><li>ссылки</li><li>проверка читов</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Ссылки в чате стали кликабельными: значок, подсказка с полным адресом и подтверждение перехода от клиента.</li>
+              <li class="k-add">Секретная команда /hackchecked вызывает игрока на проверку читов: ему надевают слепоту, заморозку и бессмертие, а администрация подтверждает вход в Discord.</li>
+              <li class="k-add">Начатая проверка переживает перезапуск сервера, просроченная завершается блокировкой.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-10-7">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.10.7</span>
+              <time datetime="2026-10-28">28 октября 2026</time>
+              <ul class="chips release-tags"><li>админ-чат</li><li>NPC</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Админ-чат: сообщение, начатое с символа @, видят только сотрудники с правом и консоль сервера.</li>
+              <li class="k-add">Палочка управления NPC: список всех NPC, подойти, перенести ко мне, координаты и удаление с подтверждением вторым кликом.</li>
+              <li class="k-add">NPC надевает броню и держит предметы в обеих руках.</li>
+              <li class="k-change">Привилегия в публикациях и на экране покупки показывается префиксом группы, как в чате и таб-листе.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-10-6">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.10.6</span>
+              <time datetime="2026-10-28">28 октября 2026</time>
+              <ul class="chips release-tags"><li>база</li><li>права</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Экспорт и импорт таблиц плагина: дамп пишется асинхронно, перед импортом создаётся резервная копия, кэши после загрузки сбрасываются.</li>
+              <li class="k-add">Игрок снова может сбросить собственный ник, команда принимает несколько слов-синонимов.</li>
+              <li class="k-change">Команды /spawn для себя и /scale требуют явного права, по умолчанию они выданы операторам.</li>
+              <li class="k-change">Сообщения входа и выхода переехали в общий файл сообщений и настраиваются там же.</li>
+              <li class="k-remove">Убраны выдача наборов предметов при входе, режим игнора поворота камеры у простоя и система общей базы скинов и привилегий.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-10-5-1">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.10.5.1</span>
+              <time datetime="2026-10-27">27 октября 2026</time>
+              <ul class="chips release-tags"><li>исправления</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-fix">Ник снова видно всем: чат печатает отображаемое имя, а ник возвращается после смены мира, возрождения и выхода из невидимости.</li>
+              <li class="k-fix">Плейсхолдеры ника добавлены в каталог, поэтому работают в таб-плагинах и без PlaceholderAPI.</li>
+              <li class="k-remove">Игрок больше не отключает себе ник: сброс остался у администрации.</li>
+              <li class="k-fix">Исправлена ошибка в консоли на событиях хранилища испытаний без игрока.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-10-5">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.10.5</span>
+              <time datetime="2026-10-27">27 октября 2026</time>
+              <ul class="chips release-tags"><li>ники</li><li>база</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Команды /nickname и /forcename: игрок меняет собственный ник, администрация ставит ник другому игроку.</li>
+              <li class="k-add">Слежение за игроком без режима наблюдателя: смотрящий не получает урона, а цель его не видит.</li>
+              <li class="k-change">База стала заметно отзывчивее: одно соединение вместо нового на каждый запрос, кэш аккаунтов и профилей, индексы поиска наказаний.</li>
+              <li class="k-sec">Пароли из команд входа полностью убраны из консоли и файлов логов, включая алиасы.</li>
+              <li class="k-change">Справка /em help сгруппирована по разделам и показывает только доступные игроку команды.</li>
+              <li class="k-remove">Убраны алиас перезагрузки, команда /em npc и ручная настройка общей базы.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-10-4">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.10.4</span>
+              <time datetime="2026-10-26">26 октября 2026</time>
+              <ul class="chips release-tags"><li>баланс</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Команда /scale меняет размер игрока от 0,9 до 1,1: изменение видят другие клиенты, и оно переживает перезаход.</li>
+              <li class="k-change">Команда /speed задаёт множитель: 1 это обычная скорость, 2 вдвое быстрее, 0 полная остановка.</li>
+              <li class="k-fix">Невидимый администратор больше не считается отошедшим, таймер простоя стартует после выхода из невидимости.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-10-3">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.10.3</span>
+              <time datetime="2026-10-26">26 октября 2026</time>
+              <ul class="chips release-tags"><li>сообщения</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-change">Строка состояния мьюта и гага переехала в файл сообщений: там же частота обновления и тексты.</li>
+              <li class="k-change">Напоминаний о наказании в чате больше нет: заглушённый игрок видит остаток срока на панели действий.</li>
+              <li class="k-remove">Убрана система выдачи предметов при входе.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-10-2">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.10.2</span>
+              <time datetime="2026-10-26">26 октября 2026</time>
+              <ul class="chips release-tags"><li>команды</li><li>исправления</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-fix">Перезагрузка плагина больше не ломает чат: оформление, анти-спам и каналы регистрируются заново всегда.</li>
+              <li class="k-fix">Действия NPC работают: они выполняются на следующем тике и не откатываются сервером.</li>
+              <li class="k-add">Команда /kickall выгоняет всех, кроме отправителя и игроков с иммунитетом.</li>
+              <li class="k-add">Селекторы целей @a, @e, @p, @r и @s у команд /god, /fly, /feed и /heal.</li>
+              <li class="k-add">Команды /afk и /hub для перехода на хаблирующий сервер сети.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-10-1">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.10.1</span>
+              <time datetime="2026-10-26">26 октября 2026</time>
+              <ul class="chips release-tags"><li>безопасность</li><li>привилегии</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-sec">Пароли хранятся только как хеши PBKDF2 с индивидуальной солью, команды регистрации не попадают в логи.</li>
+              <li class="k-add">Статус отошедшего с сообщениями, плейсхолдерами и значком в таб-листе.</li>
+              <li class="k-add">Невидимость администратора: без достижений, подбора предметов и реакции чувствительных блоков.</li>
+              <li class="k-add">Команды /invsee и /endersee с живой синхронизацией и режимом только просмотр.</li>
+              <li class="k-add">Команды /setrank и /givedonate выдают привилегии через LuckPerms, списки наказаний показаны постранично.</li>
+              <li class="k-change">Капча как в LimboAuth: одна карта с пятью символами и ввод в чат, а мир лимбо создаётся на диске обычным сохранённым миром.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-10-0">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.10.0</span>
+              <time datetime="2026-10-26">26 октября 2026</time>
+              <ul class="chips release-tags"><li>глобальная починка</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Лимбо: до входа игрок ждёт в отдельном мире, после возвращается в свой мир и режим игры.</li>
+              <li class="k-add">Капча на картах с прогрессом ввода на панели действий.</li>
+              <li class="k-net">Кросс-серверные сессии через канал прокси или общую таблицу.</li>
+              <li class="k-add">Спавн: /setspawn, /spawn и /respawn, собственный /say и шаблоны сообщений о смерти.</li>
+              <li class="k-add">Плейсхолдеры работают и без PlaceholderAPI: внутренний резолвер готовит чат и тексты NPC.</li>
+              <li class="k-fix">Глобальная починка: вход по сети не слетает, идентификатор аккаунта подставляется в действия администрации, /unban снимает баны, выданные под другим ключом, а настройки NPC больше не затираются пустым файлом.</li>
+              <li class="k-remove">Убраны модуль технического обслуживания и меню из поставки плагина.</li>
+            </ul>
+          </div>
+        </article>
+
+
+        <div class="timeline-note reveal">
+          <div class="callout callout-warn">
+            <p class="callout-head"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>Ранние версии: данных сохранилось мало</p>
+            <p>Выпуски до 0.10.0 восстановлены по истории коммитов и архивным заметкам. Большая часть подробностей об этих обновлениях утеряна, поэтому здесь только то, что удалось проверить. Полных списков изменений и скриншотов тех версий нет.</p>
+          </div>
+        </div>
+
+        <article class="release reveal" id="v0-9-2">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.9.2</span>
+              <time datetime="2026-10-23">23 октября 2026</time>
+              <ul class="chips release-tags"><li>модули</li><li>команды</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Реестр модулей и точечная настройка команд: каждый модуль и каждая команда включаются своим переключателем.</li>
+              <li class="k-change">Все модули по умолчанию выключены, отключённый модуль ничего не создаёт при первом запуске.</li>
+              <li class="k-add">NPC появляются сразу после перезапуска сервера, без дублей и лишних файлов-примеров, а их имена и голограммы понимают любые плейсхолдеры PlaceholderAPI.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-9-1">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.9.1</span>
+              <time datetime="2026-10-23">23 октября 2026</time>
+              <ul class="chips release-tags"><li>NPC</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Система NPC переделана в духе ZNPCs: реестр NPC и команды /npc create и /npc tphere.</li>
+              <li class="k-add">Отдельный файл сообщений для системы NPC.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-9-0">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.9.0</span>
+              <time datetime="2026-10-22">22 октября 2026</time>
+              <ul class="chips release-tags"><li>NPC</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Первая система NPC: клик по персонажу открывает меню, действия подключаются как в DeluxeMenus.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-8-3">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.8.3</span>
+              <time datetime="2026-10-22">22 октября 2026</time>
+              <ul class="chips release-tags"><li>интеграции</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Поддержка DeluxeMenus, новые плейсхолдеры и общая база для LuckPerms и SkinsRestorer.</li>
+              <li class="k-add">Возвращена полная поддержка плагина Maintenance.</li>
+              <li class="k-change">Система приоритетов заменена выбором через хуки: администрация решает, какой плагин отвечает за функцию.</li>
+              <li class="k-net">Патч 0.8.1 синхронизирует техобслуживание по сети через Velocity и другие прокси.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-8-0">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.8.0</span>
+              <time datetime="2026-10-21">21 октября 2026</time>
+              <ul class="chips release-tags"><li>прокси</li><li>техобслуживание</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Собственное техобслуживание сервера: включение, сообщение и плейсхолдеры.</li>
+              <li class="k-net">Первая поддержка Velocity.</li>
+              <li class="k-remove">Удалена ретрансляция Discord-каналов.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-7-2">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.7.2</span>
+              <time datetime="2026-10-21">21 октября 2026</time>
+              <ul class="chips release-tags"><li>Discord</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Каналы Discord для консоли, админ-действий и логов сервера.</li>
+              <li class="k-add">Режим невидимости администратора.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-7-0">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.7.0</span>
+              <time datetime="2026-10-20">20 октября 2026</time>
+              <ul class="chips release-tags"><li>база</li><li>чат</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Автообновление базы данных под версию плагина: индексы и версия схемы в служебной таблице.</li>
+              <li class="k-add">Скрытие команд в духе Plugin Hide: блокировка, чёрный и белый списки с масками, группы прав и фильтрация таб-листа.</li>
+              <li class="k-change">Оформление сообщений игрокам переведено на MiniMessage и Legacy, регистрация слушателей и прав приведена в порядок.</li>
+              <li class="k-fix">Патч 0.7.1: MiniMessage в чате, коды & и § больше не ломают разметку.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-6-2">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.6.2</span>
+              <time datetime="2026-10-19">19 октября 2026</time>
+              <ul class="chips release-tags"><li>чат</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Анти-спам в чате, капча и инспекционные меню для проверки игрока.</li>
+              <li class="k-fix">Патч 0.6.1: заморозка, невидимость, бессмертие и починенный Discord.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-6-0">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.6.0</span>
+              <time datetime="2026-10-19">19 октября 2026</time>
+              <ul class="chips release-tags"><li>Discord</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Оформление чата, капча при входе, мост в Discord и первые инструменты администрации.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-5-3">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.5.3</span>
+              <time datetime="2026-10-19">19 октября 2026</time>
+              <ul class="chips release-tags"><li>команды</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Подсказки по командам и автообновление конфигураций.</li>
+              <li class="k-fix">Патчи 0.5.1 и 0.5.2: сообщения двухфакторной связи с Discord и корректное завершение библиотеки Discord.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-5-0">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.5.0</span>
+              <time datetime="2026-10-19">19 октября 2026</time>
+              <ul class="chips release-tags"><li>Discord</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Привязка аккаунта Discord с двухфакторной проверкой.</li>
+              <li class="k-add">Админский MOTD.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-4-1">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.4.1</span>
+              <time datetime="2026-10-19">19 октября 2026</time>
+              <ul class="chips release-tags"><li>внешний вид</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Новый баннер запуска, MOTD, команда /em hooks и стиль действий администрации.</li>
+              <li class="k-fix">Исправлена ошибка со слепотой.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-4-0">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.4.0</span>
+              <time datetime="2026-10-19">19 октября 2026</time>
+              <ul class="chips release-tags"><li>модерация</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Мьюты и гаги, команда /gamemode, сообщения входа и выхода.</li>
+              <li class="k-change">Префикс действий администрации стал отключаемым.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-3-2">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.3.2</span>
+              <time datetime="2026-10-18">18 октября 2026</time>
+              <ul class="chips release-tags"><li>совместимость</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Баннер запуска, поддержка Bukkit и Spigot, публикация действий администрации.</li>
+              <li class="k-add">Автообновление конфигураций и схемы базы данных.</li>
+              <li class="k-change">Патч 0.3.2.1: в баннере запуска арт Extended Manager вместо стороннего.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-3-1">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.3.1</span>
+              <time datetime="2026-10-18">18 октября 2026</time>
+              <ul class="chips release-tags"><li>вход</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Таймер входа, сессии, капча и идентификатор аккаунта.</li>
+              <li class="k-fix">Режим бессмертия без получения урона.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal" id="v0-2-0">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.2.0</span>
+              <time datetime="2026-10-18">18 октября 2026</time>
+              <ul class="chips release-tags"><li>ядро</li></ul>
+            </div>
+            <ul class="release-list">
+              <li class="k-add">Регистрация и вход, база данных SQLite и MySQL, единый файл сообщений.</li>
+              <li class="k-add">Цели команд, /god, /fly, /feed и /heal.</li>
+              <li class="k-change">Simple Voice Chat и SkinsRestorer вместо Vault в списке интеграций.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="release reveal release-first" id="v0-1-0">
+          <div class="release-card">
+            <div class="release-head">
+              <span class="release-version">0.1.0</span>
+              <span class="release-badge is-first">Старт разработки</span>
+              <time datetime="2026-10-17">17 октября 2026</time>
+              <ul class="chips release-tags"><li>первое ядро</li></ul>
+            </div>
+            <p class="release-note">С этого выпуска начинается история Extended Manager: за одну ночь с нуля собрано ядро плагина для Paper, на котором стоят все последующие версии.</p>
+            <ul class="release-list">
+              <li class="k-add">Ядро плагина: загрузка, выключение и единая точка входа.</li>
+              <li class="k-add">Диспетчер команд и права доступа.</li>
+              <li class="k-add">Модульная структура: дальше каждая новая возможность добавляется отдельным модулем.</li>
             </ul>
           </div>
         </article>

@@ -22,7 +22,7 @@
   --radius-sm: 9px;
   --gradient: linear-gradient(100deg, var(--accent), var(--accent-2));
   --mono: "JetBrains Mono", "Cascadia Mono", Consolas, "SF Mono", Menlo, monospace;
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -193,6 +193,17 @@ html {
 
 .nav a:hover { color: var(--text); background: var(--panel-2); }
 .nav a.is-active { color: var(--accent); background: var(--panel-2); }
+
+.nav-soon {
+  padding: 1px 7px 2px;
+  border-radius: 999px;
+  background: var(--gradient);
+  color: #08111f;
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .01em;
+  white-space: nowrap;
+}
 
 .nav-toggle {
   display: none;
@@ -989,12 +1000,37 @@ html.js .chat-lines p {
   display: grid;
   grid-template-columns: 1.15fr .85fr;
   gap: 32px;
-  align-items: center;
+  align-items: start;
   padding: 30px;
 }
 
 .app-card h2 { font-size: clamp(1.4rem, 2.4vw, 1.8rem); font-weight: 800; }
 .app-card p { margin-top: 12px; color: var(--muted); }
+.app-copy .eyebrow { margin-top: 0; }
+
+.app-feats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 18px; margin: 20px 0 0; padding: 0; list-style: none; }
+.app-feats li { display: flex; align-items: flex-start; gap: 11px; }
+.app-feats .ico {
+  width: 31px;
+  height: 31px;
+  flex: 0 0 auto;
+  padding: 7px;
+  border: 1px solid rgba(79, 169, 255, .24);
+  border-radius: 9px;
+  background: rgba(79, 169, 255, .09);
+  color: var(--accent);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.app-feats strong { display: block; font-size: .92rem; font-weight: 700; }
+.app-feats em { display: block; margin-top: 3px; color: var(--muted); font-size: .84rem; font-style: normal; line-height: 1.45; }
+
+.app-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.app-meta span { padding: 4px 11px; border: 1px solid var(--border); border-radius: 999px; background: var(--bg-soft); color: #93a0b4; font-size: .78rem; }
+.app-copy .btn { margin-top: 22px; }
 
 .app-window {
   border: 1px solid var(--border);
@@ -1005,10 +1041,16 @@ html.js .chat-lines p {
 
 .app-window-bar {
   display: flex;
+  align-items: center;
   gap: 7px;
   padding: 10px 13px;
   border-bottom: 1px solid var(--border-soft);
 }
+
+.app-window-title { margin-left: 8px; color: #7f8ca1; font-family: var(--mono); font-size: .74rem; }
+.app-tabs { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+.app-tab { padding: 4px 10px; border: 1px solid var(--border-soft); border-radius: 7px; background: var(--panel-2); color: #7f8ca1; font-size: .74rem; }
+.app-tab.is-active { border-color: transparent; background: var(--gradient); color: #08111f; font-weight: 700; }
 
 .app-window-body { display: grid; grid-template-columns: 54px 1fr; min-height: 190px; }
 
@@ -1072,7 +1114,7 @@ html.js .app-row:nth-child(5) { animation-delay: 1.2s; }
   font-size: .78rem;
   flex-wrap: wrap;
 }
-.footer-legal p { text-transform: uppercase; letter-spacing: .08em; }
+.footer-legal p { font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
 
 .to-top {
   position: fixed;
@@ -1468,6 +1510,37 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
 .release.is-latest .release-badge { animation: badge-glow 2.6s ease-in-out infinite; }
 @keyframes badge-glow { 0%, 100% { box-shadow: 0 0 0 0 rgba(79, 169, 255, .45); } 50% { box-shadow: 0 0 0 7px rgba(79, 169, 255, 0); } }
 
+/* ---------- Разделитель ранних версий и первый релиз ---------- */
+
+.timeline-note { padding-bottom: 24px; }
+.timeline-note .callout { margin-top: 0; }
+
+.release-first::before { background: var(--gradient); border-color: transparent; }
+.release-badge.is-first { border: 1px solid var(--accent-2); background: transparent; color: #a99cff; }
+.release-first .release-card {
+  border: 1px solid transparent;
+  background: linear-gradient(var(--panel), var(--panel)) padding-box, var(--gradient) border-box;
+  box-shadow: 0 18px 50px rgba(125, 92, 255, .14);
+}
+.release-first .release-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  background: radial-gradient(420px 120px at 82% 0%, rgba(125, 92, 255, .16), transparent 70%);
+  pointer-events: none;
+}
+.release-first .release-head, .release-first .release-note, .release-first .release-list { position: relative; z-index: 1; }
+.release-note {
+  margin-top: 12px;
+  padding: 11px 14px;
+  border-left: 3px solid var(--accent-2);
+  border-radius: 0 9px 9px 0;
+  background: rgba(125, 92, 255, .09);
+  color: #cdd7e6;
+  font-size: .92rem;
+}
+
 .release-list { list-style: none; margin: 14px 0 0; padding: 0; }
 .release-list li { position: relative; padding-left: 28px; margin-bottom: 9px; color: var(--muted); font-size: .93rem; overflow-wrap: anywhere; }
 .release-list li:last-child { margin-bottom: 0; }
@@ -1490,12 +1563,22 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
 .k-remove { --ico: var(--red); --mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E"); }
 .k-net { --ico: var(--aqua); --mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='18' cy='5' r='3'/%3E%3Ccircle cx='6' cy='12' r='3'/%3E%3Ccircle cx='18' cy='19' r='3'/%3E%3Cpath d='m8.6 13.5 6.8 4'/%3E%3Cpath d='m15.4 6.5-6.8 4'/%3E%3C/svg%3E"); }
 
-/* ---------- Документация: иконки в меню ---------- */
+/* ---------- Документация: иконки только у категорий ---------- */
 
-.docs-link { display: flex; align-items: center; gap: 9px; }
-.dl-ico { width: 15px; height: 15px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: .65; transition: opacity .16s ease, color .16s ease; }
-.docs-link:hover .dl-ico { opacity: 1; }
-.docs-link.is-active .dl-ico { opacity: 1; color: var(--accent); }
+.docs-link { display: flex; align-items: center; gap: 9px; padding-left: 31px; }
+.cat-ico {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: .72;
+  transition: opacity .16s ease, color .16s ease;
+}
+.docs-cat-toggle:hover .cat-ico { opacity: 1; color: var(--accent); }
 
 /* ---------- Анимированный фон ---------- */
 
@@ -1545,7 +1628,8 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
   transition: color .16s ease, background-color .16s ease;
 }
 .docs-cat-toggle:hover { color: var(--text); background: var(--panel-2); }
-.cat-chev { width: 14px; height: 14px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: transform .22s ease; }
+.cat-chev { width: 13px; height: 13px; flex: 0 0 auto; opacity: .55; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: transform .22s ease, opacity .16s ease; }
+.docs-cat-toggle:hover .cat-chev { opacity: .9; }
 .docs-cat.is-collapsed .cat-chev { transform: rotate(-90deg); }
 .cat-count {
   margin-left: auto;
@@ -1561,8 +1645,7 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
 .docs-cat-body { display: grid; grid-template-rows: 1fr; transition: grid-template-rows .28s ease; }
 .docs-cat-inner { overflow: hidden; min-height: 0; }
 .docs-cat.is-collapsed .docs-cat-body { grid-template-rows: 0fr; }
-.docs-cmd { font-family: var(--mono); font-size: .82rem; padding-left: 14px; }
-.docs-cmd .dl-ico { width: 13px; height: 13px; }
+.docs-cmd { font-family: var(--mono); font-size: .82rem; }
 
 /* ---------- Карусель возможностей ---------- */
 
@@ -1609,6 +1692,7 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
 .feature-card:hover { transform: translateY(-3px); border-color: #2a3342; background: var(--panel-2); }
 .feature-card:hover::before { transform: scaleX(1); opacity: 1; }
 .feature-card h3 { font-size: 1.08rem; font-weight: 700; }
+.module-card h3 { font-size: 1rem; }
 .feature-card p { margin-top: 9px; color: var(--muted); font-size: .92rem; flex: 1 1 auto; overflow-wrap: anywhere; }
 .feature-more { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; color: var(--accent); font-size: .84rem; font-weight: 600; }
 .feature-more .ico { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .18s ease; }
@@ -1641,27 +1725,49 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
   align-items: center;
   justify-content: space-between;
   gap: 28px;
-  padding: 30px 34px;
+  padding: 32px 36px;
   border: 1px solid rgba(88, 101, 242, .32);
-  border-radius: 18px;
+  border-radius: 20px;
   background: linear-gradient(120deg, rgba(88, 101, 242, .16), rgba(125, 92, 255, .08) 55%, var(--panel));
   overflow: hidden;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
 }
-.discord-glow { position: absolute; inset: 0; background: radial-gradient(440px 220px at 88% 130%, rgba(88, 101, 242, .3), transparent 70%); pointer-events: none; }
-.discord-main { position: relative; display: flex; align-items: center; gap: 22px; min-width: 0; }
+.discord-widget:hover { transform: translateY(-2px); border-color: rgba(88, 101, 242, .58); box-shadow: 0 22px 60px rgba(88, 101, 242, .18); }
+.discord-widget::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blurple), #7d5cff 45%, transparent);
+}
+.discord-glow { position: absolute; inset: 0; background: radial-gradient(460px 230px at 88% 130%, rgba(88, 101, 242, .3), transparent 70%), radial-gradient(380px 200px at 4% -20%, rgba(125, 92, 255, .18), transparent 72%); pointer-events: none; }
+.discord-main { position: relative; display: flex; align-items: center; gap: 24px; min-width: 0; }
 .discord-avatar {
   position: relative;
   display: grid;
   place-items: center;
   flex: 0 0 auto;
-  width: 72px;
-  height: 72px;
-  border-radius: 20px;
-  background: var(--gradient);
-  overflow: hidden;
-  box-shadow: 0 8px 26px rgba(88, 101, 242, .32);
+  width: 84px;
+  height: 84px;
+  padding: 9px;
+  border-radius: 26px;
+  background: #232733;
+  box-shadow: 0 0 0 2px rgba(88, 101, 242, .5), 0 0 0 7px rgba(88, 101, 242, .13), 0 14px 32px rgba(0, 0, 0, .42);
 }
-.discord-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.discord-avatar img { width: 100%; height: 100%; border-radius: 17px; object-fit: contain; }
+.discord-avatar::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: 18px;
+  height: 18px;
+  border: 3px solid #232733;
+  border-radius: 50%;
+  background: var(--green);
+}
 .discord-avatar-fallback { position: absolute; width: 34px; height: 34px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .discord-avatar.is-fallback img { display: none; }
 .discord-info { min-width: 0; }
@@ -1669,8 +1775,8 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
 .discord-eyebrow .ico { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .discord-name { margin-top: 6px; font-size: clamp(1.4rem, 2.4vw, 1.8rem); font-weight: 800; }
 .discord-desc { margin-top: 8px; color: var(--muted); font-size: .93rem; max-width: 52ch; }
-.discord-stats { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 14px; }
-.discord-stat { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font-size: .86rem; }
+.discord-stats { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.discord-stat { display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px; border: 1px solid rgba(88, 101, 242, .28); border-radius: 999px; background: rgba(12, 19, 32, .5); color: var(--muted); font-size: .83rem; }
 .discord-stat strong { color: var(--text); font-weight: 700; font-variant-numeric: tabular-nums; }
 .discord-stat .ico { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .discord-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--green); animation: discord-pulse 2.2s ease-out infinite; }
@@ -1743,6 +1849,15 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
 }
 .updates-search input::placeholder { color: var(--muted); }
 .updates-expand { display: block; margin: 2px auto 0; padding: 8px 18px; font-size: .84rem; }
+
+/* ---------- План обновлений ---------- */
+
+.roadmap-hero { padding-top: 96px; }
+.roadmap-hero .container { max-width: 940px; }
+.roadmap-hero h1 { font-size: clamp(2.1rem, 4.6vw, 3.1rem); font-weight: 800; }
+.roadmap-hero .lead { margin-top: 14px; }
+.roadmap-hero .callout { margin-top: 24px; }
+.roadmap-links { margin-top: 28px; }
 
 .release-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-left: auto; }
 .release-meta span {
@@ -1836,7 +1951,9 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
   .feature-card { flex-basis: 88%; padding: 19px; }
   .discord-widget { padding: 24px 22px; }
   .discord-main { gap: 16px; }
-  .discord-avatar { width: 60px; height: 60px; border-radius: 16px; }
+  .discord-avatar { width: 64px; height: 64px; border-radius: 20px; padding: 7px; }
+  .discord-avatar img { border-radius: 13px; }
+  .discord-avatar::after { width: 15px; height: 15px; border-width: 2px; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
   .to-top { right: 14px; bottom: 14px; }
 }
