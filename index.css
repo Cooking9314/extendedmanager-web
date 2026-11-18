@@ -521,6 +521,31 @@ html.js .chat-lines p {
 .page-head h1 { margin-top: 10px; font-size: clamp(1.8rem, 3.4vw, 2.5rem); font-weight: 800; }
 .page-lead { margin-top: 12px; max-width: 80ch; color: var(--muted); font-size: .98rem; }
 
+.page-updated {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 7px 13px;
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  color: var(--muted);
+  font-size: .8rem;
+  line-height: 1.35;
+}
+
+.page-updated svg {
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+  color: var(--accent);
+}
+
+.page-updated strong { color: var(--text); font-weight: 600; }
+.docs-toc .page-updated { width: auto; margin-top: 14px; }
+
 .docs-section, .updates-section { padding: 28px 0 56px; }
 
 .card-more {
@@ -773,27 +798,37 @@ html.js .chat-lines p {
 
 .req {
   width: 100%;
-  margin-top: 14px;
+  margin-top: 12px;
   border-collapse: separate;
   border-spacing: 0;
-  font-size: .9rem;
+  font-size: .89rem;
   border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--bg-soft);
+  border-radius: 14px;
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
   overflow: hidden;
 }
 
 .req th, .req td {
-  padding: 10px 14px;
+  padding: 11px 15px;
   border-bottom: 1px solid var(--border-soft);
   text-align: left;
   vertical-align: top;
 }
 
-.req tbody tr { transition: background-color .14s ease; }
-.req tbody tr:nth-child(even) { background: rgba(255, 255, 255, .02); }
-.req tbody tr:hover { background: rgba(79, 169, 255, .06); }
-.req th { width: 96px; color: var(--text); font-weight: 600; }
+.req tbody tr { transition: background-color .16s ease; }
+.req tbody tr:hover { background: rgba(79, 169, 255, .05); }
+
+.req th {
+  width: 104px;
+  background: rgba(255, 255, 255, .022);
+  border-right: 1px solid var(--border-soft);
+  box-shadow: inset 2px 0 0 transparent;
+  color: #8fa0b5;
+  font-weight: 700;
+  transition: color .16s ease, box-shadow .16s ease;
+}
+
+.req tbody tr:hover th { color: var(--text); box-shadow: inset 2px 0 0 var(--accent); }
 
 .req th code {
   display: inline-block;
@@ -806,10 +841,98 @@ html.js .chat-lines p {
   white-space: nowrap;
 }
 
-.req td { color: var(--muted); overflow-wrap: anywhere; }
+.req td { color: #c2cdda; overflow-wrap: anywhere; }
 .req tr:last-child th, .req tr:last-child td { border-bottom: 0; }
-.req-wide th { width: 216px; }
+.req-wide th { width: 208px; }
 .req-wide th code { white-space: normal; }
+
+.doc .doc-part {
+  --dp: var(--accent);
+  --dp-text: #8fb6e6;
+  position: relative;
+  margin-top: 15px;
+  padding-left: 17px;
+}
+
+.doc .doc-part + .doc-part { margin-top: 18px; }
+
+.doc .doc-part::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--dp), rgba(13, 16, 23, 0));
+  opacity: .7;
+}
+
+.doc .doc-part-desc { --dp: var(--accent-2); --dp-text: #b6a2e8; }
+.doc .doc-part-perm { --dp: var(--aqua); --dp-text: #7fd6cb; }
+
+.doc .doc-part-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 3px;
+  color: var(--dp-text);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.doc .doc-part-name::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border), rgba(25, 32, 43, 0));
+}
+
+.doc .doc-perms { display: grid; gap: 8px; max-width: 620px; margin-top: 5px; }
+
+.doc .doc-perm {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 10px 13px;
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(85, 224, 208, .05), rgba(255, 255, 255, .012));
+  font-family: var(--mono);
+  font-size: .84rem;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.doc .doc-perm code { color: inherit; font-size: inherit; }
+
+.perm-scope {
+  margin-left: auto;
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--panel);
+  font-family: var(--sans);
+  font-size: .74rem;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.perm-scope.is-all {
+  border-color: rgba(87, 217, 119, .3);
+  background: rgba(87, 217, 119, .09);
+  color: #7ee0a0;
+}
+
+.perm-scope.is-op {
+  border-color: rgba(255, 204, 102, .28);
+  background: rgba(255, 204, 102, .08);
+  color: #f0c684;
+}
 
 .docs-toc {
   position: sticky;
@@ -2363,8 +2486,15 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
   .module-wide { grid-column: span 1; }
   .card, .app-card { padding: 19px; }
   .chat-lines { font-size: .76rem; }
-  .req-wide th { width: 132px; }
+  .req th, .req td { padding: 9px 11px; }
+  .req th { width: 88px; }
+  .req-wide th { width: 124px; }
   .req-wide th code { white-space: normal; }
+  .doc .doc-part { padding-left: 13px; }
+  .doc .doc-part-name { gap: 8px; font-size: .68rem; letter-spacing: .1em; }
+  .doc .doc-perm { gap: 7px 10px; padding: 9px 11px; font-size: .78rem; }
+  .perm-scope { margin-left: 0; padding: 2px 9px; }
+  .page-updated { margin-top: 14px; font-size: .76rem; }
   .feature-card { flex-basis: 88%; padding: 19px; }
   .discord-widget { padding: 24px 22px; }
   .discord-main { gap: 16px; }
