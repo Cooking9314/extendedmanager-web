@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MDX в документации Extended Manager</title>
+<meta name="description" content="Тестовая страница: статьи документации, собранные из mdx-файлов скриптом scripts/mdx-build.mjs с сохранением классов и вида сайта.">
+<meta name="theme-color" content="#0a0c11">
+<meta property="og:title" content="MDX в документации Extended Manager">
+<meta property="og:description" content="Проверка формата MDX: карточки команд собираются из mdx/hub.mdx и mdx/trade.mdx в разметку сайта.">
+<meta property="og:type" content="website">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234fa9ff'/%3E%3Cstop offset='1' stop-color='%237d5cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M13.69%2020.63L6%2020.63L6%2011.37L13.52%2011.37L13.52%2013.73L9.07%2013.73L9.07%2014.81L12.98%2014.81L12.98%2017.06L9.07%2017.06L9.07%2018.27L13.69%2018.27L13.69%2020.63M17.74%2020.63L14.9%2020.63L14.9%2011.37L17.46%2011.37L20.47%2016.3L23.41%2011.37L25.97%2011.37L26%2020.63L23.16%2020.63L23.13%2016.41L21.12%2019.79L19.75%2019.79L17.74%2016.56L17.74%2020.63' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="index.css?v=20">
+<script src="script.js?v=20" defer></script>
+</head>
+<body class="mdx-page">
+
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader-inner">
+    <span class="preloader-orbit">
+    <svg class="preloader-mark" viewBox="0 0 32 32" aria-hidden="true">
+      <defs>
+        <linearGradient id="premark" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#4fa9ff"/>
+          <stop offset="1" stop-color="#7d5cff"/>
+        </linearGradient>
+      </defs>
+      <rect width="32" height="32" rx="8" fill="url(#premark)"/>
+      <path d="M13.69 20.63L6 20.63L6 11.37L13.52 11.37L13.52 13.73L9.07 13.73L9.07 14.81L12.98 14.81L12.98 17.06L9.07 17.06L9.07 18.27L13.69 18.27L13.69 20.63M17.74 20.63L14.9 20.63L14.9 11.37L17.46 11.37L20.47 16.3L23.41 11.37L25.97 11.37L26 20.63L23.16 20.63L23.13 16.41L21.12 19.79L19.75 19.79L17.74 16.56L17.74 20.63" fill="#fff"/>
+    </svg>
+    </span>
+    <span class="preloader-name">Extended Manager</span>
+    <span class="preloader-version">v0.14.2</span>
+    <span class="preloader-bar"><i id="preloader-bar-fill"></i></span>
+    <span class="preloader-meta"><span class="preloader-tip" id="preloader-tip">mdx</span><span class="preloader-pct" id="preloader-pct">0%</span></span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html" aria-label="Extended Manager, на главную">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <defs>
+          <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#4fa9ff"/>
+            <stop offset="1" stop-color="#7d5cff"/>
+          </linearGradient>
+        </defs>
+        <rect width="32" height="32" rx="8" fill="url(#mark)"/>
+        <path d="M13.69 20.63L6 20.63L6 11.37L13.52 11.37L13.52 13.73L9.07 13.73L9.07 14.81L12.98 14.81L12.98 17.06L9.07 17.06L9.07 18.27L13.69 18.27L13.69 20.63M17.74 20.63L14.9 20.63L14.9 11.37L17.46 11.37L20.47 16.3L23.41 11.37L25.97 11.37L26 20.63L23.16 20.63L23.13 16.41L21.12 19.79L19.75 19.79L17.74 16.56L17.74 20.63" fill="#fff"/>
+      </svg>
+      <span class="brand-name">Extended Manager</span>
+    </a>
+    <nav class="nav" id="site-nav" aria-label="Разделы сайта">
+      <a href="index.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Главная</a>
+      <a href="docs.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>Документация</a>
+      <a href="updates.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>Обновления</a>
+      <a href="roadmap.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h5"/></svg>План обновлений<span class="nav-soon">Скоро!</span></a>
+    </nav>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Меню разделов">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="page-head">
+    <div class="container">
+      <p class="crumbs"><a href="index.html">Главная</a> <span>/</span> MDX</p>
+      <h1>Документация из <span class="accent">MDX</span></h1>
+      <p class="page-lead">Тестовая страница: статьи ниже не написаны в HTML, а собраны из файлов в папке <code>mdx/</code>. Формат проверяет, что MDX даёт ровно тот же вид, что и ручная разметка документации.</p>
+      <p class="page-updated"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.4v5l3.2 1.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Последнее изменение: <strong>18 ноября 2026</strong></span></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="callout callout-info">
+        <p>Исходники: <code>mdx/hub.mdx</code> и <code>mdx/trade.mdx</code>. Сборка: <code>node scripts/mdx-build.mjs</code> из папки сайта; скрипт заменяет содержимое между маркерами <code>mdx:start</code> и <code>mdx:end</code> и выдаёт те же классы, что и <code>docs.html</code>: <code>doc-part</code>, <code>req</code>, <code>code-block</code>, <code>doc-file</code>, <code>doc-keys</code>, <code>doc-perms</code>.</p>
+        <p>Страница служебная: в навигации её нет, в поисковиках она не индексируется.</p>
+      </div>
+
+      <div class="docs-main mdx-host">
+          <!-- mdx:start -->
+<!-- hub.mdx: собрано scripts/mdx-build.mjs, не править вручную -->
+<article class="doc is-active" id="doc-mdx-hub" data-group="Команды">
+  <p class="doc-crumbs">Документация <span>/</span> Команды <span>/</span> Телепорты и спавны</p>
+  <h2>/hub</h2>
+<section class="doc-part doc-part-desc">
+  <h3 class="doc-part-name">Описание</h3>
+<p class="doc-lead">Переход на hub-сервер сети; имя сервера берётся из <code>command_config.yml</code>, секция <code>hub</code>. Умеет переносить другого игрока, в том числе с другого сервера.</p>
+<div class="callout callout-note"><p>Переход <code>/hub</code> требует настроенного <code>hub.server</code> в <code>command_config.yml</code>.</p></div>
+</section>
+<section class="doc-part doc-part-set">
+  <h3 class="doc-part-name">Настройка</h3>
+<table class="req req-wide"><tbody>
+  <tr><th>Синтаксис</th><td><code>/hub [игрок]</code></td></tr>
+  <tr><th>Канал перехода</th><td>BungeeCord, его же форвардит Velocity</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/hub
+/hub Steve</code></pre></div>
+<p class="doc-file"><code class="doc-file-name">command_config.yml</code><span class="doc-file-path">commands.hub и hub</span><a class="doc-file-link" href="#em-toggle">как устроен блок</a></p>
+<div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>  hub:
+    enable: true
+    aliases: []
+    cooldown:
+      enable: false
+      duration: 0
+      bypass:
+        name: "extendedmanager.command.hub.cooldown.bypass"
+        type: "permission"
+
+hub:
+  server: "hub"
+  require-login: true
+  cooldown-seconds: 3
+  message: true</code></pre></div>
+<dl class="doc-keys">
+  <dt><code>enable</code></dt><dd>Включает команду. <code>false</code> отвечает сообщением <code>command-disabled</code> и убирает <code>/hub</code> из <code>/em help</code> и из автодополнения Tab.</dd>
+  <dt><code>aliases</code></dt><dd>Дополнительные имена: список вроде <code>["away"]</code> вызывает <code>/hub</code> и по слову <code>/away</code>. Имена из <code>plugin.yml</code> работают всегда, а свои алиасы применяет сам плагин, поэтому хватает <code>/em reload</code>.</dd>
+  <dt><code>cooldown.enable</code></dt><dd>Включает задержку между запусками <code>/hub</code> одним игроком.</dd>
+  <dt><code>cooldown.duration</code></dt><dd>Сколько секунд ждать после запуска: <code>0</code> не ждать.</dd>
+  <dt><code>cooldown.bypass</code></dt><dd>Кто задержку пропускает. <code>name</code> это узел права, <code>type: permission</code> даёт проход по выданному праву, <code>type: OP</code> работает только у операторов сервера.</dd>
+  <dt><code>server</code></dt><dd>Имя сервера hub в конфигурации прокси: его берёт BungeeCord или Velocity, а не список миров на сервере. Пусто, и <code>/hub</code> отвечает, что переход не настроен.</dd>
+  <dt><code>require-login</code></dt><dd>Требовать вход по <code>/login</code> перед уходом в хаб: незалогиненный игрок остаётся на месте.</dd>
+  <dt><code>cooldown-seconds</code></dt><dd>Секунды между переходами одного игрока, <code>0</code> не ждать. Это своя пауза <code>/hub</code>, общий <code>cooldown</code> команды работает поверх неё.</dd>
+  <dt><code>message</code></dt><dd>Показывать ли игроку подтверждение перехода.</dd>
+</dl>
+</section>
+<section class="doc-part doc-part-perm">
+  <h3 class="doc-part-name">Права</h3>
+<div class="doc-perms">
+  <div class="doc-perm"><code>extendedmanager.command.hub</code><span class="perm-scope is-op">по умолчанию у операторов</span><p class="perm-desc">Доступ к команде /hub (переход на hub-сервер)</p></div>
+  <div class="doc-perm"><code>extendedmanager.command.hub.others</code><span class="perm-scope is-op">по умолчанию у операторов</span><p class="perm-desc">Перенос другим игрокам (/hub &lt;игрок&gt;)</p></div>
+  <div class="doc-perm"><code>extendedmanager.command.hub.cooldown.bypass</code><span class="perm-scope">выдают вручную</span><p class="perm-desc">Пропускает задержку <code>cooldown</code> команды <code>/hub</code>.</p></div>
+</div>
+</section>
+</article>
+
+<!-- trade.mdx: собрано scripts/mdx-build.mjs, не править вручную -->
+<article class="doc is-active" id="doc-mdx-trade" data-group="Команды">
+  <p class="doc-crumbs">Документация <span>/</span> Команды <span>/</span> Осмотр и обмен</p>
+  <h2>/trade</h2>
+<section class="doc-part doc-part-desc">
+  <h3 class="doc-part-name">Описание</h3>
+<p class="doc-lead">Безопасный обмен предметами через окно с подтверждением обеих сторон; кнопки принятия и отказа прямо в окне.</p>
+<p>Предметы обеих сторон на время сделки лежат в памяти плагина, а не в окне:</p>
+<ul class="steps">
+  <li>обмен совершается, только когда подтвердили обе стороны;</li>
+  <li>любая правка предложения снимает оба подтверждения;</li>
+  <li>закрытое окно, выход или смерть игрока отменяют сделку и возвращают предметы владельцам.</li>
+</ul>
+<div class="callout callout-warn"><p>Обмен возможен только между игроками в сети и не дальше <code>trade.distance-blocks</code>.</p></div>
+</section>
+<section class="doc-part doc-part-set">
+  <h3 class="doc-part-name">Настройка</h3>
+<table class="req req-wide"><tbody>
+  <tr><th>Синтаксис</th><td><code>/trade &lt;игрок&gt;</code></td></tr>
+  <tr><th>accept, deny</th><td>Принять или отклонить входящее предложение</td></tr>
+  <tr><th>cancel</th><td>Отменить своё предложение</td></tr>
+  <tr><th>Без аргументов</th><td>Возвращает открытое окно обмена</td></tr>
+</tbody></table>
+<div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/trade Steve
+/trade accept
+/trade cancel</code></pre></div>
+<p class="doc-file"><code class="doc-file-name">command_config.yml</code><span class="doc-file-path">commands.trade и trade</span><a class="doc-file-link" href="#em-toggle">как устроен блок</a></p>
+<div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>  trade:
+    enable: true
+    aliases: []
+    cooldown:
+      enable: false
+      duration: 0
+      bypass:
+        name: "extendedmanager.command.trade.cooldown.bypass"
+        type: "permission"
+
+trade:
+  enabled: true
+  distance-blocks: 10
+  request-expire-seconds: 60
+  slots-per-side: 16
+  log: true
+  blocked-materials: []</code></pre></div>
+<h3 id="границы-сделки">Границы сделки</h3>
+<p>Размер окна и расстояние задаёт секция <code>trade</code>, а не блок команды: правка применяется после <code>/em reload</code>, перезапуск сервера не нужен.</p>
+<dl class="doc-keys">
+  <dt><code>enable</code></dt><dd>Включает команду. <code>false</code> отвечает сообщением <code>command-disabled</code> и убирает <code>/trade</code> из <code>/em help</code> и из автодополнения Tab.</dd>
+  <dt><code>aliases</code></dt><dd>Дополнительные имена: список вроде <code>["away"]</code> вызывает <code>/trade</code> и по слову <code>/away</code>.</dd>
+  <dt><code>cooldown.enable</code></dt><dd>Включает задержку между запусками <code>/trade</code> одним игроком.</dd>
+  <dt><code>cooldown.duration</code></dt><dd>Сколько секунд ждать после запуска: <code>0</code> не ждать.</dd>
+  <dt><code>cooldown.bypass</code></dt><dd>Кто задержку пропускает. <code>name</code> это узел права, <code>type: permission</code> даёт проход по выданному праву, <code>type: OP</code> работает только у операторов сервера.</dd>
+  <dt><code>enabled</code></dt><dd>Разрешить обмен предметами.</dd>
+  <dt><code>distance-blocks</code></dt><dd>Как близко нужно встать, в блоках. <code>0</code> расстояние не проверять, тогда торговаться можно хоть через весь сервер.</dd>
+  <dt><code>request-expire-seconds</code></dt><dd>Сколько секунд ждать ответа на запрос обмена.</dd>
+  <dt><code>slots-per-side</code></dt><dd>Слотов на сторону: 4, 8, 12 или 16. Окно делится пополам: своя половина слева, чужая справа, над каждой стоит голова игрока.</dd>
+  <dt><code>log</code></dt><dd>Писать состоявшиеся сделки в консоль: кто, с кем и сколько предметов.</dd>
+  <dt><code>blocked-materials</code></dt><dd>Материалы, которые нельзя класть в сделку: имена <code>Material</code> без учёта регистра, например <code>["BEDROCK", "COMMAND_BLOCK"]</code>.</dd>
+</dl>
+</section>
+<section class="doc-part doc-part-perm">
+  <h3 class="doc-part-name">Права</h3>
+<div class="doc-perms">
+  <div class="doc-perm"><code>extendedmanager.command.trade</code><span class="perm-scope">по умолчанию у всех</span><p class="perm-desc">Доступ к команде /trade (безопасный обмен предметами)</p></div>
+  <div class="doc-perm"><code>extendedmanager.command.trade.cooldown.bypass</code><span class="perm-scope">выдают вручную</span><p class="perm-desc">Пропускает задержку <code>cooldown</code> команды <code>/trade</code>.</p></div>
+</div>
+</section>
+</article>
+          <!-- mdx:end -->
+      </div>
+
+      <article class="doc is-active" id="doc-mdx-anchor">
+        <h2>Якорь сборки</h2>
+        <section class="doc-part">
+          <h3 class="doc-part-name">Служебное</h3>
+          <h3 id="em-toggle">Как устроен блок команды</h3>
+          <p>Ссылка «как устроен блок» в собранных статьях ведёт на этот якорь. В <code>command_config.yml</code> команда получает блок из трёх настроек: <code>enable</code>, <code>aliases</code> и <code>cooldown</code>; полный разбор блока читается в статье <a href="docs.html#em-toggle">/em, Включение и отключение</a>.</p>
+        </section>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <defs>
+          <linearGradient id="mark-footer" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#4fa9ff"/>
+            <stop offset="1" stop-color="#7d5cff"/>
+          </linearGradient>
+        </defs>
+        <rect width="32" height="32" rx="8" fill="url(#mark-footer)"/>
+        <path d="M13.69 20.63L6 20.63L6 11.37L13.52 11.37L13.52 13.73L9.07 13.73L9.07 14.81L12.98 14.81L12.98 17.06L9.07 17.06L9.07 18.27L13.69 18.27L13.69 20.63M17.74 20.63L14.9 20.63L14.9 11.37L17.46 11.37L20.47 16.3L23.41 11.37L25.97 11.37L26 20.63L23.16 20.63L23.13 16.41L21.12 19.79L19.75 19.79L17.74 16.56L17.74 20.63" fill="#fff"/>
+      </svg>
+      <div>
+        <p class="brand-name">Extended Manager</p>
+        <p class="muted small">Sunrise Studios</p>
+      </div>
+    </div>
+  </div>
+  <div class="container footer-legal">
+    <p>Не является официальным продуктом Minecraft. Не одобрено и не связано с Mojang или Microsoft.</p>
+  </div>
+</footer>
+
+<button class="to-top" type="button" aria-label="Наверх">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V6m-6 6 6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+</body>
+</html>

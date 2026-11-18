@@ -1,0 +1,63 @@
+---
+id: mdx-hub
+title: /hub
+group: Команды
+crumbs: Документация / Команды / Телепорты и спавны
+---
+
+## Описание
+
+Переход на hub-сервер сети; имя сервера берётся из `command_config.yml`, секция `hub`. Умеет переносить другого игрока, в том числе с другого сервера.
+
+<Callout type="note">
+Переход `/hub` требует настроенного `hub.server` в `command_config.yml`.
+</Callout>
+
+## Настройка
+
+| --- | --- |
+| Синтаксис | `/hub [игрок]` |
+| Канал перехода | BungeeCord, его же форвардит Velocity |
+
+<Cmd>
+/hub
+/hub Steve
+</Cmd>
+
+<Config file="command_config.yml" path="commands.hub и hub" link="#em-toggle">
+  hub:
+    enable: true
+    aliases: []
+    cooldown:
+      enable: false
+      duration: 0
+      bypass:
+        name: "extendedmanager.command.hub.cooldown.bypass"
+        type: "permission"
+
+hub:
+  server: "hub"
+  require-login: true
+  cooldown-seconds: 3
+  message: true
+</Config>
+
+<Keys>
+enable | Включает команду. `false` отвечает сообщением `command-disabled` и убирает `/hub` из `/em help` и из автодополнения Tab.
+aliases | Дополнительные имена: список вроде `["away"]` вызывает `/hub` и по слову `/away`. Имена из `plugin.yml` работают всегда, а свои алиасы применяет сам плагин, поэтому хватает `/em reload`.
+cooldown.enable | Включает задержку между запусками `/hub` одним игроком.
+cooldown.duration | Сколько секунд ждать после запуска: `0` не ждать.
+cooldown.bypass | Кто задержку пропускает. `name` это узел права, `type: permission` даёт проход по выданному праву, `type: OP` работает только у операторов сервера.
+server | Имя сервера hub в конфигурации прокси: его берёт BungeeCord или Velocity, а не список миров на сервере. Пусто, и `/hub` отвечает, что переход не настроен.
+require-login | Требовать вход по `/login` перед уходом в хаб: незалогиненный игрок остаётся на месте.
+cooldown-seconds | Секунды между переходами одного игрока, `0` не ждать. Это своя пауза `/hub`, общий `cooldown` команды работает поверх неё.
+message | Показывать ли игроку подтверждение перехода.
+</Keys>
+
+## Права
+
+<Perms>
+extendedmanager.command.hub | op | Доступ к команде /hub (переход на hub-сервер)
+extendedmanager.command.hub.others | op | Перенос другим игрокам (/hub <игрок>)
+extendedmanager.command.hub.cooldown.bypass | manual | Пропускает задержку `cooldown` команды `/hub`.
+</Perms>

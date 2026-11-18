@@ -1,0 +1,79 @@
+---
+id: mdx-trade
+title: /trade
+group: Команды
+crumbs: Документация / Команды / Осмотр и обмен
+---
+
+## Описание
+
+Безопасный обмен предметами через окно с подтверждением обеих сторон; кнопки принятия и отказа прямо в окне.
+
+Предметы обеих сторон на время сделки лежат в памяти плагина, а не в окне:
+
+- обмен совершается, только когда подтвердили обе стороны;
+- любая правка предложения снимает оба подтверждения;
+- закрытое окно, выход или смерть игрока отменяют сделку и возвращают предметы владельцам.
+
+<Callout type="warn">
+Обмен возможен только между игроками в сети и не дальше `trade.distance-blocks`.
+</Callout>
+
+## Настройка
+
+| --- | --- |
+| Синтаксис | `/trade <игрок>` |
+| accept, deny | Принять или отклонить входящее предложение |
+| cancel | Отменить своё предложение |
+| Без аргументов | Возвращает открытое окно обмена |
+
+<Cmd>
+/trade Steve
+/trade accept
+/trade cancel
+</Cmd>
+
+<Config file="command_config.yml" path="commands.trade и trade" link="#em-toggle">
+  trade:
+    enable: true
+    aliases: []
+    cooldown:
+      enable: false
+      duration: 0
+      bypass:
+        name: "extendedmanager.command.trade.cooldown.bypass"
+        type: "permission"
+
+trade:
+  enabled: true
+  distance-blocks: 10
+  request-expire-seconds: 60
+  slots-per-side: 16
+  log: true
+  blocked-materials: []
+</Config>
+
+### Границы сделки
+
+Размер окна и расстояние задаёт секция `trade`, а не блок команды: правка применяется после `/em reload`, перезапуск сервера не нужен.
+
+<Keys>
+enable | Включает команду. `false` отвечает сообщением `command-disabled` и убирает `/trade` из `/em help` и из автодополнения Tab.
+aliases | Дополнительные имена: список вроде `["away"]` вызывает `/trade` и по слову `/away`.
+cooldown.enable | Включает задержку между запусками `/trade` одним игроком.
+cooldown.duration | Сколько секунд ждать после запуска: `0` не ждать.
+cooldown.bypass | Кто задержку пропускает. `name` это узел права, `type: permission` даёт проход по выданному праву, `type: OP` работает только у операторов сервера.
+enabled | Разрешить обмен предметами.
+distance-blocks | Как близко нужно встать, в блоках. `0` расстояние не проверять, тогда торговаться можно хоть через весь сервер.
+request-expire-seconds | Сколько секунд ждать ответа на запрос обмена.
+slots-per-side | Слотов на сторону: 4, 8, 12 или 16. Окно делится пополам: своя половина слева, чужая справа, над каждой стоит голова игрока.
+log | Писать состоявшиеся сделки в консоль: кто, с кем и сколько предметов.
+blocked-materials | Материалы, которые нельзя класть в сделку: имена `Material` без учёта регистра, например `["BEDROCK", "COMMAND_BLOCK"]`.
+</Keys>
+
+## Права
+
+<Perms>
+extendedmanager.command.trade | all | Доступ к команде /trade (безопасный обмен предметами)
+extendedmanager.command.trade.cooldown.bypass | manual | Пропускает задержку `cooldown` команды `/trade`.
+</Perms>

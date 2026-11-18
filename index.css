@@ -802,9 +802,11 @@ html.js .chat-lines p {
   border-collapse: separate;
   border-spacing: 0;
   font-size: .89rem;
+  line-height: 1.5;
   border: 1px solid var(--border);
   border-radius: 14px;
   background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .03), 0 14px 30px -26px rgba(0, 0, 0, .95);
   overflow: hidden;
 }
 
@@ -829,6 +831,7 @@ html.js .chat-lines p {
 }
 
 .req tbody tr:hover th { color: var(--text); box-shadow: inset 2px 0 0 var(--accent); }
+.req tbody tr:hover td { color: var(--text); }
 
 .req th code {
   display: inline-block;
@@ -842,6 +845,7 @@ html.js .chat-lines p {
 }
 
 .req td { color: #c2cdda; overflow-wrap: anywhere; }
+.req td code { color: #a9c6e6; font-size: .92em; }
 .req tr:last-child th, .req tr:last-child td { border-bottom: 0; }
 .req-wide th { width: 208px; }
 .req-wide th code { white-space: normal; }
@@ -893,10 +897,10 @@ html.js .chat-lines p {
 .doc .doc-perms { display: grid; gap: 8px; max-width: 620px; margin-top: 5px; }
 
 .doc .doc-perm {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 8px 12px;
+  gap: 4px 12px;
   padding: 10px 13px;
   border: 1px solid var(--border-soft);
   border-radius: 10px;
@@ -905,12 +909,26 @@ html.js .chat-lines p {
   font-size: .84rem;
   color: var(--text);
   overflow-wrap: anywhere;
+  transition: border-color .16s ease, background-color .16s ease;
 }
+
+.doc .doc-perm:hover { border-color: rgba(85, 224, 208, .3); background: rgba(85, 224, 208, .06); }
 
 .doc .doc-perm code { color: inherit; font-size: inherit; }
 
+.perm-desc {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: .8rem;
+  line-height: 1.45;
+}
+
+.perm-desc code { font-size: .92em; color: #a9c6e6; }
+
 .perm-scope {
-  margin-left: auto;
+  justify-self: end;
   padding: 3px 10px;
   border: 1px solid var(--border);
   border-radius: 999px;
@@ -932,6 +950,89 @@ html.js .chat-lines p {
   border-color: rgba(255, 204, 102, .28);
   background: rgba(255, 204, 102, .08);
   color: #f0c684;
+}
+
+.doc .doc-file {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin: 17px 0 0;
+  color: #8fa0b5;
+  font-size: .82rem;
+}
+
+.doc .doc-file-name {
+  padding: 3px 9px;
+  border: 1px solid var(--border);
+  border-radius: 8px 8px 8px 3px;
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  color: #9fc4f0;
+  font-size: .8rem;
+}
+
+.doc .doc-file-path { font-family: var(--mono); overflow-wrap: anywhere; }
+
+.doc .doc-file-path::before { content: "\2192"; margin-right: 7px; color: #5c6879; }
+
+.doc .doc-file-link {
+  color: var(--accent);
+  border-bottom: 1px dashed rgba(79, 169, 255, .45);
+  text-decoration: none;
+  transition: color .16s ease, border-color .16s ease;
+}
+
+.doc .doc-file-link:hover { color: #8fc6ff; border-bottom-color: transparent; }
+
+.doc .doc-file + .code-block { margin-top: 8px; }
+
+.doc .doc-keys {
+  display: grid;
+  grid-template-columns: 164px minmax(0, 1fr);
+  gap: 0 16px;
+  max-width: 940px;
+  margin: 12px 0 0;
+  padding: 13px 15px;
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .022), rgba(255, 255, 255, .008));
+}
+
+.doc .doc-keys dt {
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: .81rem;
+  overflow-wrap: anywhere;
+}
+
+.doc .doc-keys dt code { color: inherit; font-size: inherit; }
+
+.doc .doc-keys dd {
+  margin: 0;
+  color: #c2cdda;
+  font-size: .87rem;
+  line-height: 1.5;
+}
+
+.doc .doc-keys dt, .doc .doc-keys dd {
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, .045);
+}
+
+.doc .doc-keys dt:last-of-type, .doc .doc-keys dd:last-of-type {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.doc .doc-keys dd code { color: #a9c6e6; font-size: .92em; }
+
+/* Узкая колонка статей (две панели боковика съедают ширину): ключ и расшифровка в одну строку */
+@media (max-width: 1200px) {
+  .doc .doc-keys { grid-template-columns: minmax(0, 1fr); }
+  .doc .doc-keys dt { padding-bottom: 2px; border-bottom: 0; }
+  .doc .doc-keys dd { padding-bottom: 10px; }
+  .doc .doc-keys dt:last-of-type { padding-bottom: 2px; }
+  .doc .doc-keys dd:last-of-type { padding-bottom: 0; }
 }
 
 .docs-toc {
@@ -2434,6 +2535,8 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
 
 @media (min-width: 901px) and (max-width: 1200px) {
   .docs-shell { grid-template-columns: 224px minmax(0, 1fr) 184px; gap: 18px; }
+  .doc .req th { width: 96px; }
+  .doc .req-wide th { width: 148px; }
 }
 
 @media (max-width: 1024px) {
@@ -2492,8 +2595,13 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
   .req-wide th code { white-space: normal; }
   .doc .doc-part { padding-left: 13px; }
   .doc .doc-part-name { gap: 8px; font-size: .68rem; letter-spacing: .1em; }
-  .doc .doc-perm { gap: 7px 10px; padding: 9px 11px; font-size: .78rem; }
-  .perm-scope { margin-left: 0; padding: 2px 9px; }
+  .doc .doc-perm { gap: 5px 10px; padding: 9px 11px; font-size: .78rem; }
+  .doc .doc-perm .perm-scope { justify-self: start; padding: 2px 9px; }
+  .doc .doc-file { font-size: .76rem; }
+  .doc .doc-file-name { font-size: .76rem; }
+  .doc .doc-keys { padding: 11px 13px; }
+  .doc .doc-keys dt { font-size: .78rem; }
+  .doc .doc-keys dd { font-size: .84rem; }
   .page-updated { margin-top: 14px; font-size: .76rem; }
   .feature-card { flex-basis: 88%; padding: 19px; }
   .discord-widget { padding: 24px 22px; }
