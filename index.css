@@ -709,30 +709,69 @@ html.js .chat-lines p {
   --co: var(--accent);
   --co-bg: rgba(79, 169, 255, .07);
   --co-border: rgba(79, 169, 255, .22);
+  --co-wash: rgba(79, 169, 255, .13);
+  --co-badge: rgba(79, 169, 255, .12);
   position: relative;
   margin-top: 16px;
-  padding: 13px 16px;
+  padding: 13px 18px 14px 56px;
   border: 1px solid var(--co-border);
-  border-left: 3px solid var(--co);
-  border-radius: 10px;
-  background: var(--co-bg);
+  border-radius: 14px;
+  background:
+    radial-gradient(150% 130% at 0 0, var(--co-wash), transparent 58%) padding-box,
+    linear-gradient(180deg, var(--co-bg), rgba(17, 20, 28, 0) 92%) padding-box,
+    var(--panel);
+  box-shadow: inset 3px 0 0 var(--co), 0 10px 26px rgba(0, 0, 0, .18);
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+.callout:hover { border-color: var(--co); box-shadow: inset 3px 0 0 var(--co), 0 13px 32px rgba(0, 0, 0, .24); }
+
+/* Подпись типа и значок: рисуются стилями, чтобы не плодить разметку */
+.callout::before {
+  display: inline-block;
+  margin-bottom: 7px;
+  padding: 2px 9px 3px;
+  border: 1px solid var(--co-border);
+  border-radius: 999px;
+  background: var(--co-badge);
+  color: var(--co);
+  font-size: .64rem;
+  font-weight: 800;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+.callout::after {
+  content: "";
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  width: 27px;
+  height: 27px;
+  border: 1px solid var(--co-border);
+  border-radius: 50%;
+  background: var(--co-glyph) center / 15px 15px no-repeat, var(--co-badge);
 }
 
 .callout-head {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 7px;
+  gap: 9px;
+  margin-bottom: 8px;
   color: var(--co);
-  font-size: .8rem;
-  font-weight: 700;
-  letter-spacing: .03em;
+  font-size: .9rem;
+  font-weight: 800;
+  letter-spacing: .01em;
 }
 
 .callout-head .ico {
-  width: 17px;
-  height: 17px;
+  width: 15px;
+  height: 15px;
   flex: 0 0 auto;
+  padding: 6px;
+  border: 1px solid var(--co-border);
+  border-radius: 50%;
+  background: var(--co-badge);
+  box-sizing: content-box;
   fill: none;
   stroke: currentColor;
   stroke-width: 2;
@@ -743,11 +782,59 @@ html.js .chat-lines p {
 .callout p { margin: 0; color: #c3cddd; font-size: .89rem; }
 .callout p + p { margin-top: 6px; }
 
-.callout-info { --co: var(--accent); --co-bg: rgba(79, 169, 255, .07); --co-border: rgba(79, 169, 255, .22); }
-.callout-warn { --co: var(--yellow); --co-bg: rgba(255, 204, 102, .07); --co-border: rgba(255, 204, 102, .24); }
-.callout-note { --co: var(--green); --co-bg: rgba(87, 217, 119, .07); --co-border: rgba(87, 217, 119, .22); }
-.callout-danger { --co: var(--red); --co-bg: rgba(255, 107, 107, .07); --co-border: rgba(255, 107, 107, .24); }
-.callout-important { --co: var(--purple); --co-bg: rgba(199, 146, 234, .08); --co-border: rgba(199, 146, 234, .26); }
+/* Свой заголовок уже несёт значок и название: служебная подпись и кружок убираются */
+.callout:has(.callout-head)::before, .callout:has(.callout-head)::after { display: none; }
+.callout:has(.callout-head) { padding-left: 18px; }
+
+.callout-info {
+  --co: var(--accent);
+  --co-bg: rgba(79, 169, 255, .08);
+  --co-border: rgba(79, 169, 255, .26);
+  --co-wash: rgba(79, 169, 255, .14);
+  --co-badge: rgba(79, 169, 255, .13);
+  --co-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234fa9ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 11v5'/%3E%3Cpath d='M12 8h.01'/%3E%3C/svg%3E");
+}
+.callout-info::before { content: "Информация"; }
+
+.callout-warn {
+  --co: var(--yellow);
+  --co-bg: rgba(255, 204, 102, .08);
+  --co-border: rgba(255, 204, 102, .28);
+  --co-wash: rgba(255, 204, 102, .13);
+  --co-badge: rgba(255, 204, 102, .13);
+  --co-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffcc66' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z'/%3E%3Cpath d='M12 9v4'/%3E%3Cpath d='M12 17h.01'/%3E%3C/svg%3E");
+}
+.callout-warn::before { content: "Предупреждение"; }
+
+.callout-note {
+  --co: var(--green);
+  --co-bg: rgba(87, 217, 119, .08);
+  --co-border: rgba(87, 217, 119, .26);
+  --co-wash: rgba(87, 217, 119, .12);
+  --co-badge: rgba(87, 217, 119, .13);
+  --co-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2357d977' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18h6'/%3E%3Cpath d='M10 21h4'/%3E%3Cpath d='M12 3a6 6 0 0 1 3.6 10.8c-.6.5-.9 1.2-1 2v.4H9.4V16c-.1-.8-.4-1.5-1-2A6 6 0 0 1 12 3Z'/%3E%3C/svg%3E");
+}
+.callout-note::before { content: "Примечание"; }
+
+.callout-danger {
+  --co: var(--red);
+  --co-bg: rgba(255, 107, 107, .08);
+  --co-border: rgba(255, 107, 107, .3);
+  --co-wash: rgba(255, 107, 107, .14);
+  --co-badge: rgba(255, 107, 107, .14);
+  --co-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff6b6b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8.6 3h6.8L21 8.6v6.8L15.4 21H8.6L3 15.4V8.6Z'/%3E%3Cpath d='M12 7.5v5'/%3E%3Cpath d='M12 16h.01'/%3E%3C/svg%3E");
+}
+.callout-danger::before { content: "Внимание"; }
+
+.callout-important {
+  --co: var(--purple);
+  --co-bg: rgba(199, 146, 234, .09);
+  --co-border: rgba(199, 146, 234, .3);
+  --co-wash: rgba(199, 146, 234, .15);
+  --co-badge: rgba(199, 146, 234, .15);
+  --co-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c792ea' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3a2.5 2.5 0 0 0 2.5 2.5Z'/%3E%3C/svg%3E");
+}
+.callout-important::before { content: "Важно"; }
 
 .code-block {
   position: relative;
@@ -1982,6 +2069,109 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
   font-size: .92rem;
 }
 
+/* ---------- Крупные обновления и обновления с названиями ---------- */
+
+.release-major .release-card, .release-named .release-card {
+  padding: 22px 24px 21px;
+  border: 1px solid transparent;
+  background:
+    radial-gradient(560px 210px at 88% -10%, rgba(125, 92, 255, .13), transparent 70%) padding-box,
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    var(--gradient) border-box;
+  box-shadow: 0 20px 54px rgba(125, 92, 255, .13);
+}
+.release-major .release-card::before, .release-named .release-card::before {
+  top: 0;
+  right: 0;
+  bottom: auto;
+  left: 0;
+  width: auto;
+  height: 2px;
+  opacity: .9;
+  background: linear-gradient(90deg, transparent, var(--accent) 22%, var(--accent-2) 48%, var(--aqua) 74%, transparent);
+  background-size: 240% 100%;
+  animation: rel-sheen 9s linear infinite;
+}
+@keyframes rel-sheen {
+  from { background-position: 0 0; }
+  to { background-position: 240% 0; }
+}
+.release-major .release-card:hover, .release-named .release-card:hover { box-shadow: 0 26px 66px rgba(125, 92, 255, .2); }
+
+.release-major .release-version, .release-named .release-version {
+  font-size: 1.52rem;
+  background: linear-gradient(100deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Название выпуска: крупный градиентный заголовок с подсветкой и линией снизу */
+.release-name {
+  position: relative;
+  display: block;
+  width: fit-content;
+  margin: 17px auto 2px;
+  padding-bottom: 9px;
+  font-size: clamp(1.5rem, 2.9vw, 2.4rem);
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -.015em;
+  text-transform: uppercase;
+  text-align: center;
+  background: linear-gradient(96deg, #eef4ff, var(--accent) 30%, var(--accent-2) 61%, #ffc79c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 6px 22px rgba(125, 92, 255, .3));
+}
+.release-name::after {
+  content: "";
+  position: absolute;
+  right: 8%;
+  bottom: 0;
+  left: 8%;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent-2), transparent);
+  opacity: .5;
+}
+.release-head .release-name { margin: 0 auto; font-size: 1.1rem; padding-bottom: 0; }
+.release-head .release-name::after { display: none; }
+
+/* Крупный номер версии как водяной знак в углу карточки */
+.release-mark {
+  position: absolute;
+  right: 4px;
+  bottom: -20px;
+  z-index: 0;
+  color: rgba(148, 161, 182, .06);
+  font-family: var(--mono);
+  font-size: clamp(3.2rem, 8vw, 6rem);
+  font-weight: 700;
+  letter-spacing: -.04em;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  -webkit-text-stroke: 1px rgba(160, 140, 255, .16);
+}
+.release-named .release-note { border-left-color: var(--accent); background: rgba(79, 169, 255, .08); }
+
+.rail-link[data-name] { border-color: var(--cat-line, var(--border)); }
+.rail-link[data-name]::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  margin-right: 7px;
+  border-radius: 50%;
+  background: var(--gradient);
+}
+.rail-link.is-active[data-name]::before { background: #08111f; opacity: .45; }
+
+@media (prefers-reduced-motion: reduce) {
+  .release-major .release-card::before, .release-named .release-card::before { animation: none; }
+}
+
 .release-list { list-style: none; margin: 14px 0 0; padding: 0; }
 .release-list li { position: relative; padding-left: 28px; margin-bottom: 9px; color: var(--muted); font-size: .93rem; overflow-wrap: anywhere; }
 .release-list li:last-child { margin-bottom: 0; }
@@ -2003,6 +2193,7 @@ html.js .reveal.is-in .icon-badge { animation: badge-pop .55s cubic-bezier(.2, .
 .k-sec { --ico: var(--purple); --mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3C/svg%3E"); }
 .k-remove { --ico: var(--red); --mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E"); }
 .k-net { --ico: var(--aqua); --mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='18' cy='5' r='3'/%3E%3Ccircle cx='6' cy='12' r='3'/%3E%3Ccircle cx='18' cy='19' r='3'/%3E%3Cpath d='m8.6 13.5 6.8 4'/%3E%3Cpath d='m15.4 6.5-6.8 4'/%3E%3C/svg%3E"); }
+.k-other { --ico: var(--orange); --mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000'%3E%3Ccircle cx='5' cy='12' r='2.1'/%3E%3Ccircle cx='12' cy='12' r='2.1'/%3E%3Ccircle cx='19' cy='12' r='2.1'/%3E%3C/svg%3E"); }
 
 /* ---------- Документация: иконки только у категорий ---------- */
 

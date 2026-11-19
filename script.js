@@ -173,25 +173,6 @@
 
   $$('[data-count]').forEach(function (el) { countObserver.observe(el); });
 
-  /* ----- Типы примечаний в документации ----- */
-  var CALLOUTS = {
-    info: { title: 'Информация', icon: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>' },
-    warn: { title: 'Предупреждение', icon: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>' },
-    note: { title: 'Примечание', icon: '<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>' },
-    danger: { title: 'Внимание', icon: '<polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86"/><path d="M12 8v4"/><path d="M12 16h.01"/>' },
-    important: { title: 'Важно', icon: '<path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>' }
-  };
-
-  $$('.callout').forEach(function (c) {
-    if ($('.callout-head', c)) return;
-    var type = ['info', 'warn', 'note', 'danger', 'important'].filter(function (t) { return c.classList.contains('callout-' + t); })[0] || 'info';
-    var cfg = CALLOUTS[type];
-    var head = document.createElement('div');
-    head.className = 'callout-head';
-    head.innerHTML = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">' + cfg.icon + '</svg><span>' + cfg.title + '</span>';
-    c.insertBefore(head, c.firstChild);
-  });
-
   /* ----- Документация ----- */
   var COMMANDS = [
     ['afk', 'cmd-afk', '', 'Режим AFK с таймером и сообщением.'],
@@ -562,8 +543,8 @@
   if ($('.docs-link')) initDocs();
 
   /* ----- Обновления: панель версий, фильтр, мета, прогресс ----- */
-  var KIND_LABEL = { add: 'добавлено', change: 'изменено', fix: 'исправлено', sec: 'безопасность', net: 'сеть', remove: 'удалено' };
-  var KIND_ORDER = ['add', 'change', 'fix', 'sec', 'net', 'remove'];
+  var KIND_LABEL = { add: 'добавлено', change: 'изменено', fix: 'исправлено', sec: 'безопасность', net: 'сеть', remove: 'удалено', other: 'прочее' };
+  var KIND_ORDER = ['add', 'change', 'fix', 'sec', 'net', 'remove', 'other'];
   var CAT_LABEL = { major: 'Крупное обновление', minor: 'Обновление', patch: 'Патч' };
   var MONTHS = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
 
@@ -613,8 +594,12 @@
       var list = $('.release-list', r);
       var items = list ? $$('.release-list li', list) : [];
       var time = head ? $('time', head) : null;
+      var nameEl = head ? $('.release-name', head) : null;
+      var nameText = nameEl ? nameEl.textContent.trim() : '';
 
       r.setAttribute('data-cat', cat);
+      if (cat === 'major') r.classList.add('release-major');
+      if (nameText) r.classList.add('release-named');
       catTotals[cat]++;
       totalItems += items.length;
       if (time && time.getAttribute('datetime')) r.setAttribute('data-period', time.getAttribute('datetime').slice(0, 7));
@@ -631,7 +616,8 @@
       var link = rail ? $('.rail-link[href="#' + r.id + '"]', rail) : null;
       if (link) {
         link.setAttribute('data-cat', cat);
-        if (time) link.title = time.textContent.trim() + ' · ' + CAT_LABEL[cat];
+        if (nameText) link.setAttribute('data-name', nameText);
+        if (time) link.title = time.textContent.trim() + ' · ' + CAT_LABEL[cat] + (nameText ? ' · «' + nameText + '»' : '');
       }
 
       if (!head || !card || !list) return;
@@ -673,7 +659,15 @@
       top.appendChild(right);
 
       card.textContent = '';
+      if (nameText || cat === 'major') {
+        var mark = document.createElement('span');
+        mark.className = 'release-mark';
+        mark.setAttribute('aria-hidden', 'true');
+        mark.textContent = ver.textContent.trim();
+        card.appendChild(mark);
+      }
       card.appendChild(top);
+      if (nameEl) card.appendChild(nameEl);
       if (noteEl) card.appendChild(noteEl);
       card.appendChild(list);
       if (tags) {

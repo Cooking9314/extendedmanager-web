@@ -13,8 +13,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="index.css?v=21">
-<script src="script.js?v=21" defer></script>
+<link rel="stylesheet" href="index.css?v=22">
+<script src="script.js?v=22" defer></script>
 </head>
 <body class="updates-page">
 
@@ -184,6 +184,7 @@
               <button class="kind-btn" type="button" data-kind="sec"><i class="k-sec"></i>Безопасность</button>
               <button class="kind-btn" type="button" data-kind="net"><i class="k-net"></i>Сеть</button>
               <button class="kind-btn" type="button" data-kind="remove"><i class="k-remove"></i>Удалено</button>
+              <button class="kind-btn" type="button" data-kind="other"><i class="k-other"></i>Прочее</button>
             </div>
           </div>
         </div>
@@ -201,11 +202,12 @@
           <div class="release-card">
             <div class="release-head">
               <span class="release-version">0.15.0</span>
+              <span class="release-name">Megapatch</span>
               <span class="release-badge">Актуальная</span>
               <time datetime="2026-11-19">19 ноября 2026</time>
               <ul class="chips release-tags"><li>команды</li><li>чат</li><li>интеграции</li></ul>
             </div>
-            <p class="release-note">Крупное обновление «Megapatch»: упоминания в чате, семь новых команд и две новые интеграции.</p>
+            <p class="release-note">Упоминания в чате, семь новых команд и две новые интеграции.</p>
             <ul class="release-list">
               <li class="k-add"><code>@ник</code> стало упоминанием: упомянутый игрок слышит звук, а обращение в строке подчёркивается. Совпадение полное, поэтому почта, одиночная <code>@</code> и несуществующий ник никого не тревожат.</li>
               <li class="k-change">Админ-чат пишется через <code>#</code>: символ <code>@</code> отдали упоминаниям. Префикс меняется автообновлением, только если вы его не правили сами.</li>
@@ -219,7 +221,7 @@
               <li class="k-change">Гаг учитывает оба голосовых чата: предупреждение о неподключенной интеграции звучит, только если не работает ни один из них.</li>
               <li class="k-remove">Команда <code>/broadcasts</code> удалена: рассылкой управляет только файл <code>chat/broadcast.yml</code>.</li>
               <li class="k-change"><code>utils</code> больше не модуль: перезапуск по расписанию и <code>/em restart</code> работают всегда, а <code>/em modules</code> печатает шесть модулей.</li>
-              <li class="k-sec">Автообновление 0.15.0 добавляет новые секции вместе с комментариями и вписывает команды Megapatch в справку; номера конфигураций выросли.</li>
+              <li class="k-other">Автообновление 0.15.0 добавляет новые секции вместе с комментариями и вписывает команды Megapatch в справку; номера конфигураций выросли.</li>
             </ul>
           </div>
         </article>
@@ -259,7 +261,7 @@
               <li class="k-change"><code>/em reload</code> идёт по этапам: сбой одного не мешает остальным, а в конце печатается отчёт с числами и временем.</li>
               <li class="k-change"><code>/em api key</code> переименован в <code>/em app key</code>; прежнее имя подкоманды и право <code>extendedmanager.command.api</code> продолжают работать.</li>
               <li class="k-remove"><code>/nickname</code> и <code>/forcename</code> удалены: видимое имя даёт аккаунт, ключи автообновление убирает из конфигурации.</li>
-              <li class="k-remove">Рамки из псевдографики убраны из всех сообщений плагина.</li>
+              <li class="k-other">Рамки из псевдографики убраны из всех сообщений плагина.</li>
               <li class="k-sec">Перед структурной миграцией файл копируется в <code>backups/</code>, поэтому правка владельца не теряется.</li>
             </ul>
           </div>
@@ -279,7 +281,7 @@
               <li class="k-sec">Защита аккаунтов банит за мультиаккаунт причиной <code>Multiaccount</code>.</li>
               <li class="k-add">У каждого сообщения рассылки свои заголовок, подвал и звук.</li>
               <li class="k-add">Консоль пишет в админ-чат через <code>/say @текст</code>.</li>
-              <li class="k-change"><code>command_config.yml</code> вместо <code>emcommand_config.yml</code>.</li>
+              <li class="k-other"><code>command_config.yml</code> вместо <code>emcommand_config.yml</code>.</li>
               <li class="k-remove">Модуль anticheat удалён полностью.</li>
             </ul>
           </div>
@@ -310,7 +312,7 @@
             </div>
             <ul class="release-list">
               <li class="k-add">HTTP API ядра: игроки и действия, аккаунты и привязки адресов, скины, инвентарь, чтение базы, консоль и SSE-потоки.</li>
-              <li class="k-change">Сборка на Paper API 26.3; <code>build.cmd</code> собирает серверную и прокси-части.</li>
+              <li class="k-other">Сборка на Paper API 26.3; <code>build.cmd</code> собирает серверную и прокси-части.</li>
             </ul>
           </div>
         </article>
@@ -338,7 +340,7 @@
             </div>
             <ul class="release-list">
               <li class="k-add">Проверка обновлений плагина: GitHub или свой URL, интервал и уведомление операторов в игре.</li>
-              <li class="k-change">Улучшения консоли и служебных сообщений.</li>
+              <li class="k-other">Улучшения консоли и служебных сообщений.</li>
             </ul>
           </div>
         </article>
@@ -457,7 +459,7 @@
               <ul class="chips release-tags"><li>база</li><li>рассылки</li></ul>
             </div>
             <ul class="release-list">
-              <li class="k-change">Дампы базы переехали в JSON, старые файлы импортируются как раньше и не требуют конвертации.</li>
+              <li class="k-other">Дампы базы переехали в JSON, старые файлы импортируются как раньше и не требуют конвертации.</li>
               <li class="k-add">Серверные ссылки становятся кнопками в меню паузы клиента: встроенные типы и свои надписи.</li>
               <li class="k-add">Рассылка в чат по таймеру: несколько видов сообщений, порядок по очереди или случайно, свой звук и персональные плейсхолдеры.</li>
               <li class="k-change">Ссылки в чате сжаты в аккуратную плашку: при наведении видно адрес, клик открывает браузер.</li>
@@ -541,7 +543,7 @@
             <ul class="release-list">
               <li class="k-add">Команды /nickname и /forcename: игрок меняет собственный ник, администрация ставит ник другому игроку.</li>
               <li class="k-add">Слежение за игроком без режима наблюдателя: смотрящий не получает урона, а цель его не видит.</li>
-              <li class="k-change">База стала заметно отзывчивее: одно соединение вместо нового на каждый запрос, кэш аккаунтов и профилей, индексы поиска наказаний.</li>
+              <li class="k-other">База стала заметно отзывчивее: одно соединение вместо нового на каждый запрос, кэш аккаунтов и профилей, индексы поиска наказаний.</li>
               <li class="k-sec">Пароли из команд входа полностью убраны из консоли и файлов логов, включая алиасы.</li>
               <li class="k-change">Справка /em help сгруппирована по разделам и показывает только доступные игроку команды.</li>
               <li class="k-remove">Убраны алиас перезагрузки, команда /em npc и ручная настройка общей базы.</li>
@@ -618,9 +620,11 @@
           <div class="release-card">
             <div class="release-head">
               <span class="release-version">0.10.0</span>
+              <span class="release-name">Global FIX</span>
               <time datetime="2026-10-26">26 октября 2026</time>
               <ul class="chips release-tags"><li>глобальная починка</li></ul>
             </div>
+            <p class="release-note">Ядро пересобрано целиком: лимбо, капча, спавн, кросс-серверные сессии и плейсхолдеры без PlaceholderAPI.</p>
             <ul class="release-list">
               <li class="k-add">Лимбо: до входа игрок ждёт в отдельном мире, после возвращается в свой мир и режим игры.</li>
               <li class="k-add">Капча на картах с прогрессом ввода на панели действий.</li>
@@ -738,7 +742,7 @@
             <ul class="release-list">
               <li class="k-add">Автообновление базы данных под версию плагина: индексы и версия схемы в служебной таблице.</li>
               <li class="k-add">Скрытие команд в духе Plugin Hide: блокировка, чёрный и белый списки с масками, группы прав и фильтрация таб-листа.</li>
-              <li class="k-change">Оформление сообщений игрокам переведено на MiniMessage и Legacy, регистрация слушателей и прав приведена в порядок.</li>
+              <li class="k-other">Оформление сообщений игрокам переведено на MiniMessage и Legacy, регистрация слушателей и прав приведена в порядок.</li>
               <li class="k-fix">Патч 0.7.1: MiniMessage в чате, коды & и § больше не ломают разметку.</li>
             </ul>
           </div>
@@ -837,7 +841,7 @@
             <ul class="release-list">
               <li class="k-add">Баннер запуска, поддержка Bukkit и Spigot, публикация действий администрации.</li>
               <li class="k-add">Автообновление конфигураций и схемы базы данных.</li>
-              <li class="k-change">Патч 0.3.2.1: в баннере запуска арт Extended Manager вместо стороннего.</li>
+              <li class="k-other">Патч 0.3.2.1: в баннере запуска арт Extended Manager вместо стороннего.</li>
             </ul>
           </div>
         </article>

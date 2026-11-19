@@ -13,8 +13,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="index.css?v=21">
-<script src="script.js?v=21" defer></script>
+<link rel="stylesheet" href="index.css?v=22">
+<script src="script.js?v=22" defer></script>
 </head>
 <body class="docs-page">
 
@@ -109,6 +109,7 @@
             <button class="docs-link" type="button" data-doc="app">Приложение</button>
             <p class="docs-group">Сообщения</p>
             <button class="docs-link" type="button" data-doc="chat">Чат и рассылка</button>
+            <button class="docs-link" type="button" data-doc="adminaction">Действия администрации</button>
             <button class="docs-link" type="button" data-doc="motd">MOTD и иконка</button>
             <button class="docs-link" type="button" data-doc="text">Оформление текста</button>
             <button class="docs-link" type="button" data-doc="placeholders">Плейсхолдеры</button>
@@ -350,6 +351,177 @@ console: true</code></pre></div>
 
             <h3 id="chat-admin">Админ-чат</h3>
             <p>С 0.15.0 канал начинается с <code>#</code> (раньше был <code>@</code>, его отдали упоминаниям): сообщение с этим префиксом уходит держателям права просмотра админ-чата. Консоль тоже пишет туда: <code>/say #текст</code>, автором строки становится <code>broadcast.console-name</code>. Автообновление меняет <code>prefix</code> на <code>#</code>, только если владелец его не правил.</p>
+          </article>
+
+          <article class="doc" id="doc-adminaction" data-group="Сообщения">
+            <p class="doc-crumbs">Документация <span>/</span> Сообщения</p>
+            <h2>Действия администрации</h2>
+            <p class="doc-lead">AdminAction, публикация административных команд в чат: кто, над кем, что сделал и на какой срок. Файл <code>admin_action.yml</code> лежит в корне папки плагина и относится к ядру: он создаётся даже при выключенных модулях и настраивает только тексты, а не сами команды.</p>
+
+            <h3 id="adminaction-how">Как строится сообщение</h3>
+            <ol class="steps">
+              <li>Команда передаёт плагину ключ действия и пары плейсхолдеров: <code>publish(админ, цель, ключ, пары)</code>.</li>
+              <li>Цель в сети получает текст из секции <code>target</code> с тем же ключом, если он там есть.</li>
+              <li>Если администратор применил действие к самому себе и существует ключ <code>&lt;ключ&gt;-self</code>, берётся он.</li>
+              <li>Значения подставляются в шаблон из <code>messages</code> и окрашиваются: цвет задаёт код плагина, а не файл.</li>
+              <li>Строка уходит игрокам, всем или только с правом просмотра, а при <code>console: true</code> ещё и в консоль.</li>
+            </ol>
+            <div class="callout callout-info"><p>Действие без строки в <code>messages</code> в чат не выходит: в журнал попадёт только отладочная запись про отсутствующий шаблон. Так же ведёт себя <code>enabled: false</code>, но тексты цели из <code>target</code> продолжают приходить.</p></div>
+
+            <h3 id="adminaction-settings">Настройки файла</h3>
+            <p class="doc-file"><code class="doc-file-name">admin_action.yml</code><span class="doc-file-path">корневые ключи</span></p>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>config-version: 6
+
+enabled: true
+staff-only: true
+console: true
+
+prefix-enabled: false
+prefix: "&lt;gradient:#4fa9ff:#7d5cff&gt;Admin&lt;/gradient&gt; &lt;dark_gray&gt;»&lt;/dark_gray&gt; "
+console-name: "Консоль"
+default-reason: "не указана"
+duration-forever: "навсегда"</code></pre></div>
+            <dl class="doc-keys">
+              <dt><code>enabled</code></dt><dd>Публиковать ли действия администрации в чат. <code>false</code> выключает рассылку сотрудником и консоли, тексты цели это не затрагивает.</dd>
+              <dt><code>staff-only</code></dt><dd><code>true</code> оставляет строки только игрокам с правом <code>extendedmanager.adminaction.see</code>, <code>false</code> показывает действия администрации всему серверу.</dd>
+              <dt><code>console</code></dt><dd>Дублировать ли каждую строку в консоль сервера.</dd>
+              <dt><code>prefix-enabled</code></dt><dd>Ставить ли префикс перед сообщениями. По умолчанию выключен: действие и так начинается с имени администратора.</dd>
+              <dt><code>prefix</code></dt><dd>Сам префикс, MiniMessage или старые коды <code>&amp;</code>. Работает и для текстов из <code>target</code>.</dd>
+              <dt><code>console-name</code></dt><dd>Имя для <code>%em_admin_name%</code>, когда действие выполняет консоль: команда с консоли, HTTP API или приложение.</dd>
+              <dt><code>default-reason</code></dt><dd>Чем заменять <code>%em_reason%</code>, когда причину не указали.</dd>
+              <dt><code>duration-forever</code></dt><dd>Что подставлять в <code>%em_duration%</code> у бессрочных наказаний и привилегий.</dd>
+            </dl>
+
+            <h3 id="adminaction-placeholders">Плейсхолдеры и цвета</h3>
+            <p>В шаблонах принимаются обе формы записи: <code>%em_имя%</code> и <code>{имя}</code>. Цвет значений назначает плагин, в файле его писать не нужно.</p>
+            <table class="req req-wide">
+              <tbody>
+                <tr><th><code>%em_admin_name%</code></th><td>Кто выполнил действие; для консоли и API это <code>console-name</code>. Ярко-синий</td></tr>
+                <tr><th><code>%em_player_name%</code></th><td>Ник цели действия; если цели в сети нет, подставляется её ник из запроса или SID. Ярко-красный</td></tr>
+                <tr><th><code>%em_target_name%</code></th><td>Вторая цель: к кому перенесли игрока в <code>/tpsend</code>. Ярко-красный</td></tr>
+                <tr><th><code>%em_oneself%</code></th><td>Слово «себе» для шаблонов <code>&lt;ключ&gt;-self</code>. Ярко-красный</td></tr>
+                <tr><th><code>%em_count%</code></th><td>Число: сколько очков голода или здоровья восстановлено, какой номер у предупреждения, сколько игроков выгнано. Лаймовый</td></tr>
+                <tr><th><code>%em_duration%</code></th><td>Срок: <code>duration-forever</code> у бессрочных наказаний. Лаймовый</td></tr>
+                <tr><th><code>%em_reason%</code></th><td>Причина; пустая заменяется <code>default-reason</code>. Лаймовый</td></tr>
+                <tr><th><code>%em_group%</code></th><td>Имя группы LuckPerms в <code>/setrank</code> и <code>/givedonate</code>. Лаймовый</td></tr>
+                <tr><th><code>%em_rank%</code></th><td>Как привилегия видна игрокам: префикс группы, а без префикса её имя. Лаймовый</td></tr>
+                <tr><th><code>%em_sid%</code></th><td>SID цели из базы аккаунтов; цвета нет, в файле значение обёрнуто в <code>&lt;white&gt;</code></td></tr>
+                <tr><th><code>%em_gamemode%</code></th><td>Название режима игры: выживание, творческий, хардкор, наблюдение</td></tr>
+                <tr><th><code>%em_world%</code></th><td>Мир, например в <code>/setspawn</code></td></tr>
+                <tr><th><code>%em_server%</code></th><td>Имя сервера сети для <code>/hub</code></td></tr>
+              </tbody>
+            </table>
+            <div class="callout callout-note"><p><code>%em_sid%</code> подставляется сам: если шаблон его требует, а команда его не передала, плагин берёт SID цели из базы аккаунтов. Без включённого модуля аккаунтов значение выходит пустым, поэтому на чистом ядре шаблоны с <code>%em_sid%</code> лучше не использовать.</p></div>
+
+            <h3 id="adminaction-messages">Команды, ключи и плейсхолдеры</h3>
+            <p>Ниже полный набор ключей, которые плагин передаёт сам. Правится только текст шаблона: ключи переименовывать нельзя, иначе действие перестанет публиковаться.</p>
+            <p class="doc-file"><code class="doc-file-name">admin_action.yml</code><span class="doc-file-path">messages</span></p>
+            <p><strong>Телепортация и миры</strong></p>
+            <table class="req">
+              <tbody>
+                <tr><th><code>/tp</code></th><td><code>tp-to</code>: <code>%em_player_name%</code>, администратор пришёл к игроку</td></tr>
+                <tr><th><code>/tphere</code></th><td><code>tp-here</code>: <code>%em_player_name%</code></td></tr>
+                <tr><th><code>/tpsend</code></th><td><code>tpsend</code>: <code>%em_player_name%</code>, <code>%em_target_name%</code></td></tr>
+                <tr><th><code>/hub</code></th><td><code>hub</code>: <code>%em_player_name%</code>, <code>%em_server%</code></td></tr>
+                <tr><th><code>/setspawn</code></th><td><code>set-spawn</code>: <code>%em_world%</code>, цели у действия нет</td></tr>
+                <tr><th><code>/respawn</code></th><td><code>respawn</code>: <code>%em_player_name%</code>, варианта <code>-self</code> в файле нет</td></tr>
+                <tr><th><code>/spawn</code></th><td>Действие не публикуется: обычный возврат игрока на спавн</td></tr>
+              </tbody>
+            </table>
+            <p><strong>Состояние игрока</strong></p>
+            <table class="req">
+              <tbody>
+                <tr><th><code>/feed</code></th><td><code>feed</code> и <code>feed-self</code>: <code>%em_player_name%</code>, <code>%em_count%</code></td></tr>
+                <tr><th><code>/heal</code></th><td><code>heal</code> и <code>heal-self</code>: <code>%em_player_name%</code>, <code>%em_count%</code></td></tr>
+                <tr><th><code>/god</code></th><td><code>god-on</code> и <code>god-off</code>, оба с <code>-self</code>: <code>%em_player_name%</code></td></tr>
+                <tr><th><code>/fly</code></th><td><code>fly-on</code> и <code>fly-off</code>, оба с <code>-self</code>: <code>%em_player_name%</code></td></tr>
+                <tr><th><code>/gamemode</code></th><td><code>gamemode</code> и <code>gamemode-self</code>: <code>%em_player_name%</code>, <code>%em_gamemode%</code></td></tr>
+                <tr><th><code>/speed</code></th><td><code>speed</code> и <code>speed-self</code>: <code>%em_player_name%</code>, <code>%em_count%</code></td></tr>
+                <tr><th><code>/hp</code></th><td><code>set-health</code> и <code>set-health-self</code>: <code>%em_player_name%</code>, <code>%em_count%</code></td></tr>
+                <tr><th><code>/damage</code></th><td><code>damage</code> и <code>damage-self</code>: <code>%em_player_name%</code>, <code>%em_count%</code></td></tr>
+                <tr><th><code>/kill</code></th><td><code>kill</code> и <code>kill-self</code>: <code>%em_player_name%</code></td></tr>
+                <tr><th><code>/ignite</code></th><td><code>ignite</code> и <code>ignite-self</code>: <code>%em_player_name%</code>, <code>%em_duration%</code></td></tr>
+                <tr><th><code>/unignite</code></th><td><code>unignite</code> и <code>unignite-self</code>: <code>%em_player_name%</code></td></tr>
+              </tbody>
+            </table>
+            <p><strong>Наказания</strong></p>
+            <table class="req">
+              <tbody>
+                <tr><th><code>/ban</code> и <code>/bansid</code></th><td><code>ban</code> или <code>ban-sid</code>: <code>%em_player_name%</code>, <code>%em_sid%</code>, <code>%em_duration%</code>, <code>%em_reason%</code></td></tr>
+                <tr><th><code>/unban</code></th><td><code>unban</code> или <code>unban-sid</code>: <code>%em_player_name%</code>, <code>%em_sid%</code></td></tr>
+                <tr><th><code>/kick</code></th><td><code>kick</code>: <code>%em_player_name%</code>, <code>%em_sid%</code>, <code>%em_reason%</code></td></tr>
+                <tr><th><code>/kickall</code></th><td><code>kickall</code>: <code>%em_count%</code>, <code>%em_reason%</code></td></tr>
+                <tr><th><code>/mute</code> и <code>/unmute</code></th><td><code>mute</code>, <code>mute-sid</code>, <code>unmute</code>, <code>unmute-sid</code>: <code>%em_player_name%</code>, <code>%em_sid%</code>, у мьюта ещё <code>%em_duration%</code> и <code>%em_reason%</code></td></tr>
+                <tr><th><code>/gag</code> и <code>/ungag</code></th><td><code>gag</code>, <code>gag-sid</code>, <code>ungag</code>, <code>ungag-sid</code>: набор тот же, что у текстовых мьютов</td></tr>
+                <tr><th><code>/warn</code> и <code>/unwarn</code></th><td><code>warn</code>, <code>warn-sid</code>, <code>unwarn</code>, <code>unwarn-sid</code>: <code>%em_player_name%</code>, <code>%em_sid%</code>, <code>%em_count%</code>, <code>%em_reason%</code></td></tr>
+              </tbody>
+            </table>
+            <div class="callout callout-info"><p>Вариант с суффиксом <code>-sid</code> плагин выбирает сам, когда у цели в базе нет ника и она найдена по SID. У <code>/bansid</code> и автобана по адресу действует ещё и подпись: строку публикует автор из секции <code>ban</code> файла <code>SID_config.yml</code>, а не ник администратора.</p></div>
+            <p><strong>Чат, невидимость и whitelist</strong></p>
+            <table class="req">
+              <tbody>
+                <tr><th><code>/cloak</code> и <code>/uncloak</code></th><td><code>cloak</code>, <code>uncloak</code> и их <code>-self</code>: <code>%em_player_name%</code></td></tr>
+                <tr><th><code>/freeze</code> и <code>/unfreeze</code></th><td><code>freeze</code>, <code>unfreeze</code> и их <code>-self</code>: <code>%em_player_name%</code></td></tr>
+                <tr><th><code>/clearchat</code></th><td><code>clearchat</code>: <code>%em_reason%</code>; строка «чат очищен» каждому игроку живёт отдельно в <code>main_messages.yml</code></td></tr>
+                <tr><th><code>/whitelist on</code> и <code>off</code></th><td><code>whitelist-on</code> и <code>whitelist-off</code>: плейсхолдеров нет</td></tr>
+                <tr><th><code>/whitelist add</code> и <code>remove</code></th><td><code>whitelist-add</code> и <code>whitelist-remove</code>: <code>%em_player_name%</code>, это запрос, игрок может быть не в сети</td></tr>
+                <tr><th><code>/whitelist kick</code></th><td><code>whitelist-kick</code>: <code>%em_count%</code></td></tr>
+              </tbody>
+            </table>
+            <p><strong>Привилегии</strong></p>
+            <table class="req">
+              <tbody>
+                <tr><th><code>/setrank</code></th><td><code>setrank</code>: <code>%em_player_name%</code>, <code>%em_group%</code>, <code>%em_rank%</code>, <code>%em_duration%</code></td></tr>
+                <tr><th><code>/givedonate</code></th><td><code>givedonate</code>: набор тот же, шаблон оформлен как публичное сообщение о покупке</td></tr>
+              </tbody>
+            </table>
+            <div class="callout callout-warn"><p><code>/givedonate</code> публикуется как обычное действие администрации, то есть подчиняется <code>staff-only</code>. Если покупку нужно показывать всем игрокам, ставьте <code>staff-only: false</code> или выдавайте сообщение своим плагином доната.</p></div>
+
+            <h3 id="adminaction-self">Действие над собой</h3>
+            <p>Плагин сравнивает автора команды и цель. Совпали, и в файле есть ключ с суффиксом <code>-self</code>, берётся он; нет, публикуется обычный шаблон. Действие консоли над собой не встречается, вариант <code>-self</code> ищется только для игрока.</p>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>heal: "%em_admin_name% восстановил здоровье %em_player_name% на %em_count%"
+heal-self: "%em_admin_name% восстановил здоровье %em_oneself% на %em_count%"</code></pre></div>
+            <p>Ключи с вариантом <code>-self</code>: feed, heal, god-on, god-off, fly-on, fly-off, gamemode, speed, freeze, unfreeze, ignite, unignite, cloak, uncloak, set-health, damage, kill. В <code>gamemode-self</code>, <code>speed-self</code> и <code>kill-self</code> текст построен вокруг автора, поэтому <code>%em_player_name%</code> в них не участвует.</p>
+
+            <h3 id="adminaction-target">Тексты для цели: секция target</h3>
+            <p>С 0.12.7 эти строки живут в <code>admin_action.yml</code>, раньше они были в <code>main_messages.yml</code>. Ключ совпадает с ключом действия, а получает их тот, над кем действие совершили.</p>
+            <p class="doc-file"><code class="doc-file-name">admin_action.yml</code><span class="doc-file-path">target</span></p>
+            <table class="req">
+              <tbody>
+                <tr><th><code>ignite</code></th><td>Игрока подожгли: <code>%em_admin_name%</code> и <code>%em_duration%</code>, огонь не гаснет сам</td></tr>
+                <tr><th><code>unignite</code></th><td>Его потушили: <code>%em_admin_name%</code></td></tr>
+                <tr><th><code>cloak</code></th><td>Его сделали невидимым: <code>%em_admin_name%</code></td></tr>
+                <tr><th><code>uncloak</code></th><td>Ему вернули видимость: <code>%em_admin_name%</code></td></tr>
+                <tr><th><code>set-health</code></th><td>Ему установили здоровье: <code>%em_admin_name%</code> и <code>%em_count%</code></td></tr>
+                <tr><th><code>tpsend</code></th><td>Его перенесли к другому игроку: <code>%em_target_name%</code></td></tr>
+              </tbody>
+            </table>
+            <div class="callout callout-important"><p>Сообщение из <code>target</code> доходит всегда: и при <code>enabled: false</code>, и когда администратор в vanish. Игрок должен знать, что с ним сделали, даже если сотрудники об этом не узнают.</p></div>
+            <p>Нет строки в <code>target</code>, цель о действии отдельно не узнаёт: остаётся только общий чат. Префикс из <code>prefix</code> ставится и перед этими текстами, если <code>prefix-enabled: true</code>. Действия консоли и API цели в сети не имеют, поэтому <code>target</code> они не пишут.</p>
+
+            <h3 id="adminaction-see">Кто видит сообщения</h3>
+            <div class="doc-perms">
+              <div class="doc-perm"><code>extendedmanager.adminaction.see</code><span class="perm-scope is-op">по умолчанию у операторов</span><p class="perm-desc">Видеть действия администрации в чате при <code>staff-only: true</code>. Входит в <code>extendedmanager.*</code>.</p></div>
+            </div>
+            <ul>
+              <li><code>staff-only: true</code> оставляет строки держателям права, остальной сервер их не видит.</li>
+              <li><code>staff-only: false</code> показывает действия администрации всем игрокам на сервере.</li>
+              <li><code>console: true</code> добавляет к рассылке дубль в консоль.</li>
+              <li>Администратор в vanish: его действия в чат не публикуются, чтобы не выдать того, кого сервер не показывает.</li>
+              <li>Строка уходит как обычное сообщение чата, в канал админ-чата она не попадает.</li>
+            </ul>
+
+            <h3 id="adminaction-file">Файл, автообновление и перезагрузка</h3>
+            <table class="req req-wide">
+              <tbody>
+                <tr><th>Расположение</th><td><code>plugins/ExtendedManager/admin_action.yml</code>, файл ядра: создаётся без включённых модулей</td></tr>
+                <tr><th>Служебная версия</th><td><code>config-version: 6</code>; автообновление добавляет новые ключи и сохраняет ваши значения</td></tr>
+                <tr><th>Прежнее имя</th><td>до 0.7.1.1 файл назывался <code>adminaction_config.yml</code>, плагин переносит его сам</td></tr>
+                <tr><th>Перезагрузка</th><td>правки применяет <code>/em reload</code>; отдельной подкоманды у AdminAction нет</td></tr>
+                <tr><th>Отладка</th><td>при <code>debug: true</code> в журнал пишутся ключи без шаблона и действия, скрытые vanish</td></tr>
+              </tbody>
+            </table>
+            <div class="callout callout-note"><p>С 0.10.6 публикация настраивается только шаблонами этого файла: секция <code>spawn</code> в <code>config.yml</code> ушла, а тексты цели переехали в <code>target</code> в 0.12.7. Ретрансляцию действий в Discord удалили ещё в 0.8.0, отдельный канал для AdminAction не нужен.</p></div>
           </article>
 
           <article class="doc" id="doc-motd" data-group="Сообщения">
@@ -3069,10 +3241,10 @@ scale:
 clearchat:
   lines: 100
   announce: true</code></pre></div>
-              <p class="doc-file"><code class="doc-file-name">admin_action.yml</code><span class="doc-file-path">actions.clearchat и default-reason</span></p>
+              <p class="doc-file"><code class="doc-file-name">admin_action.yml</code><span class="doc-file-path">messages.clearchat и default-reason</span><a class="doc-file-link" href="#adminaction-messages">все шаблоны действий</a></p>
               <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>default-reason: "не указана"
 
-actions:
+messages:
   clearchat: "%em_admin_name% очистил чат всем игрокам (%em_reason%)"</code></pre></div>
               <dl class="doc-keys">
                 <dt><code>enable</code></dt><dd>Включает команду. <code>false</code> отвечает сообщением <code>command-disabled</code> и убирает <code>/clearchat</code> из <code>/em help</code> и из автодополнения Tab.</dd>
@@ -3081,8 +3253,8 @@ actions:
                 <dt><code>cooldown.duration</code></dt><dd>Сколько секунд ждать после запуска: <code>0</code> не ждать.</dd>
                 <dt><code>cooldown.bypass</code></dt><dd>Кто задержку пропускает. <code>name</code> это узел права, <code>type: permission</code> даёт проход по выданному праву, <code>type: OP</code> работает только у операторов сервера.</dd>
                 <dt><code>lines</code></dt><dd>Сколько пустых строк отправить одному игроку, от 1 до 200. Значение вне границ плагин сжимает к ближнему краю.</dd>
-                <dt><code>announce</code></dt><dd>Писать ли в чат, кто очистил чат и по какой причине. <code>false</code> оставляет только прокрутку, о причине узнают консоль и журнал действий администрации.</dd>
-                <dt><code>actions.clearchat</code></dt><dd>Шаблоны действий администрации: строка уходит в чат игрокам, в консоль и в админ-чат. Поддерживаются <code>%em_admin_name%</code>, <code>%em_reason%</code> и разметка MiniMessage.</dd>
+                <dt><code>announce</code></dt><dd>Писать ли каждому игроку строку «чат очищен» с автором и причиной. <code>false</code> оставляет только прокрутку, а действие администрации уходит в чат как обычно.</dd>
+                <dt><code>messages.clearchat</code></dt><dd>Шаблоны из <code>admin_action.yml</code>: строка получает чат сотрудников, консоль и админ-чат. Поддерживаются <code>%em_admin_name%</code>, <code>%em_reason%</code> и разметка MiniMessage.</dd>
                 <dt><code>default-reason</code></dt><dd>Что подставить в <code>%em_reason%</code>, когда причину не написали.</dd>
               </dl>
             </section>
