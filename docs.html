@@ -575,7 +575,7 @@ lines:
           <article class="doc" id="doc-discord" data-group="Модули">
             <p class="doc-crumbs">Документация <span>/</span> Модули</p>
             <h2>Discord-бот</h2>
-            <p class="doc-lead">Модуль <code>discord</code>: статус сервера, события игроков в канал, привязка аккаунтов и слеш-команды. Файл: <code>discord/discord_config.yml</code>.</p>
+            <p class="doc-lead">Модуль <code>discord</code>: статус сервера, события игроков в канал, привязка аккаунтов и слеш-команды. Файлы: <code>discord/discord_config.yml</code>, тексты <code>discord/discord_messages.yml</code> и оформление embed'ов <code>discord/embed/embed_&lt;name&gt;.json</code>.</p>
 
             <h3 id="discord-start">Запуск</h3>
             <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>enabled: true
@@ -587,6 +587,50 @@ guild-id: ""</code></pre></div>
             <p>Секция <code>link</code> описывает привязку игрового аккаунта к Discord, <code>two-factor</code>: подтверждение входа; аккаунты с подтверждением не пропускаются кросс-серверными сессиями. Секции <code>activity</code> и <code>admin</code> задают статус бота и тех, кто вправе им управлять.</p>
             <div class="callout callout-danger">
               <p>Токен бота является секретом: не публикуйте файл конфигурации с заполненным <code>token</code> и не передавайте его третьим лицам.</p>
+            </div>
+
+            <h3 id="discord-embeds">Оформление embed'ов</h3>
+            <p>С 0.15.0 вид embed'ов задают JSON-файлы папки <code>discord/embed</code>: по одному файлу <code>embed_&lt;name&gt;.json</code> на каждый embed. Плагин создаёт их при первом запуске и при обновлении, прежняя секция <code>embeds</code> из <code>discord_messages.yml</code> удаляется автообновлением, а её содержимое остаётся в <code>extendedmanager/backups/</code>. Номер конфигурации <code>discord_messages.yml</code> стал 5.</p>
+            <table class="req req-wide">
+              <tbody>
+                <tr><th><code>embed_serverinfo.json</code></th><td>ответ <code>/serverinfo</code></td></tr>
+                <tr><th><code>embed_pinfo.json</code></th><td>ответ <code>/pinfo</code></td></tr>
+                <tr><th><code>embed_account.json</code></th><td>данные привязанного аккаунта</td></tr>
+                <tr><th><code>embed_account_unlinked.json</code></th><td>новый код привязки</td></tr>
+                <tr><th><code>embed_account_pending.json</code></th><td>код уже выдан и ждёт ввода</td></tr>
+                <tr><th><code>embed_account_not_found.json</code></th><td>аккаунт не привязан</td></tr>
+                <tr><th><code>embed_account_unlink.json</code></th><td>подтверждение отвязки</td></tr>
+                <tr><th><code>embed_link_confirm.json</code></th><td>личное сообщение с кнопкой «Подтвердить»</td></tr>
+                <tr><th><code>embed_two_factor.json</code></th><td>подтверждение входа при включённой 2FA</td></tr>
+              </tbody>
+            </table>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>{
+  "title": "Информация о сервере",
+  "description": "**%em_server%**",
+  "color": "#4fa9ff",
+  "timestamp": true,
+  "footer": { "text": "ExtendedManager v%em_plugin_version%" },
+  "fields": [
+    { "name": "Онлайн", "value": "%em_online%/%em_max%", "inline": true },
+    { "name": "TPS", "value": "%em_tps%", "inline": true },
+    { "name": "Игроки", "value": "%em_players%", "inline": false }
+  ]
+}</code></pre></div>
+            <table class="req req-wide">
+              <tbody>
+                <tr><th><code>title</code>, <code>description</code></th><td>заголовок и текст embed'а</td></tr>
+                <tr><th><code>url</code></th><td>ссылка заголовка</td></tr>
+                <tr><th><code>color</code></th><td><code>“#rrggbb”</code> или число; неразбираемое значение даёт синий акцент плагина</td></tr>
+                <tr><th><code>timestamp</code></th><td><code>true</code> добавляет метку времени</td></tr>
+                <tr><th><code>footer</code></th><td><code>text</code> и <code>icon-url</code></td></tr>
+                <tr><th><code>author</code></th><td><code>name</code>, <code>url</code> и <code>icon-url</code></td></tr>
+                <tr><th><code>thumbnail</code>, <code>image</code></th><td>адрес картинки</td></tr>
+                <tr><th><code>fields</code></th><td>строки <code>name</code>, <code>value</code> и <code>inline</code>; строка без имени не показывается</td></tr>
+              </tbody>
+            </table>
+            <p>Значения подставляет плагин через <code>%em_*%</code>. Доступные имена зависят от шаблона: <code>serverinfo</code> принимает <code>server</code>, <code>platform</code>, <code>minecraft</code>, <code>online</code>, <code>max</code>, <code>address</code>, <code>tps</code>, <code>memory_used</code>, <code>memory_max</code>, <code>uptime</code>, <code>database</code>, <code>hooks</code>, <code>worlds</code> и <code>players</code>; <code>pinfo</code> принимает <code>player</code>, <code>uuid</code>, <code>sid</code>, <code>status</code>, <code>ip</code>, <code>registered</code>, <code>last_session</code>, <code>world</code>, <code>ping</code>, <code>gamemode</code>, <code>health</code>, <code>food</code>, <code>ban</code>, <code>mute</code>, <code>gag</code> и <code>discord</code>. У <code>account</code> это <code>player</code>, <code>status</code>, <code>ip</code>, <code>sid</code>, <code>uuid</code>, <code>registered</code>, <code>last_session</code>, <code>linked</code>, <code>two_factor</code> и <code>discord</code>, у <code>account_unlinked</code> и <code>account_pending</code> <code>code</code> и <code>minutes</code>, у <code>account_not_found</code> <code>player</code>, у <code>link_confirm</code> <code>player</code> и <code>code</code>, у <code>two_factor</code> <code>player</code>, <code>ip</code>, <code>server</code>, <code>time</code> и <code>timeout</code>. <code>%em_plugin_version%</code> добавляется в каждый шаблон автоматически.</p>
+            <div class="callout callout-info">
+              <p>Файл перечитывается по дате изменения и размеру, поэтому правка оформления не требует <code>/em reload</code>. Пустое значение строки заменяется невидимым символом, тексты обрезаются по лимитам Discord: 256 символов в заголовке, имени и подвале, 4096 в описании, 1024 в значении строки, не больше 25 строк. Битый JSON или удалённый файл сообщение не ломают: берётся шаблон из JAR, и в консоль выводится одно предупреждение.</p>
             </div>
           </article>
 
@@ -4036,7 +4080,7 @@ links:
               </tbody>
             </table>
             <div class="callout callout-info">
-              <p>В <code>motd/motd_config.yml</code>, <code>discord/discord_messages.yml</code> и <code>security/security_messages.yml</code> те же имена заполняет сам модуль, без реестра. Поэтому в MOTD работает короткий <code>%em_max%</code>, хотя в реестре ключ называется <code>%em_max_players%</code>.</p>
+              <p>В <code>motd/motd_config.yml</code>, <code>discord/discord_messages.yml</code>, <code>discord/embed/embed_&lt;name&gt;.json</code> и <code>security/security_messages.yml</code> те же имена заполняет сам модуль, без реестра. Поэтому в MOTD работает короткий <code>%em_max%</code>, хотя в реестре ключ называется <code>%em_max_players%</code>.</p>
             </div>
 
             <h3 id="ph-server">Сервер и сеть</h3>
@@ -4146,6 +4190,7 @@ links:
                 <tr><th><code>security/security_messages.yml</code></th><td><code>attempts</code>, <code>code</code>, <code>length</code>, <code>max</code>, <code>min</code>, <code>seconds</code>, <code>sid</code>, <code>time</code>, <code>timeout</code></td></tr>
                 <tr><th><code>discord/discord_messages.yml</code></th><td><code>check</code>, <code>code</code>, <code>date</code>, <code>discord</code>, <code>duration</code>, <code>ip</code>, <code>last</code>, <code>max</code>, <code>minutes</code>, <code>moderator</code>, <code>online</code>, <code>player</code>, <code>reason</code>, <code>score</code>, <code>seconds</code>, <code>server</code>, <code>sid</code>, <code>status</code>, <code>time</code>, <code>timeout</code>, <code>twofa</code>, <code>uuid</code>, <code>version</code></td></tr>
                 <tr><th><code>discord/discord_config.yml</code></th><td><code>max</code>, <code>online</code></td></tr>
+                <tr><th><code>discord/embed/embed_&lt;name&gt;.json</code></th><td>свой набор у каждого шаблона: <code>serverinfo</code>, <code>pinfo</code> и <code>account</code> собирают данные сервера и игрока, <code>account_unlinked</code> и <code>account_pending</code> передают <code>code</code> и <code>minutes</code>, <code>link_confirm</code> <code>player</code> и <code>code</code>, <code>two_factor</code> <code>ip</code>, <code>server</code>, <code>time</code> и <code>timeout</code>. Версия плагина <code>plugin_version</code> добавляется в каждый файл сама. Полный список по файлам в разделе «Discord-бот»</td></tr>
                 <tr><th><code>npc/npc_messages.yml</code></th><td><code>count</code>, <code>file</code>, <code>id</code>, <code>name</code>, <code>seconds</code>, <code>status</code>, <code>world</code>, <code>x</code>, <code>y</code>, <code>z</code></td></tr>
                 <tr><th><code>SID_config.yml</code></th><td><code>admin</code></td></tr>
               </tbody>
