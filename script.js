@@ -198,9 +198,10 @@
     ['ban', 'cmd-ban', '', 'Бан игрока по нику или адресу.'],
     ['banlist', 'cmd-banlist', '', 'Список активных банов.'],
     ['bansid', 'cmd-bansid', '', 'Бан по идентификатору аккаунта (SID).'],
-    ['broadcasts', 'cmd-broadcasts', '', 'Управление рассылкой сообщений.'],
+    ['clearchat', 'cmd-clearchat', '', 'Очистка чата пустыми строками с указанием причины.'],
     ['cloak', 'cmd-cloak', '', 'Скрыть игрока от других.'],
     ['damage', 'cmd-damage', '', 'Нанести игроку урон.'],
+    ['do', 'cmd-do', '', 'Ролевое действие от третьего лица.'],
     ['em', 'cmd-em', '', 'Ядро плагина: справка, модули, перезагрузка.'],
     ['endersee', 'cmd-endersee', '', 'Открыть эндер-сундук игрока.'],
     ['feed', 'cmd-feed', '', 'Восстановить сытость игрока.'],
@@ -222,11 +223,13 @@
     ['kill', 'cmd-kill', '', 'Убить игрока.'],
     ['link', 'cmd-link', '', 'Привязать аккаунт к адресу.'],
     ['login', 'cmd-login', '', 'Войти в аккаунт.'],
+    ['me', 'cmd-me', '', 'Ролевое действие от первого лица.'],
     ['mute', 'cmd-mute', '', 'Запретить игроку писать в чат.'],
     ['mutelist', 'cmd-mutelist', '', 'Список активных мьютов.'],
     ['npc', 'cmd-npc', '', 'Управление NPC.'],
     ['register', 'cmd-register', '', 'Зарегистрировать аккаунт.'],
     ['respawn', 'cmd-respawn', '', 'Вернуть игрока на точку возрождения.'],
+    ['roll', 'cmd-roll', '', 'Случайное число в заданном диапазоне.'],
     ['say', 'cmd-say', '', 'Сообщение в чат или админ-чат.'],
     ['scale', 'cmd-scale', '', 'Изменить размер игрока.'],
     ['setrank', 'cmd-setrank', '', 'Назначить группу привилегий.'],
@@ -234,10 +237,13 @@
     ['spawn', 'cmd-spawn', '', 'Телепорт на спавн.'],
     ['speed', 'cmd-speed', '', 'Изменить скорость игрока.'],
     ['sprite', 'cmd-sprite', '', 'Спрайты игры в тексте.'],
+    ['symbol', 'cmd-symbol', '', 'Поиск unicode-символа по названию.'],
+    ['toponline', 'cmd-toponline', '', 'Топ игроков по наигранному времени.'],
     ['tp', 'cmd-tp', '', 'Телепортироваться к игроку.'],
     ['tphere', 'cmd-tphere', '', 'Телепортировать игрока к себе.'],
     ['tpsend', 'cmd-tpsend', '', 'Перенести игрока на другой сервер.'],
     ['trade', 'cmd-trade', '', 'Обмен предметами между игроками.'],
+    ['try', 'cmd-try', '', 'Случайный исход ролевого действия.'],
     ['unban', 'cmd-unban', '', 'Снять бан.'],
     ['uncloak', 'cmd-uncloak', '', 'Вернуть видимость игрока.'],
     ['unfreeze', 'cmd-unfreeze', '', 'Разморозить игрока.'],
@@ -588,6 +594,7 @@
     /* Категория берётся из номера версии: x.0.0 крупная, x.y.0 обновление, остальное патч */
     function catOf(r) {
       if (r.classList.contains('release-first')) return 'major';
+      if (r.classList.contains('release-major')) return 'major';
       var el = $('.release-version', r);
       var p = el ? el.textContent.trim().split('.').map(Number) : [];
       if (p.length < 3 || p.some(function (n) { return isNaN(n); })) return 'patch';

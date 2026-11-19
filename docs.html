@@ -13,8 +13,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="index.css?v=20">
-<script src="script.js?v=20" defer></script>
+<link rel="stylesheet" href="index.css?v=21">
+<script src="script.js?v=21" defer></script>
 </head>
 <body class="docs-page">
 
@@ -33,7 +33,7 @@
     </svg>
     </span>
     <span class="preloader-name">Extended Manager</span>
-    <span class="preloader-version">v0.14.2</span>
+    <span class="preloader-version">v0.15.0</span>
     <span class="preloader-bar"><i id="preloader-bar-fill"></i></span>
     <span class="preloader-meta"><span class="preloader-tip" id="preloader-tip">ядро</span><span class="preloader-pct" id="preloader-pct">0%</span></span>
   </div>
@@ -123,9 +123,9 @@
             <p class="doc-lead">Extended Manager, ядро управления сервером: один JAR закрывает вход и регистрацию, наказания, чат, миры, NPC, Discord, перезапуск и HTTP API. Всё настраивается YAML-файлами в папке плагина.</p>
 
             <h3 id="start-modules">Что внутри</h3>
-            <p>Семь модулей, каждый со своей папкой настроек. По умолчанию все выключены: свежая установка создаёт только файлы ядра.</p>
+            <p>Шесть модулей, каждый со своей папкой настроек. По умолчанию все выключены: свежая установка создаёт только файлы ядра.</p>
             <ul class="chips">
-              <li>security</li><li>chat</li><li>motd</li><li>npc</li><li>discord</li><li>api</li><li>utils</li>
+              <li>security</li><li>chat</li><li>motd</li><li>npc</li><li>discord</li><li>api</li>
             </ul>
 
             <h3 id="start-install">Установка</h3>
@@ -143,7 +143,7 @@
             <h3 id="start-req">Требования</h3>
             <table class="req">
               <tbody>
-                <tr><th>Сервер</th><td>Bukkit, Spigot, Paper или Purpur 26.3; для 26.2 есть отдельная сборка того же 0.14.1</td></tr>
+                <tr><th>Сервер</th><td>Bukkit, Spigot, Paper или Purpur 26.3; для 26.2 есть отдельная сборка того же 0.15.0</td></tr>
                 <tr><th>Java</th><td>25 или новее на сервере</td></tr>
                 <tr><th>Прокси</th><td>BungeeCord, Waterfall или Velocity с адаптером ExtendedManager</td></tr>
                 <tr><th>База</th><td>SQLite без настройки; MySQL, MariaDB или PostgreSQL: для сети серверов</td></tr>
@@ -155,8 +155,7 @@
   motd: true
   npc: false
   discord: false
-  api: false
-  utils: false</code></pre></div>
+  api: false</code></pre></div>
           </article>
 
           <article class="doc" id="doc-core" data-group="Конфигурация">
@@ -172,14 +171,15 @@
   motd: false
   npc: false
   discord: false
-  api: false
-  utils: false</code></pre></div>
+  api: false</code></pre></div>
+            <div class="callout callout-note"><p>С 0.15.0 <code>utils</code> больше не модуль: планировщик перезапуска и <code>/em restart</code> работают всегда, а ключ <code>modules.utils</code> автообновление убирает из файла. Модулей шесть.</p></div>
 
             <h3 id="core-keys">Основные секции</h3>
             <table class="req req-wide">
               <tbody>
                 <tr><th><code>prefix</code></th><td>Префикс сообщений ядра в MiniMessage; пустая строка отключает префикс</td></tr>
-                <tr><th><code>hooks</code></th><td>Интеграции: PlaceholderAPI, LuckPerms, Voice Chat, SkinsRestorer, TAB, WorldGuard</td></tr>
+                <tr><th><code>hooks</code></th><td>Интеграции: PlaceholderAPI, LuckPerms, Simple Voice Chat, Plasmo Voice, BlueMap, SkinsRestorer, TAB, WorldGuard</td></tr>
+                <tr><th><code>bluemap</code></th><td>Суффиксы статусов в подписи игрока на карте BlueMap: <code>suffix-afk</code> и <code>suffix-vanish</code></td></tr>
                 <tr><th><code>broadcast</code></th><td>Свой формат серверной рассылки <code>/say</code> и имя автора для консоли</td></tr>
                 <tr><th><code>afk</code></th><td>Простой игроков: секунды, сообщения, значок для TAB и «бонусы»</td></tr>
                 <tr><th><code>ranks</code></th><td><code>/setrank</code> и <code>/givedonate</code>: режим LuckPerms и оформление покупки</td></tr>
@@ -218,6 +218,22 @@
     username: root
     password: ""
     use-ssl: false</code></pre></div>
+            <h3 id="db-tables">Таблицы</h3>
+            <p>Плагин сам ведёт схему: при старте и после <code>/em reload</code> он сравнивает номер схемы в таблице <code>&lt;префикс&gt;meta</code> со своим и добирает недостающие таблицы и колонки. В 0.15.0 номер схемы 14.</p>
+            <table class="req req-wide">
+              <tbody>
+                <tr><th><code>accounts</code></th><td>аккаунты игроков: пароль Argon2id, SID мультиаккаунта, IP, дата последнего входа</td></tr>
+                <tr><th><code>bans</code></th><td>баны по нику и по SID, срок, причина, автор</td></tr>
+                <tr><th><code>mutes</code></th><td>мьюты и гаги голосового чата со сроками</td></tr>
+                <tr><th><code>warnings</code></th><td>предупреждения, по ним срабатывает автоматическое наказание</td></tr>
+                <tr><th><code>discord_links</code></th><td>привязки игрового аккаунта к Discord</td></tr>
+                <tr><th><code>auth_sessions</code></th><td>сессии входа: в общей базе их видят все серверы сети</td></tr>
+                <tr><th><code>inventories</code></th><td>снимки инвентаря для <code>/invsee</code> и <code>/trade</code></td></tr>
+                <tr><th><code>playtime</code></th><td>наигранное время по суткам, из него собран <code>/toponline</code> (0.15.0)</td></tr>
+                <tr><th><code>meta</code></th><td>номер схемы и ключ приложения</td></tr>
+              </tbody>
+            </table>
+            <div class="callout callout-note"><p>Без базы таблица <code>playtime</code> не заводится: <code>/toponline</code> считает только нынешний онлайн и пишет в журнал предупреждение <code>toponline.memory</code>.</p></div>
             <div class="callout callout-note">
               <p>База и пользователь должны существовать заранее: плагин создаёт только свои таблицы с префиксом <code>em_</code>. Общая база нужна для кросс-серверных сессий (<code>network.shared-database</code>).</p>
             </div>
@@ -303,7 +319,7 @@ limbo:
 allow-player-formatting: auto
 format: "&lt;gray&gt;%em_displayname%&lt;/gray&gt; &lt;dark_gray&gt;»&lt;/dark_gray&gt; &lt;white&gt;%em_message%&lt;/white&gt;"</code></pre></div>
 
-            <div class="callout callout-info"><p>Рассылка управляется командой <code>/broadcasts</code>, её виды лежат в <code>chat/broadcast.yml</code>.</p></div>
+            <div class="callout callout-note"><p>Рассылка живёт только в <code>chat/broadcast.yml</code>: команда <code>/broadcasts</code> удалена в 0.15.0, включение и расписание правятся этим файлом и применяются <code>/em reload</code>.</p></div>
             <h3 id="chat-spam">Анти-спам</h3>
             <p>Секции <code>anti-spam</code>, <code>anti-caps</code> и <code>links</code>: пауза между сообщениями, доля капса и поведение ссылок в чате настраиваются отдельно.</p>
 
@@ -316,8 +332,24 @@ jitter: 0
 min-players: 1
 console: true</code></pre></div>
 
+            <h3 id="chat-mentions">Упоминания</h3>
+            <p>С 0.15.0 <code>@ник</code> в сообщении зовёт игрока: в чате его имя подчёркивается, а сам он слышит звук. Обращение засчитывается, только если слово после <code>@</code> целиком совпало с ником игрока в сети, поэтому почта вида <code>ivan@mail.ru</code>, одиночное <code>@</code> и несуществующий ник никого не тревожат. Себя позвать нельзя.</p>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>mentions:
+  enabled: true
+  format: "&lt;white&gt;&lt;underlined&gt;%em_mention%&lt;/underlined&gt;&lt;/white&gt;"
+  sound: "block.note_block.pling"
+  volume: 1.0
+  pitch: 1.5</code></pre></div>
+            <dl class="doc-keys">
+              <dt><code>enabled</code></dt><dd>Включает разбор упоминаний. <code>false</code> оставляет текст как есть: ни подчёркивания, ни звука.</dd>
+              <dt><code>format</code></dt><dd>Как выглядит обращение: <code>%em_mention%</code> это «@ник» так, как его написали.</dd>
+              <dt><code>sound</code></dt><dd>Звук для упомянутого игрока, <code>none</code> означает молчать.</dd>
+              <dt><code>volume</code> и <code>pitch</code></dt><dd>Громкость от 0 до 1 и тон от 0.5 до 2 этого звука.</dd>
+            </dl>
+            <div class="callout callout-info"><p>Звук доходит только до тех, кто увидел сообщение: в локальном чате обращение до дальних игроков не долетает. Работает и в обычном, и в админ чате.</p></div>
+
             <h3 id="chat-admin">Админ-чат</h3>
-            <p>Сообщение с префиксом <code>@</code> уходит держателям права просмотра админ-чата. Консоль тоже пишет туда: <code>/say @текст</code>: автором строки становится <code>broadcast.console-name</code>.</p>
+            <p>С 0.15.0 канал начинается с <code>#</code> (раньше был <code>@</code>, его отдали упоминаниям): сообщение с этим префиксом уходит держателям права просмотра админ-чата. Консоль тоже пишет туда: <code>/say #текст</code>, автором строки становится <code>broadcast.console-name</code>. Автообновление меняет <code>prefix</code> на <code>#</code>, только если владелец его не правил.</p>
           </article>
 
           <article class="doc" id="doc-motd" data-group="Сообщения">
@@ -418,10 +450,10 @@ guild-id: ""</code></pre></div>
           <article class="doc" id="doc-restart" data-group="Модули">
             <p class="doc-crumbs">Документация <span>/</span> Модули</p>
             <h2>Перезапуск сервера</h2>
-            <p class="doc-lead">Модуль <code>utils</code>: остановка по расписанию, командой и из приложения: с предупреждениями, киками и сохранением миров. Файл: <code>utils/restart_config.yml</code>.</p>
+            <p class="doc-lead">Остановка по расписанию, командой и из приложения: с предупреждениями, киками и сохранением миров. Файл: <code>utils/restart_config.yml</code>. С 0.15.0 перезапуск работает всегда, файл лежит в подпапке <code>utils</code> по соображениям совместимости.</p>
 
             <h3 id="restart-schedule">Расписание</h3>
-            <p>Интервал в минутах и конкретные моменты вида <code>04:30</code>. Моменты, прошедшие до включения модуля, не догоняются пачкой.</p>
+            <p>Интервал в минутах и конкретные моменты вида <code>04:30</code>. Моменты, прошедшие до включения расписания, не догоняются пачкой.</p>
             <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>schedule:
   interval-minutes: 0
   times:
@@ -449,7 +481,7 @@ guild-id: ""</code></pre></div>
           <article class="doc" id="doc-cmd-rules" data-group="Команды">
             <p class="doc-crumbs">Документация <span>/</span> Команды</p>
             <h2>Общее о командах</h2>
-            <p class="doc-lead">У плагина 56 команд. Здесь то, что работает у всех одинаково: цели и селекторы, имена прав, блоки в command_config.yml и что бывает с командами выключенных модулей.</p>
+            <p class="doc-lead">У плагина 62 команда. Здесь то, что работает у всех одинаково: цели и селекторы, имена прав, блоки в command_config.yml и что бывает с командами выключенных модулей.</p>
             <h3 id="rules-selector">Цели и селекторы</h3>
             <p>Команда принимает ник игрока или селектор: <code>@a</code> все, <code>@p</code> ближайший, <code>@r</code> случайный, <code>@s</code> сам отправитель. Селектор требует право <code>extendedmanager.command.selector</code>, а действие над другим игроком требует <code>extendedmanager.command.&lt;команда&gt;.others</code>. Если селектор не выбрал ни одной цели, отвечает <code>selector-empty</code> из main_messages.yml.</p>
             <h3 id="rules-perm">Права</h3>
@@ -529,7 +561,7 @@ guild-id: ""</code></pre></div>
             <h3 id="em-hooks">/em hooks</h3>
             <section class="doc-part doc-part-desc">
               <h4 class="doc-part-name">Описание</h4>
-              <p>Статус мягких интеграций: PlaceholderAPI, LuckPerms, Voice Chat, SkinsRestorer, TAB, WorldGuard.</p>
+              <p>Статус мягких интеграций: PlaceholderAPI, LuckPerms, Simple Voice Chat, Plasmo Voice, BlueMap, SkinsRestorer, TAB, WorldGuard.</p>
             </section>
             <section class="doc-part doc-part-set">
               <h4 class="doc-part-name">Настройка</h4>
@@ -628,7 +660,7 @@ guild-id: ""</code></pre></div>
             <h3 id="em-restart">/em restart</h3>
             <section class="doc-part doc-part-desc">
               <h4 class="doc-part-name">Описание</h4>
-              <p>Запуск, отмена и статус отсчёта перезапуска сервера (модуль <code>utils</code>). Предупреждения, кики и сохранение миров настраиваются в <code>utils/restart_config.yml</code>.</p>
+              <p>Запуск, отмена и статус отсчёта перезапуска сервера. Предупреждения, кики и сохранение миров настраиваются в <code>utils/restart_config.yml</code>.</p>
             </section>
             <section class="doc-part doc-part-set">
               <h4 class="doc-part-name">Настройка</h4>
@@ -1132,8 +1164,8 @@ guild-id: ""</code></pre></div>
             <h2>/gag</h2>
             <section class="doc-part doc-part-desc">
               <h3 class="doc-part-name">Описание</h3>
-              <p class="doc-lead">Гаг голосового чата: игрок не может говорить в Simple Voice Chat. Требуется интеграция <code>voicechat</code>.</p>
-              <div class="callout callout-info"><p>Гаг требует интеграции <code>voicechat</code> (Simple Voice Chat).</p></div>
+              <p class="doc-lead">Гаг голосового чата: игрок не может говорить в Simple Voice Chat или Plasmo Voice. Достаточно одной из интеграций <code>voicechat</code> или <code>plasmovoice</code>.</p>
+              <div class="callout callout-info"><p>Гаг глушит голос через интеграцию <code>voicechat</code> (Simple Voice Chat) или <code>plasmovoice</code> (Plasmo Voice, с 0.15.0). Ключ <code>hooks.plasmovoice</code> включает адаптер, на сервере должен стоять сам Plasmo Voice.</p></div>
             </section>
             <section class="doc-part doc-part-set">
               <h3 class="doc-part-name">Настройка</h3>
@@ -1173,7 +1205,7 @@ guild-id: ""</code></pre></div>
             <section class="doc-part doc-part-desc">
               <h3 class="doc-part-name">Описание</h3>
               <p class="doc-lead">Снимает гаг голосового чата.</p>
-              <div class="callout callout-info"><p>Гаг требует интеграции <code>voicechat</code> (Simple Voice Chat).</p></div>
+              <div class="callout callout-info"><p>Гаг глушит голос через интеграцию <code>voicechat</code> (Simple Voice Chat) или <code>plasmovoice</code> (Plasmo Voice, с 0.15.0).</p></div>
             </section>
             <section class="doc-part doc-part-set">
               <h3 class="doc-part-name">Настройка</h3>
@@ -1213,7 +1245,7 @@ guild-id: ""</code></pre></div>
             <section class="doc-part doc-part-desc">
               <h3 class="doc-part-name">Описание</h3>
               <p class="doc-lead">Список действующих гагов голосового чата.</p>
-              <div class="callout callout-info"><p>Гаг требует интеграции <code>voicechat</code> (Simple Voice Chat).</p></div>
+              <div class="callout callout-info"><p>Гаг глушит голос через интеграцию <code>voicechat</code> (Simple Voice Chat) или <code>plasmovoice</code> (Plasmo Voice, с 0.15.0).</p></div>
             </section>
             <section class="doc-part doc-part-set">
               <h3 class="doc-part-name">Настройка</h3>
@@ -2627,7 +2659,7 @@ inventory:
                 <dt><code>interval-minutes</code></dt><dd>Как часто обновлять снимки играющих, в минутах. <code>0</code> только при выходе из игры: проход по серверу растянут по тикам, поэтому даже 1 минута не двигает TPS.</dd>
                 <dt><code>keep-offline-days</code></dt><dd>Сколько дней хранить снимки тех, кто не заходит. <code>0</code> не удалять никогда.</dd>
               </dl>
-              <div class="callout callout-note"><p>Снимок это одна строка в таблице <code>&amp;lt;префикс&amp;gt;inventories</code>: новые записи заменяют старый, а просмотр остаётся только чтением. Вернуть предметы игроку через него нельзя, он увидит их сам при следующем входе. Без подключённой базы в <code>database.type</code> раздел работает как выключенный.</p></div>
+              <div class="callout callout-note"><p>Снимок это одна строка в таблице <code>&lt;префикс&gt;inventories</code>: новые записи заменяют старый, а просмотр остаётся только чтением. Вернуть предметы игроку через него нельзя, он увидит их сам при следующем входе. Без подключённой базы в <code>database.type</code> раздел работает как выключенный.</p></div>
             </section>
             <section class="doc-part doc-part-perm">
               <h3 class="doc-part-name">Права</h3>
@@ -2677,7 +2709,7 @@ inventory:
                 <dt><code>interval-minutes</code></dt><dd>Как часто обновлять снимки играющих, в минутах. <code>0</code> только при выходе из игры: проход по серверу растянут по тикам, поэтому даже 1 минута не двигает TPS.</dd>
                 <dt><code>keep-offline-days</code></dt><dd>Сколько дней хранить снимки тех, кто не заходит. <code>0</code> не удалять никогда.</dd>
               </dl>
-              <div class="callout callout-note"><p>Снимок это одна строка в таблице <code>&amp;lt;префикс&amp;gt;inventories</code>: новые записи заменяют старый, а просмотр остаётся только чтением. Вернуть предметы игроку через него нельзя, он увидит их сам при следующем входе. Без подключённой базы в <code>database.type</code> раздел работает как выключенный.</p></div>
+              <div class="callout callout-note"><p>Снимок это одна строка в таблице <code>&lt;префикс&gt;inventories</code>: новые записи заменяют старый, а просмотр остаётся только чтением. Вернуть предметы игроку через него нельзя, он увидит их сам при следующем входе. Без подключённой базы в <code>database.type</code> раздел работает как выключенный.</p></div>
             </section>
             <section class="doc-part doc-part-perm">
               <h3 class="doc-part-name">Права</h3>
@@ -2971,8 +3003,8 @@ scale:
             <h2>/say</h2>
             <section class="doc-part doc-part-desc">
               <h3 class="doc-part-name">Описание</h3>
-              <p class="doc-lead">Рассылка от сервера в оформлении секции <code>broadcast</code>. Сообщение с префиксом @ уходит в админ-чат; из консоли автором становится <code>broadcast.console-name</code>.</p>
-              <div class="callout callout-note"><p>Сообщение <code>/say</code> с префиксом <code>@</code> уходит в админ-чат.</p></div>
+              <p class="doc-lead">Рассылка от сервера в оформлении секции <code>broadcast</code>. Сообщение с префиксом <code>#</code> уходит в админ-чат; из консоли автором становится <code>broadcast.console-name</code>.</p>
+              <div class="callout callout-note"><p>С 0.15.0 админ-чат начинается с <code>#</code>: символ <code>@</code> отдали упоминаниям игроков. Работают и <code>/say #текст</code>, и <code>/#@Notch текст</code>.</p></div>
             </section>
             <section class="doc-part doc-part-set">
               <h3 class="doc-part-name">Настройка</h3>
@@ -2980,7 +3012,7 @@ scale:
                 <tr><th>Синтаксис</th><td><code>/say &lt;сообщение&gt;</code></td></tr>
                 </tbody></table>
               <div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/say Добро пожаловать на сервер!
-/say @Проверка связи</code></pre></div>
+/say #Проверка связи</code></pre></div>
               <p class="doc-file"><code class="doc-file-name">command_config.yml</code><span class="doc-file-path">commands.say</span><a class="doc-file-link" href="#em-toggle">как устроен блок</a></p>
               <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>  say:
     enable: true
@@ -3007,46 +3039,355 @@ scale:
               </div>
             </section>
           </article>
-          <article class="doc" id="doc-cmd-broadcasts" data-group="Команды">
+          <article class="doc" id="doc-cmd-clearchat" data-group="Команды">
             <p class="doc-crumbs">Документация <span>/</span> Команды <span>/</span> Чат и рассылки</p>
-            <h2>/broadcasts</h2>
+            <h2>/clearchat</h2>
             <section class="doc-part doc-part-desc">
               <h3 class="doc-part-name">Описание</h3>
-              <p class="doc-lead">Управление рассылкой: состояние, список видов, включение и отправка конкретного вида. У каждого вида свои заголовок, подвал и звук.</p>
+              <p class="doc-lead">Очищает чат всем игрокам. В API Paper нет способа стереть уже показанные сообщения, поэтому экран прокручивается пустыми строками: старые уходят вверх и исчезают. Следом приходит строка с автором и причиной.</p>
+              <div class="callout callout-note"><p>Команда появилась в 0.15.0 и заменила собой управление рассылкой: команды <code>/broadcasts</code> больше нет, рассылка настраивается только файлом <code>chat/broadcast.yml</code>.</p></div>
             </section>
             <section class="doc-part doc-part-set">
               <h3 class="doc-part-name">Настройка</h3>
               <table class="req req-wide"><tbody>
-                <tr><th>Синтаксис</th><td><code>/broadcasts &lt;status|list|on|off|send &lt;вид&gt;&gt;</code></td></tr>
-                <tr><th>status / list</th><td>Состояние рассылки и список видов</td></tr>
-                <tr><th>on / off</th><td>Включает и выключает рассылку по расписанию</td></tr>
-                <tr><th>send</th><td>Отправляет вид сразу: <code>/broadcasts send rules</code></td></tr>
+                <tr><th>Синтаксис</th><td><code>/clearchat [причина]</code></td></tr>
+                <tr><th>причина</th><td>Текст, подставленный в <code>%em_reason%</code>; без него берётся <code>default-reason</code> из <code>admin_action.yml</code></td></tr>
                 </tbody></table>
-              <div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/broadcasts status
-/broadcasts send rules</code></pre></div>
-              <p class="doc-file"><code class="doc-file-name">command_config.yml</code><span class="doc-file-path">commands.broadcasts</span><a class="doc-file-link" href="#em-toggle">как устроен блок</a></p>
-              <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>  broadcasts:
+              <div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/clearchat
+/clearchat техническая профилактика</code></pre></div>
+              <p class="doc-file"><code class="doc-file-name">command_config.yml</code><span class="doc-file-path">commands.clearchat и clearchat</span><a class="doc-file-link" href="#em-toggle">как устроен блок</a></p>
+              <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>  clearchat:
+    enable: true
+    aliases: []
+    cooldown:
+      enable: true
+      duration: 10
+      bypass:
+        name: "extendedmanager.command.clearchat.cooldown.bypass"
+        type: "permission"
+
+clearchat:
+  lines: 100
+  announce: true</code></pre></div>
+              <p class="doc-file"><code class="doc-file-name">admin_action.yml</code><span class="doc-file-path">actions.clearchat и default-reason</span></p>
+              <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>default-reason: "не указана"
+
+actions:
+  clearchat: "%em_admin_name% очистил чат всем игрокам (%em_reason%)"</code></pre></div>
+              <dl class="doc-keys">
+                <dt><code>enable</code></dt><dd>Включает команду. <code>false</code> отвечает сообщением <code>command-disabled</code> и убирает <code>/clearchat</code> из <code>/em help</code> и из автодополнения Tab.</dd>
+                <dt><code>aliases</code></dt><dd>Дополнительные имена: список вроде <code>["clearchatnow"]</code> вызывает <code>/clearchat</code> и по другому слову. Имена из <code>plugin.yml</code> работают всегда, а свои алиасы применяет сам плагин, поэтому хватает <code>/em reload</code>.</dd>
+                <dt><code>cooldown.enable</code></dt><dd>Включает задержку между запусками <code>/clearchat</code> одним игроком; по умолчанию она включена.</dd>
+                <dt><code>cooldown.duration</code></dt><dd>Сколько секунд ждать после запуска: <code>0</code> не ждать.</dd>
+                <dt><code>cooldown.bypass</code></dt><dd>Кто задержку пропускает. <code>name</code> это узел права, <code>type: permission</code> даёт проход по выданному праву, <code>type: OP</code> работает только у операторов сервера.</dd>
+                <dt><code>lines</code></dt><dd>Сколько пустых строк отправить одному игроку, от 1 до 200. Значение вне границ плагин сжимает к ближнему краю.</dd>
+                <dt><code>announce</code></dt><dd>Писать ли в чат, кто очистил чат и по какой причине. <code>false</code> оставляет только прокрутку, о причине узнают консоль и журнал действий администрации.</dd>
+                <dt><code>actions.clearchat</code></dt><dd>Шаблоны действий администрации: строка уходит в чат игрокам, в консоль и в админ-чат. Поддерживаются <code>%em_admin_name%</code>, <code>%em_reason%</code> и разметка MiniMessage.</dd>
+                <dt><code>default-reason</code></dt><dd>Что подставить в <code>%em_reason%</code>, когда причину не написали.</dd>
+              </dl>
+            </section>
+            <section class="doc-part doc-part-perm">
+              <h3 class="doc-part-name">Права</h3>
+              <div class="doc-perms">
+                <div class="doc-perm"><code>extendedmanager.command.clearchat</code><span class="perm-scope is-op">по умолчанию у операторов</span><p class="perm-desc">Доступ к команде /clearchat (очистка чата).</p></div>
+                <div class="doc-perm"><code>extendedmanager.command.clearchat.self</code><span class="perm-scope is-op">по умолчанию у операторов</span><p class="perm-desc">Очищать и собственный экран. Без права чужие экраны прокручиваются, а свой остаётся нетронутым.</p></div>
+                <div class="doc-perm"><code>extendedmanager.command.clearchat.cooldown.bypass</code><span class="perm-scope">выдают вручную</span><p class="perm-desc">Пропускает задержку <code>cooldown</code> команды <code>/clearchat</code>.</p></div>
+              </div>
+            </section>
+          </article>
+          <article class="doc" id="doc-cmd-symbol" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды <span>/</span> Чат и рассылки</p>
+            <h2>/symbol</h2>
+            <section class="doc-part doc-part-desc">
+              <h3 class="doc-part-name">Описание</h3>
+              <p class="doc-lead">Поиск unicode-символов по названию, коду или самому значку. Своего каталога в файлах нет: имена символов отдаёт платформа, а клик по строке копирует символ в буфер обмена.</p>
+              <div class="callout callout-info"><p>Русский запрос переводится к словам Unicode: «стрелка» ищет <code>ARROW</code>. Принимаются код в записи <code>2764</code>, <code>0x2764</code>, <code>U+2764</code> и сам значок.</p></div>
+            </section>
+            <section class="doc-part doc-part-set">
+              <h3 class="doc-part-name">Настройка</h3>
+              <table class="req req-wide"><tbody>
+                <tr><th>Синтаксис</th><td><code>/symbol &lt;запрос|код|символ&gt;</code></td></tr>
+                </tbody></table>
+              <div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/symbol стрелка
+/symbol U+2764
+/symbol ♥</code></pre></div>
+              <p class="doc-file"><code class="doc-file-name">command_config.yml</code><span class="doc-file-path">commands.symbol и symbol</span><a class="doc-file-link" href="#em-toggle">как устроен блок</a></p>
+              <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>  symbol:
+    enable: true
+    aliases: []
+    cooldown:
+      enable: true
+      duration: 3
+      bypass:
+        name: "extendedmanager.command.symbol.cooldown.bypass"
+        type: "permission"
+
+symbol:
+  max-results: 20
+  show-names: true</code></pre></div>
+              <p class="doc-file"><code class="doc-file-name">main_messages.yml</code><span class="doc-file-path">symbol</span></p>
+              <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>symbol:
+  header: "&lt;gradient:#4fa9ff:#7d5cff&gt;&lt;bold&gt;Символы&lt;/bold&gt;&lt;/gradient&gt; ... найдено: &lt;white&gt;%em_count%&lt;/white&gt;"
+  entry: "&lt;white&gt;%em_symbol%&lt;/white&gt; &lt;gray&gt;%em_code%&lt;/gray&gt; &lt;gray&gt;%em_name%&lt;/gray&gt;"
+  entry-brief: "&lt;white&gt;%em_symbol%&lt;/white&gt; &lt;gray&gt;%em_code%&lt;/gray&gt;"
+  footer: "нужный значок копируется кликом по строке"
+  none: "По запросу &lt;white&gt;%em_query%&lt;/white&gt; ничего не нашлось."</code></pre></div>
+              <dl class="doc-keys">
+                <dt><code>enable</code></dt><dd>Включает команду. <code>false</code> отвечает сообщением <code>command-disabled</code> и убирает <code>/symbol</code> из <code>/em help</code> и из автодополнения Tab.</dd>
+                <dt><code>aliases</code></dt><dd>Дополнительные имена: список вроде <code>["unicode"]</code> вызывает <code>/symbol</code> и по слову <code>/unicode</code>. Имена из <code>plugin.yml</code> работают всегда, а свои алиасы применяет сам плагин, поэтому хватает <code>/em reload</code>.</dd>
+                <dt><code>cooldown.enable</code></dt><dd>Включает задержку между запусками <code>/symbol</code> одним игроком; по умолчанию она включена, чтобы каталог не пересобирали спамом.</dd>
+                <dt><code>cooldown.duration</code></dt><dd>Сколько секунд ждать после запуска: <code>0</code> не ждать.</dd>
+                <dt><code>cooldown.bypass</code></dt><dd>Кто задержку пропускает. <code>name</code> это узел права, <code>type: permission</code> даёт проход по выданному праву, <code>type: OP</code> работает только у операторов сервера.</dd>
+                <dt><code>max-results</code></dt><dd>Сколько символов показать за один вызов, от 1 до 100.</dd>
+                <dt><code>show-names</code></dt><dd>Печатать ли английское имя символа (<code>LATIN SMALL LETTER A</code>) в строке. <code>false</code> берёт короткий вид <code>entry-brief</code>.</dd>
+              </dl>
+            </section>
+            <section class="doc-part doc-part-perm">
+              <h3 class="doc-part-name">Права</h3>
+              <div class="doc-perms">
+                <div class="doc-perm"><code>extendedmanager.command.symbol</code><span class="perm-scope is-all">по умолчанию у всех</span><p class="perm-desc">Доступ к команде /symbol (поиск unicode-символов).</p></div>
+                <div class="doc-perm"><code>extendedmanager.command.symbol.cooldown.bypass</code><span class="perm-scope">выдают вручную</span><p class="perm-desc">Пропускает задержку <code>cooldown</code> команды <code>/symbol</code>.</p></div>
+              </div>
+            </section>
+          </article>
+          <article class="doc" id="doc-cmd-me" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды <span>/</span> Ролевые команды</p>
+            <h2>/me</h2>
+            <section class="doc-part doc-part-desc">
+              <h3 class="doc-part-name">Описание</h3>
+              <p class="doc-lead">Ролевое действие от первого лица: строка собирается по шаблону <code>rp.me</code> и оформлена как действие автора. Текст игрока подставляется в <code>%em_message%</code> как написан.</p>
+              <div class="callout callout-info"><p>Строку собирают плейсхолдеры, поэтому в шаблоне доступны <code>{player}</code>, <code>{displayname}</code>, <code>{world}</code>, <code>{group}</code>, <code>{prefix}</code> и <code>{suffix}</code>.</p></div>
+            </section>
+            <section class="doc-part doc-part-set">
+              <h3 class="doc-part-name">Настройка</h3>
+              <table class="req req-wide"><tbody>
+                <tr><th>Синтаксис</th><td><code>/me &lt;текст&gt;</code></td></tr>
+                </tbody></table>
+              <div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/me достал ржавый меч</code></pre></div>
+              <p class="doc-file"><code class="doc-file-name">command_config.yml</code><span class="doc-file-path">commands.me и rp</span><a class="doc-file-link" href="#em-toggle">как устроен блок</a></p>
+              <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>  me:
     enable: true
     aliases: []
     cooldown:
       enable: false
       duration: 0
       bypass:
-        name: "extendedmanager.command.broadcasts.cooldown.bypass"
-        type: "permission"</code></pre></div>
+        name: "extendedmanager.command.me.cooldown.bypass"
+        type: "permission"
+
+rp:
+  radius: 0
+  me: "&lt;gold&gt;*&lt;/gold&gt; &lt;white&gt;%em_player%&lt;/white&gt; &lt;gray&gt;%em_message%&lt;/gray&gt; &lt;gold&gt;*&lt;/gold&gt;"</code></pre></div>
               <dl class="doc-keys">
-                <dt><code>enable</code></dt><dd>Включает команду. <code>false</code> отвечает сообщением <code>command-disabled</code> и убирает <code>/broadcasts</code> из <code>/em help</code> и из автодополнения Tab.</dd>
-                <dt><code>aliases</code></dt><dd>Дополнительные имена: список вроде <code>["away"]</code> вызывает <code>/broadcasts</code> и по слову <code>/away</code>. Имена из <code>plugin.yml</code> работают всегда, а свои алиасы применяет сам плагин, поэтому хватает <code>/em reload</code>.</dd>
-                <dt><code>cooldown.enable</code></dt><dd>Включает задержку между запусками <code>/broadcasts</code> одним игроком.</dd>
+                <dt><code>enable</code></dt><dd>Включает команду. <code>false</code> отвечает сообщением <code>command-disabled</code> и убирает <code>/me</code> из <code>/em help</code> и из автодополнения Tab.</dd>
+                <dt><code>aliases</code></dt><dd>Дополнительные имена: список вроде <code>["emo"]</code> вызывает <code>/me</code> и по слову <code>/emo</code>. Имена из <code>plugin.yml</code> работают всегда, а свои алиасы применяет сам плагин, поэтому хватает <code>/em reload</code>.</dd>
+                <dt><code>cooldown.enable</code></dt><dd>Включает задержку между запусками <code>/me</code> одним игроком.</dd>
                 <dt><code>cooldown.duration</code></dt><dd>Сколько секунд ждать после запуска: <code>0</code> не ждать.</dd>
                 <dt><code>cooldown.bypass</code></dt><dd>Кто задержку пропускает. <code>name</code> это узел права, <code>type: permission</code> даёт проход по выданному праву, <code>type: OP</code> работает только у операторов сервера.</dd>
+                <dt><code>rp.radius</code></dt><dd>Кто видит строку: <code>0</code> это весь сервер, больше нуля игроки того же мира в квадрате радиуса от автора. Консоль читает все строки.</dd>
+                <dt><code>rp.me</code></dt><dd>Шаблон MiniMessage для действия от первого лица; <code>%em_player%</code> это ник автора, <code>%em_message%</code> его текст.</dd>
               </dl>
             </section>
             <section class="doc-part doc-part-perm">
               <h3 class="doc-part-name">Права</h3>
               <div class="doc-perms">
-                <div class="doc-perm"><code>extendedmanager.command.broadcasts</code><span class="perm-scope is-op">по умолчанию у операторов</span><p class="perm-desc">Доступ к команде /broadcasts (управление рассылкой)</p></div>
-                <div class="doc-perm"><code>extendedmanager.command.broadcasts.cooldown.bypass</code><span class="perm-scope">выдают вручную</span><p class="perm-desc">Пропускает задержку <code>cooldown</code> команды <code>/broadcasts</code>.</p></div>
+                <div class="doc-perm"><code>extendedmanager.command.me</code><span class="perm-scope is-all">по умолчанию у всех</span><p class="perm-desc">Доступ к команде /me (ролевое действие от первого лица).</p></div>
+                <div class="doc-perm"><code>extendedmanager.command.me.cooldown.bypass</code><span class="perm-scope">выдают вручную</span><p class="perm-desc">Пропускает задержку <code>cooldown</code> команды <code>/me</code>.</p></div>
+              </div>
+            </section>
+          </article>
+          <article class="doc" id="doc-cmd-do" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды <span>/</span> Ролевые команды</p>
+            <h2>/do</h2>
+            <section class="doc-part doc-part-desc">
+              <h3 class="doc-part-name">Описание</h3>
+              <p class="doc-lead">Обстановка и состояние вокруг игрока: действие описывается от третьего лица по шаблону <code>rp.do</code>, автор стоит в конце строки в скобках.</p>
+              <div class="callout callout-note"><p><code>/do</code> описывает мир, <code>/me</code> описывает самого игрока.</p></div>
+            </section>
+            <section class="doc-part doc-part-set">
+              <h3 class="doc-part-name">Настройка</h3>
+              <table class="req req-wide"><tbody>
+                <tr><th>Синтаксис</th><td><code>/do &lt;текст&gt;</code></td></tr>
+                </tbody></table>
+              <div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/do замок поддаётся ржавому ключу</code></pre></div>
+              <p class="doc-file"><code class="doc-file-name">command_config.yml</code><span class="doc-file-path">commands.do и rp</span><a class="doc-file-link" href="#em-toggle">как устроен блок</a></p>
+              <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>  do:
+    enable: true
+    aliases: []
+    cooldown:
+      enable: false
+      duration: 0
+      bypass:
+        name: "extendedmanager.command.do.cooldown.bypass"
+        type: "permission"
+
+rp:
+  radius: 0
+  do: "&lt;gold&gt;*&lt;/gold&gt; &lt;gray&gt;%em_message%&lt;/gray&gt; &lt;dark_gray&gt;(&lt;/dark_gray&gt;&lt;white&gt;%em_player%&lt;/white&gt;&lt;dark_gray&gt;)&lt;/dark_gray&gt; &lt;gold&gt;*&lt;/gold&gt;"</code></pre></div>
+              <dl class="doc-keys">
+                <dt><code>enable</code></dt><dd>Включает команду. <code>false</code> отвечает сообщением <code>command-disabled</code> и убирает <code>/do</code> из <code>/em help</code> и из автодополнения Tab.</dd>
+                <dt><code>aliases</code></dt><dd>Дополнительные имена: список вроде <code>["desc"]</code> вызывает <code>/do</code> и по слову <code>/desc</code>. Имена из <code>plugin.yml</code> работают всегда, а свои алиасы применяет сам плагин, поэтому хватает <code>/em reload</code>.</dd>
+                <dt><code>cooldown.enable</code></dt><dd>Включает задержку между запусками <code>/do</code> одним игроком.</dd>
+                <dt><code>cooldown.duration</code></dt><dd>Сколько секунд ждать после запуска: <code>0</code> не ждать.</dd>
+                <dt><code>cooldown.bypass</code></dt><dd>Кто задержку пропускает. <code>name</code> это узел права, <code>type: permission</code> даёт проход по выданному праву, <code>type: OP</code> работает только у операторов сервера.</dd>
+                <dt><code>rp.radius</code></dt><dd>Кто видит строку: <code>0</code> это весь сервер, больше нуля игроки того же мира в квадрате радиуса от автора. Консоль читает все строки.</dd>
+                <dt><code>rp.do</code></dt><dd>Шаблон MiniMessage для обстановки; <code>%em_message%</code> текст игрока, <code>%em_player%</code> его ник.</dd>
+              </dl>
+            </section>
+            <section class="doc-part doc-part-perm">
+              <h3 class="doc-part-name">Права</h3>
+              <div class="doc-perms">
+                <div class="doc-perm"><code>extendedmanager.command.do</code><span class="perm-scope is-all">по умолчанию у всех</span><p class="perm-desc">Доступ к команде /do (обстановка от третьего лица).</p></div>
+                <div class="doc-perm"><code>extendedmanager.command.do.cooldown.bypass</code><span class="perm-scope">выдают вручную</span><p class="perm-desc">Пропускает задержку <code>cooldown</code> команды <code>/do</code>.</p></div>
+              </div>
+            </section>
+          </article>
+          <article class="doc" id="doc-cmd-roll" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды <span>/</span> Ролевые команды</p>
+            <h2>/roll</h2>
+            <section class="doc-part doc-part-desc">
+              <h3 class="doc-part-name">Описание</h3>
+              <p class="doc-lead">Случайное число в заданном диапазоне. Один аргумент значит бросок от 1 до него, два аргумента задают промежуток включительно, порядок границ не важен.</p>
+              <div class="callout callout-info"><p><code>/roll 100</code> даёт строку вида «Player выбросил 45 из 100».</p></div>
+            </section>
+            <section class="doc-part doc-part-set">
+              <h3 class="doc-part-name">Настройка</h3>
+              <table class="req req-wide"><tbody>
+                <tr><th>Синтаксис</th><td><code>/roll &lt;число&gt;</code> или <code>/roll &lt;от&gt; &lt;до&gt;</code></td></tr>
+                </tbody></table>
+              <div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/roll 100
+/roll 1 6</code></pre></div>
+              <p class="doc-file"><code class="doc-file-name">command_config.yml</code><span class="doc-file-path">commands.roll и rp</span><a class="doc-file-link" href="#em-toggle">как устроен блок</a></p>
+              <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>  roll:
+    enable: true
+    aliases: []
+    cooldown:
+      enable: false
+      duration: 0
+      bypass:
+        name: "extendedmanager.command.roll.cooldown.bypass"
+        type: "permission"
+
+rp:
+  radius: 0
+  roll: "&lt;gray&gt;%em_player% выбросил &lt;white&gt;%em_value%&lt;/white&gt; &lt;dark_gray&gt;из&lt;/dark_gray&gt; &lt;white&gt;%em_max%&lt;/white&gt;&lt;/gray&gt;"
+  max-roll: 1000000</code></pre></div>
+              <dl class="doc-keys">
+                <dt><code>enable</code></dt><dd>Включает команду. <code>false</code> отвечает сообщением <code>command-disabled</code> и убирает <code>/roll</code> из <code>/em help</code> и из автодополнения Tab.</dd>
+                <dt><code>aliases</code></dt><dd>Дополнительные имена: список вроде <code>["dice"]</code> вызывает <code>/roll</code> и по слову <code>/dice</code>. Имена из <code>plugin.yml</code> работают всегда, а свои алиасы применяет сам плагин, поэтому хватает <code>/em reload</code>.</dd>
+                <dt><code>cooldown.enable</code></dt><dd>Включает задержку между запусками <code>/roll</code> одним игроком.</dd>
+                <dt><code>cooldown.duration</code></dt><dd>Сколько секунд ждать после запуска: <code>0</code> не ждать.</dd>
+                <dt><code>cooldown.bypass</code></dt><dd>Кто задержку пропускает. <code>name</code> это узел права, <code>type: permission</code> даёт проход по выданному праву, <code>type: OP</code> работает только у операторов сервера.</dd>
+                <dt><code>rp.radius</code></dt><dd>Кто видит строку: <code>0</code> это весь сервер, больше нуля игроки того же мира в квадрате радиуса от автора. Консоль читает все строки.</dd>
+                <dt><code>rp.roll</code></dt><dd>Шаблон броска: <code>%em_value%</code> выпавшее число, <code>%em_min%</code> и <code>%em_max%</code> границы, <code>%em_range%</code> ширина промежутка.</dd>
+                <dt><code>rp.max-roll</code></dt><dd>Наибольшая граница, и нижняя, и верхняя: значение не меньше 2. Ошибка <code>roll-invalid</code> показывает использование команды и этот максимум.</dd>
+              </dl>
+            </section>
+            <section class="doc-part doc-part-perm">
+              <h3 class="doc-part-name">Права</h3>
+              <div class="doc-perms">
+                <div class="doc-perm"><code>extendedmanager.command.roll</code><span class="perm-scope is-all">по умолчанию у всех</span><p class="perm-desc">Доступ к команде /roll (случайное число).</p></div>
+                <div class="doc-perm"><code>extendedmanager.command.roll.cooldown.bypass</code><span class="perm-scope">выдают вручную</span><p class="perm-desc">Пропускает задержку <code>cooldown</code> команды <code>/roll</code>.</p></div>
+              </div>
+            </section>
+          </article>
+          <article class="doc" id="doc-cmd-try" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды <span>/</span> Ролевые команды</p>
+            <h2>/try</h2>
+            <section class="doc-part doc-part-desc">
+              <h3 class="doc-part-name">Описание</h3>
+              <p class="doc-lead">Случайный исход задуманного события: строка оканчивается словом [Удачно] или [Неудачно]. Шанс успеха задаёт <code>rp.try-chance</code> в процентах.</p>
+              <div class="callout callout-info"><p><code>/try попытался вскрыть старый навесной замок отмычкой</code> даёт «Игрок попытался вскрыть старый навесной замок отмычкой [Неудачно]».</p></div>
+            </section>
+            <section class="doc-part doc-part-set">
+              <h3 class="doc-part-name">Настройка</h3>
+              <table class="req req-wide"><tbody>
+                <tr><th>Синтаксис</th><td><code>/try &lt;текст&gt;</code></td></tr>
+                </tbody></table>
+              <div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/try попытался перепрыгнуть через ров</code></pre></div>
+              <p class="doc-file"><code class="doc-file-name">command_config.yml</code><span class="doc-file-path">commands.try и rp</span><a class="doc-file-link" href="#em-toggle">как устроен блок</a></p>
+              <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>  try:
+    enable: true
+    aliases: []
+    cooldown:
+      enable: false
+      duration: 0
+      bypass:
+        name: "extendedmanager.command.try.cooldown.bypass"
+        type: "permission"
+
+rp:
+  radius: 0
+  try-success: "&lt;gray&gt;%em_player% %em_message% &lt;green&gt;[Удачно]&lt;/green&gt;&lt;/gray&gt;"
+  try-failure: "&lt;gray&gt;%em_player% %em_message% &lt;red&gt;[Неудачно]&lt;/red&gt;&lt;/gray&gt;"
+  try-chance: 50</code></pre></div>
+              <dl class="doc-keys">
+                <dt><code>enable</code></dt><dd>Включает команду. <code>false</code> отвечает сообщением <code>command-disabled</code> и убирает <code>/try</code> из <code>/em help</code> и из автодополнения Tab.</dd>
+                <dt><code>aliases</code></dt><dd>Дополнительные имена: список вроде <code>["chance"]</code> вызывает <code>/try</code> и по слову <code>/chance</code>. Имена из <code>plugin.yml</code> работают всегда, а свои алиасы применяет сам плагин, поэтому хватает <code>/em reload</code>.</dd>
+                <dt><code>cooldown.enable</code></dt><dd>Включает задержку между запусками <code>/try</code> одним игроком.</dd>
+                <dt><code>cooldown.duration</code></dt><dd>Сколько секунд ждать после запуска: <code>0</code> не ждать.</dd>
+                <dt><code>cooldown.bypass</code></dt><dd>Кто задержку пропускает. <code>name</code> это узел права, <code>type: permission</code> даёт проход по выданному праву, <code>type: OP</code> работает только у операторов сервера.</dd>
+                <dt><code>rp.radius</code></dt><dd>Кто видит строку: <code>0</code> это весь сервер, больше нуля игроки того же мира в квадрате радиуса от автора. Консоль читает все строки.</dd>
+                <dt><code>rp.try-success</code></dt><dd>Шаблон удачного исхода.</dd>
+                <dt><code>rp.try-failure</code></dt><dd>Шаблон неудачного исхода.</dd>
+                <dt><code>rp.try-chance</code></dt><dd>Шанс успеха в процентах, от 0 до 100; по умолчанию 50.</dd>
+              </dl>
+            </section>
+            <section class="doc-part doc-part-perm">
+              <h3 class="doc-part-name">Права</h3>
+              <div class="doc-perms">
+                <div class="doc-perm"><code>extendedmanager.command.try</code><span class="perm-scope is-all">по умолчанию у всех</span><p class="perm-desc">Доступ к команде /try (случайный исход действия).</p></div>
+                <div class="doc-perm"><code>extendedmanager.command.try.cooldown.bypass</code><span class="perm-scope">выдают вручную</span><p class="perm-desc">Пропускает задержку <code>cooldown</code> команды <code>/try</code>.</p></div>
+              </div>
+            </section>
+          </article>
+          <article class="doc" id="doc-cmd-toponline" data-group="Команды">
+            <p class="doc-crumbs">Документация <span>/</span> Команды <span>/</span> Ролевые команды</p>
+            <h2>/toponline</h2>
+            <section class="doc-part doc-part-desc">
+              <h3 class="doc-part-name">Описание</h3>
+              <p class="doc-lead">Топ игроков по времени, проведённому на сервере. Секунды считает сам плагин и копит в таблице <code>&lt;префикс&gt;playtime</code>, где у игрока по строке на сутки, поэтому период списка это день, неделя, месяц или всё время.</p>
+              <div class="callout callout-warn"><p>Без подключённой базы счёт не выключается: секунды живут в памяти запуска, а страница предупреждает, что после перезапуска список обнулится.</p></div>
+            </section>
+            <section class="doc-part doc-part-set">
+              <h3 class="doc-part-name">Настройка</h3>
+              <table class="req req-wide"><tbody>
+                <tr><th>Синтаксис</th><td><code>/toponline [день|неделя|месяц|все] [страница]</code></td></tr>
+                </tbody></table>
+              <div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/toponline
+/toponline неделя 2
+/toponline все</code></pre></div>
+              <p class="doc-file"><code class="doc-file-name">command_config.yml</code><span class="doc-file-path">commands.toponline и top-online</span><a class="doc-file-link" href="#em-toggle">как устроен блок</a></p>
+              <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>  toponline:
+    enable: true
+    aliases: []
+    cooldown:
+      enable: false
+      duration: 0
+      bypass:
+        name: "extendedmanager.command.toponline.cooldown.bypass"
+        type: "permission"
+
+top-online:
+  page-size: 10
+  save-seconds: 60
+  keep-days: 0</code></pre></div>
+              <dl class="doc-keys">
+                <dt><code>enable</code></dt><dd>Включает команду. <code>false</code> отвечает сообщением <code>command-disabled</code> и убирает <code>/toponline</code> из <code>/em help</code> и из автодополнения Tab.</dd>
+                <dt><code>aliases</code></dt><dd>Дополнительные имена: список вроде <code>["topplay"]</code> вызывает <code>/toponline</code> и по другому слову. Имена из <code>plugin.yml</code> работают всегда, а свои алиасы применяет сам плагин, поэтому хватает <code>/em reload</code>.</dd>
+                <dt><code>cooldown.enable</code></dt><dd>Включает задержку между запусками <code>/toponline</code> одним игроком.</dd>
+                <dt><code>cooldown.duration</code></dt><dd>Сколько секунд ждать после запуска: <code>0</code> не ждать.</dd>
+                <dt><code>cooldown.bypass</code></dt><dd>Кто задержку пропускает. <code>name</code> это узел права, <code>type: permission</code> даёт проход по выданному праву, <code>type: OP</code> работает только у операторов сервера.</dd>
+                <dt><code>page-size</code></dt><dd>Сколько игроков на одной странице списка, от 1 до 20.</dd>
+                <dt><code>save-seconds</code></dt><dd>Как часто записывать накопленное в базу, от 10 до 3600 секунд. Больше значение меньше записей, но теряется больше счёта при резком выключении сервера. Выход игрока и выключение плагина записывают остаток сразу.</dd>
+                <dt><code>keep-days</code></dt><dd>Сколько суток хранить, <code>0</code> хранить всё. Чистка старых строк идёт раз в сутки.</dd>
+              </dl>
+            </section>
+            <section class="doc-part doc-part-perm">
+              <h3 class="doc-part-name">Права</h3>
+              <div class="doc-perms">
+                <div class="doc-perm"><code>extendedmanager.command.toponline</code><span class="perm-scope is-all">по умолчанию у всех</span><p class="perm-desc">Доступ к команде /toponline (игры по времени в сети).</p></div>
+                <div class="doc-perm"><code>extendedmanager.command.toponline.cooldown.bypass</code><span class="perm-scope">выдают вручную</span><p class="perm-desc">Пропускает задержку <code>cooldown</code> команды <code>/toponline</code>.</p></div>
               </div>
             </section>
           </article>
@@ -3589,8 +3930,8 @@ links:
                 <tr><th><code>%em_fly%</code></th><td><code>on</code> при полёте или разрешённом полёте</td></tr>
                 <tr><th><code>%em_ping%</code></th><td>пинг в миллисекундах, пусто не в сети</td></tr>
                 <tr><th><code>%em_gamemode%</code></th><td>игровой режим строчными буквами: <code>survival</code>, <code>creative</code></td></tr>
-                <tr><th><code>%em_voice%</code></th><td><code>on</code>, когда игрок подключён к голосовому чату</td></tr>
-                <tr><th><code>%em_voice_group%</code></th><td>название группы голосового чата</td></tr>
+                <tr><th><code>%em_voice%</code></th><td><code>on</code>, когда игрок подключён к голосовому чату: Simple Voice Chat или Plasmo Voice</td></tr>
+                <tr><th><code>%em_voice_group%</code></th><td>название группы голосового чата, бывает только у Simple Voice Chat</td></tr>
                 <tr><th><code>%em_region%</code></th><td>регион WorldGuard под игроком; пусто без плагина или вне регионов</td></tr>
               </tbody>
             </table>
@@ -3622,10 +3963,10 @@ links:
             <p>Эти значения существуют только внутри конкретного сообщения и приходят из аргументов команды. С 0.10.1 их пишут в формате <code>%em_ключ%</code>, старая форма <code>{ключ}</code> тоже понимается: обе заменяются на одно и то же. Имена из реестра, которые встречаются в тех же файлах, работают так же, как описано выше.</p>
             <table class="req req-wide">
               <tbody>
-                <tr><th><code>main_messages.yml</code></th><td>общие ответы команд и модулей, 111 токенов, полный список под таблицей</td></tr>
+                <tr><th><code>main_messages.yml</code></th><td>общие ответы команд и модулей, 112 токенов, полный список под таблицей</td></tr>
                 <tr><th><code>config.yml</code></th><td><code>action</code>, <code>afk_tabinfo</code>, <code>duration</code>, <code>group</code>, <code>message</code>, <code>player</code>, <code>playerbody</code>, <code>playerhead</code>, <code>rank</code>, <code>region</code>, <code>sender</code></td></tr>
                 <tr><th><code>admin_action.yml</code></th><td><code>admin_name</code>, <code>count</code>, <code>duration</code>, <code>gamemode</code>, <code>group</code>, <code>oneself</code>, <code>player_name</code>, <code>rank</code>, <code>reason</code>, <code>server</code>, <code>sid</code>, <code>target_name</code>, <code>world</code></td></tr>
-                <tr><th><code>chat/chat_config.yml</code></th><td><code>displayname</code>, <code>group</code>, <code>message</code>, <code>player</code>, <code>prefix</code>, <code>suffix</code>, <code>url</code>, <code>world</code></td></tr>
+                <tr><th><code>chat/chat_config.yml</code></th><td><code>displayname</code>, <code>group</code>, <code>mention</code>, <code>message</code>, <code>player</code>, <code>prefix</code>, <code>suffix</code>, <code>url</code>, <code>world</code></td></tr>
                 <tr><th><code>chat/adminchat_config.yml</code></th><td><code>displayname</code>, <code>group</code>, <code>message</code>, <code>player</code>, <code>prefix</code>, <code>suffix</code>, <code>world</code></td></tr>
                 <tr><th><code>chat/broadcast.yml</code></th><td><code>displayname</code>, <code>max_players</code>, <code>online</code>, <code>player</code></td></tr>
                 <tr><th><code>death_messages.yml</code></th><td><code>distance</code>, <code>height</code>, <code>killer</code>, <code>player</code>, <code>weapon</code>, <code>world</code></td></tr>
@@ -3652,6 +3993,7 @@ links:
               <li>body</li>
               <li>bypass</li>
               <li>city</li>
+              <li>code</li>
               <li>command</li>
               <li>continent</li>
               <li>cooldown</li>
@@ -3675,14 +4017,12 @@ links:
               <li>failed</li>
               <li>file</li>
               <li>files</li>
-              <li>gamemode</li>
               <li>group</li>
               <li>hook</li>
               <li>hooks</li>
               <li>hosting</li>
               <li>id</li>
               <li>index</li>
-              <li>interval</li>
               <li>ip</li>
               <li>item</li>
               <li>java</li>
@@ -3696,25 +4036,27 @@ links:
               <li>max</li>
               <li>minecraft</li>
               <li>mobile</li>
-              <li>mode</li>
               <li>module</li>
               <li>modules</li>
+              <li>name</li>
               <li>names</li>
               <li>next</li>
               <li>online</li>
-              <li>order</li>
               <li>page</li>
               <li>pages</li>
               <li>permission</li>
+              <li>period</li>
               <li>platform</li>
               <li>player</li>
               <li>players</li>
+              <li>position</li>
               <li>preview</li>
               <li>previous</li>
               <li>problem</li>
               <li>provider</li>
               <li>proxy</li>
               <li>pvp</li>
+              <li>query</li>
               <li>reason</li>
               <li>region</li>
               <li>scale</li>
@@ -3729,6 +4071,7 @@ links:
               <li>state</li>
               <li>status</li>
               <li>summary</li>
+              <li>symbol</li>
               <li>tables</li>
               <li>target</li>
               <li>time</li>
@@ -3741,13 +4084,12 @@ links:
               <li>url</li>
               <li>usage</li>
               <li>utc_time</li>
+              <li>uuid</li>
               <li>value</li>
               <li>vendor</li>
               <li>version</li>
               <li>visible</li>
               <li>vpn</li>
-              <li>weight</li>
-              <li>where</li>
               <li>world</li>
               <li>worlds</li>
             </ul>
@@ -3773,7 +4115,9 @@ links:
               <tbody>
                 <tr><th><code>placeholderapi</code></th><td>Плейсхолдеры <code>%em_*%</code> в PlaceholderAPI и собственный резолвер внутри плагина</td></tr>
                 <tr><th><code>luckperms</code></th><td>Группы, префиксы, суффиксы и вес; привилегии /setrank и /givedonate</td></tr>
-                <tr><th><code>voicechat</code></th><td>Состояния голосового чата и гаги <code>/gag</code> (Simple Voice Chat)</td></tr>
+                <tr><th><code>voicechat</code></th><td>Состояния голосового чата и гаги <code>/gag</code> (Simple Voice Chat); группы голоса и <code>%em_voice_group%</code> бывают только здесь</td></tr>
+                <tr><th><code>plasmovoice</code></th><td>Гаг <code>/gag</code> и состояние Plasmo Voice (с 0.15.0)</td></tr>
+                <tr><th><code>bluemap</code></th><td>Подписи игроков на карте с суффиксами vanish и AFK (с 0.15.0)</td></tr>
                 <tr><th><code>skinsrestorer</code></th><td>Скины игроков, в том числе для NPC</td></tr>
                 <tr><th><code>tab</code></th><td>Данные для TAB, значок AFK <code>%em_afk_tabinfo%</code></td></tr>
                 <tr><th><code>worldguard</code></th><td>Регионы: плейсхолдер <code>%em_region%</code></td></tr>
@@ -3783,9 +4127,19 @@ links:
   placeholderapi: true
   luckperms: true
   voicechat: true
+  plasmovoice: true
+  bluemap: true
   skinsrestorer: true
   tab: true
   worldguard: true</code></pre></div>
+
+            <h3 id="hooks-plasmo">Plasmo Voice</h3>
+            <p>С 0.15.0 гаг работает с обоими голосовыми чатами. Плагин регистрирует в Plasmo Voice свой аддон <code>extendedmanager</code> и глушит звук заглушённого игрока: его UDP-пакет с аудио отменяется, поэтому база мьютов самого Plasmo Voice чужими записями не заполняется, а снятие гага возвращает голос сразу. Напоминание о гаге приходит в actionbar, статус виден в <code>/em hooks</code>, <code>/em info</code> и <code>%em_voice%</code>.</p>
+            <div class="callout callout-warn"><p>Plasmo Voice открывает своё API только аддонам, поэтому интеграция появляется, когда плагин установлен до запуска Extended Manager. Если партнёр встал позже, помогает <code>/em reload</code>.</p></div>
+
+            <h3 id="hooks-bluemap">BlueMap</h3>
+            <p>Плагин берёт у BlueMap подпись живого игрока и дописывает к имени суффиксы своих статусов: <code>bluemap.suffix-afk</code> для <code>/afk</code> и <code>bluemap.suffix-vanish</code> для <code>/vanish</code>. Пустая строка убирает суффикс, прежний провайдер имён сохраняется и возвращается при выключении интеграции.</p>
+            <div class="callout callout-important"><p>Спрятать vanish на карте API BlueMap не умеет: его <code>hide-vanished</code> смотрит на эффект невидимости, а <code>/vanish</code> плагина игроков не маскирует. Поэтому администратор в vanish остаётся на карте, но хотя бы подписан.</p></div>
 
             <h3 id="hooks-ph">Плейсхолдеры</h3>
             <p>Реестр <code>%em_*%</code> знает 39 значений: <code>%em_online%</code>, <code>%em_max_players%</code>, <code>%em_tps%</code>, <code>%em_version%</code>, <code>%em_displayname%</code>, <code>%em_region%</code>, <code>%em_afk_tabinfo%</code>, а с 0.14.2 ещё <code>%em_playerhead%</code> и <code>%em_playerbody%</code>. PlaceholderAPI отдаёт их сторонним плагинам и TAB, внутри Extended Manager тот же реестр работает и без партнёра. Полный список с условиями и местные токены сообщений собраны в разделе <a href="#doc-placeholders">«Плейсхолдеры»</a>.</p>
@@ -3870,7 +4224,7 @@ links:
         <aside class="docs-toc" aria-label="На этой странице">
           <p class="docs-toc-title">На этой странице</p>
           <ul id="docs-toc-list"></ul>
-          <p class="page-updated"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.4v5l3.2 1.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Последнее изменение: <strong>18 ноября 2026</strong></span></p>
+          <p class="page-updated"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.4v5l3.2 1.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Последнее изменение: <strong>19 ноября 2026</strong></span></p>
           <div class="doc-author">
             <span class="doc-author-avatar" aria-hidden="true">C<img src="https://github.com/Cooking9314.png" alt="" loading="lazy" onerror="this.remove()"></span>
             <div class="doc-author-meta">
