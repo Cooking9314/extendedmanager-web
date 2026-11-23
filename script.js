@@ -1136,7 +1136,87 @@
     });
   }
 
-  $$('.code-block:not(.code-cmd) code').forEach(highlightYaml);
+  /* ----- Подсветка синтаксиса Java и XML (код в разделе «API для аддонов») ----- */
+  var JAVA_KEYWORDS = 'abstract assert break case catch class continue default do else enum extends final finally for goto if implements import instanceof interface native new package private protected public return static strictfp super switch synchronized this throw throws transient try var void while yield record sealed non-sealed perm';
+  var JAVA_TYPES = 'Boolean Byte Character Double Float Integer Long Short String Object Class List Map Set Optional Record Component Listener Runnable Supplier Function Predicate Consumer Extension Event Handler Info Board Target Api Plugin CommandSender Player ItemStack Location World UUID File';
+  var JAVA_KW_RE = null; // собирается ниже из JAVA_KEYWORDS
+  var JAVA_TYPE_RE = null;
+  var JAVA_TOKEN = new RegExp(
+    '(\\/\\*[\\s\\S]*?\\*\\/' +                                   /* блочный комментарий */
+    '|\\/\\/[^\\n]*' +                                           /* строчный комментарий */
+    '|"(?:\\\\.|[^"\\\\\n])*"?' +                                  /* строка */
+    "|'(?:\\\\(?:u[0-9a-fA-F]{4}|.)|[^'\\\\\n])'" +               /* символьный литерал */
+    '|@\\w+' +                                                   /* аннотация */
+    '|\\b(?:' + JAVA_KEYWORDS + ')\\b' +                        /* ключевые слова */
+    '|\\b(?:' + JAVA_TYPES + ')\\b' +                           /* известные типы */
+    '|\\b(?:0[xX][0-9a-fA-F_]+|\\d[\\d_]*(?:\\.\\d+)?[lLfFdD]?)\\b' + /* числа */
+    '|[A-Za-z_$][\\w$]*(?=\\s*\\()' +                           /* вызов метода */
+    ')', 'g');
+
+  JAVA_KW_RE = new RegExp('^(?:' + JAVA_KEYWORDS.split(' ').join('|') + ')$');
+  JAVA_TYPE_RE = new RegExp('^(?:' + JAVA_TYPES.split(' ').join('|') + ')$');
+
+  function javaNodes(text) {
+    var out = [];
+    var last = 0;
+    var m;
+    JAVA_TOKEN.lastIndex = 0;
+    while ((m = JAVA_TOKEN.exec(text))) {
+      if (m.index > last) out.push(plain(text.slice(last, m.index)));
+      var t = m[0];
+      var cls;
+      if (t.charAt(0) === '/') cls = 'tok-com';
+      else if (t.charAt(0) === '"' || t.charAt(0) === "'") cls = 'tok-str';
+      else if (t.charAt(0) === '@') cls = 'tok-ann';
+      else if (JAVA_KW_RE.test(t)) cls = 'tok-key';
+      else if (JAVA_TYPE_RE.test(t)) cls = 'tok-type';
+      else if (/^0[xX]/.test(t) || /^\d/.test(t)) cls = 'tok-num';
+      else if (/^\w+$/.test(t)) cls = text.charAt(m.index + t.length) === '<' ? 'tok-type' : 'tok-fnc';
+      else cls = 'tok-punc';
+      out.push(tok(cls, t));
+      last = m.index + t.length;
+    }
+    if (last < text.length) out.push(plain(text.slice(last)));
+    return out;
+  }
+
+  function highlightJava(code) {
+    var text = code.textContent;
+    code.textContent = '';
+    javaNodes(text).forEach(function (node) { code.appendChild(node); });
+  }
+
+  var XML_TOKEN = /(<!--[\s\S]*?-->|<\/?[A-Za-z_][\w.:.-]*|\/?>|[A-Za-z_][\w.:.-]*(?==)|"[^"]*"|'[^']*')/g;
+
+  function highlightXml(code) {
+    var text = code.textContent;
+    code.textContent = '';
+    var last = 0;
+    var m;
+    XML_TOKEN.lastIndex = 0;
+    while ((m = XML_TOKEN.exec(text))) {
+      if (m.index > last) code.appendChild(plain(text.slice(last, m.index)));
+      var t = m[0];
+      var cls;
+      if (t.indexOf('<!--') === 0) cls = 'tok-com';
+      else if (t.charAt(0) === '"' || t.charAt(0) === "'") cls = 'tok-str';
+      else if (t.charAt(0) === '<') cls = 'tok-tag';
+      else if (t === '>' || t === '/>') cls = 'tok-punc';
+      else cls = 'tok-key';
+      code.appendChild(tok(cls, t));
+      last = m.index + t.length;
+    }
+    if (last < text.length) code.appendChild(plain(text.slice(last)));
+  }
+
+  /* Блоки кода: YAML по умолчанию, Java и XML помечаются классом code-java / code-xml на .code-block или <code>. */
+  $$('.code-block:not(.code-cmd)').forEach(function (block) {
+    var code = $('code', block);
+    if (!code) return;
+    if (block.classList.contains('code-xml') || code.classList.contains('code-xml')) highlightXml(code);
+    else if (block.classList.contains('code-java') || code.classList.contains('code-java')) highlightJava(code);
+    else highlightYaml(code);
+  });
 
   /* ----- Копирование примеров ----- */
   function copyText(text) {
