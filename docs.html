@@ -3380,7 +3380,7 @@ symbol:
                 <tr><th>Синтаксис</th><td><code>/me &lt;текст&gt;</code></td></tr>
                 </tbody></table>
               <div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/me достал ржавый меч</code></pre></div>
-              <p class="doc-file"><code class="doc-file-name">command_config.yml</code><span class="doc-file-path">commands.me и rp</span><a class="doc-file-link" href="#em-toggle">как устроен блок</a></p>
+              <p class="doc-file"><code class="doc-file-name">command_config.yml</code><span class="doc-file-path">commands.me и rp.radius</span><a class="doc-file-link" href="#em-toggle">как устроен блок</a></p>
               <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>  me:
     enable: true
     aliases: []
@@ -3392,16 +3392,19 @@ symbol:
         type: "permission"
 
 rp:
-  radius: 0
+  radius: 0</code></pre></div>
+              <p class="doc-file"><code class="doc-file-name">main_messages.yml</code><span class="doc-file-path">rp</span></p>
+              <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>rp:
   me: "&lt;gold&gt;*&lt;/gold&gt; &lt;white&gt;%em_player%&lt;/white&gt; &lt;gray&gt;%em_message%&lt;/gray&gt; &lt;gold&gt;*&lt;/gold&gt;"</code></pre></div>
+              <div class="callout callout-note"><p>До 0.15.0 шаблоны <code>rp.me</code>, <code>rp.do</code>, <code>rp.roll</code>, <code>rp.try-success</code> и <code>rp.try-failure</code> стояли в файле <code>command_config.yml</code>. Автообновление переносит ваш текст в <code>main_messages.yml</code>, а неотредактированные значения заменяет новыми, прежняя копия файла остаётся в <code>extendedmanager/backups/</code>. Номер конфигурации <code>command_config.yml</code> стал 13, <code>main_messages.yml</code> стал 20.</p></div>
               <dl class="doc-keys">
                 <dt><code>enable</code></dt><dd>Включает команду. <code>false</code> отвечает сообщением <code>command-disabled</code> и убирает <code>/me</code> из <code>/em help</code> и из автодополнения Tab.</dd>
                 <dt><code>aliases</code></dt><dd>Дополнительные имена: список вроде <code>["emo"]</code> вызывает <code>/me</code> и по слову <code>/emo</code>. Имена из <code>plugin.yml</code> работают всегда, а свои алиасы применяет сам плагин, поэтому хватает <code>/em reload</code>.</dd>
                 <dt><code>cooldown.enable</code></dt><dd>Включает задержку между запусками <code>/me</code> одним игроком.</dd>
                 <dt><code>cooldown.duration</code></dt><dd>Сколько секунд ждать после запуска: <code>0</code> не ждать.</dd>
                 <dt><code>cooldown.bypass</code></dt><dd>Кто задержку пропускает. <code>name</code> это узел права, <code>type: permission</code> даёт проход по выданному праву, <code>type: OP</code> работает только у операторов сервера.</dd>
-                <dt><code>rp.radius</code></dt><dd>Кто видит строку: <code>0</code> это весь сервер, больше нуля игроки того же мира в квадрате радиуса от автора. Консоль читает все строки.</dd>
-                <dt><code>rp.me</code></dt><dd>Шаблон MiniMessage для действия от первого лица; <code>%em_player%</code> это ник автора, <code>%em_message%</code> его текст.</dd>
+                <dt><code>rp.radius</code></dt><dd>Кто видит строку: <code>0</code> это весь сервер, больше нуля игроки того же мира в квадрате радиуса от автора. Консоль читает все строки. Радиус общий у <code>/me</code>, <code>/do</code>, <code>/roll</code> и <code>/try</code>.</dd>
+                <dt><code>rp.me</code></dt><dd>Шаблон MiniMessage действия от первого лица в <code>main_messages.yml</code>: <code>%em_player%</code> это ник автора, <code>%em_message%</code> его текст.</dd>
               </dl>
             </section>
             <section class="doc-part doc-part-perm">
@@ -3426,7 +3429,7 @@ rp:
                 <tr><th>Синтаксис</th><td><code>/do &lt;текст&gt;</code></td></tr>
                 </tbody></table>
               <div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/do замок поддаётся ржавому ключу</code></pre></div>
-              <p class="doc-file"><code class="doc-file-name">command_config.yml</code><span class="doc-file-path">commands.do и rp</span><a class="doc-file-link" href="#em-toggle">как устроен блок</a></p>
+              <p class="doc-file"><code class="doc-file-name">command_config.yml</code><span class="doc-file-path">commands.do и rp.radius</span><a class="doc-file-link" href="#em-toggle">как устроен блок</a></p>
               <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>  do:
     enable: true
     aliases: []
@@ -3438,7 +3441,9 @@ rp:
         type: "permission"
 
 rp:
-  radius: 0
+  radius: 0</code></pre></div>
+              <p class="doc-file"><code class="doc-file-name">main_messages.yml</code><span class="doc-file-path">rp</span></p>
+              <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>rp:
   do: "&lt;gold&gt;*&lt;/gold&gt; &lt;gray&gt;%em_message%&lt;/gray&gt; &lt;dark_gray&gt;(&lt;/dark_gray&gt;&lt;white&gt;%em_player%&lt;/white&gt;&lt;dark_gray&gt;)&lt;/dark_gray&gt; &lt;gold&gt;*&lt;/gold&gt;"</code></pre></div>
               <dl class="doc-keys">
                 <dt><code>enable</code></dt><dd>Включает команду. <code>false</code> отвечает сообщением <code>command-disabled</code> и убирает <code>/do</code> из <code>/em help</code> и из автодополнения Tab.</dd>
@@ -3446,8 +3451,8 @@ rp:
                 <dt><code>cooldown.enable</code></dt><dd>Включает задержку между запусками <code>/do</code> одним игроком.</dd>
                 <dt><code>cooldown.duration</code></dt><dd>Сколько секунд ждать после запуска: <code>0</code> не ждать.</dd>
                 <dt><code>cooldown.bypass</code></dt><dd>Кто задержку пропускает. <code>name</code> это узел права, <code>type: permission</code> даёт проход по выданному праву, <code>type: OP</code> работает только у операторов сервера.</dd>
-                <dt><code>rp.radius</code></dt><dd>Кто видит строку: <code>0</code> это весь сервер, больше нуля игроки того же мира в квадрате радиуса от автора. Консоль читает все строки.</dd>
-                <dt><code>rp.do</code></dt><dd>Шаблон MiniMessage для обстановки; <code>%em_message%</code> текст игрока, <code>%em_player%</code> его ник.</dd>
+                <dt><code>rp.radius</code></dt><dd>Кто видит строку: <code>0</code> это весь сервер, больше нуля игроки того же мира в квадрате радиуса от автора. Консоль читает все строки. Радиус общий у <code>/me</code>, <code>/do</code>, <code>/roll</code> и <code>/try</code>.</dd>
+                <dt><code>rp.do</code></dt><dd>Шаблон MiniMessage обстановки в <code>main_messages.yml</code>: <code>%em_message%</code> текст игрока, <code>%em_player%</code> его ник.</dd>
               </dl>
             </section>
             <section class="doc-part doc-part-perm">
@@ -3486,17 +3491,19 @@ rp:
 
 rp:
   radius: 0
-  roll: "&lt;gray&gt;%em_player% выбросил &lt;white&gt;%em_value%&lt;/white&gt; &lt;dark_gray&gt;из&lt;/dark_gray&gt; &lt;white&gt;%em_max%&lt;/white&gt;&lt;/gray&gt;"
   max-roll: 1000000</code></pre></div>
+              <p class="doc-file"><code class="doc-file-name">main_messages.yml</code><span class="doc-file-path">rp</span></p>
+              <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>rp:
+  roll: "&lt;gray&gt;%em_player% выбросил &lt;white&gt;%em_value%&lt;/white&gt; &lt;dark_gray&gt;из&lt;/dark_gray&gt; &lt;white&gt;%em_max%&lt;/white&gt;&lt;/gray&gt;"</code></pre></div>
               <dl class="doc-keys">
                 <dt><code>enable</code></dt><dd>Включает команду. <code>false</code> отвечает сообщением <code>command-disabled</code> и убирает <code>/roll</code> из <code>/em help</code> и из автодополнения Tab.</dd>
                 <dt><code>aliases</code></dt><dd>Дополнительные имена: список вроде <code>["dice"]</code> вызывает <code>/roll</code> и по слову <code>/dice</code>. Имена из <code>plugin.yml</code> работают всегда, а свои алиасы применяет сам плагин, поэтому хватает <code>/em reload</code>.</dd>
                 <dt><code>cooldown.enable</code></dt><dd>Включает задержку между запусками <code>/roll</code> одним игроком.</dd>
                 <dt><code>cooldown.duration</code></dt><dd>Сколько секунд ждать после запуска: <code>0</code> не ждать.</dd>
                 <dt><code>cooldown.bypass</code></dt><dd>Кто задержку пропускает. <code>name</code> это узел права, <code>type: permission</code> даёт проход по выданному праву, <code>type: OP</code> работает только у операторов сервера.</dd>
-                <dt><code>rp.radius</code></dt><dd>Кто видит строку: <code>0</code> это весь сервер, больше нуля игроки того же мира в квадрате радиуса от автора. Консоль читает все строки.</dd>
-                <dt><code>rp.roll</code></dt><dd>Шаблон броска: <code>%em_value%</code> выпавшее число, <code>%em_min%</code> и <code>%em_max%</code> границы, <code>%em_range%</code> ширина промежутка.</dd>
+                <dt><code>rp.radius</code></dt><dd>Кто видит строку: <code>0</code> это весь сервер, больше нуля игроки того же мира в квадрате радиуса от автора. Консоль читает все строки. Радиус общий у <code>/me</code>, <code>/do</code>, <code>/roll</code> и <code>/try</code>.</dd>
                 <dt><code>rp.max-roll</code></dt><dd>Наибольшая граница, и нижняя, и верхняя: значение не меньше 2. Ошибка <code>roll-invalid</code> показывает использование команды и этот максимум.</dd>
+                <dt><code>rp.roll</code></dt><dd>Шаблон броска в <code>main_messages.yml</code>: <code>%em_value%</code> выпавшее число, <code>%em_min%</code> и <code>%em_max%</code> границы, <code>%em_range%</code> ширина промежутка.</dd>
               </dl>
             </section>
             <section class="doc-part doc-part-perm">
@@ -3534,19 +3541,21 @@ rp:
 
 rp:
   radius: 0
-  try-success: "&lt;gray&gt;%em_player% %em_message% &lt;green&gt;[Удачно]&lt;/green&gt;&lt;/gray&gt;"
-  try-failure: "&lt;gray&gt;%em_player% %em_message% &lt;red&gt;[Неудачно]&lt;/red&gt;&lt;/gray&gt;"
   try-chance: 50</code></pre></div>
+              <p class="doc-file"><code class="doc-file-name">main_messages.yml</code><span class="doc-file-path">rp</span></p>
+              <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>rp:
+  try-success: "&lt;gray&gt;%em_player% %em_message% &lt;green&gt;[Удачно]&lt;/green&gt;&lt;/gray&gt;"
+  try-failure: "&lt;gray&gt;%em_player% %em_message% &lt;red&gt;[Неудачно]&lt;/red&gt;&lt;/gray&gt;"</code></pre></div>
               <dl class="doc-keys">
                 <dt><code>enable</code></dt><dd>Включает команду. <code>false</code> отвечает сообщением <code>command-disabled</code> и убирает <code>/try</code> из <code>/em help</code> и из автодополнения Tab.</dd>
                 <dt><code>aliases</code></dt><dd>Дополнительные имена: список вроде <code>["chance"]</code> вызывает <code>/try</code> и по слову <code>/chance</code>. Имена из <code>plugin.yml</code> работают всегда, а свои алиасы применяет сам плагин, поэтому хватает <code>/em reload</code>.</dd>
                 <dt><code>cooldown.enable</code></dt><dd>Включает задержку между запусками <code>/try</code> одним игроком.</dd>
                 <dt><code>cooldown.duration</code></dt><dd>Сколько секунд ждать после запуска: <code>0</code> не ждать.</dd>
                 <dt><code>cooldown.bypass</code></dt><dd>Кто задержку пропускает. <code>name</code> это узел права, <code>type: permission</code> даёт проход по выданному праву, <code>type: OP</code> работает только у операторов сервера.</dd>
-                <dt><code>rp.radius</code></dt><dd>Кто видит строку: <code>0</code> это весь сервер, больше нуля игроки того же мира в квадрате радиуса от автора. Консоль читает все строки.</dd>
-                <dt><code>rp.try-success</code></dt><dd>Шаблон удачного исхода.</dd>
-                <dt><code>rp.try-failure</code></dt><dd>Шаблон неудачного исхода.</dd>
+                <dt><code>rp.radius</code></dt><dd>Кто видит строку: <code>0</code> это весь сервер, больше нуля игроки того же мира в квадрате радиуса от автора. Консоль читает все строки. Радиус общий у <code>/me</code>, <code>/do</code>, <code>/roll</code> и <code>/try</code>.</dd>
                 <dt><code>rp.try-chance</code></dt><dd>Шанс успеха в процентах, от 0 до 100; по умолчанию 50.</dd>
+                <dt><code>rp.try-success</code></dt><dd>Шаблон удачного исхода в <code>main_messages.yml</code>.</dd>
+                <dt><code>rp.try-failure</code></dt><dd>Шаблон неудачного исхода там же. В оба шаблона подставляется <code>%em_chance%</code> с шансом успеха.</dd>
               </dl>
             </section>
             <section class="doc-part doc-part-perm">
