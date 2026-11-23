@@ -864,6 +864,12 @@ html.js .chat-lines p {
 .tok-bool { color: var(--aqua); }
 .tok-com { color: #6f7c90; font-style: italic; }
 
+/* Java и XML (раздел «API для аддонов») */
+.tok-type { color: var(--aqua); }
+.tok-fnc { color: #82aaff; }
+.tok-ann { color: var(--yellow); }
+.code-block code .tok-tag { color: var(--purple); }
+
 .copy-btn {
   position: absolute;
   top: 8px;

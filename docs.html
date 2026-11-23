@@ -13,8 +13,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="index.css?v=23">
-<script src="script.js?v=23" defer></script>
+<link rel="stylesheet" href="index.css?v=24">
+<script src="script.js?v=24" defer></script>
 </head>
 <body class="docs-page">
 
@@ -643,13 +643,13 @@ guild-id: ""</code></pre></div>
               <li>Возьмите фасад <code>ExtendedManagerApi.get()</code> или <code>ExtendedManagerApi.of(plugin)</code> и работайте через сервисы.</li>
             </ol>
             <p>Репозиторий плагина приватен, артефакта в Maven Central нет. Файл сначала ставят в локальный репозиторий командой <code>mvn install:install-file</code> с аргументами <code>-Dfile</code>, <code>-DgroupId=ru.extendedmanager</code>, <code>-DartifactId=ExtendedManager</code>, <code>-Dversion</code> и <code>-Dpackaging=jar</code>, либо указывают <code>system</code> с <code>systemPath</code> на <code>libs/</code>.</p>
-            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>&lt;dependency&gt;
+            <div class="code-block code-xml"><button class="copy-btn" type="button">Копировать</button><pre><code>&lt;dependency&gt;
     &lt;groupId&gt;ru.extendedmanager&lt;/groupId&gt;
     &lt;artifactId&gt;ExtendedManager&lt;/artifactId&gt;
     &lt;version&gt;0.15.1&lt;/version&gt;
     &lt;scope&gt;provided&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre></div>
-            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>ExtendedManagerApi api = ExtendedManagerApi.get();      // null, если плагина нет
+            <div class="code-block code-java"><button class="copy-btn" type="button">Копировать</button><pre><code>ExtendedManagerApi api = ExtendedManagerApi.get();      // null, если плагина нет
 ExtendedManagerApi api = ExtendedManagerApi.of(Bukkit.getPluginManager()
         .getPlugin("ExtendedManager"));                 // то же через Plugin</code></pre></div>
             <table class="req req-wide">
@@ -718,7 +718,7 @@ ExtendedManagerApi api = ExtendedManagerApi.of(Bukkit.getPluginManager()
             <div class="callout callout-warn"><p><code>AdminActionEvent</code> даёт аддону снять или переписать сообщение <code>admin_actions</code>. Отменённое событие не уходит ни в чат, ни в Discord, но само действие над игроком остаётся, а личное сообщение цели из секции <code>target</code> приходит независимо от отмены.</p></div>
 
             <h3 id="api-placeholders">Свои плейсхолдеры</h3>
-            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>api.placeholders().register(this, "rank_score", (player, argument) -&gt;
+            <div class="code-block code-java"><button class="copy-btn" type="button">Копировать</button><pre><code>api.placeholders().register(this, "rank_score", (player, argument) -&gt;
         player == null ? "" : String.valueOf(score(player.getUniqueId())));</code></pre></div>
             <ul>
               <li>имя ключа: строчные буквы, цифры и подчёркивание от 2 до 32 символов, без <code>em_</code> и без знаков <code>%</code>, то есть <code>%em_rank_score%</code>;</li>
@@ -729,7 +729,7 @@ ExtendedManagerApi api = ExtendedManagerApi.of(Bukkit.getPluginManager()
             </ul>
 
             <h3 id="api-commands">Свои команды</h3>
-            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>api.commands().register(this,
+            <div class="code-block code-java"><button class="copy-btn" type="button">Копировать</button><pre><code>api.commands().register(this,
         CommandsApi.Info.of("whois", "Карточка игрока"),
         new CommandsApi.Handler() {
             @Override
@@ -759,7 +759,7 @@ ExtendedManagerApi api = ExtendedManagerApi.of(Bukkit.getPluginManager()
             <p>Имя команды: строчные буквы, цифры и подчёркивание от 2 до 32 символов, свободное в реестре Bukkit и не занятое самим Extended Manager. Команда попадает в реестр под своим именем и вызывается как <code>/whois</code>; занятое имя не перезаписывается, <code>register</code> на нём возвращает <code>false</code>. Проверки модуля, блока команды и задержки плагин делает сам, дублировать их в аддоне не нужно. <code>unregister</code> и <code>unregisterAll(owner)</code> снимают команду без следа, а в <code>tab</code> плагин подставляет алиас, которым её позвали.</p>
 
             <h3 id="api-minimal">Минимальный аддон</h3>
-            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>public final class MyAddon extends JavaPlugin {
+            <div class="code-block code-java"><button class="copy-btn" type="button">Копировать</button><pre><code>public final class MyAddon extends JavaPlugin {
 
     private ExtendedManagerApi api;
 
