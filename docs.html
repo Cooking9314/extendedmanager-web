@@ -4,17 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Документация Extended Manager</title>
-<meta name="description" content="Документация Extended Manager: ядро и модули, база данных, прокси и сеть, безопасность, чат, MOTD, NPC, Discord-бот, HTTP API, перезапуск, справочник всех команд с правами и примерами, миры, оформление текста, интеграции, приложение и вопросы. Ключи YAML, значения по умолчанию и примеры.">
+<meta name="description" content="Документация Extended Manager: ядро и модули, база данных, прокси и сеть, безопасность, чат, MOTD, NPC, Discord-бот, Java API для аддонов, перезапуск, справочник всех команд с правами и примерами, миры, оформление текста, интеграции и вопросы. Ключи YAML, значения по умолчанию и примеры.">
 <meta name="theme-color" content="#0a0c11">
 <meta property="og:title" content="Документация Extended Manager: ключи конфигурации по модулям">
-<meta property="og:description" content="31 раздел: установка, ядро, база данных, прокси, безопасность, чат, MOTD, NPC, Discord, HTTP API, перезапуск, справочник команд, миры, текст, интеграции, приложение и FAQ. Поиск, оглавление и примеры YAML.">
+<meta property="og:description" content="30 разделов: установка, ядро, база данных, прокси, безопасность, чат, MOTD, NPC, Discord, API для аддонов, перезапуск, справочник команд, миры, текст, интеграции и FAQ. Поиск, оглавление и примеры YAML.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234fa9ff'/%3E%3Cstop offset='1' stop-color='%237d5cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M13.69%2020.63L6%2020.63L6%2011.37L13.52%2011.37L13.52%2013.73L9.07%2013.73L9.07%2014.81L12.98%2014.81L12.98%2017.06L9.07%2017.06L9.07%2018.27L13.69%2018.27L13.69%2020.63M17.74%2020.63L14.9%2020.63L14.9%2011.37L17.46%2011.37L20.47%2016.3L23.41%2011.37L25.97%2011.37L26%2020.63L23.16%2020.63L23.13%2016.41L21.12%2019.79L19.75%2019.79L17.74%2016.56L17.74%2020.63' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="index.css?v=22">
-<script src="script.js?v=22" defer></script>
+<link rel="stylesheet" href="index.css?v=23">
+<script src="script.js?v=23" defer></script>
 </head>
 <body class="docs-page">
 
@@ -33,7 +33,7 @@
     </svg>
     </span>
     <span class="preloader-name">Extended Manager</span>
-    <span class="preloader-version">v0.15.0</span>
+    <span class="preloader-version">v0.15.1</span>
     <span class="preloader-bar"><i id="preloader-bar-fill"></i></span>
     <span class="preloader-meta"><span class="preloader-tip" id="preloader-tip">ядро</span><span class="preloader-pct" id="preloader-pct">0%</span></span>
   </div>
@@ -99,14 +99,13 @@
             <button class="docs-link" type="button" data-doc="security">Безопасность</button>
             <button class="docs-link" type="button" data-doc="npc">NPC</button>
             <button class="docs-link" type="button" data-doc="discord">Discord-бот</button>
-            <button class="docs-link" type="button" data-doc="api">HTTP API</button>
+            <button class="docs-link" type="button" data-doc="api">API для аддонов</button>
             <button class="docs-link" type="button" data-doc="restart">Перезапуск</button>
             <p class="docs-group">Команды</p>
             <button class="docs-link" type="button" data-doc="cmd-rules">Общее о командах</button>
 <p class="docs-group">Интеграции</p>
             <button class="docs-link" type="button" data-doc="proxy">Прокси и сеть</button>
             <button class="docs-link" type="button" data-doc="hooks">Сторонние плагины</button>
-            <button class="docs-link" type="button" data-doc="app">Приложение</button>
             <p class="docs-group">Сообщения</p>
             <button class="docs-link" type="button" data-doc="chat">Чат и рассылка</button>
             <button class="docs-link" type="button" data-doc="adminaction">Действия администрации</button>
@@ -121,12 +120,12 @@
           <article class="doc is-active" id="doc-start" data-group="Конфигурация">
             <p class="doc-crumbs">Документация <span>/</span> Конфигурация</p>
             <h2>Обзор и быстрый старт</h2>
-            <p class="doc-lead">Extended Manager, ядро управления сервером: один JAR закрывает вход и регистрацию, наказания, чат, миры, NPC, Discord, перезапуск и HTTP API. Всё настраивается YAML-файлами в папке плагина.</p>
+            <p class="doc-lead">Extended Manager, ядро управления сервером: один JAR закрывает вход и регистрацию, наказания, чат, миры, NPC, Discord, перезапуск и Java API для аддонов. Всё настраивается YAML-файлами в папке плагина.</p>
 
             <h3 id="start-modules">Что внутри</h3>
-            <p>Шесть модулей, каждый со своей папкой настроек. По умолчанию все выключены: свежая установка создаёт только файлы ядра.</p>
+            <p>Пять модулей, каждый со своей папкой настроек. По умолчанию все выключены: свежая установка создаёт только файлы ядра.</p>
             <ul class="chips">
-              <li>security</li><li>chat</li><li>motd</li><li>npc</li><li>discord</li><li>api</li>
+              <li>security</li><li>chat</li><li>motd</li><li>npc</li><li>discord</li>
             </ul>
 
             <h3 id="start-install">Установка</h3>
@@ -144,7 +143,7 @@
             <h3 id="start-req">Требования</h3>
             <table class="req">
               <tbody>
-                <tr><th>Сервер</th><td>Bukkit, Spigot, Paper или Purpur 26.3; для 26.2 есть отдельная сборка того же 0.15.0</td></tr>
+                <tr><th>Сервер</th><td>Bukkit, Spigot, Paper или Purpur 26.3; для 26.2 есть отдельная сборка того же 0.15.1</td></tr>
                 <tr><th>Java</th><td>25 или новее на сервере</td></tr>
                 <tr><th>Прокси</th><td>BungeeCord, Waterfall или Velocity с адаптером ExtendedManager</td></tr>
                 <tr><th>База</th><td>SQLite без настройки; MySQL, MariaDB или PostgreSQL: для сети серверов</td></tr>
@@ -155,14 +154,13 @@
   chat: true
   motd: true
   npc: false
-  discord: false
-  api: false</code></pre></div>
+  discord: false</code></pre></div>
           </article>
 
           <article class="doc" id="doc-core" data-group="Конфигурация">
             <p class="doc-crumbs">Документация <span>/</span> Конфигурация</p>
             <h2>Ядро и модули</h2>
-            <p class="doc-lead">Файл <code>config.yml</code> главный: модули, префикс, интеграции, рассылка, AFK, привилегии, геолокация, прокси, сеть, API и база данных.</p>
+            <p class="doc-lead">Файл <code>config.yml</code> главный: модули, префикс, интеграции, рассылка, AFK, привилегии, геолокация, прокси, сеть и база данных.</p>
 
             <h3 id="core-modules">Модули</h3>
             <p>Ключ <code>modules</code> решает, какие папки и файлы создаются и какие команды работают. Выключенный модуль отвечает сообщением <code>module-disabled</code>, его файлы не читаются и не удаляются.</p>
@@ -171,9 +169,8 @@
   chat: false
   motd: false
   npc: false
-  discord: false
-  api: false</code></pre></div>
-            <div class="callout callout-note"><p>С 0.15.0 <code>utils</code> больше не модуль: планировщик перезапуска и <code>/em restart</code> работают всегда, а ключ <code>modules.utils</code> автообновление убирает из файла. Модулей шесть.</p></div>
+  discord: false</code></pre></div>
+            <div class="callout callout-note"><p>С 0.15.0 <code>utils</code> больше не модуль: планировщик перезапуска и <code>/em restart</code> работают всегда, а ключ <code>modules.utils</code> автообновление убирает из файла. С 0.15.1 модуля <code>api</code> тоже нет: HTTP API и его ключ удалены, а Java API для аддонов работает независимо от <code>modules</code>. Модулей пять.</p></div>
 
             <h3 id="core-keys">Основные секции</h3>
             <table class="req req-wide">
@@ -220,7 +217,7 @@
     password: ""
     use-ssl: false</code></pre></div>
             <h3 id="db-tables">Таблицы</h3>
-            <p>Плагин сам ведёт схему: при старте и после <code>/em reload</code> он сравнивает номер схемы в таблице <code>&lt;префикс&gt;meta</code> со своим и добирает недостающие таблицы и колонки. В 0.15.0 номер схемы 14.</p>
+            <p>Плагин сам ведёт схему: при старте и после <code>/em reload</code> он сравнивает номер схемы в таблице <code>&lt;префикс&gt;meta</code> со своим и добирает недостающие таблицы и колонки. В 0.15.1 номер схемы 15, она убирает запись <code>api_key</code>.</p>
             <table class="req req-wide">
               <tbody>
                 <tr><th><code>accounts</code></th><td>аккаунты игроков: пароль Argon2id, SID мультиаккаунта, IP, дата последнего входа</td></tr>
@@ -231,7 +228,7 @@
                 <tr><th><code>auth_sessions</code></th><td>сессии входа: в общей базе их видят все серверы сети</td></tr>
                 <tr><th><code>inventories</code></th><td>снимки инвентаря для <code>/invsee</code> и <code>/trade</code></td></tr>
                 <tr><th><code>playtime</code></th><td>наигранное время по суткам, из него собран <code>/toponline</code> (0.15.0)</td></tr>
-                <tr><th><code>meta</code></th><td>номер схемы и ключ приложения</td></tr>
+                <tr><th><code>meta</code></th><td>номер схемы; до 0.15.1 здесь же лежал ключ HTTP API, схема 15 удалила эту запись</td></tr>
               </tbody>
             </table>
             <div class="callout callout-note"><p>Без базы таблица <code>playtime</code> не заводится: <code>/toponline</code> считает только нынешний онлайн и пишет в журнал предупреждение <code>toponline.memory</code>.</p></div>
@@ -387,7 +384,7 @@ duration-forever: "навсегда"</code></pre></div>
               <dt><code>console</code></dt><dd>Дублировать ли каждую строку в консоль сервера.</dd>
               <dt><code>prefix-enabled</code></dt><dd>Ставить ли префикс перед сообщениями. По умолчанию выключен: действие и так начинается с имени администратора.</dd>
               <dt><code>prefix</code></dt><dd>Сам префикс, MiniMessage или старые коды <code>&amp;</code>. Работает и для текстов из <code>target</code>.</dd>
-              <dt><code>console-name</code></dt><dd>Имя для <code>%em_admin_name%</code>, когда действие выполняет консоль: команда с консоли, HTTP API или приложение.</dd>
+              <dt><code>console-name</code></dt><dd>Имя для <code>%em_admin_name%</code>, когда действие выполняет консоль: команда с консоли или вызов аддона через Java API.</dd>
               <dt><code>default-reason</code></dt><dd>Чем заменять <code>%em_reason%</code>, когда причину не указали.</dd>
               <dt><code>duration-forever</code></dt><dd>Что подставлять в <code>%em_duration%</code> у бессрочных наказаний и привилегий.</dd>
             </dl>
@@ -497,7 +494,7 @@ heal-self: "%em_admin_name% восстановил здоровье %em_oneself%
               </tbody>
             </table>
             <div class="callout callout-important"><p>Сообщение из <code>target</code> доходит всегда: и при <code>enabled: false</code>, и когда администратор в vanish. Игрок должен знать, что с ним сделали, даже если сотрудники об этом не узнают.</p></div>
-            <p>Нет строки в <code>target</code>, цель о действии отдельно не узнаёт: остаётся только общий чат. Префикс из <code>prefix</code> ставится и перед этими текстами, если <code>prefix-enabled: true</code>. Действия консоли и API цели в сети не имеют, поэтому <code>target</code> они не пишут.</p>
+            <p>Нет строки в <code>target</code>, цель о действии отдельно не узнаёт: остаётся только общий чат. Префикс из <code>prefix</code> ставится и перед этими текстами, если <code>prefix-enabled: true</code>. Действия консоли и аддона цели в сети не имеют, поэтому <code>target</code> они не пишут.</p>
 
             <h3 id="adminaction-see">Кто видит сообщения</h3>
             <div class="doc-perms">
@@ -636,37 +633,184 @@ guild-id: ""</code></pre></div>
 
           <article class="doc" id="doc-api" data-group="Модули">
             <p class="doc-crumbs">Документация <span>/</span> Модули</p>
-            <h2>HTTP API</h2>
-            <p class="doc-lead">Модуль <code>api</code> поднимает HTTP API для приложения управления: игроки, аккаунты, скины, инвентарь, чтение базы, консоль и SSE-потоки событий.</p>
+            <h2>API для аддонов</h2>
+            <p class="doc-lead">С 0.15.1 вместо HTTP API плагин отдаёт Java слой <code>ru.extendedmanager.api</code>: фасад <code>ExtendedManagerApi</code>, четырнадцать сервисов, двенадцать публичных событий и две точки расширения для своих плейсхолдеров и команд. Своего файла у слоя нет, он включён всегда и не зависит от секции <code>modules</code>.</p>
 
-            <h3 id="api-start">Запуск</h3>
-            <p>Требуется Paper или Purpur. Адрес и порт живут в секции <code>api</code> файла <code>config.yml</code>, включается модуль ключом <code>modules.api</code>.</p>
-            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>api:
-  host: "127.0.0.1"
-  port: 25590</code></pre></div>
-
-            <h3 id="api-key">Ключ доступа</h3>
-            <p>Ключ генерируется один раз при первом запуске модуля: 48 символов, 288 бит энтропии. Ключ хранится в таблице <code>&lt;префикс&gt;meta</code>, поэтому переживает рестарты и перенос конфига. Показать его может только <code>/em app key</code>; в файлы и журнал ключ не попадает. Запросы сверяются по SHA3-512.</p>
-            <div class="callout callout-danger">
-              <p>HTTP не шифруется: подключайтесь через localhost, VPN или SSH-туннель. Маршруты <code>/api/v1/*</code> требуют заголовок <code>Authorization: Bearer &lt;ключ&gt;</code>.</p>
-            </div>
-
-            <h3 id="api-routes">Маршруты</h3>
+            <h3 id="api-connect">Как подключиться</h3>
+            <ol class="steps">
+              <li>Положите JAR Extended Manager в <code>libs/</code> своего аддона и объявите зависимость со scope <code>provided</code>.</li>
+              <li>Допишите в <code>plugin.yml</code> строку <code>depend: [ExtendedManager]</code>: плагин загрузится раньше, и слой будет готов к моменту <code>onEnable</code>.</li>
+              <li>Возьмите фасад <code>ExtendedManagerApi.get()</code> или <code>ExtendedManagerApi.of(plugin)</code> и работайте через сервисы.</li>
+            </ol>
+            <p>Репозиторий плагина приватен, артефакта в Maven Central нет. Файл сначала ставят в локальный репозиторий командой <code>mvn install:install-file</code> с аргументами <code>-Dfile</code>, <code>-DgroupId=ru.extendedmanager</code>, <code>-DartifactId=ExtendedManager</code>, <code>-Dversion</code> и <code>-Dpackaging=jar</code>, либо указывают <code>system</code> с <code>systemPath</code> на <code>libs/</code>.</p>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;ru.extendedmanager&lt;/groupId&gt;
+    &lt;artifactId&gt;ExtendedManager&lt;/artifactId&gt;
+    &lt;version&gt;0.15.1&lt;/version&gt;
+    &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre></div>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>ExtendedManagerApi api = ExtendedManagerApi.get();      // null, если плагина нет
+ExtendedManagerApi api = ExtendedManagerApi.of(Bukkit.getPluginManager()
+        .getPlugin("ExtendedManager"));                 // то же через Plugin</code></pre></div>
             <table class="req req-wide">
               <tbody>
-                <tr><th><code>/health</code></th><td>Состояние сервера и отсчёта перезапуска</td></tr>
-                <tr><th><code>/api/v1/server/restart</code></th><td>Запуск и отмена отсчёта перезапуска телом <code>{"action":"schedule","minutes":5}</code></td></tr>
-                <tr><th>игроки</th><td>Список, скины, действия и инвентарь</td></tr>
-                <tr><th>аккаунты</th><td>Привязки адресов, история наказаний</td></tr>
-                <tr><th>база и консоль</th><td>Чтение таблиц и команды консоли, поток журнала через SSE</td></tr>
+                <tr><th><code>get()</code></th><td>Фасад работающего плагина; <code>null</code>, если Extended Manager на сервере нет</td></tr>
+                <tr><th><code>of(plugin)</code></th><td>То же по объекту <code>Plugin</code>: удобно в <code>onEnable</code>, где аддон ищет плагин через менеджер</td></tr>
+                <tr><th><code>api.version()</code></th><td>Версия плагина</td></tr>
+                <tr><th><code>api.plugin()</code></th><td>Сам объект плагина Extended Manager</td></tr>
               </tbody>
             </table>
+            <div class="callout callout-info">
+              <p>Слой создаётся один раз вместе с Extended Manager и снимает всё, что зарегистрировали аддоны, при своём выключении. Каждый метод ведёт тот же менеджер плагина, что и одноимённая команда, поэтому публикация в чат, запись в базу, сброс кэша предупреждений и причина кика остаются целыми: аддон не пишет в таблицы и не собирает строки сам.</p>
+            </div>
+
+            <h3 id="api-threads">Правила потоков</h3>
+            <table class="req req-wide">
+              <tbody>
+                <tr><th>Только главный поток</th><td><code>restart().schedule</code> и <code>cancel</code>, <code>commands().register</code> и <code>unregister</code>, <code>placeholders().register</code> и <code>unregister</code></td></tr>
+                <tr><th>Главный поток</th><td><code>players()</code>, <code>statuses()</code>, <code>chat()</code>, <code>inventories().capture</code>: это объекты Bukkit</td></tr>
+                <tr><th>Любой поток</th><td><code>accounts()</code>, <code>punishments()</code>, <code>mutes()</code>, <code>warnings()</code>, <code>playtime()</code>, <code>discord()</code>, <code>server()</code> и <code>restart().state()</code>. Ждущий запрос к базе в главном потоке остановит сервер</td></tr>
+                <tr><th>Вне главного потока</th><td><code>accounts().checkPassword</code> и <code>setPassword</code>: Argon2id считает десятки миллисекунд</td></tr>
+              </tbody>
+            </table>
+            <div class="callout callout-note"><p>Отсутствующее значение отдаётся <code>Optional.empty()</code>, пустым списком или <code>false</code>: <code>null</code> не возвращает ни один метод чтения.</p></div>
+
+            <h3 id="api-services">Сервисы</h3>
+            <p>Фасад отдаёт четырнадцать сервисов, по одному на половину плагина. Общей цели у наказаний и действий служит record <code>Target</code> с <code>uuid</code>, <code>name</code>, <code>sid</code> и удобными <code>display()</code>, <code>online()</code>, <code>player()</code>.</p>
+            <table class="req req-wide">
+              <tbody>
+                <tr><th><code>players()</code></th><td><code>byUuid</code>, <code>byName</code>, <code>online</code>, <code>onlineCount</code>, <code>visibleTo</code> и <code>canSee</code> с учётом vanish, <code>resolve</code> и <code>selector</code> по нику, SID или селектору <code>@a</code>, <code>@p</code>, <code>@r</code>, <code>sidOf</code>, <code>isSid</code></td></tr>
+                <tr><th><code>accounts()</code></th><td><code>byUuid</code>, <code>byName</code>, <code>bySid</code>, <code>withSid</code> для мультиаккаунтов одного SID, <code>uuidOf</code>, <code>nameOf</code>, <code>sidOf</code>, <code>sidsOf</code>, <code>nextSid</code>, <code>setSid</code>, <code>registered</code>, <code>authenticated</code>, <code>authActive</code>, <code>sessionLastActive</code>, <code>checkPassword</code>, <code>setPassword</code>, <code>hashPassword</code>, <code>passwordAllowed</code>, <code>passwordMinLength</code></td></tr>
+                <tr><th><code>punishments()</code></th><td><code>ban</code> в двух формах, <code>banBySid</code>, <code>unban</code>, <code>active</code>, <code>activeOf</code>, <code>isBanned</code>, <code>byIp</code>, <code>historyOf</code>, <code>attachIp</code>, <code>kick</code>, <code>kickAll</code>, <code>durationText</code></td></tr>
+                <tr><th><code>mutes()</code></th><td><code>mute</code> в двух формах, <code>unmute</code>, <code>active</code>, <code>activeOf</code>, <code>isMuted</code>, <code>forget</code>; различает <code>Kind.TEXT</code> и <code>Kind.VOICE</code></td></tr>
+                <tr><th><code>warnings()</code></th><td><code>warn</code>, <code>unwarn</code> последнего или по номеру, <code>active</code>, <code>activeOf</code>, <code>count</code>, <code>forget</code></td></tr>
+                <tr><th><code>chat()</code></th><td><code>moduleEnabled</code>, <code>format</code>, <code>plain</code>, <code>send</code>, <code>sendFormatted</code>, <code>broadcast</code>, <code>say</code>, <code>adminChat</code>, <code>adminChatPrefix</code>, <code>actionBar</code>, <code>title</code> в двух формах, <code>adminAction</code>, <code>adminActionBy</code></td></tr>
+                <tr><th><code>statuses()</code></th><td><code>isVanished</code>, <code>toggleVanish</code>, <code>isVisibleTo</code>, <code>isAfk</code>, <code>toggleAfk</code>, <code>leaveAfk</code>, <code>afkTime</code>, <code>afkEnabled</code>, <code>isFrozen</code>, <code>freeze</code>, <code>unfreeze</code>, <code>isGod</code>, <code>toggleGod</code>, <code>isCloaked</code>, <code>cloak</code>, <code>uncloak</code>, <code>cloakedCount</code>, <code>ignite</code>, <code>extinguish</code></td></tr>
+                <tr><th><code>inventories()</code></th><td><code>available</code>, <code>capture</code>, <code>save</code>, <code>latest(name)</code> на 41 слот и 27 эндер-сундука, <code>describe</code>, константы <code>INVENTORY_SLOTS</code> и <code>ENDER_SLOTS</code></td></tr>
+                <tr><th><code>playtime()</code></th><td><code>available</code>, <code>top(period)</code> и <code>top(period, page)</code> с <code>Board</code>, <code>sinceDay</code>, <code>record</code>, <code>totalPlayers</code>; период берётся теми же строками, что и у <code>/toponline</code></td></tr>
+                <tr><th><code>discord()</code></th><td><code>available</code>, <code>linkOf</code>, <code>linkOfDiscord</code>, <code>accountOf</code>, <code>requestCode</code>, <code>cancelRequest</code>, <code>unlink</code>, <code>setTwoFactor</code>, <code>requiresTwoFactor</code>, <code>templates</code>, <code>publish(template, channelId, map)</code></td></tr>
+                <tr><th><code>restart()</code></th><td><code>available</code>, <code>enabled</code>, <code>schedule</code>, <code>cancel</code>, <code>state</code>, <code>maxMinutes</code>, <code>reason</code></td></tr>
+                <tr><th><code>server()</code></th><td><code>platform</code>, <code>minecraftVersion</code>, <code>pluginVersion</code>, <code>pluginAuthors</code>, <code>tps</code>, <code>tps1</code>, <code>uptimeMillis</code>, <code>uptimeText</code>, <code>onlineCount</code>, <code>maxPlayers</code>, <code>serverId</code>, <code>debugEnabled</code></td></tr>
+                <tr><th><code>placeholders()</code></th><td>свои <code>%em_*%</code>: <code>register</code>, <code>unregister</code>, <code>unregisterAll</code>, <code>keys</code>, <code>isRegistered</code>, <code>resolve</code></td></tr>
+                <tr><th><code>commands()</code></th><td>свои команды: <code>register</code>, <code>unregister</code>, <code>unregisterAll</code>, <code>names</code></td></tr>
+              </tbody>
+            </table>
+            <div class="callout callout-note"><p>Каждый сервис дополнительно отвечает <code>available()</code> там, где работу ограничивает выключенный модуль или недоступная база, и <code>enabled()</code> там, где ограничивает собственный конфиг сервиса.</p></div>
+
+            <h3 id="api-events">События</h3>
+            <p>Двенадцать событий пакета <code>ru.extendedmanager.api.event</code> шлются из главного потока и покрывают те же точки, что и команды плагина, поэтому порядок их появления не зависит от того, кто вызвал действие. У каждого есть <code>getHandlerList()</code>, слушать его можно обычным <code>@EventHandler</code>.</p>
+            <table class="req req-wide">
+              <tbody>
+                <tr><th><code>PlayerBanEvent</code></th><td>бан записан и игрок выброшен: <code>admin</code>, <code>target</code>, <code>name</code>, <code>sid</code>, <code>seconds</code>, <code>permanent()</code>, <code>reason</code></td></tr>
+                <tr><th><code>PlayerUnbanEvent</code></th><td><code>unban</code> снял записи: <code>admin</code>, <code>target</code>, <code>name</code>, <code>sid</code>, <code>removed</code></td></tr>
+                <tr><th><code>PlayerMuteEvent</code></th><td>мьют или гаг записан: <code>admin</code>, <code>target</code>, <code>name</code>, <code>sid</code>, <code>voice</code>, <code>seconds</code>, <code>permanent()</code>, <code>reason</code></td></tr>
+                <tr><th><code>PlayerUnmuteEvent</code></th><td><code>unmute</code> снял записи: <code>admin</code>, <code>target</code>, <code>name</code>, <code>voice</code>, <code>removed</code></td></tr>
+                <tr><th><code>PlayerWarnEvent</code></th><td>предупреждение выдано: <code>admin</code>, <code>target</code>, <code>name</code>, <code>sid</code>, <code>count</code>, <code>reason</code></td></tr>
+                <tr><th><code>PlayerUnwarnEvent</code></th><td>предупреждение снято: <code>admin</code>, <code>target</code>, <code>name</code>, <code>sid</code>, <code>removed</code></td></tr>
+                <tr><th><code>PlayerVanishEvent</code></th><td><code>vanish</code> переключён: <code>player</code>, <code>vanished</code></td></tr>
+                <tr><th><code>PlayerAfkEvent</code></th><td>вход в AFK и выход из него: <code>player</code>, <code>afk</code>, <code>manual</code>. Флаг различает команду игрока и переход по неактивности</td></tr>
+                <tr><th><code>PlayerFreezeEvent</code></th><td><code>freeze</code> переключён: <code>admin</code>, <code>player</code>, <code>frozen</code></td></tr>
+                <tr><th><code>AdminActionEvent</code></th><td>перед публикацией действия администрации в чат и Discord: <code>admin</code>, <code>target</code>, <code>key</code>, <code>message</code>. Отменяемое</td></tr>
+                <tr><th><code>ServerRestartScheduledEvent</code></th><td>отсчёт перезапуска начат командой, расписанием или аддоном: <code>admin</code>, <code>seconds</code>, <code>reason</code>, <code>scheduled</code></td></tr>
+                <tr><th><code>ServerRestartCanceledEvent</code></th><td>отсчёт снят, расписание остаётся: <code>admin</code>, <code>remainingSeconds</code>, <code>reason</code></td></tr>
+              </tbody>
+            </table>
+            <div class="callout callout-warn"><p><code>AdminActionEvent</code> даёт аддону снять или переписать сообщение <code>admin_actions</code>. Отменённое событие не уходит ни в чат, ни в Discord, но само действие над игроком остаётся, а личное сообщение цели из секции <code>target</code> приходит независимо от отмены.</p></div>
+
+            <h3 id="api-placeholders">Свои плейсхолдеры</h3>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>api.placeholders().register(this, "rank_score", (player, argument) -&gt;
+        player == null ? "" : String.valueOf(score(player.getUniqueId())));</code></pre></div>
+            <ul>
+              <li>имя ключа: строчные буквы, цифры и подчёркивание от 2 до 32 символов, без <code>em_</code> и без знаков <code>%</code>, то есть <code>%em_rank_score%</code>;</li>
+              <li>аргумент после двоеточия (<code>%em_rank_score:nether</code>) приходит в <code>argument</code>, без него там пустая строка;</li>
+              <li>ключи ядра перекрыть нельзя: имена аддонов проверяются только в ветке <code>default</code>, поэтому <code>%em_sid%</code> остаётся значением Extended Manager;</li>
+              <li><code>null</code> и пустая строка означают «значения нет», токен остаётся в тексте;</li>
+              <li>при выключении Extended Manager слой снимает все регистрации сам, а при выключении аддона их обязан снять аддон: <code>unregisterAll(this)</code> в <code>onDisable()</code>.</li>
+            </ul>
+
+            <h3 id="api-commands">Свои команды</h3>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>api.commands().register(this,
+        CommandsApi.Info.of("whois", "Карточка игрока"),
+        new CommandsApi.Handler() {
+            @Override
+            public boolean execute(CommandSender sender, String label, String[] args) {
+                if (args.length == 0) {
+                    return false;                  // Bukkit покажет usage
+                }
+                Target target = api.players().resolve(args[0]);
+                sender.sendMessage(target == null ? "Игрок не найден." : target.display());
+                return true;
+            }
+
+            @Override
+            public List&lt;String&gt; tab(CommandSender sender, String label, String[] args) {
+                return args.length == 1 ? List.of("Notch", "Steve") : List.of();
+            }
+        });</code></pre></div>
+            <table class="req req-wide">
+              <tbody>
+                <tr><th><code>Info.of(name, description)</code></th><td>команда без алиасов, прав и привязки к модулю</td></tr>
+                <tr><th>Полная форма</th><td><code>new CommandsApi.Info(name, description, usage, permission, aliases, module)</code></td></tr>
+                <tr><th><code>module</code></th><td>включён ли модуль Extended Manager; пустая строка означает «работает всегда», выключенный модуль отвечает своим текстом</td></tr>
+                <tr><th><code>command_config.yml</code></th><td>блок команды работает и для команды аддона: <code>enable</code> и задержка <code>cooldown</code> с обходным правом <code>extendedmanager.command.&lt;имя&gt;.cooldown.bypass</code>; алиасы берёт <code>Info</code></td></tr>
+                <tr><th><code>permission</code></th><td>право из <code>plugin.yml</code> аддона</td></tr>
+              </tbody>
+            </table>
+            <p>Имя команды: строчные буквы, цифры и подчёркивание от 2 до 32 символов, свободное в реестре Bukkit и не занятое самим Extended Manager. Команда попадает в реестр под своим именем и вызывается как <code>/whois</code>; занятое имя не перезаписывается, <code>register</code> на нём возвращает <code>false</code>. Проверки модуля, блока команды и задержки плагин делает сам, дублировать их в аддоне не нужно. <code>unregister</code> и <code>unregisterAll(owner)</code> снимают команду без следа, а в <code>tab</code> плагин подставляет алиас, которым её позвали.</p>
+
+            <h3 id="api-minimal">Минимальный аддон</h3>
+            <div class="code-block"><button class="copy-btn" type="button">Копировать</button><pre><code>public final class MyAddon extends JavaPlugin {
+
+    private ExtendedManagerApi api;
+
+    @Override
+    public void onEnable() {
+        api = ExtendedManagerApi.of(getServer().getPluginManager()
+                .getPlugin("ExtendedManager"));
+        if (api == null) {
+            getLogger().severe("ExtendedManager не найден, аддон выключается.");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+        getServer().getPluginManager().registerEvents(new Listener() {
+            @EventHandler
+            public void onBan(PlayerBanEvent event) {
+                getServer().getConsoleSender().sendMessage("Забанен " + event.name());
+            }
+        }, this);
+    }
+
+    @Override
+    public void onDisable() {
+        if (api != null) {
+            api.commands().unregisterAll(this);
+            api.placeholders().unregisterAll(this);
+        }
+    }
+}</code></pre></div>
+
+            <h3 id="api-hidden">Чего слой не отдаёт</h3>
+            <ul class="chips">
+              <li>пароли и их хеши</li><li>поток консоли</li><li>правку конфигов</li><li>произвольные таблицы</li><li>HTTP</li>
+            </ul>
+            <table class="req req-wide">
+              <tbody>
+                <tr><th>Пароли и хеши</th><td>есть проверка и установка, но не сохранённое значение</td></tr>
+                <tr><th>Консоль и файлы</th><td>поток журнала, правка конфигурации и чтение произвольных таблиц остались у администратора, а не у аддона</td></tr>
+                <tr><th>HTTP</th><td>транспорта больше нет: <code>api.host</code>, <code>api.port</code> и ключ приложения удалены вместе с модулем <code>api</code></td></tr>
+              </tbody>
+            </table>
+            <div class="doc-perms">
+              <div class="doc-perm"><code>extendedmanager.command.app</code><span class="perm-scope">удалено в 0.15.1</span><p class="perm-desc">Прежнее право подкоманды <code>/em app</code>, которая показывала ключ HTTP API.</p></div>
+              <div class="doc-perm"><code>extendedmanager.command.api</code><span class="perm-scope">удалено в 0.15.1</span><p class="perm-desc">Прежнее право <code>/em api key</code> под тем же ключом доступа.</p></div>
+            </div>
+            <div class="callout callout-info"><p>Сервером по-прежнему командуют консоль, RCON и сами команды плагина. Проверить слой можно контрактом: <code>ApiContractTest</code> следит, что сервисы создаёт только плагин, у каждого события свой постоянный <code>HandlerList</code>, DTO не отдают наружу пароли и хеши, а классы удалённого HTTP API не возвращаются в сборку.</p></div>
           </article>
 
           <article class="doc" id="doc-restart" data-group="Модули">
             <p class="doc-crumbs">Документация <span>/</span> Модули</p>
             <h2>Перезапуск сервера</h2>
-            <p class="doc-lead">Остановка по расписанию, командой и из приложения: с предупреждениями, киками и сохранением миров. Файл: <code>utils/restart_config.yml</code>. С 0.15.0 перезапуск работает всегда, файл лежит в подпапке <code>utils</code> по соображениям совместимости.</p>
+            <p class="doc-lead">Остановка по расписанию, командой и из аддона: с предупреждениями, киками и сохранением миров. Файл: <code>utils/restart_config.yml</code>. С 0.15.0 перезапуск работает всегда, файл лежит в подпапке <code>utils</code> по соображениям совместимости.</p>
 
             <h3 id="restart-schedule">Расписание</h3>
             <p>Интервал в минутах и конкретные моменты вида <code>04:30</code>. Моменты, прошедшие до включения расписания, не догоняются пачкой.</p>
@@ -691,7 +835,7 @@ guild-id: ""</code></pre></div>
 
             <div class="callout callout-info"><p>Статус отсчёта показывает <code>/em restart status</code>, отмена запланированного перезапуска: <code>/em restart cancel</code>.</p></div>
             <h3 id="restart-run">Запуск отсчёта</h3>
-            <p>Три способа: планировщик по расписанию, команда <code>/em restart &lt;минуты|cancel|status&gt;</code> и API <code>POST /api/v1/server/restart</code>. Снятый вручную отсчёт повторно не всплывает.</p>
+            <p>Три способа: планировщик по расписанию, команда <code>/em restart &lt;минуты|cancel|status&gt;</code> и аддон через сервис <code>restart().schedule</code>. Причина отсчёта, заказанного аддоном, берётся из <code>messages.reason-api</code>. Снятый вручную отсчёт повторно не всплывает.</p>
           </article>
 
           <article class="doc" id="doc-cmd-rules" data-group="Команды">
@@ -712,7 +856,7 @@ guild-id: ""</code></pre></div>
           <article class="doc" id="doc-cmd-em" data-group="Команды">
             <p class="doc-crumbs">Документация <span>/</span> Команды</p>
             <h2>/em: ядро плагина</h2>
-            <p class="doc-lead">Служебная команда ядра: справка, состояние сборки, модули, интеграции, перезагрузка конфигов, база, ключ приложения и перезапуск сервера. Алиас <code>/extendedmanager</code>.</p>
+            <p class="doc-lead">Служебная команда ядра: справка, состояние сборки, модули, интеграции, перезагрузка конфигов, база и перезапуск сервера. Алиас <code>/extendedmanager</code>.</p>
             <h3 id="em-help">/em help</h3>
             <section class="doc-part doc-part-desc">
               <h4 class="doc-part-name">Описание</h4>
@@ -738,14 +882,14 @@ guild-id: ""</code></pre></div>
             <h3 id="em-info">/em info</h3>
             <section class="doc-part doc-part-desc">
               <h4 class="doc-part-name">Описание</h4>
-              <p>Состояние сборки: версия плагина и ядра, аптайм, игроки, включённые модули и интеграции, тип базы, адрес HTTP API, прокси-сеть и настройки голов из <code>player_heads</code>.</p>
+              <p>Состояние сборки: версия плагина и ядра, Java и её поставщик, аптайм, игроки и миры, авторы, включённые модули и интеграции, тип базы, прокси-сеть и настройки голов из <code>player_heads</code>. Строки с адресом HTTP API в списке нет: модуль удалён в 0.15.1.</p>
             </section>
             <section class="doc-part doc-part-set">
               <h4 class="doc-part-name">Настройка</h4>
               <table class="req req-wide"><tbody>
                 <tr><th>Синтаксис</th><td><code>/em info</code></td></tr>
                 <tr><th>Модули</th><td>Сколько модулей включено и какие выключены</td></tr>
-                <tr><th>API</th><td>Включён ли модуль, адрес и порт, есть ли ключ в базе</td></tr>
+                <tr><th>Интеграции</th><td>Работающие мягкие хуки: тот же список, что у <code>/em hooks</code></td></tr>
                 <tr><th>Сеть</th><td>Режим из <code>network.mode</code> и имя сервера</td></tr>
                 </tbody></table>
               <div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/em info</code></pre></div>
@@ -851,26 +995,6 @@ guild-id: ""</code></pre></div>
               <h4 class="doc-part-name">Права</h4>
               <div class="doc-perms">
                 <div class="doc-perm"><code>extendedmanager.command.db</code><span class="perm-scope is-op">по умолчанию у операторов</span><p class="perm-desc">Доступ к команде /em db (состояние базы, экспорт и импорт)</p></div>
-              </div>
-            </section>
-            <h3 id="em-app">/em app key</h3>
-            <section class="doc-part doc-part-desc">
-              <h4 class="doc-part-name">Описание</h4>
-              <p>Показывает ключ HTTP API для приложения. С 0.14.1 подкоманда называется <code>app</code>: ключ служит клиенту плагина, а не стороннему скрипту. Ключ генерируется один раз, хранится в базе и не попадает в файлы и журнал; сверка запросов идёт по SHA3-512.</p>
-            </section>
-            <section class="doc-part doc-part-set">
-              <h4 class="doc-part-name">Настройка</h4>
-              <table class="req req-wide"><tbody>
-                <tr><th>Синтаксис</th><td><code>/em app key</code></td></tr>
-                <tr><th>Прежнее имя</th><td><code>/em api key</code> и право <code>extendedmanager.command.api</code> продолжают работать</td></tr>
-                </tbody></table>
-              <div class="code-block code-cmd"><button class="copy-btn" type="button">Копировать</button><pre><code>/em app key</code></pre></div>
-              <div class="callout callout-danger"><p>Ключ видит только отправитель команды. Не публикуйте его: это полный доступ к API сервера.</p></div>
-            </section>
-            <section class="doc-part doc-part-perm">
-              <h4 class="doc-part-name">Права</h4>
-              <div class="doc-perms">
-                <div class="doc-perm"><code>extendedmanager.command.app</code><span class="perm-scope is-op">по умолчанию у операторов</span><p class="perm-desc">Доступ к команде /em app (ключ приложения для HTTP API)</p></div>
               </div>
             </section>
             <h3 id="em-restart">/em restart</h3>
@@ -4011,7 +4135,7 @@ types:
   inline: true
   hat: true</code></pre></div>
             <h3 id="head-inline">Голова компонентом</h3>
-            <p>В формат сообщения попадает тег <code>&lt;em_playerhead:имя&gt;</code>, а ядро превращает его в компонент головы. Скин онлайн-игрока берётся из профиля Paper, для игрока не в сети используется кэш, а если текстур в кэше нет, остаются имя или UUID и клиент дорисует скин сам. Где компонент недоступен: PlaceholderAPI, TAB, HTTP API и ядра без Adventure 5 получают прежнюю ссылку, поэтому форматы чата прежних версий продолжают работать.</p>
+            <p>В формат сообщения попадает тег <code>&lt;em_playerhead:имя&gt;</code>, а ядро превращает его в компонент головы. Скин онлайн-игрока берётся из профиля Paper, для игрока не в сети используется кэш, а если текстур в кэше нет, остаются имя или UUID и клиент дорисует скин сам. Где компонент недоступен: PlaceholderAPI, TAB и ядра без Adventure 5 получают прежнюю ссылку, поэтому форматы чата прежних версий продолжают работать.</p>
             <div class="callout callout-note"><p>Голова остаётся ссылкой там, где текст не проходит через чат плагина: в голограммах NPC и в рассылках сторонних плагинов.</p></div>
             <h3 id="head-placeholders">Плейсхолдеры</h3>
             <p>Без аргумента берётся игрок, к которому обращён плейсхолдер; после двоеточия можно написать имя или uuid: <code>%em_playerhead:Notch%</code>, <code>%em_playerhead:59c987a2-4ef3-48e5-a291-00abe9ca8f12%</code>. Ссылка собирается как <code>база/&lt;имя или uuid&gt;/&lt;размер&gt;.png</code>, поэтому <code>%em_playerhead%</code> отдаёт <code>https://mc-heads.net/avatar/59c987a2-4ef3-48e5-a291-00abe9ca8f12/8.png</code>, а <code>%em_playerbody%</code> ведёт к <code>https://mc-heads.net/player/59c987a2-4ef3-48e5-a291-00abe9ca8f12/16.png</code>. Работают плейсхолдеры там же, где и остальные <code>%em_*%</code>: форматы чата и админ-чата, рассылки, предупреждения о перезапуске, голограммы NPC, TAB и PlaceholderAPI. Полный список ключей в разделе <a href="#doc-placeholders">«Плейсхолдеры»</a>.</p>
@@ -4377,36 +4501,10 @@ links:
             <p><code>/setrank</code> и <code>/givedonate</code> требуют LuckPerms. Режим <code>ranks.mode: api</code> назначает группу через API, а <code>command</code> выполняет консольную команду из шаблона <code>ranks.command</code>. Оформление покупки задаёт секция <code>ranks.donate</code>.</p>
           </article>
 
-          <article class="doc" id="doc-app" data-group="Интеграции">
-            <p class="doc-crumbs">Документация <span>/</span> Интеграции</p>
-            <h2>Приложение управления</h2>
-            <p class="doc-lead">Extended Manager App для Windows подключается к HTTP API плагина и показывает сервер в реальном времени. Само приложение распространяется отдельно от плагина.</p>
-
-            <h3 id="app-connect">Подключение</h3>
-            <ol class="steps">
-              <li>Включите модуль <code>modules.api: true</code> и выполните <code>/em reload</code> (нужен Paper или Purpur).</li>
-              <li>Задайте адрес и порт в <code>config.yml → api</code> (по умолчанию <code>127.0.0.1:25590</code>).</li>
-              <li>Покажите ключ командой <code>/em app key</code> и скопируйте его.</li>
-              <li>В приложении добавьте сервер: адрес, порт и ключ доступа.</li>
-            </ol>
-            <div class="callout callout-danger">
-              <p>HTTP не шифруется: подключайтесь через localhost, VPN или SSH-туннель. Ключ передаётся в заголовке <code>Authorization: Bearer</code> и сверяется по SHA3-512. Подробнее в разделе «HTTP API».</p>
-            </div>
-
-            <h3 id="app-features">Возможности</h3>
-            <ul class="chips">
-              <li>живая консоль и события</li><li>игроки и скины</li><li>аккаунты</li><li>инвентарь</li><li>чтение базы</li><li>аналитика</li><li>перезапуск</li>
-            </ul>
-            <p>Консоль и события идут через SSE-потоки, игроки и скины идут через маршруты <code>/api/v1/*</code>, чтение базы и инвентарь через соответствующие маршруты API.</p>
-
-            <h3 id="app-multi">Несколько серверов</h3>
-            <p>Серверы сети за Velocity или BungeeCord добавляются в одно окно: у каждого свой адрес и ключ. Присутствие и кросс-серверные сессии настраиваются на стороне плагина, раздел «Прокси и сеть».</p>
-          </article>
-
           <article class="doc" id="doc-faq" data-group="FAQs">
             <p class="doc-crumbs">Документация <span>/</span> FAQs</p>
             <h2>Вопросы и проблемы</h2>
-            <p class="doc-lead">Частые вопросы по установке, модулям, прокси, API и наказаниям.</p>
+            <p class="doc-lead">Частые вопросы по установке, модулям, прокси, API для аддонов и наказаниям.</p>
 
             <div class="callout callout-note"><p>Если ответа нет, начните с <code>/em info</code> и <code>/em hooks</code>: они показывают версию, модули и состояние интеграций.</p></div>
             <h3 id="faq-module">Команда отвечает module-disabled</h3>
@@ -4415,15 +4513,16 @@ links:
             <h3 id="faq-proxy">Вход по IP ошибается за прокси</h3>
             <p>Без включённой поддержки прокси сервер видит адрес машины-прокси вместо адресов игроков. Включите поддержку прокси в <code>spigot.yml</code> (<code>bungeecord: true</code> для BungeeCord и Waterfall) и передачу адресов на Velocity (<code>forwarding</code> в <code>velocity.toml</code>). Плагин сверяет это при <code>proxy.check-server-config: true</code>.</p>
 
-            <h3 id="faq-api">Приложение не подключается к API</h3>
-            <p>Проверьте: модуль <code>api</code> включён, сервер на Paper или Purpur, адрес и порт в <code>config.yml → api</code> совпадают с настройками приложения, порт не закрыт firewall. Ключ показывается командой <code>/em app key</code>. HTTP не шифруется: используйте localhost, VPN или SSH-туннель.</p>
+            <h3 id="faq-api">ExtendedManagerApi.get() возвращает null</h3>
+            <p>Фасад создаётся вместе с Extended Manager, поэтому <code>null</code> означает, что плагина в момент обращения ещё нет. Проверьте JAR в <code>plugins/</code>, строку <code>depend: [ExtendedManager]</code> в <code>plugin.yml</code> аддона и место обращения: фасад берут в <code>onEnable</code>, а не в статическом блоке. Тем же списком проверяются пропавшие ключи и команды аддона: свой <code>%em_имя%</code> не перекрывает ключ ядра, имя команды должно быть свободно в реестре Bukkit и не занято Extended Manager, а <code>register</code> в отказе возвращает <code>false</code>. Имя и ключа, и команды задаётся одними символами: строчные буквы, цифры и подчёркивание от 2 до 32 символов.</p>
 
             <h3 id="faq-262">Нужна версия для 26.2</h3>
-            <p>Для Minecraft 26.2 есть отдельная сборка того же 0.14.1 (дерево <code>26.2</code> в репозитории). Основная сборка рассчитана на Paper API 26.3.</p>
+            <p>Для Minecraft 26.2 есть отдельная сборка того же 0.15.1 (дерево <code>26.2</code> в репозитории). Основная сборка рассчитана на Paper API 26.3.</p>
 
             <h3 id="faq-config">Где новые ключи конфигурации</h3>
             <p>Служебный <code>config-version</code> обновляется сам: при первом запуске новой версии недостающие ключи добавляются, а ваши значения сохраняются. Настройки наказаний и SID переехали в <code>punishments.yml</code> и <code>SID_config.yml</code> автоматически.</p>
-            <p>В 0.14.1 автообновление делает три структурных шага: переводит секцию <code>commands</code> на блоки <code>enable</code>, <code>aliases</code> и <code>cooldown</code>, переименовывает ключи с <code>api</code> на <code>app</code> и убирает <code>em api</code> из <code>help-groups</code>. Ключи удалённых <code>/nickname</code> и <code>/forcename</code> исчезают из файлов. Перед каждым таким шагом файл копируется в <code>backups/</code>, поэтому прежнюю правку можно вернуть.</p>
+            <p>Секция <code>commands</code> живёт блоками <code>enable</code>, <code>aliases</code> и <code>cooldown</code> с 0.14.1, тогда же из файлов исчезли ключи удалённых <code>/nickname</code> и <code>/forcename</code>. Перед каждым структурным шагом файл копируется в <code>backups/</code>, поэтому прежнюю правку можно вернуть.</p>
+            <p>В 0.15.1 автообновление убирает следы удалённого HTTP API: ключ <code>modules.api</code> и секцию <code>api</code> с <code>api.host</code> и <code>api.port</code> из <code>config.yml</code>, тексты <code>messages.app-key*</code> и <code>messages.api-key*</code>, строку <code>info.api</code> и справки подкоманды <code>em app</code> с её прежним именем <code>em api</code> из <code>main_messages.yml</code>. Схема базы 15 удаляет запись <code>api_key</code> из технической таблицы <code>&lt;префикс&gt;meta</code>. После обновления номера файлов такие: <code>config.yml</code> 13, <code>main_messages.yml</code> 21, <code>command_config.yml</code> 13, <code>discord_messages.yml</code> 5.</p>
 
             <h3 id="faq-sid">Бан по адресу задел других игроков</h3>
             <p>За одним адресом может стоять несколько человек. Оставьте <code>ip-link.skip-local: true</code> и переключите <code>ip-link.action: warn</code>: тогда администрация получает предупреждение, а автоматического бана нет.</p>
@@ -4450,7 +4549,7 @@ links:
         <aside class="docs-toc" aria-label="На этой странице">
           <p class="docs-toc-title">На этой странице</p>
           <ul id="docs-toc-list"></ul>
-          <p class="page-updated"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.4v5l3.2 1.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Последнее изменение: <strong>19 ноября 2026</strong></span></p>
+          <p class="page-updated"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.4v5l3.2 1.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Последнее изменение: <strong>23 ноября 2026</strong></span></p>
           <div class="doc-author">
             <span class="doc-author-avatar" aria-hidden="true">C<img src="https://github.com/Cooking9314.png" alt="" loading="lazy" onerror="this.remove()"></span>
             <div class="doc-author-meta">

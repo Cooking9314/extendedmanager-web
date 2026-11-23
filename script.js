@@ -572,10 +572,11 @@
       return many;
     }
 
-    /* Категория берётся из номера версии: x.0.0 крупная, x.y.0 обновление, остальное патч */
+    /* Категория берётся из номера версии: x.0.0 крупная, x.y.0 обновление, остальное патч; класс release-minor задаёт обновление вручную */
     function catOf(r) {
       if (r.classList.contains('release-first')) return 'major';
       if (r.classList.contains('release-major')) return 'major';
+      if (r.classList.contains('release-minor')) return 'minor';
       var el = $('.release-version', r);
       var p = el ? el.textContent.trim().split('.').map(Number) : [];
       if (p.length < 3 || p.some(function (n) { return isNaN(n); })) return 'patch';

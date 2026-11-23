@@ -4,17 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Extended Manager: ядро управления сервером Minecraft</title>
-<meta name="description" content="Extended Manager: регистрация и вход с Argon2id, наказания, чат и рассылка, мульти-миры, NPC, Discord-бот, перезапуск сервера и HTTP API. Один JAR для Paper, Purpur, Bukkit и Spigot 26.2 / 26.3.">
+<meta name="description" content="Extended Manager: регистрация и вход с Argon2id, наказания, чат и рассылка, мульти-миры, NPC, Discord-бот, перезапуск сервера и Java API для аддонов. Один JAR для Paper, Purpur, Bukkit и Spigot 26.2 / 26.3.">
 <meta name="theme-color" content="#0a0c11">
 <meta property="og:title" content="Extended Manager: весь сервер под вашим контролем">
-<meta property="og:description" content="Один JAR вместо десятка плагинов: вход, наказания, чат, миры, NPC, Discord, перезапуск и API для приложения управления.">
+<meta property="og:description" content="Один JAR вместо десятка плагинов: вход, наказания, чат, миры, NPC, Discord, перезапуск и Java API для аддонов.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234fa9ff'/%3E%3Cstop offset='1' stop-color='%237d5cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M13.69%2020.63L6%2020.63L6%2011.37L13.52%2011.37L13.52%2013.73L9.07%2013.73L9.07%2014.81L12.98%2014.81L12.98%2017.06L9.07%2017.06L9.07%2018.27L13.69%2018.27L13.69%2020.63M17.74%2020.63L14.9%2020.63L14.9%2011.37L17.46%2011.37L20.47%2016.3L23.41%2011.37L25.97%2011.37L26%2020.63L23.16%2020.63L23.13%2016.41L21.12%2019.79L19.75%2019.79L17.74%2016.56L17.74%2020.63' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="index.css?v=22">
-<script src="script.js?v=22" defer></script>
+<link rel="stylesheet" href="index.css?v=23">
+<script src="script.js?v=23" defer></script>
 </head>
 <body>
 
@@ -33,7 +33,7 @@
     </svg>
     </span>
     <span class="preloader-name">Extended Manager</span>
-    <span class="preloader-version">v0.15.0</span>
+    <span class="preloader-version">v0.15.1</span>
     <span class="preloader-bar"><i id="preloader-bar-fill"></i></span>
     <span class="preloader-meta"><span class="preloader-tip" id="preloader-tip">ядро</span><span class="preloader-pct" id="preloader-pct">0%</span></span>
   </div>
@@ -76,13 +76,14 @@
         <p class="lead">
           Вход и регистрация, наказания, чат, миры, NPC, Discord и перезапуск
           в одном JAR вместо десятка плагинов. Настройки в YAML, применение без
-          перезагрузки, а живое управление сервером в приложении Extended Manager.
+          перезагрузки, а стороннему плагину открыт Java API: сервисы, события,
+          свои плейсхолдеры и команды.
         </p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#features"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>Что умеет</a>
           <a class="btn btn-ghost" href="docs.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>Документация</a>
         </div>
-        <p class="page-updated"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.4v5l3.2 1.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Последнее изменение: <strong>19 ноября 2026</strong></span></p>
+        <p class="page-updated"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.4v5l3.2 1.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Последнее изменение: <strong>23 ноября 2026</strong></span></p>
       </div>
 
       <div class="chat-card" aria-label="Пример сообщений плагина в чате">
@@ -112,7 +113,7 @@
     <div class="container stats-grid">
       <div class="stat reveal"><svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 11h4"/><path d="M8 9v4"/><path d="M15 12h.01"/><path d="M18 10h.01"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></svg><h2>26.2 · 26.3</h2><p>версии Minecraft</p></div>
       <div class="stat reveal" style="--d:.08s"><svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg><h2 data-count="62">62</h2><p>команд</p></div>
-      <div class="stat reveal" style="--d:.16s"><svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg><h2 data-count="6">6</h2><p>модулей в одном JAR</p></div>
+      <div class="stat reveal" style="--d:.16s"><svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg><h2 data-count="5">5</h2><p>модулей в одном JAR</p></div>
       <div class="stat reveal" style="--d:.24s"><svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg><h2 data-count="4">4</h2><p>базы данных</p></div>
     </div>
   </section>
@@ -162,7 +163,7 @@
           <a class="feature-card" href="docs.html#doc-restart">
             <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg></span>
             <h3>Перезапуск и API</h3>
-            <p>Остановка по расписанию, командой <code>/em restart</code> и из приложения: отсчёт с предупреждениями, кики и сохранение миров. HTTP API с потоками событий.</p>
+            <p>Остановка по расписанию, командой <code>/em restart</code> и из аддона: отсчёт с предупреждениями, кики и сохранение миров. События плагина открыты аддонам.</p>
             <span class="feature-more">В документацию<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
           </a>
           <a class="feature-card" href="docs.html#doc-discord">
@@ -171,10 +172,10 @@
             <p>Статус сервера, вход и выход игроков в канал, привязка аккаунтов и слеш-команды. Токен хранится в конфиге, бот включается одним ключом модуля.</p>
             <span class="feature-more">В документацию<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
           </a>
-          <a class="feature-card" href="docs.html#doc-app">
-            <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/></svg></span>
-            <h3>Приложение управления</h3>
-            <p>Нативное приложение для Windows поверх HTTP API: живая консоль, игроки со скинами, аккаунты, инвентарь, чтение базы и аналитика всех серверов сети.</p>
+          <a class="feature-card" href="docs.html#doc-api">
+            <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg></span>
+            <h3>API для аддонов</h3>
+            <p>Java слой <code>ru.extendedmanager.api</code>: четырнадцать сервисов, двенадцать событий плагина и свои <code>%em_*%</code> с командами. Пришёл на смену HTTP API в 0.15.1.</p>
             <span class="feature-more">В документацию<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
           </a>
         </div>
@@ -223,11 +224,6 @@
           <p>Статус сервера, вход и выход игроков в канал, привязка аккаунтов и слеш-команды.</p>
           <span class="feature-more">Ключи конфигурации<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
         </a>
-        <a class="feature-card module-card reveal" style="--d:.08s" href="docs.html#doc-api">
-          <div class="module-head"><h3><svg class="ico mod-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg>api</h3></div>
-          <p>HTTP API на плоском TCP: игроки, аккаунты, скины, инвентарь, чтение базы, консоль и SSE-потоки. Ключ генерируется один раз, лежит в базе и показывается командой <code>/em app key</code>.</p>
-          <span class="feature-more">Ключи конфигурации<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-        </a>
         </div>
         <div class="carousel-controls">
           <button class="car-btn" type="button" data-car-prev aria-label="Предыдущие модули"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
@@ -248,53 +244,55 @@
     </div>
   </section>
 
-  <section class="section" id="app">
+  <section class="section" id="api">
     <div class="container">
       <div class="card app-card reveal">
         <div class="app-copy">
-          <p class="eyebrow">Приложение администратора</p>
-          <h2><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/></svg>Extended Manager <span class="accent">App</span></h2>
+          <p class="eyebrow">Слой для разработчиков</p>
+          <h2><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg>Java API <span class="accent">для аддонов</span></h2>
           <p>
-            Нативное приложение для Windows поверх HTTP API плагина: живая консоль
-            и поток событий, игроки со скинами, аккаунты, инвентарь, чтение базы и
-            аналитика. Все серверы сети в одном окне, а ключ доступа плагин
-            генерирует и хранит сам.
+            Пакет <code>ru.extendedmanager.api</code> открыт сторонним плагинам
+            с 0.15.1, когда HTTP API и приложение управления ушли из сборки.
+            Фасад <code>ExtendedManagerApi</code> даёт игроков, аккаунты и SID,
+            наказания, чат и рассылки, статусы, снимки инвентаря, время в игре,
+            Discord и перезапуск. Каждый метод ведёт тот же менеджер плагина, что
+            и одноимённая команда, поэтому база, чат и причины кика остаются целыми.
           </p>
           <ul class="app-feats">
             <li>
               <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>
-              <span><strong>Консоль и события</strong><em>логи сервера и команды в реальном времени</em></span>
+              <span><strong>Четырнадцать сервисов</strong><em>наказания, чат, статусы, инвентари, playtime, Discord и состояние сервера</em></span>
             </li>
             <li>
               <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
-              <span><strong>Игроки и скины</strong><em>профиль, инвентарь и аккаунты в один клик</em></span>
+              <span><strong>Игроки и аккаунты</strong><em>селекторы, SID, мультиаккаунты и проверка пароля</em></span>
             </li>
             <li>
               <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
-              <span><strong>Чтение базы</strong><em>таблицы плагина без SQL-клиента и веб-панелей</em></span>
+              <span><strong>Двенадцать событий</strong><em>бан, мьют, варн, AFK, freeze и перезапуск; действие администрации отменяется</em></span>
             </li>
             <li>
               <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 14 3-4 3 3 4-6"/></svg>
-              <span><strong>Аналитика</strong><em>онлайн, наказания и активность по серверам</em></span>
+              <span><strong>Свои плейсхолдеры</strong><em>ключ %em_имя% с аргументом после двоеточия</em></span>
             </li>
             <li>
               <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="9" width="8" height="8" rx="2"/><rect x="14" y="3" width="8" height="8" rx="2"/><path d="M6 9V7a2 2 0 0 1 2-2h6"/><path d="M14 13h4"/></svg>
-              <span><strong>Вся сеть</strong><em>Velocity и BungeeCord: несколько серверов в одном окне</em></span>
+              <span><strong>Свои команды</strong><em>регистрация аддоном, блок команды и право применяются сами</em></span>
             </li>
             <li>
               <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 8.2-8.2"/><path d="m17 6 2 2"/><path d="m14 9 2 2"/></svg>
-              <span><strong>Свой ключ доступа</strong><em>плагин генерирует ключ и хранит его в базе</em></span>
+              <span><strong>Никаких паролей наружу</strong><em>хеши, поток консоли и правка конфигов слою не отдаются</em></span>
             </li>
           </ul>
           <div class="app-meta">
-            <span>Windows 10 и 11, x64</span>
-            <span>работает по HTTP API</span>
-            <span>без агента на сервере</span>
+            <span>зависимость provided</span>
+            <span>depend: [ExtendedManager]</span>
+            <span>своего конфига нет</span>
           </div>
-          <a class="btn btn-ghost" href="docs.html#doc-app">Подключение приложения<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+          <a class="btn btn-ghost" href="docs.html#doc-api">Документация по API<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
         </div>
         <div class="app-window" aria-hidden="true">
-          <div class="app-window-bar"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span><span class="app-window-title">Extended Manager App</span></div>
+          <div class="app-window-bar"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span><span class="app-window-title">ru.extendedmanager.api</span></div>
           <div class="app-window-body">
             <div class="app-side">
               <span class="app-side-item is-active"></span>
@@ -303,7 +301,7 @@
               <span class="app-side-item"></span>
             </div>
             <div class="app-main">
-              <div class="app-tabs"><span class="app-tab is-active">Игроки</span><span class="app-tab">Консоль</span><span class="app-tab">Аналитика</span></div>
+              <div class="app-tabs"><span class="app-tab is-active">Сервисы</span><span class="app-tab">События</span><span class="app-tab">Аддоны</span></div>
               <div class="app-rows">
                 <span class="app-row w-70"></span>
                 <span class="app-row w-90"></span>
@@ -329,7 +327,7 @@
       </div>
 
       <div class="dl-meta reveal">
-        <span><i class="dl-meta-dot" aria-hidden="true"></i>версия 0.15.0</span>
+        <span><i class="dl-meta-dot" aria-hidden="true"></i>версия 0.15.1</span>
         <span>один JAR без зависимостей</span>
         <span>Paper 26.2 и 26.3</span>
       </div>
